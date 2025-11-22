@@ -32,11 +32,7 @@
         "Segoe UI", sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: var(--font-main);
@@ -47,7 +43,6 @@
       position: relative;
     }
 
-    /* 背景动态渐变层 */
     body::before {
       content: "";
       position: fixed;
@@ -76,7 +71,6 @@
       z-index: 1;
     }
 
-    /* 漂浮光球 */
     .orb {
       position: fixed;
       width: 220px;
@@ -170,6 +164,29 @@
       font-size: 12px;
     }
 
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-right: 6px;
+    }
+
+    .nav-link {
+      font-size: 12px;
+      color: var(--text-soft);
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+      border-color: rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.9);
+    }
+
     .badge-mini {
       padding: 4px 10px;
       border-radius: var(--radius-pill);
@@ -224,6 +241,9 @@
         flex-direction: column;
         align-items: flex-start;
       }
+      .nav-right {
+        flex-wrap: wrap;
+      }
     }
 
     .hero-main {
@@ -248,10 +268,7 @@
       pointer-events: none;
     }
 
-    .hero-inner {
-      position: relative;
-      z-index: 1;
-    }
+    .hero-inner { position: relative; z-index: 1; }
 
     .hero-tag {
       display: inline-flex;
@@ -282,9 +299,7 @@
       margin-bottom: 10px;
     }
 
-    h1 span.accent {
-      color: var(--accent-strong);
-    }
+    h1 span.accent { color: var(--accent-strong); }
 
     .hero-sub {
       font-size: 14px;
@@ -397,7 +412,6 @@
       color: #e5f0ff;
     }
 
-    /* 右侧动画卡片 */
     .hero-side {
       position: relative;
       display: flex;
@@ -432,10 +446,7 @@
       100% { transform: rotate(360deg);}
     }
 
-    .side-inner {
-      position: relative;
-      z-index: 1;
-    }
+    .side-inner { position: relative; z-index: 1; }
 
     .side-header {
       font-size: 12px;
@@ -544,10 +555,7 @@
       100% { width: 70%; }
     }
 
-    /* 下方模块 */
-    .section {
-      margin-top: 26px;
-    }
+    .section { margin-top: 26px; }
 
     .section-header {
       display: flex;
@@ -557,9 +565,7 @@
       margin-bottom: 12px;
     }
 
-    .section-title {
-      font-size: 15px;
-    }
+    .section-title { font-size: 15px; }
 
     .section-sub {
       font-size: 12px;
@@ -664,10 +670,6 @@
       margin-top: 2px;
     }
 
-    .highlight {
-      color: var(--accent-strong);
-    }
-
     .cta-band {
       margin-top: 26px;
       border-radius: var(--radius-xl);
@@ -710,19 +712,13 @@
       font-size: 11px;
     }
 
-    a.footer-link:hover {
-      text-decoration: underline;
-    }
+    a.footer-link:hover { text-decoration: underline; }
 
-    /* 锚点平滑滚动（仅视觉） */
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
   </style>
 </head>
 
 <body>
-  <!-- 漂浮光球 -->
   <div class="orb orb--left"></div>
   <div class="orb orb--right"></div>
 
@@ -739,13 +735,17 @@
       </div>
 
       <div class="nav-right">
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="for-clients.html" class="nav-link">For Clients</a>
+          <a href="for-freelancers.html" class="nav-link">For AI Freelancers</a>
+          <a href="#how-it-works" class="nav-link">How it works</a>
+          <a href="#faq" class="nav-link">FAQ</a>
+        </div>
         <div class="badge-mini">
           <span class="badge-dot"></span>
-          Open for early experts · invite-only beta
+          Invite-only beta
         </div>
-        <a href="#freelancers" class="btn-outline">
-          Become an AI freelancer
-        </a>
       </div>
     </header>
 
@@ -768,12 +768,12 @@
           </p>
 
           <div class="hero-actions">
-            <a href="#marketplace" class="btn-primary">
-              Hire AI talent
+            <a href="for-clients.html" class="btn-primary">
+              For clients: hire AI talent
               <span>→</span>
             </a>
-            <a href="#freelancers" class="btn-secondary">
-              I want to earn with AI
+            <a href="for-freelancers.html" class="btn-secondary">
+              For freelancers: earn with AI
             </a>
           </div>
 
@@ -799,7 +799,6 @@
         </div>
       </div>
 
-      <!-- 右侧动态卡片区：像任务看板 -->
       <aside class="hero-side">
         <div class="side-card">
           <div class="side-inner">
@@ -940,7 +939,7 @@
       </div>
     </section>
 
-    <!-- Why choose AIFreelance Hub -->
+    <!-- Why choose -->
     <section class="section">
       <div class="section-header">
         <div>
@@ -1025,7 +1024,7 @@
       </div>
     </section>
 
-    <!-- Sample marketplace cards -->
+    <!-- Example offers -->
     <section class="section">
       <div class="section-header">
         <div>
@@ -1120,7 +1119,7 @@
     </section>
 
     <!-- FAQ -->
-    <section class="section">
+    <section class="section" id="faq">
       <div class="section-header">
         <div>
           <div class="section-title">Frequently asked questions</div>
@@ -1164,11 +1163,11 @@
         and route clients through chat or email while you validate demand and your ideal fee structure.
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:8px;">
-        <a href="#freelancers" class="btn-primary" style="font-size:13px;padding:8px 18px;">
+        <a href="for-freelancers.html" class="btn-primary" style="font-size:13px;padding:8px 18px;">
           Onboard first AI freelancers
         </a>
-        <a href="#marketplace" class="btn-secondary" style="font-size:12px;">
-          View marketplace examples
+        <a href="for-clients.html" class="btn-secondary" style="font-size:12px;">
+          For clients: start a project
         </a>
       </div>
     </section>
@@ -1177,8 +1176,8 @@
       <div>© <span id="year"></span> AIFreelance Hub · AI-powered freelance marketplace concept</div>
       <div>
         <a href="#how-it-works" class="footer-link">How it works</a> ·
-        <a href="#freelancers" class="footer-link">For AI freelancers</a> ·
-        <span style="opacity:.75;">You control pricing. Platform fee only when work is completed.</span>
+        <a href="for-freelancers.html" class="footer-link">For AI freelancers</a> ·
+        <a href="for-clients.html" class="footer-link">For clients</a>
       </div>
     </footer>
   </div>
