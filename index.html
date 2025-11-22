@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AIFreelance Hub – AI-Powered Freelance Marketplace</title>
-  <meta name="description" content="AIFreelance Hub connects global clients with AI-powered freelancers for writing, design, data and automation tasks. Simple one-page marketplace concept.">
+  <meta name="description" content="AIFreelance Hub connects premium clients with AI-powered freelancers for writing, design, data and automation tasks. Simple marketplace concept with clear pricing and contact forms.">
   <link rel="icon" type="image/png" href="favicon.png?v=3.0" />
 
   <style>
@@ -70,7 +70,7 @@
       100%{transform:translateY(4px) scale(.97)}
     }
 
-    /* ===== 顶部导航 D 风格 ===== */
+    /* ===== 顶部导航 ===== */
     .nav-shell{
       position:fixed;
       top:12px;left:0;right:0;
@@ -94,11 +94,7 @@
       box-shadow:0 18px 50px rgba(15,23,42,0.9);
       backdrop-filter:blur(16px);
     }
-    .nav-left{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+    .nav-left{display:flex;align-items:center;gap:10px}
     .logo-mark{
       width:32px;height:32px;border-radius:12px;
       background:conic-gradient(from 210deg,#22c55e,#0ea5e9,#6366f1,#22c55e);
@@ -115,12 +111,7 @@
     @keyframes spinBorder{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
     .logo-text-main{font-weight:650;letter-spacing:.08em;text-transform:uppercase;font-size:13px}
     .logo-text-sub{font-size:11px;color:var(--text-soft)}
-    .nav-center{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-size:12px;
-    }
+    .nav-center{display:flex;align-items:center;gap:12px;font-size:12px}
     .nav-link{
       color:var(--text-soft);
       text-decoration:none;
@@ -135,12 +126,7 @@
       border-color:rgba(148,163,184,.7);
       background:rgba(15,23,42,.95);
     }
-    .nav-right{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      font-size:12px;
-    }
+    .nav-right{display:flex;align-items:center;gap:8px;font-size:12px}
     .nav-pill{
       padding:4px 10px;
       border-radius:999px;
@@ -202,7 +188,7 @@
       .nav-bar{padding-inline:12px}
     }
 
-    /* ===== 页面主体 ===== */
+    /* ===== 页面主体结构 ===== */
     .hero{
       display:grid;
       grid-template-columns:minmax(0,3.1fr) minmax(0,2.4fr);
@@ -418,23 +404,6 @@
       padding-left:16px;
     }
 
-    .cta-band{
-      margin-top:26px;
-      border-radius:var(--radius-xl);
-      border:1px solid rgba(56,189,248,.7);
-      background:radial-gradient(circle at 0 0,rgba(56,189,248,.25),transparent 60%),
-                 linear-gradient(120deg,#020617,#020b20);
-      padding:16px 16px 14px;
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      gap:12px;
-      align-items:center;
-      box-shadow:0 24px 60px rgba(15,23,42,1);
-    }
-    .cta-text{font-size:13px;max-width:520px}
-    .cta-text strong{color:#e5f0ff}
-
     footer{
       margin-top:22px;
       font-size:11px;
@@ -454,6 +423,120 @@
     a.footer-link:hover{text-decoration:underline}
 
     html{scroll-behavior:smooth}
+
+    /* ===== Contact Section & Forms ===== */
+    #contact{
+      margin-top:40px;
+    }
+    .contact-container{
+      max-width:780px;
+      margin:0 auto;
+      text-align:center;
+      padding:40px 0 20px;
+    }
+    .contact-title{
+      font-size:20px;
+      margin-bottom:6px;
+    }
+    .contact-subtitle{
+      color:#9db4cd;
+      margin-top:-4px;
+      font-size:13px;
+    }
+    .role-switch{
+      margin:26px 0 18px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .role-btn{
+      padding:10px 18px;
+      border-radius:999px;
+      border:1px solid #3b82f6;
+      background:transparent;
+      color:#e5f0ff;
+      cursor:pointer;
+      font-size:13px;
+      transition:all var(--transition-fast);
+    }
+    .role-btn.active{
+      background:#3b82f6;
+      box-shadow:0 10px 30px rgba(37,99,235,.6);
+    }
+    .form-box{
+      max-width:600px;
+      margin:0 auto;
+      background:rgba(15,23,42,0.9);
+      padding:26px 24px 22px;
+      border-radius:14px;
+      border:1px solid rgba(51,65,85,.95);
+      text-align:left;
+    }
+    .form-box.hidden{display:none}
+    .form-box h3{
+      margin-bottom:8px;
+      font-size:15px;
+    }
+    .form-box label{
+      display:block;
+      margin-top:14px;
+      margin-bottom:4px;
+      font-size:12px;
+      color:#d8e2ff;
+    }
+    .form-box input,
+    .form-box select,
+    .form-box textarea{
+      width:100%;
+      padding:10px 11px;
+      border-radius:8px;
+      border:none;
+      margin-top:0;
+      background:#020817;
+      color:#e5f0ff;
+      font-size:13px;
+      outline:none;
+    }
+    .form-box select[multiple]{
+      height:72px;
+    }
+    .submit-btn{
+      margin-top:18px;
+      width:100%;
+      padding:11px;
+      background:#3478f6;
+      color:#fff;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      font-size:14px;
+      font-weight:600;
+      box-shadow:0 16px 40px rgba(15,23,42,.95);
+      transition:all var(--transition-fast);
+    }
+    .submit-btn:hover{
+      filter:brightness(1.05);
+      transform:translateY(-1px);
+    }
+    .wa-btn{
+      display:block;
+      text-align:center;
+      margin-top:10px;
+      padding:9px;
+      background:#22c55e;
+      color:#fff;
+      text-decoration:none;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:500;
+      box-shadow:0 14px 34px rgba(21,128,61,.7);
+      transition:all var(--transition-fast);
+    }
+    .wa-btn:hover{
+      filter:brightness(1.05);
+      transform:translateY(-1px);
+    }
   </style>
 </head>
 
@@ -461,7 +544,7 @@
   <div class="orb orb--left"></div>
   <div class="orb orb--right"></div>
 
-  <!-- 顶部导航 D 风格 -->
+  <!-- 顶部导航 -->
   <div class="nav-shell">
     <nav class="nav-bar">
       <div class="nav-left">
@@ -478,6 +561,7 @@
         <a href="#pricing" class="nav-link">Pricing</a>
         <a href="#how-it-works" class="nav-link">How it works</a>
         <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </div>
 
       <div class="nav-right">
@@ -543,27 +627,27 @@
               <div class="task-meta">AI-enhanced lifestyle photos · 15 images</div>
             </div>
             <div class="task-price">
-              <strong>$38</strong>
+              <strong>$180</strong>
               <div class="task-pill">Images · Midjourney</div>
             </div>
           </div>
           <div class="task-card">
             <div>
-              <div class="task-title">Rewrite 3 blog posts using AI</div>
+              <div class="task-title">Rewrite 8 blog posts using AI</div>
               <div class="task-meta">SEO-friendly · keep brand voice</div>
             </div>
             <div class="task-price">
-              <strong>$52</strong>
+              <strong>$260</strong>
               <div class="task-pill">Writing · GPT-4 class</div>
             </div>
           </div>
           <div class="task-card">
             <div>
-              <div class="task-title">Lead list + email draft automation</div>
-              <div class="task-meta">B2B outreach · CSV + email templates</div>
+              <div class="task-title">Lead list + outreach automation</div>
+              <div class="task-meta">B2B leads · CSV + email templates</div>
             </div>
             <div class="task-price">
-              <strong>$95</strong>
+              <strong>$520</strong>
               <div class="task-pill">Automation · Python / AI</div>
             </div>
           </div>
@@ -574,7 +658,7 @@
       </aside>
     </section>
 
-    <!-- Services (clients + freelancers) -->
+    <!-- Services -->
     <section class="section" id="services">
       <div class="section-header">
         <div>
@@ -611,39 +695,67 @@
       </div>
     </section>
 
-    <!-- Pricing 简单收费模型 -->
+    <!-- Pricing: Starter / Pro / Enterprise -->
     <section class="section" id="pricing">
       <div class="section-header">
         <div>
-          <div class="section-title">Simple pricing model</div>
+          <div class="section-title">Pricing · transparent & simple</div>
           <div class="section-sub">
-            You can adjust these numbers later. For now, this shows visitors how money flows and where
-            the platform earns its share.
+            Designed for premium clients in the US, UK and EU. You can adjust these ranges later to fit your market.
           </div>
         </div>
       </div>
 
       <div class="grid-3">
-        <div class="card">
-          <div class="card-title">Clients</div>
-          <p>
-            Pay per task. Typical budgets range from <strong>$25–$250</strong> depending on scope.<br>
-            No upfront membership required while the platform is in beta.
+        <!-- STARTER -->
+        <div class="card" style="border-top:3px solid #38bdf8;">
+          <div class="card-title">Starter</div>
+          <p style="font-size:13px;margin-bottom:10px;">
+            For individuals or small businesses needing occasional AI-assisted tasks.
           </p>
+          <ul style="font-size:12px;line-height:1.7;color:#b7c4e0;padding-left:16px;">
+            <li>Small projects</li>
+            <li>Writing, design or data clean-up</li>
+            <li>Typical turnaround: 24–72 hours</li>
+            <li>Email support</li>
+          </ul>
+          <div style="margin-top:12px;font-size:15px;">
+            <strong>$100 – $250 / project</strong>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-title">AI freelancers</div>
-          <p>
-            Receive <strong>70–85%</strong> of the project price after client approval. You can
-            specialise in 1–3 services and build repeat clients.
+
+        <!-- PRO -->
+        <div class="card" style="border-top:3px solid #0ea5e9;transform:scale(1.03);box-shadow:0 22px 50px rgba(15,23,42,.98);">
+          <div class="card-title">Pro</div>
+          <p style="font-size:13px;margin-bottom:10px;">
+            Our most popular option for growing businesses and creators.
           </p>
+          <ul style="font-size:12px;line-height:1.7;color:#b7c4e0;padding-left:16px;">
+            <li>Medium-size projects</li>
+            <li>AI-enhanced images, long-form content, automation</li>
+            <li>Priority matching with top freelancers</li>
+            <li>WhatsApp support</li>
+          </ul>
+          <div style="margin-top:12px;font-size:15px;">
+            <strong>$250 – $500 / project</strong>
+          </div>
         </div>
-        <div class="card">
-          <div class="card-title">Platform fee</div>
-          <p>
-            AIFreelance Hub keeps a transparent platform fee on completed projects. Later you can add
-            paid “Pro” options for high-volume clients or freelancers.
+
+        <!-- ENTERPRISE -->
+        <div class="card" style="border-top:3px solid #22c55e;">
+          <div class="card-title">Enterprise</div>
+          <p style="font-size:13px;margin-bottom:10px;">
+            For high-value clients needing complex, multi-step AI workflows.
           </p>
+          <ul style="font-size:12px;line-height:1.7;color:#b7c4e0;padding-left:16px;">
+            <li>Automation systems & data processing</li>
+            <li>Large content bundles or image packs</li>
+            <li>Dedicated project manager</li>
+            <li>Custom deadlines and scope</li>
+          </ul>
+          <div style="margin-top:12px;font-size:15px;">
+            <strong>$500 – $1,000+ / project</strong>
+          </div>
         </div>
       </div>
     </section>
@@ -664,7 +776,7 @@
           <div class="card-title">1 · Define the task</div>
           <ul class="step-list">
             <li>Client describes what they need in plain language.</li>
-            <li>Picks a category: writing, images, data, automation.</li>
+            <li>Chooses a category: writing, images, data, automation.</li>
             <li>Sets budget and preferred deadline.</li>
           </ul>
         </div>
@@ -723,41 +835,98 @@
       </div>
     </section>
 
-    <!-- Contact / Join -->
-    <section class="section" id="contact">
-      <div class="section-header">
-        <div>
-          <div class="section-title">Contact · join AIFreelance Hub</div>
-          <div class="section-sub">
-            Here visitors can contact you directly. Just replace the WhatsApp link and email with your
-            own details so you can start talking to real clients / freelancers.
-          </div>
+    <!-- Contact with forms -->
+    <section id="contact">
+      <div class="contact-container">
+        <div class="contact-title">Get started · Clients or Freelancers</div>
+        <div class="contact-subtitle">
+          Choose your role below. We’ll get back to you within 24 hours.
         </div>
-      </div>
 
-      <div class="cta-band">
-        <div class="cta-text">
-          <strong>Ready to test your marketplace idea?</strong><br/>
-          Share this page with a few AI freelancers and potential clients. Use WhatsApp or email below
-          to coordinate projects manually while you validate demand and pricing.
+        <div class="role-switch">
+          <button class="role-btn active" onclick="showForm('client')">I am a Client · I want to hire</button>
+          <button class="role-btn" onclick="showForm('freelancer')">I am a Freelancer · I want to work</button>
         </div>
-        <div style="display:flex;flex-direction:column;gap:8px;min-width:220px;">
-          <!-- TODO: 把下面的号码和邮箱换成你自己的 -->
+
+        <!-- Client form -->
+        <form id="clientForm" class="form-box" action="mailto:YOUR_EMAIL_HERE" method="post" enctype="text/plain">
+          <h3>Client form (post a task)</h3>
+
+          <label>Your name</label>
+          <input type="text" name="name" required />
+
+          <label>Contact (email or WhatsApp)</label>
+          <input type="text" name="contact" required />
+
+          <label>Type of task</label>
+          <select name="service">
+            <option>Writing</option>
+            <option>Design</option>
+            <option>Automation</option>
+            <option>Data tasks</option>
+          </select>
+
+          <label>Budget range</label>
+          <select name="budget">
+            <option>$100 - $250</option>
+            <option>$250 - $500</option>
+            <option>$500 - $1,000</option>
+            <option>$1,000+</option>
+          </select>
+
+          <label>Description (optional)</label>
+          <textarea name="details" rows="4"></textarea>
+
+          <button type="submit" class="submit-btn">Submit form</button>
+
           <a
-            href="https://wa.me/1234567890"
-            class="btn-primary"
-            style="justify-content:center;font-size:13px;padding:8px 18px;"
+            class="wa-btn"
+            href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=I want to post a task on AIFreelance Hub"
+            target="_blank"
           >
-            WhatsApp · Chat with us
+            Contact us on WhatsApp (fastest)
           </a>
+        </form>
+
+        <!-- Freelancer form -->
+        <form id="freelancerForm" class="form-box hidden" action="mailto:YOUR_EMAIL_HERE" method="post" enctype="text/plain">
+          <h3>Freelancer form (apply to work)</h3>
+
+          <label>Your name</label>
+          <input type="text" name="name" required />
+
+          <label>Email or WhatsApp</label>
+          <input type="text" name="contact" required />
+
+          <label>Skills (select one or more)</label>
+          <select name="skills" multiple>
+            <option>Writing</option>
+            <option>Design</option>
+            <option>Automation</option>
+            <option>Data tasks</option>
+          </select>
+
+          <label>Your usual rate per project</label>
+          <select name="rate">
+            <option>$50 - $100</option>
+            <option>$100 - $200</option>
+            <option>$200 - $400</option>
+            <option>$400+</option>
+          </select>
+
+          <label>Additional info (portfolio, links, notes)</label>
+          <textarea name="details" rows="4"></textarea>
+
+          <button type="submit" class="submit-btn">Submit form</button>
+
           <a
-            href="mailto:youremail@example.com"
-            class="btn-secondary"
-            style="justify-content:center;font-size:12px;"
+            class="wa-btn"
+            href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=I want to join AIFreelance Hub as a freelancer"
+            target="_blank"
           >
-            Email · youremail@example.com
+            Contact us on WhatsApp (fastest)
           </a>
-        </div>
+        </form>
       </div>
     </section>
 
@@ -773,6 +942,25 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    function showForm(role) {
+      const clientForm = document.getElementById("clientForm");
+      const freelancerForm = document.getElementById("freelancerForm");
+
+      clientForm.classList.add("hidden");
+      freelancerForm.classList.add("hidden");
+
+      if (role === "client") {
+        clientForm.classList.remove("hidden");
+      } else {
+        freelancerForm.classList.remove("hidden");
+      }
+
+      const buttons = document.querySelectorAll(".role-btn");
+      buttons.forEach(btn => btn.classList.remove("active"));
+      if (role === "client") buttons[0].classList.add("active");
+      else buttons[1].classList.add("active");
+    }
   </script>
 </body>
 </html>
