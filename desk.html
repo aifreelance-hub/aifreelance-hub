@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurum Task Desk — Your Personal Desk</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: #050816;
+      color: #f6f4ed;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(5, 8, 22, 0.94);
+      border-bottom: 1px solid rgba(204, 188, 119, 0.18);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-left {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #f5f2e6;
+    }
+    .nav-right a {
+      margin-left: 22px;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+    .nav-right a:hover {
+      opacity: 1;
+      color: #f0d37a;
+    }
+
+    /* Header */
+    .page-header {
+      margin-top: 26px;
+      margin-bottom: 10px;
+    }
+    .desk-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #c8b177;
+      margin-bottom: 4px;
+    }
+    .header-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #f7f5ef;
+      margin-bottom: 4px;
+    }
+    .header-sub {
+      font-size: 14px;
+      color: #b7b2a6;
+      max-width: 660px;
+    }
+
+    /* Layout */
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
+      gap: 22px;
+      margin-top: 24px;
+      align-items: flex-start;
+    }
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #1c1b27, #050816);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 18px 18px 20px;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #f7f5ef;
+    }
+    .card-sub {
+      font-size: 13px;
+      color: #b1aca0;
+      margin-bottom: 14px;
+    }
+
+    .desk-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 8px 0 14px;
+      font-size: 12px;
+    }
+    .pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(240, 211, 122, 0.6);
+      background: rgba(22, 18, 8, 0.7);
+      color: #f0d37a;
+    }
+    .pill-soft {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(140, 199, 255, 0.4);
+      background: rgba(12, 30, 60, 0.7);
+      color: #cfe6ff;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #8f8a7f;
+      margin-top: 4px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+      color: #f5f2ea;
+    }
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(9, 11, 26, 0.96);
+      color: #f6f4ed;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .inline {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .inline .field {
+      flex: 1;
+    }
+
+    .btn-primary {
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid #f0d37a;
+      background: linear-gradient(135deg, #f0d37a, #cba84f);
+      color: #15100a;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+    .btn-secondary {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(240,211,122,0.5);
+      background: transparent;
+      color: #f0d37a;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .btn-secondary:hover {
+      background: rgba(240,211,122,0.08);
+    }
+
+    .status-text {
+      font-size: 12px;
+      color: #a6a195;
+      margin-top: 6px;
+    }
+
+    .result-box {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      background: radial-gradient(circle at top, #191a2a, #050816);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 13px;
+      white-space: pre-wrap;
+      max-height: 420px;
+      overflow-y: auto;
+    }
+    .result-empty {
+      font-size: 13px;
+      color: #9a9488;
+    }
+
+    .footer {
+      margin-top: 50px;
+      border-top: 1px solid rgba(204,188,119,0.22);
+      padding: 24px 0 32px;
+      text-align: center;
+      font-size: 13px;
+      color: #a8a295;
+    }
+
+    /* Name overlay */
+    .name-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2,4,12,0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+    }
+    .name-card {
+      background: #10121e;
+      border-radius: 14px;
+      border: 1px solid rgba(240,211,122,0.6);
+      padding: 18px 18px 16px;
+      max-width: 360px;
+      width: 90%;
+      color: #f6f4ed;
+    }
+    .name-card h2 {
+      font-size: 18px;
+      margin: 0 0 6px;
+    }
+    .name-card p {
+      font-size: 13px;
+      color: #c0bbaf;
+      margin: 0 0 10px;
+    }
+    .name-input-row {
+      margin-top: 8px;
+    }
+    .name-input-row input {
+      width: 100%;
+    }
+    .btn-small {
+      margin-top: 10px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid #f0d37a;
+      background: #f0d37a;
+      color: #15100a;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">AURUM TASK DESK</div>
+    <nav class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="tasks.html">Task Marketplace</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <!-- NAME OVERLAY (first-time capture) -->
+  <div class="name-overlay" id="nameOverlay" style="display:none;">
+    <div class="name-card">
+      <h2>Your Personal Desk</h2>
+      <p>
+        Before we start, how should the Desk address you?<br />
+        (First name only is fine.)
+      </p>
+      <div class="name-input-row">
+        <input type="text" id="nameInput" placeholder="Mike, John, David..." />
+      </div>
+      <button class="btn-small" id="saveNameBtn">Save and open my Desk</button>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- Header -->
+    <section class="page-header">
+      <div class="desk-label">PERSONAL DESK</div>
+      <h1 class="header-title" id="headerTitle">Your Aurum Desk</h1>
+      <p class="header-sub" id="headerSub">
+        This is your private writing desk. You can describe what you want to say in
+        plain language, and the Desk will shape it into a clear, respectful draft.
+      </p>
+    </section>
+
+    <!-- Main layout -->
+    <section class="layout">
+      <!-- LEFT: Plan info + greeting -->
+      <aside class="card">
+        <h2 class="card-title" id="greetingTitle">Welcome back.</h2>
+        <p class="card-sub" id="greetingSub">
+          Your Desk is active. Use it whenever you need quiet, careful writing support.
+        </p>
+
+        <div class="desk-meta">
+          <span class="pill" id="planPill">Desk Plan</span>
+          <span class="pill-soft" id="usagePill">Usage guidance</span>
+        </div>
+
+        <p class="card-sub" id="planDesc">
+          This desk is designed for calm, low-drama communication: letters, emails,
+          replies, and short posts for older US/EU audiences.
+        </p>
+
+        <p class="hint">
+          You don’t need to watch the clock or count every word. Just keep your usage
+          within a reasonable monthly rhythm, based on the plan you selected.
+        </p>
+      </aside>
+
+      <!-- RIGHT: Task form + AI result -->
+      <section class="card">
+        <h2 class="card-title">Submit a task to your Desk</h2>
+        <p class="card-sub">
+          Describe the situation in your own words. The Desk will draft a clear message
+          you can copy, adjust, and send.
+        </p>
+
+        <form id="deskForm">
+          <div class="field">
+            <label for="taskType">Task type</label>
+            <select id="taskType">
+              <option value="email">Email / Letter</option>
+              <option value="family">Family communication</option>
+              <option value="business">Business text / policy / notice</option>
+              <option value="reply">Reply to an existing message</option>
+              <option value="linkedin">LinkedIn post or update</option>
+              <option value="speech">Short speech / talking points</option>
+              <option value="other">Other (describe below)</option>
+            </select>
+          </div>
+
+          <div class="inline">
+            <div class="field">
+              <label for="tone">Tone</label>
+              <select id="tone">
+                <option value="calm">Calm and respectful</option>
+                <option value="professional">Professional and clear</option>
+                <option value="warm">Warm and supportive</option>
+                <option value="firm">Firm but polite</option>
+                <option value="simple">Very simple English</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="language">Language</label>
+              <select id="language">
+                <option value="english">English</option>
+                <option value="bilingual">English + Chinese</option>
+                <option value="chinese">Chinese only</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:10px;">
+            <label for="audience">Who is this for?</label>
+            <input type="text" id="audience" placeholder="My daughter, my ex-wife, my boss, a client, LinkedIn readers..." />
+          </div>
+
+          <div class="field" style="margin-top:10px;">
+            <label for="details">What do you want to say? (details)</label>
+            <textarea id="details" placeholder="Explain what happened, what you want to say, any key facts or dates. The Desk will shape this into a clear draft."></textarea>
+          </div>
+
+          <div style="margin-top:12px;">
+            <button type="button" class="btn-primary" id="generateBtn">Generate draft</button>
+            <button type="button" class="btn-secondary" id="copyBtn" disabled>Copy current draft</button>
+            <div class="status-text" id="statusText"></div>
+          </div>
+        </form>
+
+        <div id="resultBox" class="result-box" style="margin-top:14px;">
+          <div class="result-empty">
+            No draft yet. Submit a task on this page and your Desk will generate a complete draft for you.
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <footer class="footer">
+      © 2025 Aurum Task Desk — Personal Desk Space
+    </footer>
+  </main>
+
+  <script>
+    // Cloudflare Worker backend (already created by you)
+    const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
+
+    const nameOverlay = document.getElementById("nameOverlay");
+    const nameInput = document.getElementById("nameInput");
+    const saveNameBtn = document.getElementById("saveNameBtn");
+
+    const headerTitle = document.getElementById("headerTitle");
+    const headerSub = document.getElementById("headerSub");
+    const greetingTitle = document.getElementById("greetingTitle");
+    const greetingSub = document.getElementById("greetingSub");
+    const planPill = document.getElementById("planPill");
+    const usagePill = document.getElementById("usagePill");
+    const planDesc = document.getElementById("planDesc");
+
+    const taskTypeEl = document.getElementById("taskType");
+    const toneEl = document.getElementById("tone");
+    const languageEl = document.getElementById("language");
+    const audienceEl = document.getElementById("audience");
+    const detailsEl = document.getElementById("details");
+
+    const generateBtn = document.getElementById("generateBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const statusText = document.getElementById("statusText");
+    const resultBox = document.getElementById("resultBox");
+
+    let currentDraft = "";
+
+    // --- Plan mapping ---
+    function setupPlanFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const plan = (params.get("plan") || "starter").toLowerCase();
+
+      if (plan === "starter") {
+        headerTitle.textContent = "Starter Desk — Personal Writing Space";
+        headerSub.textContent =
+          "This Starter Desk is for occasional but important writing: letters, replies, and short messages that benefit from a calm, respectful tone.";
+        planPill.textContent = "Starter Desk · $140 / month";
+        usagePill.textContent = "Designed for ~5 tasks per month";
+        planDesc.textContent =
+          "Use this Desk when you need help saying something important without drama: apologies, clarifications, simple notices, and calm replies.";
+      } else if (plan === "pro") {
+        headerTitle.textContent = "Professional Desk — Ongoing Writing Partner";
+        headerSub.textContent =
+          "This Desk supports professionals, veterans, and business owners with steady, structured help across messages, posts, and longer pieces.";
+        planPill.textContent = "Professional Desk · $280 / month";
+        usagePill.textContent = "Designed for ~12 tasks + 1 long piece";
+        planDesc.textContent =
+          "Use this Desk to handle regular communication with clients, partners, and family, plus at least one longer article or statement each month.";
+      } else if (plan === "private") {
+        headerTitle.textContent = "Private Desk — Quiet Personal Office";
+        headerSub.textContent =
+          "This Private Desk functions like a small personal writing office: frequent short tasks, several long pieces, and help with sensitive topics.";
+        planPill.textContent = "Private Desk · $580 / month";
+        usagePill.textContent = "Unlimited short tasks · up to 3 long pieces";
+        planDesc.textContent =
+          "Use this Desk as often as needed for letters, replies, posts, and more complex writing around family, health, business, or legal-style topics.";
+      } else {
+        // Fallback
+        planPill.textContent = "Desk Plan";
+        usagePill.textContent = "Usage guidance";
+      }
+    }
+
+    // --- Name handling (localStorage) ---
+    function initName() {
+      const stored = localStorage.getItem("aurum_desk_name") || "";
+      if (stored) {
+        applyName(stored);
+        nameOverlay.style.display = "none";
+      } else {
+        nameOverlay.style.display = "flex";
+      }
+    }
+
+    function applyName(name) {
+      const clean = name.trim();
+      if (!clean) return;
+      greetingTitle.textContent = `Welcome back, ${clean}.`;
+      greetingSub.textContent =
+        "Your Desk is active. Describe what you want to say, and the Desk will shape it into a clear, respectful draft.";
+    }
+
+    saveNameBtn.addEventListener("click", () => {
+      const name = nameInput.value.trim();
+      if (!name) {
+        alert("Please enter a first name.");
+        return;
+      }
+      localStorage.setItem("aurum_desk_name", name);
+      applyName(name);
+      nameOverlay.style.display = "none";
+    });
+
+    // --- Generate draft ---
+    generateBtn.addEventListener("click", async () => {
+      const taskType = taskTypeEl.value;
+      const tone = toneEl.value;
+      const language = languageEl.value;
+      const audience = audienceEl.value.trim();
+      const details = detailsEl.value.trim();
+      const name = localStorage.getItem("aurum_desk_name") || "";
+
+      if (!details) {
+        alert("Please describe the situation or what you want to say.");
+        return;
+      }
+
+      generateBtn.disabled = true;
+      generateBtn.textContent = "Generating...";
+      statusText.textContent = "Your Desk is drafting a calm, clear message...";
+      resultBox.innerHTML = "";
+
+      try {
+        let prompt = "You are Aurum Task Desk AI. You support older US and EU men (50+), " +
+          "including veterans, truck drivers, engineers and business owners, with calm, clear, respectful writing.\n\n";
+
+        if (name) prompt += "Client first name: " + name + ".\n";
+        prompt += "Task type: " + taskType + ".\n";
+        prompt += "Tone: " + tone + ".\n";
+        prompt += "Language: " + language + " (if bilingual, answer in English first then Chinese).\n";
+        if (audience) prompt += "Audience: " + audience + ".\n";
+        prompt += "Details: " + details + ".\n\n";
+
+        prompt += "Write a complete draft that the client can copy and send directly. " +
+          "Avoid overly fancy language. Sound mature, respectful, and steady. " +
+          "If language = Chinese, reply in Chinese. If bilingual, provide English first, then Chinese.\n";
+
+        const res = await fetch(WORKER_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.ok) {
+          const msg = (data && data.error) ? data.error : "HTTP " + res.status;
+          throw new Error(msg);
+        }
+
+        const full = data.text || "No content returned from Aurum Desk AI.";
+        currentDraft = full;
+
+        resultBox.innerHTML = "";
+        const content = document.createElement("div");
+        content.textContent = full;
+        resultBox.appendChild(content);
+
+        statusText.textContent = "Draft generated. You can copy and adjust if needed.";
+        copyBtn.disabled = false;
+      } catch (err) {
+        console.error(err);
+        resultBox.innerHTML =
+          '<div class="result-empty">Something went wrong while generating your draft: ' +
+          (err.message || String(err)) +
+          "</div>";
+        statusText.textContent = "";
+        copyBtn.disabled = true;
+      } finally {
+        generateBtn.disabled = false;
+        generateBtn.textContent = "Generate draft";
+      }
+    });
+
+    // --- Copy draft ---
+    copyBtn.addEventListener("click", async () => {
+      if (!currentDraft) {
+        alert("There is no draft to copy yet.");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(currentDraft);
+        statusText.textContent = "Draft copied to your clipboard.";
+      } catch (e) {
+        alert("Copy failed. Please select the text manually and copy.");
+      }
+    });
+
+    // --- Init ---
+    setupPlanFromUrl();
+    initName();
+  </script>
+</body>
+</html>
