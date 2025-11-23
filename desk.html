@@ -615,9 +615,254 @@
       }
     });
 
-    // --- Init ---
-    setupPlanFromUrl();
-    initName();
-  </script>
-</body>
-</html>
+    <script>
+  // Cloudflare Worker backend
+  const API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
+  const WORKER_API_URL = API_BASE + "/api/generate";
+
+  const nameOverlay = document.getElementById("nameOverlay");
+  const nameInput = document.getElementById("nameInput");
+  const saveNameBtn = document.getElementById("saveNameBtn");
+
+  const headerTitle = document.getElementById("headerTitle");
+  const headerSub = document.getElementById("headerSub");
+  const greetingTitle = document.getElementById("greetingTitle");
+  const greetingSub = document.getElementById("greetingSub");
+  const planPill = document.getElementById("planPill");
+  const usagePill = document.getElementById("usagePill");
+  const planDesc = document.getElementById("planDesc");
+
+  const taskTypeEl = document.getElementById("taskType");
+  const toneEl = document.getElementById("tone");
+  const languageEl = document.getElementById("language");
+  const audienceEl = document.getElementById("audience");
+  const detailsEl = document.getElementById("details");
+
+  const generateBtn = document.getElementById("generateBtn");
+  const copyBtn = document.getElementById("copyBtn");
+  const statusText = document.getElementById("statusText");
+  const resultBox = document.getElementById("resultBox");
+
+  let currentDraft = "";
+  let currentUser = null; // {name, email, plan}
+
+  // --- Plan mapping ---
+  function setupPlanFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const plan = (params.get("plan") || "starter").toLowerCase();
+
+    if (plan === "starter") {
+      headerTitle.textContent = "Starter Desk — Personal Writing Space";
+      headerSub.textContent =
+        "This Starter Desk is for occasional but important writing: letters, replies, and short messages that benefit from a calm, respectful tone.";
+      planPill.textContent = "Starter Desk · $140 / month";
+      usagePill.textContent = "Designed for ~5 tasks per month";
+      planDesc.textContent =
+        "Use this Desk when you need help saying something important without drama: apologies, clarifications, simple notices, and calm replies.";
+    } else if (plan === "pro") {
+      headerTitle.textContent = "Professional Desk — Ongoing Writing Partner";
+      headerSub.textContent =
+        "This Desk supports professionals, veterans, and business owners with steady, structured help across messages, posts, and longer pieces.";
+      planPill.textContent = "Professional Desk · $280 / month";
+      usagePill.textContent = "Designed for ~12 tasks + 1 long piece";
+      planDesc.textContent =
+        "Use this Desk to handle regular communication with clients, partners, and family, plus at least one longer article or statement each month.";
+    } else if (plan === "private") {
+      headerTitle.textContent = "Private Desk — Quiet Personal Office";
+      headerSub.textContent =
+        "This Private Desk functions like a small personal writing office: frequent short tasks, several long pieces, and help with sensitive topics.";
+      planPill.textContent = "Private Desk · $580 / month";
+      usagePill.textContent = "Unlimited short tasks · up to 3 long pieces";
+      planDesc.textContent =
+        "Use this Desk as often as needed for letters, replies, posts, and more complex writing around family, health, business, or legal-style topics.";
+    } else {
+      planPill.textContent = "Desk Plan";
+      usagePill.textContent = "Usage guidance";
+    }
+  }
+
+  // --- User / name handling ---
+  function initUser() {
+    try {
+      const raw = localStorage.getItem("aurum_user");
+      if (raw) {
+        currentUser = JSON.parse(raw);
+      }
+    } catch (e) {
+      currentUser = null;
+    }
+    // 如果没登录，直接跳转到登录页
+    if (!currentUser) {
+      window.location.href = "auth.html";
+      return;
+    }
+
+    // 用账号名字作为 Desk 称呼
+    if (currentUser.name) {
+      localStorage.setItem("aurum_desk_name", currentUser.name);
+      applyName(currentUser.name);
+      nameOverlay.style.display = "none";
+    } else {
+      initName(); // 走原来的名字采集
+    }
+  }
+
+  function initName() {
+    const stored = localStorage.getItem("aurum_desk_name") || "";
+    if (stored) {
+      applyName(stored);
+      nameOverlay.style.display = "none";
+    } else {
+      nameOverlay.style.display = "flex";
+    }
+  }
+
+  function applyName(name) {
+    const clean = name.trim();
+    if (!clean) return;
+    greetingTitle.textContent = `Welcome back, ${clean}.`;
+    greetingSub.textContent =
+      "Your Desk is active. Describe what you want to say, and the Desk will shape it into a clear, respectful draft.";
+  }
+
+  saveNameBtn.addEventListener("click", () => {
+    const name = nameInput.value.trim();
+    if (!name) {
+      alert("Please enter a first name.");
+      return;
+    }
+    localStorage.setItem("aurum_desk_name", name);
+    applyName(name);
+    nameOverlay.style.display = "none";
+  });
+
+  // --- Generate draft ---
+  generateBtn.addEventListener("click", async () => {
+    const taskType = taskTypeEl.value;
+    const tone = toneEl.value;
+    const language = languageEl.value;
+    const audience = audienceEl.value.trim();
+    const details = detailsEl.value.trim();
+    const name = localStorage.getItem("aurum_desk_name") || (currentUser ? currentUser.name || "" : "");
+
+    if (!details) {
+      alert("Please describe the situation or what you want to say.");
+      return;
+    }
+
+    generateBtn.disabled = true;
+    generateBtn.textContent = "Generating...";
+    statusText.textContent = "Your Desk is drafting a calm, clear message...";
+    resultBox.innerHTML = "";
+
+    try {
+      let prompt = "You are Aurum Task Desk AI. You support older US and EU men (50+), " +
+        "including veterans, truck drivers, engineers and business owners, with calm, clear, respectful writing.\n\n";
+
+      if (name) prompt += "Client first name: " + name + ".\n";
+      if (currentUser && currentUser.plan) {
+        prompt += "Client plan type: " + currentUser.plan + " (free = preview only, subscriber = full draft).\n";
+      }
+      prompt += "Task type: " + taskType + ".\n";
+      prompt += "Tone: " + tone + ".\n";
+      prompt += "Language: " + language + " (if bilingual, answer in English first then Chinese).\n";
+      if (audience) prompt += "Audience: " + audience + ".\n";
+      prompt += "Details: " + details + ".\n\n";
+
+      prompt += "Write a complete draft that the client can copy and send directly. " +
+        "Avoid overly fancy language. Sound mature, respectful, and steady. " +
+        "If language = Chinese, reply in Chinese. If bilingual, provide English first, then Chinese.\n";
+
+      const res = await fetch(WORKER_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        const msg = (data && data.error) ? data.error : "HTTP " + res.status;
+        throw new Error(msg);
+      }
+
+      const full = data.text || "No content returned from Aurum Desk AI.";
+      currentDraft = full;
+
+      resultBox.innerHTML = "";
+
+      // 判断是否订阅用户
+      const isSubscriber = currentUser && currentUser.plan === "subscriber";
+
+      if (isSubscriber) {
+        // 订阅用户：显示完整草稿，可复制
+        const content = document.createElement("div");
+        content.textContent = full;
+        resultBox.appendChild(content);
+
+        statusText.textContent = "Full draft generated. You can copy and adjust if needed.";
+        copyBtn.disabled = false;
+      } else {
+        // 免费用户：只展示 30% 预览，不允许复制
+        const previewRatio = 0.3;
+        const previewLength = Math.max(40, Math.floor(full.length * previewRatio));
+        const previewText = full.slice(0, previewLength);
+
+        const previewDiv = document.createElement("div");
+        previewDiv.textContent = previewText;
+        resultBox.appendChild(previewDiv);
+
+        const payNotice = document.createElement("div");
+        payNotice.style.marginTop = "18px";
+        payNotice.style.padding = "12px";
+        payNotice.style.border = "1px solid rgba(240,211,122,0.4)";
+        payNotice.style.borderRadius = "10px";
+        payNotice.style.background = "rgba(20,14,4,0.5)";
+        payNotice.style.color = "#f0d37a";
+        payNotice.style.fontSize = "13px";
+        payNotice.style.whiteSpace = "pre-wrap";
+        payNotice.innerHTML =
+          "✨ You are viewing a free 30% preview of this draft.<br><br>" +
+          "Subscribers see the full draft and can copy it with one click.<br><br>" +
+          "To upgrade your account, please visit the <a href='pricing.html' style='color:#f0d37a;text-decoration:underline;'>Pricing</a> page " +
+          "or contact us at <a href='mailto:sophieinbg@gmail.com' style='color:#f0d37a;text-decoration:underline;'>sophieinbg@gmail.com</a>.";
+
+        resultBox.appendChild(payNotice);
+
+        statusText.textContent = "Preview generated — upgrade to unlock full content.";
+        copyBtn.disabled = true;
+      }
+    } catch (err) {
+      console.error(err);
+      resultBox.innerHTML =
+        '<div class="result-empty">Something went wrong while generating your draft: ' +
+        (err.message || String(err)) +
+        "</div>";
+      statusText.textContent = "";
+      copyBtn.disabled = true;
+    } finally {
+      generateBtn.disabled = false;
+      generateBtn.textContent = "Generate draft";
+    }
+  });
+
+  // --- Copy draft ---
+  copyBtn.addEventListener("click", async () => {
+    if (!currentDraft) {
+      alert("There is no draft to copy yet.");
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(currentDraft);
+      statusText.textContent = "Draft copied to your clipboard.";
+    } catch (e) {
+      alert("Copy failed. Please select the text manually and copy.");
+    }
+  });
+
+  // --- Init ---
+  setupPlanFromUrl();
+  initUser();
+</script>
+
