@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aurum Account — Sign in</title>
+  <title>Aurum Account — Email Sign in</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <style>
     * { box-sizing: border-box; }
@@ -78,7 +78,6 @@
       border-radius: 18px;
       border: 1px solid rgba(240,211,122,0.35);
     }
-
     .hero-label {
       font-size: 11px;
       text-transform: uppercase;
@@ -182,61 +181,6 @@
       cursor: default;
     }
 
-    .muted {
-      font-size: 12px;
-      color: #8f8a7f;
-      margin-top: 8px;
-    }
-    .muted a {
-      color: #f0d37a;
-      text-decoration: underline;
-    }
-
-    .status {
-      font-size: 12px;
-      margin-top: 8px;
-      min-height: 16px;
-    }
-    .status-ok { color: #9dd79d; }
-    .status-err { color: #ff9a9a; }
-
-    .footer {
-      text-align: center;
-      font-size: 12px;
-      color: #a8a295;
-      padding: 10px 0 18px;
-    }
-
-    /* Divider & inline row */
-    .divider-row {
-      margin: 14px 0 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 11px;
-      color: #7f7a70;
-    }
-    .divider-row::before,
-    .divider-row::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(255,255,255,0.16));
-    }
-    .divider-row::after {
-      background: linear-gradient(to left, transparent, rgba(255,255,255,0.16));
-    }
-
-    .inline-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .inline-row .field-inline {
-      flex: 1;
-      margin-bottom: 0;
-    }
-
     .btn-outline {
       padding: 8px 12px;
       border-radius: 999px;
@@ -251,6 +195,41 @@
     .btn-outline:disabled {
       opacity: 0.6;
       cursor: default;
+    }
+
+    .inline-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .inline-row .field-inline {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .status {
+      font-size: 12px;
+      margin-top: 8px;
+      min-height: 16px;
+    }
+    .status-ok { color: #9dd79d; }
+    .status-err { color: #ff9a9a; }
+
+    .muted {
+      font-size: 12px;
+      color: #8f8a7f;
+      margin-top: 8px;
+    }
+    .muted a {
+      color: #f0d37a;
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #a8a295;
+      padding: 10px 0 18px;
     }
   </style>
 </head>
@@ -270,19 +249,19 @@
     <!-- LEFT: Brand copy -->
     <section class="hero">
       <div class="hero-label">AURUM ACCOUNT</div>
-      <h1 class="hero-title">Secure access to your Desk.</h1>
+      <h1 class="hero-title">Email-based secure access.</h1>
       <p class="hero-sub">
-        Sign in to your private writing desk. Subscribers get full drafts and
-        priority access. Free accounts receive 30% previews of each draft.
+        No phone needed. Use your work email to receive a one-time code
+        and access your private writing desk.
       </p>
       <div class="hero-badges">
-        <span>Single sign-on ready</span>
-        <span>Role-based access</span>
-        <span>Audit-friendly logs</span>
+        <span>Email-only login</span>
+        <span>No SMS costs</span>
+        <span>Global access</span>
       </div>
       <p class="muted" style="margin-top:16px;">
-        Need enterprise onboarding or to connect your own identity provider?
-        Contact us at <a href="mailto:sophieinbg@gmail.com">sophieinbg@gmail.com</a>.
+        Having trouble receiving codes? Reach us at
+        <a href="mailto:sophieinbg@gmail.com">sophieinbg@gmail.com</a>.
       </p>
     </section>
 
@@ -293,19 +272,26 @@
         <div class="panel-tab" id="tabSignUp">Create account</div>
       </div>
 
-      <!-- ===== Sign-in form ===== -->
+      <!-- Sign-in form -->
       <div id="signInForm">
-        <div class="panel-title">Welcome back</div>
-        <div class="panel-sub">Use your email and password to access your Desk.</div>
+        <div class="panel-title">Sign in with email code</div>
+        <div class="panel-sub">
+          Enter your email, we’ll send you a 6-digit code to sign in.
+        </div>
 
         <div class="field">
           <label for="loginEmail">Work email</label>
           <input type="email" id="loginEmail" placeholder="you@example.com" />
         </div>
 
-        <div class="field">
-          <label for="loginPassword">Password</label>
-          <input type="password" id="loginPassword" placeholder="Enter your password" />
+        <div class="inline-row" style="margin-bottom:10px;">
+          <div class="field-inline">
+            <label for="loginCode">Verification code</label>
+            <input type="text" id="loginCode" placeholder="6-digit code" maxlength="6" />
+          </div>
+          <button type="button" class="btn-outline" id="btnLoginSendCode">
+            Send code
+          </button>
         </div>
 
         <button class="btn-primary" id="btnLogin">Sign in</button>
@@ -314,35 +300,13 @@
         <p class="muted">
           New here? <a href="#" id="goToSignUpLink">Create an Aurum account</a>.
         </p>
-
-        <!-- Phone login -->
-        <div class="divider-row">Or sign in with phone</div>
-
-        <div class="field">
-          <label for="phoneLogin">Mobile number (with country code)</label>
-          <input type="tel" id="phoneLogin" placeholder="+1 555 123 4567" />
-        </div>
-
-        <div class="inline-row" style="margin-bottom:10px;">
-          <div class="field-inline">
-            <label for="phoneCode">Verification code</label>
-            <input type="text" id="phoneCode" placeholder="6-digit code" maxlength="10" />
-          </div>
-          <button type="button" class="btn-outline" id="btnSendCode">Send code</button>
-        </div>
-
-        <button class="btn-primary" id="btnPhoneLogin" style="margin-top:2px;">
-          Sign in with phone
-        </button>
-        <div class="status" id="phoneStatus"></div>
       </div>
 
-      <!-- ===== Sign-up form ===== -->
+      <!-- Sign-up form -->
       <div id="signUpForm" style="display:none;">
         <div class="panel-title">Create your Aurum account</div>
         <div class="panel-sub">
-          Register with your email and verify your mobile number. Free accounts
-          receive 30% previews; subscribers see full drafts with copy enabled.
+          Register with your name and work email. We will verify your email with a one-time code.
         </div>
 
         <div class="field">
@@ -355,21 +319,10 @@
           <input type="email" id="signupEmail" placeholder="you@example.com" />
         </div>
 
-        <div class="field">
-          <label for="signupPassword">Password</label>
-          <input type="password" id="signupPassword" placeholder="At least 8 characters" />
-        </div>
-
-        <!-- 新增：手机号 + 验证码（注册用） -->
-        <div class="field">
-          <label for="signupPhone">Mobile number (with country code)</label>
-          <input type="tel" id="signupPhone" placeholder="+1 555 123 4567" />
-        </div>
-
         <div class="inline-row" style="margin-bottom:10px;">
           <div class="field-inline">
             <label for="signupCode">Verification code</label>
-            <input type="text" id="signupCode" placeholder="6-digit code" maxlength="10" />
+            <input type="text" id="signupCode" placeholder="6-digit code" maxlength="6" />
           </div>
           <button type="button" class="btn-outline" id="btnSignupSendCode">
             Send code
@@ -430,71 +383,133 @@
     activateTab("signup");
   });
 
-  // === Email + password sign in ===
+  // === Sign in with email code ===
   const loginEmail = document.getElementById("loginEmail");
-  const loginPassword = document.getElementById("loginPassword");
+  const loginCode = document.getElementById("loginCode");
+  const btnLoginSendCode = document.getElementById("btnLoginSendCode");
   const btnLogin = document.getElementById("btnLogin");
   const loginStatus = document.getElementById("loginStatus");
+  let loginToken = null;
+  let loginTimer = null;
+  let loginCountdown = 0;
 
-  btnLogin.addEventListener("click", async () => {
+  function startLoginCountdown(seconds) {
+    loginCountdown = seconds;
+    btnLoginSendCode.disabled = true;
+    btnLoginSendCode.textContent = "Resend in " + loginCountdown + "s";
+    if (loginTimer) clearInterval(loginTimer);
+    loginTimer = setInterval(() => {
+      loginCountdown -= 1;
+      if (loginCountdown <= 0) {
+        clearInterval(loginTimer);
+        loginTimer = null;
+        btnLoginSendCode.disabled = false;
+        btnLoginSendCode.textContent = "Send code";
+      } else {
+        btnLoginSendCode.textContent = "Resend in " + loginCountdown + "s";
+      }
+    }, 1000);
+  }
+
+  btnLoginSendCode.addEventListener("click", async () => {
     const email = loginEmail.value.trim();
-    const password = loginPassword.value.trim();
-    if (!email || !password) {
-      loginStatus.textContent = "Please enter email and password.";
+    if (!email) {
+      loginStatus.textContent = "Please enter your email first.";
       loginStatus.className = "status status-err";
       return;
     }
-    btnLogin.disabled = true;
-    loginStatus.textContent = "Signing in...";
+    loginStatus.textContent = "Sending code to your email...";
     loginStatus.className = "status";
+    btnLoginSendCode.disabled = true;
 
     try {
-      const res = await fetch(API_BASE + "/api/login", {
+      const res = await fetch(API_BASE + "/auth/send-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email })
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
         throw new Error(data.error || ("HTTP " + res.status));
       }
+      loginToken = data.token;
+      loginStatus.textContent = "Code sent. Please check your inbox.";
+      loginStatus.className = "status status-ok";
+      startLoginCountdown(60);
+    } catch (err) {
+      loginStatus.textContent = "Send failed: " + err.message;
+      loginStatus.className = "status status-err";
+      btnLoginSendCode.disabled = false;
+      btnLoginSendCode.textContent = "Send code";
+    }
+  });
+
+  btnLogin.addEventListener("click", async () => {
+    const email = loginEmail.value.trim();
+    const code = loginCode.value.trim();
+    if (!email || !code) {
+      loginStatus.textContent = "Please enter email and code.";
+      loginStatus.className = "status status-err";
+      return;
+    }
+    if (!loginToken) {
+      loginStatus.textContent = "Please request a code first.";
+      loginStatus.className = "status status-err";
+      return;
+    }
+
+    btnLogin.disabled = true;
+    loginStatus.textContent = "Verifying code...";
+    loginStatus.className = "status";
+
+    try {
+      const res = await fetch(API_BASE + "/auth/verify-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code, token: loginToken })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+
+      const user = data.user || { email };
       localStorage.setItem("aurum_user", JSON.stringify({
-        name: data.user?.name,
-        email: data.user?.email,
-        plan: data.user?.plan
+        name: user.email.split("@")[0],
+        email: user.email,
+        plan: user.plan || "free"
       }));
+
       loginStatus.textContent = "Signed in. Redirecting to your Desk...";
       loginStatus.className = "status status-ok";
       setTimeout(() => {
         window.location.href = "desk.html";
-      }, 600);
+      }, 700);
     } catch (err) {
-      loginStatus.textContent = "Sign-in failed: " + err.message;
+      loginStatus.textContent = "Verification failed: " + err.message;
       loginStatus.className = "status status-err";
     } finally {
       btnLogin.disabled = false;
     }
   });
 
-  // === Sign up (email + password + phone + code) ===
+  // === Sign up with email code ===
   const signupName = document.getElementById("signupName");
   const signupEmail = document.getElementById("signupEmail");
-  const signupPassword = document.getElementById("signupPassword");
-  const signupPhone = document.getElementById("signupPhone");
   const signupCode = document.getElementById("signupCode");
   const signupPlan = document.getElementById("signupPlan");
-  const btnSignup = document.getElementById("btnSignup");
   const btnSignupSendCode = document.getElementById("btnSignupSendCode");
+  const btnSignup = document.getElementById("btnSignup");
   const signupStatus = document.getElementById("signupStatus");
 
+  let signupToken = null;
   let signupTimer = null;
   let signupCountdown = 0;
 
   function startSignupCountdown(seconds) {
     signupCountdown = seconds;
-    btnSignupSendCode.textContent = "Resend in " + signupCountdown + "s";
     btnSignupSendCode.disabled = true;
+    btnSignupSendCode.textContent = "Resend in " + signupCountdown + "s";
     if (signupTimer) clearInterval(signupTimer);
     signupTimer = setInterval(() => {
       signupCountdown -= 1;
@@ -509,16 +524,14 @@
     }, 1000);
   }
 
-  // 发送注册验证码（只用手机号，不给邮箱发）
   btnSignupSendCode.addEventListener("click", async () => {
-    const phone = signupPhone.value.trim();
-    if (!phone) {
-      signupStatus.textContent = "Please enter your mobile number (with country code).";
+    const email = signupEmail.value.trim();
+    if (!email) {
+      signupStatus.textContent = "Please enter your email first.";
       signupStatus.className = "status status-err";
       return;
     }
-
-    signupStatus.textContent = "Sending verification code...";
+    signupStatus.textContent = "Sending code to your email...";
     signupStatus.className = "status";
     btnSignupSendCode.disabled = true;
 
@@ -526,13 +539,14 @@
       const res = await fetch(API_BASE + "/auth/send-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone })
+        body: JSON.stringify({ email })
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
         throw new Error(data.error || ("HTTP " + res.status));
       }
-      signupStatus.textContent = "Code sent. Please check your phone.";
+      signupToken = data.token;
+      signupStatus.textContent = "Code sent. Please check your inbox.";
       signupStatus.className = "status status-ok";
       startSignupCountdown(60);
     } catch (err) {
@@ -546,33 +560,29 @@
   btnSignup.addEventListener("click", async () => {
     const name = signupName.value.trim();
     const email = signupEmail.value.trim();
-    const password = signupPassword.value.trim();
-    const phone = signupPhone.value.trim();
     const code = signupCode.value.trim();
     const plan = signupPlan.value;
 
-    if (!name || !email || !password || !phone || !code) {
-      signupStatus.textContent = "Please fill in all fields, including phone and code.";
+    if (!name || !email || !code) {
+      signupStatus.textContent = "Please fill in name, email and code.";
       signupStatus.className = "status status-err";
       return;
     }
-    if (password.length < 8) {
-      signupStatus.textContent = "Password should be at least 8 characters.";
+    if (!signupToken) {
+      signupStatus.textContent = "Please request a code first.";
       signupStatus.className = "status status-err";
       return;
     }
 
     btnSignup.disabled = true;
-    signupStatus.textContent = "Creating your account...";
+    signupStatus.textContent = "Verifying code...";
     signupStatus.className = "status";
 
     try {
-      // 后端需支持依据 phone + code 完成验证并注册
-      const res = await fetch(API_BASE + "/api/register", {
+      const res = await fetch(API_BASE + "/auth/verify-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ name, email, password, plan, phone, code })
+        body: JSON.stringify({ email, code, token: signupToken })
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
@@ -580,10 +590,9 @@
       }
 
       localStorage.setItem("aurum_user", JSON.stringify({
-        name: data.user?.name,
-        email: data.user?.email,
-        phone: data.user?.phone || phone,
-        plan: data.user?.plan
+        name,
+        email,
+        plan
       }));
 
       signupStatus.textContent = "Account created. Redirecting to your Desk...";
@@ -592,122 +601,10 @@
         window.location.href = "desk.html";
       }, 700);
     } catch (err) {
-      signupStatus.textContent = "Sign-up failed: " + err.message;
+      signupStatus.textContent = "Verification failed: " + err.message;
       signupStatus.className = "status status-err";
     } finally {
       btnSignup.disabled = false;
-    }
-  });
-
-  // === Phone login ===
-  const phoneInput = document.getElementById("phoneLogin");
-  const codeInput = document.getElementById("phoneCode");
-  const btnSendCode = document.getElementById("btnSendCode");
-  const btnPhoneLogin = document.getElementById("btnPhoneLogin");
-  const phoneStatus = document.getElementById("phoneStatus");
-
-  let sendTimer = null;
-  let sendCountdown = 0;
-
-  function startCountdown(seconds) {
-    sendCountdown = seconds;
-    updateSendButtonText();
-    btnSendCode.disabled = true;
-    if (sendTimer) clearInterval(sendTimer);
-    sendTimer = setInterval(() => {
-      sendCountdown -= 1;
-      if (sendCountdown <= 0) {
-        clearInterval(sendTimer);
-        sendTimer = null;
-        btnSendCode.disabled = false;
-        btnSendCode.textContent = "Send code";
-      } else {
-        updateSendButtonText();
-      }
-    }, 1000);
-  }
-
-  function updateSendButtonText() {
-    btnSendCode.textContent = "Resend in " + sendCountdown + "s";
-  }
-
-  btnSendCode.addEventListener("click", async () => {
-    const phone = phoneInput.value.trim();
-    if (!phone) {
-      phoneStatus.textContent = "Please enter your mobile number (with country code).";
-      phoneStatus.className = "status status-err";
-      return;
-    }
-
-    phoneStatus.textContent = "Sending verification code...";
-    phoneStatus.className = "status";
-    btnSendCode.disabled = true;
-
-    try {
-      const res = await fetch(API_BASE + "/auth/send-code", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone })
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || ("HTTP " + res.status));
-      }
-      phoneStatus.textContent = "Code sent. Please check your phone.";
-      phoneStatus.className = "status status-ok";
-      startCountdown(60);
-    } catch (err) {
-      phoneStatus.textContent = "Send failed: " + err.message;
-      phoneStatus.className = "status status-err";
-      btnSendCode.disabled = false;
-      btnSendCode.textContent = "Send code";
-    }
-  });
-
-  btnPhoneLogin.addEventListener("click", async () => {
-    const phone = phoneInput.value.trim();
-    const code = codeInput.value.trim();
-
-    if (!phone || !code) {
-      phoneStatus.textContent = "Please enter phone and verification code.";
-      phoneStatus.className = "status status-err";
-      return;
-    }
-
-    btnPhoneLogin.disabled = true;
-    phoneStatus.textContent = "Verifying code...";
-    phoneStatus.className = "status";
-
-    try {
-      const res = await fetch(API_BASE + "/auth/verify-code", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ phone, code })
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || ("HTTP " + res.status));
-      }
-
-      const user = data.user || {};
-      localStorage.setItem("aurum_user", JSON.stringify({
-        name: user.name || "",
-        email: user.email || "",
-        phone: user.phone || phone,
-        plan: user.plan || "subscriber"
-      }));
-
-      phoneStatus.textContent = "Phone verified. Redirecting to your Desk...";
-      phoneStatus.className = "status status-ok";
-      setTimeout(() => {
-        window.location.href = "desk.html";
-      }, 700);
-    } catch (err) {
-      phoneStatus.textContent = "Verification failed: " + err.message;
-      phoneStatus.className = "status status-err";
-    } finally {
-      btnPhoneLogin.disabled = false;
     }
   });
 </script>
