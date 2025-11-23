@@ -2,1692 +2,1542 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AIFreelance Hub - Hire AI-Powered Freelancers</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- 网站图标，仓库里放 favicon.png 即可 -->
-  <link rel="icon" href="favicon.png" />
+  <title>AIFreelance Hub – Hire AI-Powered Freelancers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AIFreelance Hub – Task marketplace to hire AI-powered freelancers for writing, design and automation.">
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
     :root {
-      --bg: #020617;
-      --bg-elevated: #020818;
-      --primary: #1d9bf0;
-      --primary-soft: #38bdf8;
-      --accent: #22c55e;
-      --danger: #ef4444;
+      --bg: #050816;
+      --bg-elevated: #0b1120;
+      --bg-soft: #020617;
+      --primary: #3b82f6;
+      --primary-soft: rgba(59,130,246,0.15);
+      --accent: #22d3ee;
       --border: #1f2937;
       --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.55);
+      --text-soft: #9ca3af;
+      --danger: #f97373;
+      --success: #4ade80;
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(15,23,42,0.75);
+      --transition-fast: 0.18s ease-out;
+      --nav-height: 70px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        Roboto, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #082f49 0, #020617 45%);
+    * { box-sizing: border-box; margin:0; padding:0; }
+    html, body {
+      background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
       color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    body { min-height: 100vh; }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Layout */
+    .page {
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .app {
-      max-width: 1140px;
+    .container {
+      width: 100%;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 20px 16px 56px;
+      padding: 0 16px;
     }
 
     /* Header */
-
-    .top-nav {
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom,
+        rgba(5,6,24,0.95),
+        rgba(5,6,24,0.7),
+        transparent
+      );
+      border-bottom: 1px solid rgba(15,23,42,0.8);
+    }
+    .nav {
+      height: var(--nav-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 18px;
-      background: linear-gradient(135deg, #020617, #020617dd, #020617);
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.75);
-      position: sticky;
-      top: 12px;
-      backdrop-filter: blur(18px);
-      z-index: 20;
+      gap: 16px;
     }
-
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-
-    .logo-square {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      background: radial-gradient(circle at 20% 20%, #ffffff, #60a5fa 40%, #1d4ed8 100%);
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 20%;
+      background: radial-gradient(circle at 20% 20%, #e5f2ff, #3b82f6 45%, #1d4ed8 85%);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 14px 35px rgba(37, 99, 235, 0.8);
-      flex-shrink: 0;
-    }
-
-    .logo-square span {
-      font-size: 24px;
+      box-shadow: 0 10px 35px rgba(59,130,246,0.85);
       font-weight: 800;
-      color: #ffffff;
+      font-size: 24px;
+      color: #e5f2ff;
     }
-
-    .brand-text-main {
-      font-weight: 700;
+    .brand-text-title {
       font-size: 20px;
+      font-weight: 700;
       letter-spacing: 0.02em;
     }
-
     .brand-text-sub {
-      font-size: 12px;
-      color: var(--text-muted);
+      font-size: 11px;
+      color: var(--text-soft);
     }
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 14px;
-    }
-
-    .nav-links a {
-      padding: 4px 10px;
-      border-radius: 999px;
-      color: var(--text-muted);
-      transition: color 0.18s ease, background 0.18s ease;
-    }
-
-    .nav-links a:hover {
-      color: #e5e7eb;
-      background: rgba(15, 23, 42, 0.75);
-    }
-
-    .nav-actions {
+    .nav-right {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-
     .lang-select {
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      color: var(--text-main);
-      padding: 6px 10px;
+      background: rgba(15,23,42,0.9);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      color: var(--text-soft);
       font-size: 13px;
+      padding: 6px 12px;
       outline: none;
     }
-
-    .btn {
-      border-radius: 999px;
-      padding: 8px 18px;
-      border: 0;
+    .nav-btn {
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      padding: 7px 16px;
+      border: 1px solid transparent;
       cursor: pointer;
-      font-size: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-weight: 500;
+      transition: background var(--transition-fast), border var(--transition-fast),
+        transform var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
       white-space: nowrap;
-      transition: background 0.18s ease, box-shadow 0.18s ease,
-        transform 0.08s ease;
     }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-soft));
-      color: #f9fafb;
-      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.7);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(56, 189, 248, 0.9);
-    }
-
-    .btn-outline {
+    .nav-btn-outline {
       background: transparent;
-      color: var(--text-main);
-      border: 1px solid rgba(148, 163, 184, 0.7);
+      border-color: var(--border);
+      color: var(--text-soft);
     }
-
-    .btn-outline:hover {
-      background: rgba(15, 23, 42, 0.75);
+    .nav-btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
     }
-
-    .pill {
-      display: inline-flex;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      color: #bae6fd;
-      gap: 6px;
-      align-items: center;
+    .nav-btn-primary {
+      background: linear-gradient(135deg, var(--primary), #2563eb);
+      color: #f9fafb;
+      box-shadow: 0 10px 25px rgba(37,99,235,0.7);
+    }
+    .nav-btn-primary:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(37,99,235,0.8);
     }
 
     /* Hero */
-
+    main {
+      flex: 1;
+    }
     .hero {
-      margin-top: 40px;
+      padding: 32px 0 24px;
+    }
+    .hero-inner {
       display: grid;
-      grid-template-columns: minmax(0, 3.2fr) minmax(0, 2.8fr);
-      gap: 26px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 32px;
       align-items: center;
     }
-
-    @media (max-width: 840px) {
-      .top-nav {
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .hero {
+    @media (max-width: 880px) {
+      .hero-inner {
         grid-template-columns: minmax(0, 1fr);
       }
     }
-
-    .hero-left {
-      padding-right: 20px;
-    }
-
-    .hero-tagline {
+    .hero-title {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 800;
+      letter-spacing: 0.03em;
       margin-bottom: 10px;
     }
-
-    .hero-title {
-      font-size: clamp(28px, 5vw, 38px);
-      line-height: 1.15;
-      margin-bottom: 12px;
-    }
-
-    .hero-title span.emphasis {
-      background: linear-gradient(135deg, #38bdf8, #a855f7);
+    .hero-title-gradient {
+      background: linear-gradient(135deg, #60a5fa, #22d3ee);
       -webkit-background-clip: text;
       color: transparent;
     }
-
     .hero-subtitle {
-      font-size: 14px;
-      color: #cbd5f5;
+      font-size: 15px;
+      color: var(--text-soft);
       max-width: 520px;
-      line-height: 1.6;
-      margin-bottom: 22px;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0 24px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      padding: 6px 11px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(55,65,81,0.9);
+      background: radial-gradient(circle at top left, rgba(59,130,246,0.15), rgba(15,23,42,0.95));
+      color: var(--text-soft);
+    }
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 16px;
+      gap: 12px;
+      margin-bottom: 18px;
     }
-
     .hero-note {
       font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .hero-note strong {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-
-    .hero-right {
-      position: relative;
+      color: var(--text-soft);
     }
 
     .hero-card {
-      border-radius: var(--radius-xl);
-      padding: 18px 18px 16px;
-      background: radial-gradient(circle at top left, #0b1220, #020617);
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top, rgba(56,189,248,0.07), rgba(15,23,42,0.98));
+      border-radius: 26px;
+      border: 1px solid rgba(31,41,55,0.9);
+      padding: 20px 18px;
       box-shadow: var(--shadow-soft);
+      position: relative;
       overflow: hidden;
     }
-
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.26), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(45,212,191,0.3), transparent 55%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
     .hero-card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
-
-    .hero-card-title {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .hero-card-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .hero-badge {
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      background: rgba(22, 163, 74, 0.15);
-      color: #bbf7d0;
-      border: 1px solid rgba(22, 163, 74, 0.5);
-    }
-
-    .hero-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-      margin-bottom: 12px;
-      font-size: 12px;
-    }
-
-    .hero-list-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 10px;
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: 12px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-    }
-
-    .hero-list-item span.main {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-list-item small {
-      color: var(--text-muted);
-      font-size: 11px;
-    }
-
     .hero-pill {
-      font-size: 10px;
-      padding: 4px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.7);
-      color: #bae6fd;
-      background: rgba(15, 23, 42, 0.85);
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(55,65,81,0.9);
+      color: var(--text-soft);
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+    .hero-stats strong { color: #e5e7eb; }
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--text-soft);
     }
 
-    .hero-wave {
-      position: absolute;
-      inset: -120%;
-      background: radial-gradient(circle at 50% 0,
-          rgba(56, 189, 248, 0.15),
-          transparent 55%);
-      opacity: 0.75;
-      pointer-events: none;
-      mix-blend-mode: screen;
-    }
-
-    /* Section wrapper */
-
+    /* Sections */
     section {
-      margin-top: 40px;
+      padding: 8px 0 32px;
     }
-
     .section-header {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 16px;
       gap: 10px;
+      margin-bottom: 14px;
     }
-
     .section-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
     }
-
-    .section-subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-soft);
     }
 
-    /* Task Hall */
-
+    /* Task Board */
     .card {
-      border-radius: var(--radius-xl);
-      background: radial-gradient(circle at top left, #020617, #020617f0);
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      box-shadow: var(--shadow-soft);
-      padding: 16px 16px 14px;
+      background: linear-gradient(to bottom right, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 16px 14px;
+      box-shadow: 0 8px 28px rgba(15,23,42,0.7);
     }
-
-    .task-filters {
+    .task-toolbar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-bottom: 14px;
-      font-size: 13px;
-    }
-
-    .task-search {
-      flex: 1 1 180px;
-      position: relative;
-    }
-
-    .task-search input {
-      width: 100%;
-      padding: 7px 10px 7px 26px;
-      border-radius: 999px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-main);
-      font-size: 13px;
-      outline: none;
-    }
-
-    .task-search-icon {
-      position: absolute;
-      left: 9px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .chip {
-      border-radius: 999px;
-      padding: 6px 10px;
       font-size: 12px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.85);
-      color: var(--text-muted);
+      align-items: center;
+    }
+    .input, .select {
+      background: #020617;
+      border-radius: 10px;
+      border: 1px solid #1f2937;
+      padding: 6px 9px;
+      font-size: 12px;
+      color: var(--text-main);
+      outline: none;
+      min-width: 0;
+    }
+    .input::placeholder {
+      color: #6b7280;
+    }
+    .select {
+      padding-right: 26px;
+    }
+    .task-toolbar .btn-sm {
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--primary);
+      background: rgba(37,99,235,0.12);
+      color: #bfdbfe;
       cursor: pointer;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+    }
+    .task-toolbar .btn-sm:hover {
+      background: rgba(37,99,235,0.32);
+    }
+
+    .task-table-wrapper {
+      border-radius: 14px;
+      border: 1px solid rgba(31,41,55,0.9);
+      overflow: hidden;
+      background: radial-gradient(circle at top left, rgba(30,64,175,0.18), rgba(15,23,42,1));
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    thead {
+      background: rgba(15,23,42,0.92);
+    }
+    th, td {
+      padding: 9px 10px;
+      text-align: left;
+      border-bottom: 1px solid rgba(31,41,55,0.75);
+    }
+    th {
+      font-weight: 500;
+      color: #9ca3af;
+      white-space: nowrap;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    tbody tr:hover {
+      background: rgba(15,23,42,0.9);
+    }
+    .task-title {
+      font-weight: 500;
+      font-size: 13px;
+      color: #e5e7eb;
+    }
+    .task-meta {
+      display: block;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+    .badge-status {
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid rgba(55,65,81,1);
+    }
+    .badge-status-open {
+      border-color: rgba(34,197,94,0.7);
+      color: #bbf7d0;
+      background: rgba(22,163,74,0.12);
+    }
+    .badge-status-progress {
+      border-color: rgba(59,130,246,0.7);
+      color: #bfdbfe;
+      background: rgba(37,99,235,0.12);
+    }
+    .badge-status-completed {
+      border-color: rgba(148,163,184,0.9);
+      color: #cbd5f5;
+      background: rgba(15,23,42,0.5);
+    }
+    .btn-table {
+      border-radius: 999px;
+      padding: 5px 11px;
+      border: 1px solid rgba(31,41,55,1);
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+      font-size: 11px;
+      cursor: pointer;
+      margin-left: 6px;
+      transition: var(--transition-fast);
       white-space: nowrap;
     }
-
-    .chip.active {
-      border-color: rgba(56, 189, 248, 0.85);
-      color: #e0f2fe;
-      background: rgba(8, 47, 73, 0.75);
-    }
-
-    .task-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    .task-table thead {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--text-muted);
-    }
-
-    .task-table th,
-    .task-table td {
-      padding: 7px 6px;
-      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
-      text-align: left;
-    }
-
-    .task-table tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    .task-title {
-      font-weight: 500;
-    }
-
-    .task-meta {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .status-badge {
-      border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 11px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .status-open {
-      background: rgba(22, 163, 74, 0.1);
+    .btn-accept {
+      border-color: rgba(34,197,94,0.7);
       color: #bbf7d0;
-      border: 1px solid rgba(22, 163, 74, 0.6);
+      background: rgba(22,163,74,0.08);
     }
-
-    .status-in-progress {
-      background: rgba(59, 130, 246, 0.1);
+    .btn-accept:hover {
+      background: rgba(22,163,74,0.22);
+    }
+    .btn-pay {
+      border-color: rgba(59,130,246,0.7);
       color: #bfdbfe;
-      border: 1px solid rgba(59, 130, 246, 0.7);
+      background: rgba(37,99,235,0.15);
+    }
+    .btn-pay:hover {
+      background: rgba(37,99,235,0.3);
+    }
+    .btn-disabled {
+      opacity: 0.4;
+      pointer-events: none;
     }
 
-    .status-completed {
-      background: rgba(107, 114, 128, 0.3);
-      color: #e5e7eb;
-      border: 1px solid rgba(75, 85, 99, 0.9);
-    }
-
-    /* How it works / Pricing */
-
-    .cols-3 {
+    /* Info sections */
+    .info-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0,1fr));
       gap: 14px;
-      font-size: 13px;
     }
-
-    @media (max-width: 900px) {
-      .cols-3 {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    @media (max-width: 880px) {
+      .info-grid {
+        grid-template-columns: minmax(0,1fr);
       }
     }
-
-    .mini-card {
+    .info-card {
+      background: rgba(15,23,42,0.96);
       border-radius: var(--radius-lg);
-      padding: 12px 12px 10px;
-      background: radial-gradient(circle at top, #020617, #020617ee);
-      border: 1px solid rgba(55, 65, 81, 0.95);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.76);
+      border: 1px solid var(--border);
+      padding: 14px 14px 12px;
+      font-size: 12px;
+      color: var(--text-soft);
     }
-
-    .mini-card-title {
+    .info-card-title {
       font-size: 13px;
       font-weight: 600;
       margin-bottom: 6px;
+      color: #e5e7eb;
     }
-
-    .mini-card p {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.5;
+    .dot-list {
+      list-style: none;
+      padding-left: 0;
     }
-
-    .price-highlight {
-      font-size: 22px;
-      font-weight: 700;
+    .dot-list li {
+      position: relative;
+      padding-left: 14px;
       margin-bottom: 4px;
     }
-
-    .price-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-bottom: 8px;
+    .dot-list li::before {
+      content: "•";
+      position: absolute;
+      left: 3px;
+      color: #6b7280;
     }
 
     /* Footer */
-
     footer {
-      margin-top: 40px;
+      border-top: 1px solid rgba(15,23,42,0.9);
+      padding: 14px 0 18px;
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-soft);
+    }
+    .footer-inner {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       gap: 10px;
-      flex-wrap: wrap;
-      padding-top: 16px;
-      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      align-items: center;
     }
 
     /* Modals */
-
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.8);
+      background: rgba(15,23,42,0.86);
+      backdrop-filter: blur(12px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 50;
+      padding: 16px;
     }
-
-    .modal-backdrop.show {
-      display: flex;
-    }
-
     .modal {
-      background: radial-gradient(circle at top left, #020617, #020617f4);
-      border-radius: 22px;
-      width: min(460px, 100% - 32px);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 18px 18px 14px;
-      box-shadow: 0 20px 70px rgba(15, 23, 42, 0.85);
+      width: 100%;
+      max-width: 420px;
+      background: #020617;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 50px rgba(15,23,42,0.9);
+      padding: 18px 18px 16px;
       position: relative;
     }
-
     .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 10px;
     }
-
     .modal-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
+    }
+    .modal-close {
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .modal-body {
+      font-size: 13px;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    .label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-soft);
       margin-bottom: 4px;
     }
-
-    .modal-sub {
+    .radio-row {
+      display: flex;
+      gap: 14px;
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--text-soft);
+      margin-bottom: 4px;
     }
-
-    .modal-close {
-      position: absolute;
-      right: 14px;
-      top: 10px;
-      border-radius: 999px;
-      border: 0;
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .tab-row {
-      display: inline-flex;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.85);
-      padding: 2px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      margin-bottom: 10px;
-    }
-
-    .tab {
-      border-radius: 999px;
-      padding: 5px 14px;
-      font-size: 12px;
-      cursor: pointer;
-      color: var(--text-muted);
-      border: 0;
-      background: transparent;
-      white-space: nowrap;
-    }
-
-    .tab.active {
-      background: rgba(15, 23, 42, 1);
-      color: var(--text-main);
-    }
-
-    .form-grid {
-      display: grid;
-      gap: 8px;
-      margin-top: 6px;
-      font-size: 13px;
-    }
-
-    .field-label {
-      font-size: 12px;
-      margin-bottom: 2px;
-    }
-
-    .field-input,
-    .field-select,
-    .field-textarea {
+    .textarea {
       width: 100%;
+      min-height: 80px;
+      resize: vertical;
+      background: #020617;
       border-radius: 10px;
+      border: 1px solid #1f2937;
       padding: 7px 9px;
-      border: 1px solid rgba(55, 65, 81, 0.95);
-      background: rgba(15, 23, 42, 0.96);
+      font-size: 12px;
       color: var(--text-main);
-      font-size: 13px;
       outline: none;
     }
-
-    .field-textarea {
-      resize: vertical;
-      min-height: 70px;
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 8px;
     }
-
+    .btn {
+      border-radius: 999px;
+      padding: 7px 15px;
+      border: 1px solid transparent;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition-fast);
+    }
+    .btn-secondary {
+      background: transparent;
+      border-color: #1f2937;
+      color: var(--text-soft);
+    }
+    .btn-secondary:hover {
+      border-color: #4b5563;
+      color: #e5e7eb;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #2563eb);
+      color: #f9fafb;
+      box-shadow: 0 10px 25px rgba(37,99,235,0.7);
+    }
+    .btn-primary:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 16px 40px rgba(37,99,235,0.8);
+    }
     .helper-text {
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-soft);
+      margin-top: 4px;
     }
-
-    .text-right {
-      text-align: right;
+    .error-text {
+      color: var(--danger);
+      font-size: 11px;
+      margin-top: 3px;
     }
-
-    .badge-small {
-      font-size: 10px;
-      padding: 3px 7px;
-      border-radius: 999px;
-      background: rgba(8, 47, 73, 0.9);
-      color: #e0f2fe;
-      border: 1px solid rgba(56, 189, 248, 0.9);
-    }
-
-    .toast {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      background: rgba(15, 23, 42, 0.94);
-      border: 1px solid rgba(56, 189, 248, 0.7);
-      color: #e0f2fe;
-      display: none;
-      z-index: 80;
-    }
-
-    .toast.show {
+    .pill {
       display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 11px;
+      border: 1px solid rgba(55,65,81,1);
+      color: var(--text-soft);
     }
   </style>
 </head>
-
 <body>
-  <div class="app">
-    <!-- 顶部导航 -->
-    <header class="top-nav">
-      <div class="brand">
-        <div class="logo-square"><span>A</span></div>
-        <div>
-          <div class="brand-text-main">AIFreelance Hub</div>
-          <div class="brand-text-sub" data-i18n="brand-sub">Hire AI-Powered Freelancers</div>
+<div class="page">
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="nav">
+        <div class="brand">
+          <div class="brand-logo">A</div>
+          <div>
+            <div class="brand-text-title" data-i18n="brand_title">AIFreelance Hub</div>
+            <div class="brand-text-sub" data-i18n="brand_sub">
+              Hire AI-powered freelancers worldwide
+            </div>
+          </div>
+        </div>
+        <div class="nav-right">
+          <select id="langSelect" class="lang-select" title="Language">
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+            <option value="ar">العربية</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+          </select>
+          <button id="btnNavLogin" class="nav-btn nav-btn-outline" data-i18n="nav_login">
+            Log in / Sign up
+          </button>
+          <button id="btnNavNewTask" class="nav-btn nav-btn-primary" data-i18n="nav_post_task">
+            Post a Task
+          </button>
         </div>
       </div>
+    </div>
+  </header>
 
-      <nav class="nav-links">
-        <a href="#task-hall" data-i18n="nav-tasks">Task Hall</a>
-        <a href="#how-it-works" data-i18n="nav-how">How It Works</a>
-        <a href="#pricing" data-i18n="nav-pricing">Pricing</a>
-      </nav>
-
-      <div class="nav-actions">
-        <select id="langSelect" class="lang-select" aria-label="Language">
-          <option value="en">English</option>
-          <option value="zh">中文</option>
-          <option value="ar">العربية</option>
-          <option value="fr">Français</option>
-          <option value="de">Deutsch</option>
-        </select>
-        <button class="btn btn-outline" id="btnOpenLogin" data-i18n="btn-login">Log in / Register</button>
-      </div>
-    </header>
-
-    <!-- Hero -->
+  <!-- Main -->
+  <main>
     <section class="hero">
-      <div class="hero-left">
-        <div class="hero-tagline">
-          <span class="pill">
-            <span>⚡</span>
-            <span data-i18n="hero-pill">AI + Freelancers + Stripe in one place</span>
-          </span>
-        </div>
-        <h1 class="hero-title">
-          <span data-i18n="hero-title">Hire <span class="emphasis">AI-powered freelancers</span> for writing, design & automation.</span>
-        </h1>
-        <p class="hero-subtitle" data-i18n="hero-subtitle">
-          Publish tasks in the global task hall, let vetted freelancers pick them up, and accept secure online payments via Stripe.
-        </p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" id="btnOpenCreateTask" data-i18n="hero-post-task">Post a Task</button>
-          <button class="btn btn-outline" id="btnScrollTasks" data-i18n="hero-browse-tasks">Browse Open Tasks</button>
-        </div>
-        <div class="hero-note">
-          <span data-i18n="hero-note">
-            Simple transparent pricing. Contact your freelancer directly via WhatsApp or email — already trusted by clients in the US, UK and EU.
-          </span>
-        </div>
-      </div>
+      <div class="container hero-inner">
+        <div>
+          <h1 class="hero-title">
+            <span data-i18n="hero_title_1">Hire AI-powered</span>
+            <span class="hero-title-gradient" data-i18n="hero_title_2">
+              Freelancers & Automation Experts
+            </span>
+          </h1>
+          <p class="hero-subtitle" data-i18n="hero_sub">
+            Post tasks, hire vetted AI freelancers, and get paid automatically through
+            Stripe – one dashboard for writing, design and automation.
+          </p>
 
-      <div class="hero-right">
+          <div class="hero-badges">
+            <span class="badge">
+              <span class="badge-dot"></span>
+              <span data-i18n="hero_badge_1">US / UK / EU clients ready</span>
+            </span>
+            <span class="badge">
+              ⚡ <span data-i18n="hero_badge_2">AI-assisted, human-reviewed output</span>
+            </span>
+            <span class="badge">
+              💳 <span data-i18n="hero_badge_3">Stripe online payments</span>
+            </span>
+          </div>
+
+          <div class="hero-actions">
+            <button id="btnHeroPost" class="btn btn-primary" data-i18n="hero_cta_client">
+              Post a client task
+            </button>
+            <button id="btnHeroFreelancer" class="btn btn-secondary" data-i18n="hero_cta_freelancer">
+              I am a freelancer
+            </button>
+          </div>
+          <p class="hero-note" data-i18n="hero_note">
+            Clear pricing. Talk directly via WhatsApp or email after you accept a task.
+          </p>
+        </div>
+
         <div class="hero-card">
-          <div class="hero-card-header">
-            <div>
-              <div class="hero-card-title" data-i18n="hero-card-title">AI Task Dashboard</div>
-              <div class="hero-card-sub" data-i18n="hero-card-sub">Post & accept tasks in real time</div>
-            </div>
-            <div class="hero-badge" data-i18n="hero-card-badge">Live • Instant Stripe payouts</div>
-          </div>
-
-          <div class="hero-list">
-            <div class="hero-list-item">
-              <span class="main">
-                <span class="hero-pill" data-i18n="hero-pill-a">A) Task Hall</span>
-                <span data-i18n="hero-card-row-a">Anyone can publish public or private tasks.</span>
+          <div class="hero-card-inner">
+            <div class="hero-card-header">
+              <span class="hero-pill" data-i18n="hero_card_title">
+                Live Task Snapshot
               </span>
-              <small class="hero-card-sub" data-i18n="hero-card-row-a-sub">Post & manage in one place</small>
-            </div>
-            <div class="hero-list-item">
-              <span class="main">
-                <span class="hero-pill" data-i18n="hero-pill-b">B) Freelancer Login</span>
-                <span data-i18n="hero-card-row-b">Freelancers register, you earn a platform fee.</span>
+              <span class="pill">
+                🪙 <span data-i18n="hero_card_safe">Secure Stripe payouts</span>
               </span>
-              <small class="hero-card-sub" data-i18n="hero-card-row-b-sub">Track freelancers & orders</small>
             </div>
-            <div class="hero-list-item">
-              <span class="main">
-                <span class="hero-pill" data-i18n="hero-pill-c">C) Stripe</span>
-                <span data-i18n="hero-card-row-c">Clients pay securely in USD, EUR and more.</span>
+            <div class="hero-stats">
+              <span data-i18n="hero_card_stat1">
+                Open tasks: <strong id="statOpen">0</strong>
               </span>
-              <small class="hero-card-sub" data-i18n="hero-card-row-c-sub">Replace manual invoices</small>
+              <span data-i18n="hero_card_stat2">
+                In progress: <strong id="statProgress">0</strong>
+              </span>
+              <span data-i18n="hero_card_stat3">
+                Completed: <strong id="statCompleted">0</strong>
+              </span>
             </div>
-            <div class="hero-list-item">
-              <span class="main">
-                <span class="hero-pill" data-i18n="hero-pill-d">D) Multi-language</span>
-                <span data-i18n="hero-card-row-d">English, Chinese, Arabic, French, German.</span>
+            <div class="task-table-wrapper" style="margin-top:6px;">
+              <table>
+                <thead>
+                <tr>
+                  <th data-i18n="tbl_task">Task</th>
+                  <th data-i18n="tbl_budget">Budget</th>
+                  <th data-i18n="tbl_status">Status</th>
+                </tr>
+                </thead>
+                <tbody id="heroMiniTasks"></tbody>
+              </table>
+            </div>
+            <div class="hero-card-footer">
+              <span data-i18n="hero_card_footer">
+                New AI writing & automation tasks added daily.
               </span>
-              <small class="hero-card-sub" data-i18n="hero-card-row-d-sub">Serve global high-value clients</small>
+              <button id="btnHeroViewAll" class="btn-table" style="margin-left:10px;" data-i18n="hero_view_all">
+                View all
+              </button>
             </div>
           </div>
-
-          <div class="helper-text" style="margin-top:6px;" data-i18n="hero-card-footer">
-            Tip: connect your existing Stripe account, paste your Payment Link, and start accepting online payments today.
-          </div>
-        </div>
-        <div class="hero-wave"></div>
-      </div>
-    </section>
-
-    <!-- Task Hall -->
-    <section id="task-hall">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title" data-i18n="tasks-title">Task Hall</h2>
-          <p class="section-subtitle" data-i18n="tasks-subtitle">
-            Clients and freelancers can publish, accept and manage tasks directly inside this website.
-          </p>
-        </div>
-        <div class="section-actions">
-          <button class="btn btn-outline" id="btnCreateTaskSecondary" data-i18n="tasks-btn-create">New Task</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="task-filters">
-          <div class="task-search">
-            <span class="task-search-icon">🔍</span>
-            <input id="taskSearch" class="field-input" type="search" data-i18n-placeholder="tasks-search"
-              placeholder="Search task title or tags…" />
-          </div>
-          <button class="chip active" data-status-filter="all" id="chipAll" data-i18n="tasks-filter-all">All</button>
-          <button class="chip" data-status-filter="open" data-i18n="tasks-filter-open">Open</button>
-          <button class="chip" data-status-filter="in_progress" data-i18n="tasks-filter-progress">In progress</button>
-          <button class="chip" data-status-filter="completed" data-i18n="tasks-filter-completed">Completed</button>
-        </div>
-
-        <div style="overflow-x:auto;">
-          <table class="task-table" id="taskTable">
-            <thead>
-              <tr>
-                <th data-i18n="tasks-col-title">Task</th>
-                <th data-i18n="tasks-col-budget">Budget</th>
-                <th data-i18n="tasks-col-owner">Client</th>
-                <th data-i18n="tasks-col-status">Status</th>
-                <th data-i18n="tasks-col-actions">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="taskTableBody">
-              <!-- JS renders rows -->
-            </tbody>
-          </table>
-        </div>
-        <div class="helper-text" style="margin-top:8px;" data-i18n="tasks-helper">
-          Note: This is a front-end marketplace. All data is stored in your browser (localStorage). Connect to your own
-          backend APIs when you are ready for production.
         </div>
       </div>
     </section>
 
-    <!-- How it works -->
-    <section id="how-it-works">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title" data-i18n="how-title">How it works</h2>
-          <p class="section-subtitle" data-i18n="how-subtitle">
-            Three simple flows: clients publish tasks, freelancers deliver, Stripe collects payments.
-          </p>
-        </div>
-      </div>
-
-      <div class="cols-3">
-        <div class="mini-card">
-          <div class="mini-card-title" data-i18n="how-step1-title">1. Clients post tasks</div>
-          <p data-i18n="how-step1-text">
-            Clients describe requirements, budget and deadline. Tasks appear in the Task Hall and can be private or
-            public.
-          </p>
-        </div>
-        <div class="mini-card">
-          <div class="mini-card-title" data-i18n="how-step2-title">2. Freelancers accept & deliver</div>
-          <p data-i18n="how-step2-text">
-            Registered freelancers log in, accept tasks, communicate via WhatsApp or email, and upload final work.
-          </p>
-        </div>
-        <div class="mini-card">
-          <div class="mini-card-title" data-i18n="how-step3-title">3. Stripe collects payments</div>
-          <p data-i18n="how-step3-text">
-            When clients are satisfied, they pay securely via Stripe Payment Link or Checkout. Your platform fee is
-            included.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title" data-i18n="pricing-title">Pricing for your platform</h2>
-          <p class="section-subtitle" data-i18n="pricing-subtitle">
-            Charge a small service fee on each paid task. The rest goes directly to your freelancers.
-          </p>
-        </div>
-      </div>
-
-      <div class="cols-3">
-        <div class="mini-card">
-          <div class="price-highlight" data-i18n="pricing-plan1-price">0% platform fee</div>
-          <div class="price-sub" data-i18n="pricing-plan1-sub">
-            For your very first clients. Perfect to test your funnel.
-          </div>
-          <p data-i18n="pricing-plan1-text">
-            You can start with no markup, just pass Stripe’s processing fees to your clients. Later, adjust the fee in
-            Stripe dashboard.
-          </p>
-        </div>
-        <div class="mini-card">
-          <div class="price-highlight" data-i18n="pricing-plan2-price">5–15% fee</div>
-          <div class="price-sub" data-i18n="pricing-plan2-sub">
-            Recommended for AI-powered services and consulting.
-          </div>
-          <p data-i18n="pricing-plan2-text">
-            Charge a dynamic service fee depending on task size or client tier. Update the percentage in your Stripe
-            products.
-          </p>
-        </div>
-        <div class="mini-card">
-          <div class="price-highlight" data-i18n="pricing-plan3-price">Custom retainers</div>
-          <div class="price-sub" data-i18n="pricing-plan3-sub">
-            Flat monthly packages for VIP clients.
-          </div>
-          <p data-i18n="pricing-plan3-text">
-            Create subscription products in Stripe for clients who need ongoing content, design, or automation work each
-            month.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <div>
-        <span data-i18n="footer-left">
-          Contact via WhatsApp or email for onboarding. Connect your own Stripe account before going live.
-        </span>
-      </div>
-      <div>
-        <span class="badge-small" data-i18n="footer-right">Front-end only demo – connect to your APIs for production</span>
-      </div>
-    </footer>
-  </div>
-
-  <!-- 登录 / 注册 Modal -->
-  <div class="modal-backdrop" id="authModal">
-    <div class="modal">
-      <button class="modal-close" data-close>✕</button>
-      <div class="modal-header">
-        <div class="modal-title" data-i18n="auth-title">Freelancer & client access</div>
-        <div class="modal-sub" data-i18n="auth-sub">
-          Create an account for yourself and your freelancers. Data is stored locally in your browser for now.
-        </div>
-      </div>
-
-      <div class="tab-row">
-        <button class="tab active" data-tab="login" data-i18n="auth-tab-login">Log in</button>
-        <button class="tab" data-tab="register" data-i18n="auth-tab-register">Register</button>
-      </div>
-
-      <div id="authLoginPane">
-        <div class="form-grid">
+    <!-- Task Board -->
+    <section>
+      <div class="container">
+        <div class="section-header">
           <div>
-            <div class="field-label" data-i18n="auth-email-label">Email</div>
-            <input id="loginEmail" type="email" class="field-input" data-i18n-placeholder="auth-email-placeholder"
-              placeholder="your@email.com" />
-          </div>
-          <div>
-            <div class="field-label" data-i18n="auth-password-label">Password</div>
-            <input id="loginPassword" type="password" class="field-input"
-              data-i18n-placeholder="auth-password-placeholder" placeholder="••••••••" />
-          </div>
-          <div class="text-right">
-            <button class="btn btn-primary" id="btnLogin" data-i18n="auth-btn-login">Log in</button>
-          </div>
-          <div class="helper-text" data-i18n="auth-login-helper">
-            For a real system, connect this form to your authentication API (JWT, OAuth, etc.).
+            <h2 class="section-title" data-i18n="section_tasks_title">Task Marketplace</h2>
+            <p class="section-sub" data-i18n="section_tasks_sub">
+              Clients and freelancers can manage everything here – post tasks,
+              accept work, and pay via Stripe.
+            </p>
           </div>
         </div>
-      </div>
 
-      <div id="authRegisterPane" style="display:none;">
-        <div class="form-grid">
-          <div>
-            <div class="field-label" data-i18n="auth-name-label">Name</div>
-            <input id="regName" type="text" class="field-input" data-i18n-placeholder="auth-name-placeholder"
-              placeholder="Your full name" />
-          </div>
-          <div>
-            <div class="field-label" data-i18n="auth-email-label">Email</div>
-            <input id="regEmail" type="email" class="field-input" data-i18n-placeholder="auth-email-placeholder"
-              placeholder="your@email.com" />
-          </div>
-          <div>
-            <div class="field-label" data-i18n="auth-password-label">Password</div>
-            <input id="regPassword" type="password" class="field-input"
-              data-i18n-placeholder="auth-password-placeholder" placeholder="Set a password" />
-          </div>
-          <div>
-            <div class="field-label" data-i18n="auth-role-label">Role</div>
-            <select id="regRole" class="field-select">
-              <option value="client" data-i18n="auth-role-client">Client</option>
-              <option value="freelancer" data-i18n="auth-role-freelancer">Freelancer</option>
+        <div class="card">
+          <div class="task-toolbar">
+            <input id="searchInput" class="input" type="text" placeholder="Search tasks…" />
+            <select id="filterStatus" class="select">
+              <option value="all" data-i18n="filter_status_all">All statuses</option>
+              <option value="open" data-i18n="filter_status_open">Open</option>
+              <option value="in_progress" data-i18n="filter_status_progress">In progress</option>
+              <option value="completed" data-i18n="filter_status_completed">Completed</option>
             </select>
+            <select id="filterRoleView" class="select">
+              <option value="all" data-i18n="filter_role_all">All roles</option>
+              <option value="client" data-i18n="filter_role_client">My posted tasks</option>
+              <option value="freelancer" data-i18n="filter_role_freelancer">My accepted tasks</option>
+            </select>
+            <button id="btnNewTask" class="btn-sm" data-i18n="btn_post_task">
+              + Post a new task
+            </button>
+            <span class="helper-text" style="margin-left:auto;" id="currentUserLabel"></span>
           </div>
+
+          <div class="task-table-wrapper">
+            <table>
+              <thead>
+              <tr>
+                <th data-i18n="tbl_task">Task</th>
+                <th data-i18n="tbl_budget">Budget</th>
+                <th data-i18n="tbl_client">Client</th>
+                <th data-i18n="tbl_location">Location</th>
+                <th data-i18n="tbl_status">Status</th>
+                <th data-i18n="tbl_actions">Actions</th>
+              </tr>
+              </thead>
+              <tbody id="taskTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info: How it works & Pricing -->
+    <section>
+      <div class="container">
+        <div class="section-header">
           <div>
-            <div class="field-label" data-i18n="auth-ref-code-label">Referral / profit code (optional)</div>
-            <input id="regRefCode" type="text" class="field-input"
-              data-i18n-placeholder="auth-ref-code-placeholder"
-              placeholder="Track which freelancer you invited" />
-            <div class="helper-text" data-i18n="auth-ref-code-helper">
-              When freelancers register with your code, you can record and pay commissions from Stripe payouts.
-            </div>
-          </div>
-          <div class="text-right">
-            <button class="btn btn-primary" id="btnRegister" data-i18n="auth-btn-register">Register account</button>
+            <h2 class="section-title" data-i18n="section_how_title">How AIFreelance Hub works</h2>
+            <p class="section-sub" data-i18n="section_how_sub">
+              A simple flow for both clients and freelancers. You decide the pricing and Stripe payout rules.
+            </p>
           </div>
         </div>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3 class="info-card-title" data-i18n="how_client_title">For clients</h3>
+            <ul class="dot-list">
+              <li data-i18n="how_client_1">Post a task with your budget and Stripe payment link.</li>
+              <li data-i18n="how_client_2">Review freelancers who accept, chat via WhatsApp or email.</li>
+              <li data-i18n="how_client_3">Pay securely through Stripe and receive AI-assisted results.</li>
+            </ul>
+          </article>
+
+          <article class="info-card">
+            <h3 class="info-card-title" data-i18n="how_freelancer_title">For freelancers</h3>
+            <ul class="dot-list">
+              <li data-i18n="how_freelancer_1">Create a freelancer account and complete your profile.</li>
+              <li data-i18n="how_freelancer_2">Browse open tasks and accept the ones that match your skills.</li>
+              <li data-i18n="how_freelancer_3">Deliver work and coordinate Stripe payouts with the client.</li>
+            </ul>
+          </article>
+
+          <article class="info-card">
+            <h3 class="info-card-title" data-i18n="how_owner_title">For platform owner (you)</h3>
+            <ul class="dot-list">
+              <li data-i18n="how_owner_1">Use Stripe prices or Payment Links with a built-in platform fee.</li>
+              <li data-i18n="how_owner_2">Decide which clients and freelancers you invite into the system.</li>
+              <li data-i18n="how_owner_3">Focus on marketing and relationships – the site handles workflows.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>&copy; <span id="year"></span> AIFreelance Hub.</span>
+        <span data-i18n="footer_rights">All rights reserved. This site does not store payment details – Stripe handles all payments.</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Login / Register Modal -->
+<div class="modal-backdrop" id="authModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title" data-i18n="auth_title">Log in / Sign up</h3>
+        <p class="helper-text" data-i18n="auth_sub">
+          One account can both post tasks and work as a freelancer.
+        </p>
+      </div>
+      <button class="modal-close" data-close="authModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="label" for="authEmail" data-i18n="auth_email">Email</label>
+        <input id="authEmail" type="email" class="input" placeholder="you@example.com" />
+      </div>
+      <div class="form-group">
+        <label class="label" for="authName" data-i18n="auth_name">Display name</label>
+        <input id="authName" type="text" class="input" placeholder="Your name on the platform" />
+      </div>
+      <div class="form-group">
+        <label class="label" for="authPassword" data-i18n="auth_password">Password</label>
+        <input id="authPassword" type="password" class="input" placeholder="Minimum 6 characters" />
+      </div>
+      <div class="form-group">
+        <div class="label" data-i18n="auth_role_label">Default role after login</div>
+        <div class="radio-row">
+          <label><input type="radio" name="authRole" value="client" checked /> <span data-i18n="auth_role_client">Client</span></label>
+          <label><input type="radio" name="authRole" value="freelancer" /> <span data-i18n="auth_role_freelancer">Freelancer</span></label>
+        </div>
+      </div>
+      <div id="authError" class="error-text" style="display:none;"></div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" data-close="authModal" data-i18n="btn_cancel">Cancel</button>
+        <button id="btnAuthSubmit" class="btn btn-primary" data-i18n="auth_submit">Continue</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- 新任务 Modal -->
-  <div class="modal-backdrop" id="taskModal">
-    <div class="modal">
-      <button class="modal-close" data-close>✕</button>
-      <div class="modal-header">
-        <div class="modal-title" data-i18n="task-modal-title">Create new task</div>
-        <div class="modal-sub" data-i18n="task-modal-sub">
-          Task metadata is stored in your browser. Later, connect this form to your backend API.
+<!-- New Task Modal -->
+<div class="modal-backdrop" id="taskModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h3 class="modal-title" data-i18n="task_modal_title">Post a new task</h3>
+        <p class="helper-text" data-i18n="task_modal_sub">
+          Add as much detail as possible. You can paste a Stripe Payment Link for online payment.
+        </p>
+      </div>
+      <button class="modal-close" data-close="taskModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="label" for="taskTitle" data-i18n="task_title_label">Title</label>
+        <input id="taskTitle" class="input" placeholder="e.g. AI long-form article about retirement investing" />
+      </div>
+      <div class="form-group">
+        <label class="label" for="taskDescription" data-i18n="task_desc_label">Description</label>
+        <textarea id="taskDescription" class="textarea"
+                  placeholder="Explain what you need, target audience, style, tone, and deadline."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="label" data-i18n="task_budget_label">Budget</label>
+        <div style="display:flex; gap:8px;">
+          <select id="taskCurrency" class="select" style="max-width:90px;">
+            <option value="USD">$ USD</option>
+            <option value="EUR">€ EUR</option>
+            <option value="GBP">£ GBP</option>
+          </select>
+          <input id="taskBudget" type="number" class="input" min="0" step="1" style="flex:1;" placeholder="450" />
         </div>
       </div>
-
-      <div class="form-grid">
-        <div>
-          <div class="field-label" data-i18n="task-title-label">Task title</div>
-          <input id="taskTitle" type="text" class="field-input" data-i18n-placeholder="task-title-placeholder"
-            placeholder="e.g. AI blog series for US market" />
-        </div>
-        <div>
-          <div class="field-label" data-i18n="task-desc-label">Description</div>
-          <textarea id="taskDescription" class="field-textarea"
-            data-i18n-placeholder="task-desc-placeholder"
-            placeholder="Describe deliverables, tone, language, deadline…"></textarea>
-        </div>
-        <div>
-          <div class="field-label" data-i18n="task-budget-label">Budget (currency + amount)</div>
-          <input id="taskBudget" type="text" class="field-input" data-i18n-placeholder="task-budget-placeholder"
-            placeholder="USD 500" />
-        </div>
-        <div>
-          <div class="field-label" data-i18n="task-tags-label">Tags (comma separated)</div>
-          <input id="taskTags" type="text" class="field-input" data-i18n-placeholder="task-tags-placeholder"
-            placeholder="writing, linkedin, automation" />
-        </div>
-        <div>
-          <div class="field-label" data-i18n="task-stripe-label">Stripe Payment Link (optional)</div>
-          <input id="taskStripeLink" type="url" class="field-input"
-            data-i18n-placeholder="task-stripe-placeholder"
-            placeholder="https://buy.stripe.com/your-payment-link" />
-          <div class="helper-text" data-i18n="task-stripe-helper">
-            Generate a Payment Link in your Stripe dashboard and paste it here. The “Pay with Stripe” button will send
-            your client to that URL.
-          </div>
-        </div>
-        <div class="text-right">
-          <button class="btn btn-primary" id="btnSaveTask" data-i18n="task-btn-save">Save task</button>
-        </div>
+      <div class="form-group">
+        <label class="label" for="taskLocation" data-i18n="task_location_label">Client location (optional)</label>
+        <input id="taskLocation" class="input" placeholder="e.g. Houston, TX · United States" />
+      </div>
+      <div class="form-group">
+        <label class="label" for="taskStripeLink" data-i18n="task_stripe_label">Stripe Payment Link (optional)</label>
+        <input id="taskStripeLink" class="input" placeholder="https://buy.stripe.com/..." />
+        <p class="helper-text" data-i18n="task_stripe_helper">
+          Use a real Stripe Payment Link when you are in live mode. If this field is empty, the “Pay with Stripe” button will be hidden.
+        </p>
+      </div>
+      <div id="taskError" class="error-text" style="display:none;"></div>
+      <div class="modal-actions">
+        <button class="btn btn-secondary" data-close="taskModal" data-i18n="btn_cancel">Cancel</button>
+        <button id="btnTaskSubmit" class="btn btn-primary" data-i18n="task_submit">Save task</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Toast -->
-  <div class="toast" id="toast"></div>
+<script>
+  // ------- Simple local storage keys -------
+  const STORAGE_KEYS = {
+    user: 'afh_current_user',
+    users: 'afh_users',
+    tasks: 'afh_tasks',
+    lang: 'afh_lang'
+  };
 
-  <script>
-    // --------- 多语言配置 ---------
-    const translations = {
-      en: {
-        "brand-sub": "Hire AI-Powered Freelancers",
-        "nav-tasks": "Task Hall",
-        "nav-how": "How It Works",
-        "nav-pricing": "Pricing",
-        "btn-login": "Log in / Register",
-        "hero-pill": "AI + Freelancers + Stripe in one place",
-        "hero-title": "Hire <span class=\"emphasis\">AI-powered freelancers</span> for writing, design & automation.",
-        "hero-subtitle": "Publish tasks in the global task hall, let vetted freelancers pick them up, and accept secure online payments via Stripe.",
-        "hero-post-task": "Post a Task",
-        "hero-browse-tasks": "Browse Open Tasks",
-        "hero-note": "Simple transparent pricing. Contact your freelancer directly via WhatsApp or email — already trusted by clients in the US, UK and EU.",
-        "hero-card-title": "AI Task Dashboard",
-        "hero-card-sub": "Post & accept tasks in real time",
-        "hero-card-badge": "Live • Instant Stripe payouts",
-        "hero-pill-a": "A) Task Hall",
-        "hero-card-row-a": "Anyone can publish public or private tasks.",
-        "hero-card-row-a-sub": "Post & manage in one place",
-        "hero-pill-b": "B) Freelancer Login",
-        "hero-card-row-b": "Freelancers register, you earn a platform fee.",
-        "hero-card-row-b-sub": "Track freelancers & orders",
-        "hero-pill-c": "C) Stripe",
-        "hero-card-row-c": "Clients pay securely in USD, EUR and more.",
-        "hero-card-row-c-sub": "Replace manual invoices",
-        "hero-pill-d": "D) Multi-language",
-        "hero-card-row-d": "English, Chinese, Arabic, French, German.",
-        "hero-card-row-d-sub": "Serve global high-value clients",
-        "hero-card-footer": "Tip: connect your existing Stripe account, paste your Payment Link, and start accepting online payments today.",
-        "tasks-title": "Task Hall",
-        "tasks-subtitle": "Clients and freelancers can publish, accept and manage tasks directly inside this website.",
-        "tasks-btn-create": "New Task",
-        "tasks-search": "Search task title or tags…",
-        "tasks-filter-all": "All",
-        "tasks-filter-open": "Open",
-        "tasks-filter-progress": "In progress",
-        "tasks-filter-completed": "Completed",
-        "tasks-col-title": "Task",
-        "tasks-col-budget": "Budget",
-        "tasks-col-owner": "Client",
-        "tasks-col-status": "Status",
-        "tasks-col-actions": "Actions",
-        "tasks-helper": "Note: This is a front-end marketplace. All data is stored in your browser (localStorage). Connect to your own backend APIs when you are ready for production.",
-        "how-title": "How it works",
-        "how-subtitle": "Three simple flows: clients publish tasks, freelancers deliver, Stripe collects payments.",
-        "how-step1-title": "1. Clients post tasks",
-        "how-step1-text": "Clients describe requirements, budget and deadline. Tasks appear in the Task Hall and can be private or public.",
-        "how-step2-title": "2. Freelancers accept & deliver",
-        "how-step2-text": "Registered freelancers log in, accept tasks, communicate via WhatsApp or email, and upload final work.",
-        "how-step3-title": "3. Stripe collects payments",
-        "how-step3-text": "When clients are satisfied, they pay securely via Stripe Payment Link or Checkout. Your platform fee is included.",
-        "pricing-title": "Pricing for your platform",
-        "pricing-subtitle": "Charge a small service fee on each paid task. The rest goes directly to your freelancers.",
-        "pricing-plan1-price": "0% platform fee",
-        "pricing-plan1-sub": "For your very first clients. Perfect to test your funnel.",
-        "pricing-plan1-text": "You can start with no markup, just pass Stripe’s processing fees to your clients. Later, adjust the fee in Stripe dashboard.",
-        "pricing-plan2-price": "5–15% fee",
-        "pricing-plan2-sub": "Recommended for AI-powered services and consulting.",
-        "pricing-plan2-text": "Charge a dynamic service fee depending on task size or client tier. Update the percentage in your Stripe products.",
-        "pricing-plan3-price": "Custom retainers",
-        "pricing-plan3-sub": "Flat monthly packages for VIP clients.",
-        "pricing-plan3-text": "Create subscription products in Stripe for clients who need ongoing content, design, or automation work each month.",
-        "footer-left": "Contact via WhatsApp or email for onboarding. Connect your own Stripe account before going live.",
-        "footer-right": "Front-end only demo – connect to your APIs for production",
-        "auth-title": "Freelancer & client access",
-        "auth-sub": "Create an account for yourself and your freelancers. Data is stored locally in your browser for now.",
-        "auth-tab-login": "Log in",
-        "auth-tab-register": "Register",
-        "auth-email-label": "Email",
-        "auth-email-placeholder": "your@email.com",
-        "auth-password-label": "Password",
-        "auth-password-placeholder": "••••••••",
-        "auth-btn-login": "Log in",
-        "auth-login-helper": "For a real system, connect this form to your authentication API (JWT, OAuth, etc.).",
-        "auth-name-label": "Name",
-        "auth-name-placeholder": "Your full name",
-        "auth-role-label": "Role",
-        "auth-role-client": "Client",
-        "auth-role-freelancer": "Freelancer",
-        "auth-ref-code-label": "Referral / profit code (optional)",
-        "auth-ref-code-placeholder": "Track which freelancer you invited",
-        "auth-ref-code-helper": "When freelancers register with your code, you can record and pay commissions from Stripe payouts.",
-        "auth-btn-register": "Register account",
-        "task-modal-title": "Create new task",
-        "task-modal-sub": "Task metadata is stored in your browser. Later, connect this form to your backend API.",
-        "task-title-label": "Task title",
-        "task-title-placeholder": "e.g. AI blog series for US market",
-        "task-desc-label": "Description",
-        "task-desc-placeholder": "Describe deliverables, tone, language, deadline…",
-        "task-budget-label": "Budget (currency + amount)",
-        "task-budget-placeholder": "USD 500",
-        "task-tags-label": "Tags (comma separated)",
-        "task-tags-placeholder": "writing, linkedin, automation",
-        "task-stripe-label": "Stripe Payment Link (optional)",
-        "task-stripe-placeholder": "https://buy.stripe.com/your-payment-link",
-        "task-stripe-helper": "Generate a Payment Link in your Stripe dashboard and paste it here. The “Pay with Stripe” button will send your client to that URL.",
-        "task-btn-save": "Save task"
-      },
-      zh: {
-        "brand-sub": "聘请人工智能驱动的自由职业者",
-        "nav-tasks": "任务大厅",
-        "nav-how": "流程说明",
-        "nav-pricing": "收费模式",
-        "btn-login": "登录 / 注册",
-        "hero-pill": "AI + 自由职业者 + Stripe 一站式平台",
-        "hero-title": "聘请<span class=\"emphasis\">AI 驱动的自由职业者</span>完成写作、设计和自动化任务。",
-        "hero-subtitle": "在任务大厅发布需求，由经过筛选的自由职业者抢单，并通过 Stripe 完成安全在线支付。",
-        "hero-post-task": "立即发布任务",
-        "hero-browse-tasks": "查看任务大厅",
-        "hero-note": "定价简单透明。可直接通过 WhatsApp 或邮箱与自由职业者沟通，深受美英欧客户信赖。",
-        "hero-card-title": "AI 任务控制台",
-        "hero-card-sub": "实时发布与接单",
-        "hero-card-badge": "实时 • Stripe 即时到账",
-        "hero-pill-a": "A) 任务大厅",
-        "hero-card-row-a": "任何人都可以发布公开或私密任务。",
-        "hero-card-row-a-sub": "统一平台集中管理",
-        "hero-pill-b": "B) 自由职业者登录",
-        "hero-card-row-b": "自由职业者注册，你按单收取平台服务费。",
-        "hero-card-row-b-sub": "记录自由职业者与订单",
-        "hero-pill-c": "C) Stripe 支付",
-        "hero-card-row-c": "客户支持美元、欧元等多币种在线付款。",
-        "hero-card-row-c-sub": "告别手工发账单",
-        "hero-pill-d": "D) 多语言",
-        "hero-card-row-d": "支持英文、中文、阿拉伯语、法语、德语。",
-        "hero-card-row-d-sub": "轻松承接全球高净值客户",
-        "hero-card-footer": "提示：先在 Stripe 中创建 Payment Link，将链接粘贴到任务里，就可以开始收款。",
-        "tasks-title": "任务大厅",
-        "tasks-subtitle": "客户和接单方都可以在此网站内发布、接单并管理任务。",
-        "tasks-btn-create": "新建任务",
-        "tasks-search": "搜索任务标题或标签…",
-        "tasks-filter-all": "全部",
-        "tasks-filter-open": "开放中",
-        "tasks-filter-progress": "进行中",
-        "tasks-filter-completed": "已完成",
-        "tasks-col-title": "任务",
-        "tasks-col-budget": "预算",
-        "tasks-col-owner": "客户",
-        "tasks-col-status": "状态",
-        "tasks-col-actions": "操作",
-        "tasks-helper": "说明：当前为前端版本，所有数据仅保存在浏览器 localStorage 中。上线时请连接你自己的后端接口。",
-        "how-title": "流程说明",
-        "how-subtitle": "三个简单流程：客户发单、自由职业者接单交付、Stripe 线上收款。",
-        "how-step1-title": "1. 客户发布任务",
-        "how-step1-text": "客户填写需求、预算和截止时间。任务会显示在任务大厅，可设置公开或私密。",
-        "how-step2-title": "2. 自由职业者接单交付",
-        "how-step2-text": "注册自由职业者登录后接单，通过 WhatsApp 或邮箱沟通并交付成果。",
-        "how-step3-title": "3. Stripe 完成收款",
-        "how-step3-text": "客户满意后，通过 Stripe Payment Link 或 Checkout 完成付款，你的服务费已包含在价格中。",
-        "pricing-title": "平台收费模式",
-        "pricing-subtitle": "每一笔付费任务抽取少量服务费，其余金额直接给自由职业者。",
-        "pricing-plan1-price": "0% 平台费",
-        "pricing-plan1-sub": "适合前期测试客户和投放漏斗。",
-        "pricing-plan1-text": "前期可以不加价，只收 Stripe 手续费。后续可在 Stripe 后台调整服务费比例。",
-        "pricing-plan2-price": "5–15% 平台费",
-        "pricing-plan2-sub": "适合 AI 服务和咨询类项目。",
-        "pricing-plan2-text": "根据任务大小或客户等级设置不同服务费，在 Stripe 产品中调整百分比即可。",
-        "pricing-plan3-price": "定制包月方案",
-        "pricing-plan3-sub": "为 VIP 客户设置固定月费。",
-        "pricing-plan3-text": "在 Stripe 中创建订阅产品，针对每月持续需要内容、设计或自动化工作的客户。",
-        "footer-left": "可通过 WhatsApp 或邮箱联系你完成入驻。正式上线前，请先绑定你自己的 Stripe 账号。",
-        "footer-right": "仅前端演示版本——正式使用时请接入你的后端 API。",
-        "auth-title": "自由职业者 / 客户登录入口",
-        "auth-sub": "为你自己和自由职业者创建账户，目前数据仅保存在本地浏览器。",
-        "auth-tab-login": "登录",
-        "auth-tab-register": "注册",
-        "auth-email-label": "邮箱",
-        "auth-email-placeholder": "your@email.com",
-        "auth-password-label": "密码",
-        "auth-password-placeholder": "••••••••",
-        "auth-btn-login": "登录",
-        "auth-login-helper": "正式环境中，请将此表单连接到你的身份认证接口（JWT、OAuth 等）。",
-        "auth-name-label": "姓名",
-        "auth-name-placeholder": "你的姓名",
-        "auth-role-label": "角色",
-        "auth-role-client": "客户（发单）",
-        "auth-role-freelancer": "自由职业者（接单）",
-        "auth-ref-code-label": "邀请 / 分润编码（选填）",
-        "auth-ref-code-placeholder": "用来标记你邀请的自由职业者",
-        "auth-ref-code-helper": "自由职业者使用你的编码注册时，你可以在 Stripe 回款里记录和发放分成。",
-        "auth-btn-register": "创建账户",
-        "task-modal-title": "新建任务",
-        "task-modal-sub": "任务信息当前保存在浏览器中，后续可接入你的后端数据库。",
-        "task-title-label": "任务标题",
-        "task-title-placeholder": "例如：面向美国市场的 AI 博客系列",
-        "task-desc-label": "任务描述",
-        "task-desc-placeholder": "具体交付物、写作风格、语言、截止时间等…",
-        "task-budget-label": "预算（币种 + 金额）",
-        "task-budget-placeholder": "例如：USD 500",
-        "task-tags-label": "标签（英文逗号分隔）",
-        "task-tags-placeholder": "writing, linkedin, automation",
-        "task-stripe-label": "Stripe 收款链接（可选）",
-        "task-stripe-placeholder": "https://buy.stripe.com/your-payment-link",
-        "task-stripe-helper": "在 Stripe 后台生成 Payment Link 后粘贴到这里，“Stripe 支付”按钮会跳转至该链接。",
-        "task-btn-save": "保存任务"
-      },
-      ar: {
-        "brand-sub": "توظيف مستقلين مدعومين بالذكاء الاصطناعي",
-        "nav-tasks": "قاعة المهام",
-        "nav-how": "كيفية العمل",
-        "nav-pricing": "الأسعار",
-        "btn-login": "تسجيل الدخول / إنشاء حساب",
-        "hero-pill": "ذكاء اصطناعي + مستقلون + Stripe في منصة واحدة",
-        "hero-title": "وظّف <span class=\"emphasis\">مستقلين مدعومين بالذكاء الاصطناعي</span> للكتابة والتصميم والأتمتة.",
-        "hero-subtitle": "انشر مهامك في قاعة المهام العالمية، ودع المستقلين المعتمدين ينفذونها، وتلقّ المدفوعات الآمنة عبر Stripe.",
-        "hero-post-task": "إنشاء مهمة",
-        "hero-browse-tasks": "تصفح المهام المتاحة",
-        "hero-note": "تسعير بسيط وشفاف. تواصل مباشرة عبر واتساب أو البريد الإلكتروني. موثوق من عملاء في أمريكا وأوروبا.",
-        "hero-card-title": "لوحة تحكم المهام",
-        "hero-card-sub": "نشر وقبول المهام في الوقت الحقيقي",
-        "hero-card-badge": "مباشر • تحويلات Stripe فورية",
-        "hero-pill-a": "A) قاعة المهام",
-        "hero-card-row-a": "يمكن لأي شخص نشر مهام عامة أو خاصة.",
-        "hero-card-row-a-sub": "إدارة كاملة من مكان واحد",
-        "hero-pill-b": "B) دخول المستقلين",
-        "hero-card-row-b": "يسجل المستقلون، وتربح أنت عمولة المنصة.",
-        "hero-card-row-b-sub": "متابعة المستقلين والطلبات",
-        "hero-pill-c": "C) Stripe",
-        "hero-card-row-c": "يدفع العملاء بأمان بالدولار أو اليورو وغيرها.",
-        "hero-card-row-c-sub": "استبدل الفواتير اليدوية",
-        "hero-pill-d": "D) لغات متعددة",
-        "hero-card-row-d": "الإنجليزية، الصينية، العربية، الفرنسية، الألمانية.",
-        "hero-card-row-d-sub": "اخدم عملاء دوليين ذوي قيمة عالية",
-        "hero-card-footer": "نصيحة: أنشئ رابط دفع Payment Link في Stripe وضعه هنا لبدء استقبال المدفوعات فوراً."
-      },
-      fr: {
-        "brand-sub": "Engagez des freelances propulsés par l’IA",
-        "nav-tasks": "Hall des missions",
-        "nav-how": "Fonctionnement",
-        "nav-pricing": "Tarifs",
-        "btn-login": "Connexion / Inscription",
-        "hero-pill": "IA + freelances + Stripe sur une seule plateforme",
-        "hero-title": "Engagez des <span class=\"emphasis\">freelances propulsés par l’IA</span> pour l’écriture, le design et l’automatisation.",
-        "hero-subtitle": "Publiez vos missions dans le hall, laissez des freelances qualifiés les accepter et encaissez les paiements sécurisés via Stripe."
-      },
-      de: {
-        "brand-sub": "KI-unterstützte Freelancer beauftragen",
-        "nav-tasks": "Auftragsbörse",
-        "nav-how": "Ablauf",
-        "nav-pricing": "Preise",
-        "btn-login": "Login / Registrieren",
-        "hero-pill": "KI + Freelancer + Stripe auf einer Plattform",
-        "hero-title": "Beauftrage <span class=\"emphasis\">KI-unterstützte Freelancer</span> für Texte, Design & Automatisierung.",
-        "hero-subtitle": "Veröffentliche Aufträge in der Börse, lass geprüfte Freelancer sie annehmen und erhalte sichere Onlinezahlungen über Stripe."
-      }
-    };
+  // ------- i18n dictionary -------
+  const translations = {
+    en: {
+      brand_title: 'AIFreelance Hub',
+      brand_sub: 'Hire AI-powered freelancers worldwide',
+      nav_login: 'Log in / Sign up',
+      nav_post_task: 'Post a Task',
+      hero_title_1: 'Hire AI-powered',
+      hero_title_2: 'Freelancers & Automation Experts',
+      hero_sub: 'Post tasks, hire vetted AI freelancers, and get paid automatically through Stripe – one dashboard for writing, design and automation.',
+      hero_badge_1: 'US / UK / EU clients ready',
+      hero_badge_2: 'AI-assisted, human-reviewed output',
+      hero_badge_3: 'Stripe online payments',
+      hero_cta_client: 'Post a client task',
+      hero_cta_freelancer: 'I am a freelancer',
+      hero_note: 'Clear pricing. Talk directly via WhatsApp or email after you accept a task.',
+      hero_card_title: 'Live Task Snapshot',
+      hero_card_safe: 'Secure Stripe payouts',
+      hero_card_stat1: 'Open tasks:',
+      hero_card_stat2: 'In progress:',
+      hero_card_stat3: 'Completed:',
+      hero_card_footer: 'New AI writing & automation tasks added daily.',
+      hero_view_all: 'View all',
+      section_tasks_title: 'Task Marketplace',
+      section_tasks_sub: 'Clients and freelancers can manage everything here – post tasks, accept work, and pay via Stripe.',
+      filter_status_all: 'All statuses',
+      filter_status_open: 'Open',
+      filter_status_progress: 'In progress',
+      filter_status_completed: 'Completed',
+      filter_role_all: 'All roles',
+      filter_role_client: 'My posted tasks',
+      filter_role_freelancer: 'My accepted tasks',
+      btn_post_task: '+ Post a new task',
+      tbl_task: 'Task',
+      tbl_budget: 'Budget',
+      tbl_client: 'Client',
+      tbl_location: 'Location',
+      tbl_status: 'Status',
+      tbl_actions: 'Actions',
+      section_how_title: 'How AIFreelance Hub works',
+      section_how_sub: 'A simple flow for both clients and freelancers. You decide the pricing and Stripe payout rules.',
+      how_client_title: 'For clients',
+      how_client_1: 'Post a task with your budget and Stripe payment link.',
+      how_client_2: 'Review freelancers who accept, chat via WhatsApp or email.',
+      how_client_3: 'Pay securely through Stripe and receive AI-assisted results.',
+      how_freelancer_title: 'For freelancers',
+      how_freelancer_1: 'Create a freelancer account and complete your profile.',
+      how_freelancer_2: 'Browse open tasks and accept the ones that match your skills.',
+      how_freelancer_3: 'Deliver work and coordinate Stripe payouts with the client.',
+      how_owner_title: 'For platform owner (you)',
+      how_owner_1: 'Use Stripe prices or Payment Links with a built-in platform fee.',
+      how_owner_2: 'Decide which clients and freelancers you invite into the system.',
+      how_owner_3: 'Focus on marketing and relationships – the site handles workflows.',
+      footer_rights: 'All rights reserved. This site does not store payment details – Stripe handles all payments.',
+      auth_title: 'Log in / Sign up',
+      auth_sub: 'One account can both post tasks and work as a freelancer.',
+      auth_email: 'Email',
+      auth_name: 'Display name',
+      auth_password: 'Password',
+      auth_role_label: 'Default role after login',
+      auth_role_client: 'Client',
+      auth_role_freelancer: 'Freelancer',
+      auth_submit: 'Continue',
+      btn_cancel: 'Cancel',
+      task_modal_title: 'Post a new task',
+      task_modal_sub: 'Add as much detail as possible. You can paste a Stripe Payment Link for online payment.',
+      task_title_label: 'Title',
+      task_desc_label: 'Description',
+      task_budget_label: 'Budget',
+      task_location_label: 'Client location (optional)',
+      task_stripe_label: 'Stripe Payment Link (optional)',
+      task_stripe_helper: 'Use a real Stripe Payment Link when you are in live mode. If this field is empty, the “Pay with Stripe” button will be hidden.',
+      task_submit: 'Save task'
+    },
+    zh: {
+      brand_title: 'AIFreelance Hub',
+      brand_sub: '雇佣由 AI 驱动的全球自由职业者',
+      nav_login: '登录 / 注册',
+      nav_post_task: '发布任务',
+      hero_title_1: '雇佣 AI 驱动的',
+      hero_title_2: '自由职业者和自动化专家',
+      hero_sub: '在一个平台上完成发单、接单、Stripe 在线收款——用于写作、设计和自动化。',
+      hero_badge_1: '支持美国 / 英国 / 欧洲客户',
+      hero_badge_2: 'AI + 人工复审，高质量输出',
+      hero_badge_3: 'Stripe 在线付款',
+      hero_cta_client: '我是客户，要发任务',
+      hero_cta_freelancer: '我是自由职业者',
+      hero_note: '价格透明。接单后可以通过 WhatsApp 或邮箱直接沟通。',
+      hero_card_title: '实时任务快照',
+      hero_card_safe: 'Stripe 安全结算',
+      hero_card_stat1: '开放任务：',
+      hero_card_stat2: '进行中：',
+      hero_card_stat3: '已完成：',
+      hero_card_footer: '每天都会新增 AI 写作与自动化任务。',
+      hero_view_all: '查看全部任务',
+      section_tasks_title: '任务大厅',
+      section_tasks_sub: '客户和自由职业者在这里完成全部流程：发任务、接任务、Stripe 支付。',
+      filter_status_all: '全部状态',
+      filter_status_open: '开放中',
+      filter_status_progress: '进行中',
+      filter_status_completed: '已完成',
+      filter_role_all: '全部任务',
+      filter_role_client: '我发布的任务',
+      filter_role_freelancer: '我接的任务',
+      btn_post_task: '+ 发布新任务',
+      tbl_task: '任务',
+      tbl_budget: '预算',
+      tbl_client: '客户',
+      tbl_location: '地区',
+      tbl_status: '状态',
+      tbl_actions: '操作',
+      section_how_title: '平台如何运作',
+      section_how_sub: '对客户和自由职业者都是极简流程，你来决定收费方式和 Stripe 分成。',
+      how_client_title: '客户',
+      how_client_1: '填写任务说明、预算和 Stripe 支付链接。',
+      how_client_2: '查看接单的自由职业者，通过 WhatsApp/邮箱沟通细节。',
+      how_client_3: '通过 Stripe 安全付款，收到 AI + 人工优化后的成果。',
+      how_freelancer_title: '自由职业者',
+      how_freelancer_1: '注册账号并完善个人资料。',
+      how_freelancer_2: '浏览开放任务，接适合自己的任务。',
+      how_freelancer_3: '交付成果，并与客户确认 Stripe 结算。',
+      how_owner_title: '平台拥有者（你）',
+      how_owner_1: '在 Stripe 产品/链接里设置平台抽成。',
+      how_owner_2: '你决定邀请哪些客户和自由职业者进入系统。',
+      how_owner_3: '你专注于引流和关系，网站负责流程。',
+      footer_rights: '版权所有。本网站不保存任何银行卡信息，所有付款由 Stripe 处理。',
+      auth_title: '登录 / 注册',
+      auth_sub: '一个账户即可同时发任务和接任务。',
+      auth_email: '邮箱',
+      auth_name: '显示名称',
+      auth_password: '密码',
+      auth_role_label: '登录后的默认身份',
+      auth_role_client: '客户',
+      auth_role_freelancer: '自由职业者',
+      auth_submit: '继续',
+      btn_cancel: '取消',
+      task_modal_title: '发布新任务',
+      task_modal_sub: '尽量写清楚你需要什么，可以粘贴 Stripe 支付链接以便在线收款。',
+      task_title_label: '任务标题',
+      task_desc_label: '任务描述',
+      task_budget_label: '预算',
+      task_location_label: '客户地区（可选）',
+      task_stripe_label: 'Stripe 支付链接（可选）',
+      task_stripe_helper: '开通 Stripe 正式收款后，把真实 Payment Link 粘贴到这里。如果留空，此任务不会显示“使用 Stripe 付款”按钮。',
+      task_submit: '保存任务'
+    },
+    // For brevity, other languages reuse English text
+    ar: {}, fr: {}, de: {}
+  };
+  translations.ar = translations.fr = translations.de = translations.en;
 
-    let currentLang = "en";
-
-    function applyTranslations() {
-      const langPack = translations[currentLang] || translations.en;
-
-      document.querySelectorAll("[data-i18n]").forEach((el) => {
-        const key = el.getAttribute("data-i18n");
-        const value = langPack[key] ?? translations.en[key];
-        if (value) {
-          // 支持标题里带 HTML（比如 hero-title）
-          el.innerHTML = value;
+  function applyTranslations(lang) {
+    const dict = translations[lang] || translations.en;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key]) {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = dict[key];
+        } else {
+          el.textContent = dict[key];
         }
-      });
-
-      document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
-        const key = el.getAttribute("data-i18n-placeholder");
-        const value = langPack[key] ?? translations.en[key];
-        if (value) el.placeholder = value;
-      });
-
-      const html = document.documentElement;
-      html.lang = currentLang;
-      html.dir = currentLang === "ar" ? "rtl" : "ltr";
-    }
-
-    document.getElementById("langSelect").addEventListener("change", (e) => {
-      currentLang = e.target.value || "en";
-      applyTranslations();
-      showToast(
-        currentLang === "zh"
-          ? "已切换语言"
-          : currentLang === "ar"
-            ? "تم تغيير اللغة"
-            : "Language updated"
-      );
+      }
     });
+  }
 
-    // --------- 简单用户系统（localStorage） ---------
-    const STORAGE_USER_KEY = "afh_user";
-    const STORAGE_TASKS_KEY = "afh_tasks";
-
-    function getUser() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_USER_KEY)) || null;
-      } catch {
-        return null;
-      }
+  // ------- Data helpers -------
+  function loadJSON(key, fallback) {
+    try {
+      const v = localStorage.getItem(key);
+      return v ? JSON.parse(v) : fallback;
+    } catch (e) {
+      return fallback;
     }
+  }
+  function saveJSON(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
 
-    function setUser(user) {
-      localStorage.setItem(STORAGE_USER_KEY, JSON.stringify(user));
-      updateLoginButtonLabel();
-    }
-
-    function updateLoginButtonLabel() {
-      const btn = document.getElementById("btnOpenLogin");
-      const user = getUser();
-      if (user) {
-        btn.textContent = `${user.name || "User"} (${user.role || "client"})`;
-      } else {
-        btn.textContent = translations[currentLang]?.["btn-login"] || translations.en["btn-login"];
-      }
-    }
-
-    // --------- 任务数据 ---------
-    function getTasks() {
-      try {
-        const tasks = JSON.parse(localStorage.getItem(STORAGE_TASKS_KEY));
-        if (Array.isArray(tasks)) return tasks;
-      } catch { }
-      // 默认示例任务
-      const demoTasks = [
+  function seedTasksIfEmpty() {
+    let tasks = loadJSON(STORAGE_KEYS.tasks, null);
+    if (!tasks || !Array.isArray(tasks) || !tasks.length) {
+      tasks = [
         {
-          id: Date.now(),
-          title: "AI long-form article for US retirement investors",
-          description: "3,000-word SEO article about tax-efficient investing for US retirees (55+).",
-          budget: "USD 450",
-          tags: ["writing", "finance", "seo"],
-          owner: "Sample Client",
-          status: "open",
-          stripeLink: ""
+          id: 1,
+          title: '面向美国退休投资者的 AI 长篇报道',
+          description: '撰写一篇 3,000 字的长篇文章，目标读者为即将退休的美国中产男性。需要案例研究、风险提示和清晰的小标题结构。',
+          budget: 450,
+          currency: 'USD',
+          clientName: '示例客户',
+          location: 'Houston, TX · United States',
+          status: 'open',
+          createdAt: Date.now() - 86400000,
+          createdByEmail: 'demo-client@example.com',
+          acceptedByEmail: null,
+          paymentLink: ''
         },
         {
-          id: Date.now() + 1,
-          title: "LinkedIn content + automation setup",
-          description: "10 posts + scheduling automation for a senior lawyer based in Houston.",
-          budget: "USD 900",
-          tags: ["linkedin", "automation"],
-          owner: "Sample Client",
-          status: "in_progress",
-          stripeLink: ""
+          id: 2,
+          title: 'LinkedIn 内容包（月度 10 篇）',
+          description: '为一位 55+ 美国男性高管撰写 10 篇 LinkedIn 帖子，主题围绕领导力、退休规划以及 AI 与商业。',
+          budget: 320,
+          currency: 'USD',
+          clientName: '示例客户',
+          location: 'Dallas, TX · United States',
+          status: 'open',
+          createdAt: Date.now() - 3600000,
+          createdByEmail: 'demo-client@example.com',
+          acceptedByEmail: null,
+          paymentLink: ''
+        },
+        {
+          id: 3,
+          title: 'WhatsApp AI 自动回复流程搭建',
+          description: '为美国地区客户搭建一个针对 55+ 男性的 WhatsApp 自动回复流程，包括欢迎话术、常见问题和转 Stripe 付款的逻辑设计。',
+          budget: 580,
+          currency: 'USD',
+          clientName: '示例客户',
+          location: 'Remote · Global',
+          status: 'open',
+          createdAt: Date.now(),
+          createdByEmail: 'demo-client@example.com',
+          acceptedByEmail: null,
+          paymentLink: ''
         }
       ];
-      localStorage.setItem(STORAGE_TASKS_KEY, JSON.stringify(demoTasks));
-      return demoTasks;
+      saveJSON(STORAGE_KEYS.tasks, tasks);
     }
+    return tasks;
+  }
 
-    function saveTasks(tasks) {
-      localStorage.setItem(STORAGE_TASKS_KEY, JSON.stringify(tasks));
-    }
+  function getCurrentUser() {
+    return loadJSON(STORAGE_KEYS.user, null);
+  }
+  function setCurrentUser(user) {
+    if (user) saveJSON(STORAGE_KEYS.user, user);
+    else localStorage.removeItem(STORAGE_KEYS.user);
+  }
+  function getUsers() {
+    return loadJSON(STORAGE_KEYS.users, []);
+  }
+  function setUsers(arr) {
+    saveJSON(STORAGE_KEYS.users, arr);
+  }
 
-    function renderTasks() {
-      const tbody = document.getElementById("taskTableBody");
-      tbody.innerHTML = "";
+  // ------- Rendering -------
+  let tasks = seedTasksIfEmpty();
 
-      const searchText = (document.getElementById("taskSearch").value || "").toLowerCase();
-      const statusFilter = document.querySelector(".chip.active")?.dataset.statusFilter || "all";
+  function formatCurrency(amount, currency) {
+    return (currency === 'USD' ? '$' : currency + ' ') + amount;
+  }
 
-      const tasks = getTasks();
-      tasks
-        .filter((t) => {
-          const matchesText =
-            !searchText ||
-            t.title.toLowerCase().includes(searchText) ||
-            (t.tags || []).join(",").toLowerCase().includes(searchText);
-          const matchesStatus = statusFilter === "all" || t.status === statusFilter;
-          return matchesText && matchesStatus;
-        })
-        .forEach((task) => {
-          const tr = document.createElement("tr");
+  function renderStats() {
+    const open = tasks.filter(t => t.status === 'open').length;
+    const progress = tasks.filter(t => t.status === 'in_progress').length;
+    const completed = tasks.filter(t => t.status === 'completed').length;
+    document.getElementById('statOpen').textContent = open;
+    document.getElementById('statProgress').textContent = progress;
+    document.getElementById('statCompleted').textContent = completed;
 
-          const tdTitle = document.createElement("td");
-          tdTitle.innerHTML =
-            `<div class="task-title">${task.title}</div>` +
-            `<div class="task-meta">${task.description || ""}</div>`;
-          tr.appendChild(tdTitle);
+    const mini = document.getElementById('heroMiniTasks');
+    mini.innerHTML = '';
+    tasks.slice(0, 3).forEach(t => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>
+          <span class="task-title">${t.title}</span>
+          <span class="task-meta">${t.clientName || ''}</span>
+        </td>
+        <td>${formatCurrency(t.budget, t.currency)}</td>
+        <td><span class="badge-status badge-status-${t.status === 'open' ? 'open' : t.status === 'in_progress' ? 'progress' : 'completed'}">
+          ${t.status}
+        </span></td>`;
+      mini.appendChild(tr);
+    });
+  }
 
-          const tdBudget = document.createElement("td");
-          tdBudget.textContent = task.budget || "";
-          tr.appendChild(tdBudget);
+  function renderTasks() {
+    const tbody = document.getElementById('taskTableBody');
+    tbody.innerHTML = '';
 
-          const tdOwner = document.createElement("td");
-          tdOwner.textContent = task.owner || "Client";
-          tr.appendChild(tdOwner);
+    const currentUser = getCurrentUser();
+    const statusFilter = document.getElementById('filterStatus').value;
+    const roleFilter = document.getElementById('filterRoleView').value;
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
 
-          const tdStatus = document.createElement("td");
-          const span = document.createElement("span");
-          span.classList.add("status-badge");
-          if (task.status === "open") span.classList.add("status-open");
-          else if (task.status === "in_progress") span.classList.add("status-in-progress");
-          else span.classList.add("status-completed");
-          span.textContent =
-            task.status === "open"
-              ? (currentLang === "zh" ? "开放中" : "Open")
-              : task.status === "in_progress"
-                ? (currentLang === "zh" ? "进行中" : "In progress")
-                : (currentLang === "zh" ? "已完成" : "Completed");
-          tdStatus.appendChild(span);
-          tr.appendChild(tdStatus);
+    tasks.forEach(task => {
+      if (statusFilter !== 'all' && task.status !== statusFilter) return;
 
-          const tdActions = document.createElement("td");
-          const applyBtn = document.createElement("button");
-          applyBtn.className = "btn btn-outline";
-          applyBtn.style.padding = "4px 10px";
-          applyBtn.style.fontSize = "11px";
-          applyBtn.textContent =
-            task.status === "completed"
-              ? (currentLang === "zh" ? "查看" : "View")
-              : (currentLang === "zh" ? "接单" : "Accept");
-          applyBtn.addEventListener("click", () => {
-            const user = getUser();
-            if (!user) {
-              showToast(currentLang === "zh" ? "请先登录再接单" : "Please log in before accepting a task.");
-              openModal("authModal");
-              return;
-            }
-            if (task.status === "completed") {
-              showToast(currentLang === "zh" ? "该任务已经完成。" : "This task is already completed.");
-              return;
-            }
-            task.status = "in_progress";
-            saveTasks(tasks);
-            renderTasks();
-            showToast(currentLang === "zh" ? "已接单（示例），请在真实系统中连接后端逻辑。" : "Task accepted (demo). Connect to your backend to track it.");
-          });
-          tdActions.appendChild(applyBtn);
-
-          if (task.stripeLink) {
-            const payBtn = document.createElement("button");
-            payBtn.className = "btn btn-primary";
-            payBtn.style.padding = "4px 10px";
-            payBtn.style.fontSize = "11px";
-            payBtn.style.marginLeft = "6px";
-            payBtn.textContent = currentLang === "zh" ? "Stripe 支付" : "Pay with Stripe";
-            payBtn.addEventListener("click", () => {
-              window.open(task.stripeLink, "_blank");
-            });
-            tdActions.appendChild(payBtn);
-          }
-
-          tr.appendChild(tdActions);
-          tbody.appendChild(tr);
-        });
-
-      if (!tbody.children.length) {
-        const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        td.colSpan = 5;
-        td.style.paddingTop = "10px";
-        td.style.fontSize = "12px";
-        td.style.color = "#9ca3af";
-        td.textContent =
-          currentLang === "zh"
-            ? "暂无符合条件的任务。"
-            : "No tasks match your filters yet.";
-        tr.appendChild(td);
-        tbody.appendChild(tr);
+      if (roleFilter === 'client' && currentUser) {
+        if (task.createdByEmail !== currentUser.email) return;
       }
-    }
+      if (roleFilter === 'freelancer' && currentUser) {
+        if (task.acceptedByEmail !== currentUser.email) return;
+      }
+      if (!currentUser && (roleFilter === 'client' || roleFilter === 'freelancer')) return;
 
-    // --------- Modal 通用函数 ---------
-    function openModal(id) {
-      document.getElementById(id).classList.add("show");
-    }
+      if (query && !(
+        task.title.toLowerCase().includes(query) ||
+        task.description.toLowerCase().includes(query) ||
+        (task.clientName || '').toLowerCase().includes(query)
+      )) return;
 
-    function closeModal(id) {
-      document.getElementById(id).classList.remove("show");
-    }
+      const tr = document.createElement('tr');
 
-    document.querySelectorAll("[data-close]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        btn.closest(".modal-backdrop").classList.remove("show");
+      const statusClass =
+        task.status === 'open' ? 'badge-status-open'
+          : task.status === 'in_progress' ? 'badge-status-progress'
+            : 'badge-status-completed';
+
+      let actionsHTML = '';
+
+      const loggedIn = !!currentUser;
+      const isClient = currentUser && task.createdByEmail === currentUser.email;
+      const isFreelancer = currentUser && task.acceptedByEmail === currentUser.email;
+
+      if (task.status === 'open') {
+        actionsHTML += `<button class="btn-table btn-accept ${!loggedIn ? 'btn-disabled' : ''}"
+          data-action="accept" data-id="${task.id}">
+          ${loggedIn ? 'Accept' : 'Login to accept'}
+        </button>`;
+      } else if (task.status === 'in_progress' && isClient) {
+        actionsHTML += `<button class="btn-table"
+          data-action="complete" data-id="${task.id}">
+          Mark completed
+        </button>`;
+      }
+
+      if (task.paymentLink) {
+        actionsHTML += `<button class="btn-table btn-pay"
+          data-action="pay" data-id="${task.id}">
+          Pay with Stripe
+        </button>`;
+      }
+
+      tr.innerHTML = `
+        <td>
+          <span class="task-title">${task.title}</span>
+          <span class="task-meta">${task.description.slice(0, 90)}${task.description.length > 90 ? '…' : ''}</span>
+        </td>
+        <td>${formatCurrency(task.budget, task.currency)}</td>
+        <td>${task.clientName || ''}</td>
+        <td>${task.location || ''}</td>
+        <td>
+          <span class="badge-status ${statusClass}">
+            ${task.status}
+          </span>
+        </td>
+        <td>${actionsHTML}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    renderStats();
+  }
+
+  // ------- Modals -------
+  function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
+  }
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+    backdrop.addEventListener('click', e => {
+      if (e.target === backdrop) {
+        backdrop.style.display = 'none';
+      }
+    });
+  });
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close')));
+  });
+
+  // ------- Auth logic -------
+  function updateUserLabel() {
+    const label = document.getElementById('currentUserLabel');
+    const user = getCurrentUser();
+    if (user) {
+      label.textContent = `Logged in as ${user.name} (${user.role})`;
+      document.getElementById('btnNavLogin').textContent = 'Log out';
+    } else {
+      label.textContent = '';
+      document.getElementById('btnNavLogin').textContent = translations[getCurrentLang()].nav_login;
+    }
+  }
+
+  function getCurrentLang() {
+    return localStorage.getItem(STORAGE_KEYS.lang) || 'en';
+  }
+
+  function initAuth() {
+    const btnNavLogin = document.getElementById('btnNavLogin');
+    btnNavLogin.addEventListener('click', () => {
+      const user = getCurrentUser();
+      if (user) {
+        // log out
+        setCurrentUser(null);
+        updateUserLabel();
+        renderTasks();
+      } else {
+        document.getElementById('authError').style.display = 'none';
+        openModal('authModal');
+      }
+    });
+
+    document.getElementById('btnAuthSubmit').addEventListener('click', () => {
+      const email = document.getElementById('authEmail').value.trim().toLowerCase();
+      const name = document.getElementById('authName').value.trim();
+      const pass = document.getElementById('authPassword').value;
+      const role = document.querySelector('input[name="authRole"]:checked').value;
+      const errorEl = document.getElementById('authError');
+      if (!email || !name || !pass) {
+        errorEl.textContent = 'Please fill in all fields.';
+        errorEl.style.display = 'block';
+        return;
+      }
+      if (pass.length < 6) {
+        errorEl.textContent = 'Password must be at least 6 characters.';
+        errorEl.style.display = 'block';
+        return;
+      }
+      errorEl.style.display = 'none';
+
+      let users = getUsers();
+      let existing = users.find(u => u.email === email);
+      if (!existing) {
+        existing = { email, name, password: pass, role };
+        users.push(existing);
+        setUsers(users);
+      }
+      setCurrentUser(existing);
+      updateUserLabel();
+      closeModal('authModal');
+      renderTasks();
+    });
+  }
+
+  // ------- Task creation and actions -------
+  function requireLogin(action) {
+    const user = getCurrentUser();
+    if (!user) {
+      alert('Please log in first.');
+      openModal('authModal');
+      return false;
+    }
+    return true;
+  }
+
+  function initTaskCreation() {
+    const openTaskModalBtns = ['btnNavNewTask', 'btnHeroPost', 'btnNewTask'];
+    openTaskModalBtns.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('click', () => {
+        if (!requireLogin()) return;
+        document.getElementById('taskError').style.display = 'none';
+        document.getElementById('taskTitle').value = '';
+        document.getElementById('taskDescription').value = '';
+        document.getElementById('taskBudget').value = '';
+        document.getElementById('taskLocation').value = '';
+        document.getElementById('taskStripeLink').value = '';
+        openModal('taskModal');
       });
     });
 
-    document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
-      backdrop.addEventListener("click", (e) => {
-        if (e.target === backdrop) backdrop.classList.remove("show");
-      });
-    });
-
-    // 登录 / 注册 tab 切换
-    document.querySelectorAll(".tab").forEach((tab) => {
-      tab.addEventListener("click", () => {
-        document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
-        tab.classList.add("active");
-        const pane = tab.dataset.tab;
-        document.getElementById("authLoginPane").style.display = pane === "login" ? "block" : "none";
-        document.getElementById("authRegisterPane").style.display = pane === "register" ? "block" : "none";
-      });
-    });
-
-    // 打开登录 / 注册 modal
-    document.getElementById("btnOpenLogin").addEventListener("click", () => {
-      openModal("authModal");
-    });
-
-    // 打开任务 modal
-    function openCreateTaskModal() {
-      const user = getUser();
+    document.getElementById('btnTaskSubmit').addEventListener('click', () => {
+      const user = getCurrentUser();
       if (!user) {
-        showToast(currentLang === "zh" ? "请先登录再发布任务。" : "Please log in before posting a task.");
-        openModal("authModal");
+        alert('Please log in first.');
         return;
       }
-      document.getElementById("taskTitle").value = "";
-      document.getElementById("taskDescription").value = "";
-      document.getElementById("taskBudget").value = "";
-      document.getElementById("taskTags").value = "";
-      document.getElementById("taskStripeLink").value = "";
-      openModal("taskModal");
-    }
+      const title = document.getElementById('taskTitle').value.trim();
+      const desc = document.getElementById('taskDescription').value.trim();
+      const budgetStr = document.getElementById('taskBudget').value.trim();
+      const currency = document.getElementById('taskCurrency').value;
+      const location = document.getElementById('taskLocation').value.trim();
+      const link = document.getElementById('taskStripeLink').value.trim();
+      const errorEl = document.getElementById('taskError');
 
-    document.getElementById("btnOpenCreateTask").addEventListener("click", openCreateTaskModal);
-    document.getElementById("btnCreateTaskSecondary").addEventListener("click", openCreateTaskModal);
-
-    // 登录 / 注册按钮逻辑（仅本地示例）
-    document.getElementById("btnRegister").addEventListener("click", () => {
-      const name = document.getElementById("regName").value.trim();
-      const email = document.getElementById("regEmail").value.trim();
-      const password = document.getElementById("regPassword").value.trim();
-      const role = document.getElementById("regRole").value;
-      const refCode = document.getElementById("regRefCode").value.trim();
-
-      if (!name || !email || !password) {
-        showToast(currentLang === "zh" ? "请完整填写注册信息。" : "Please fill in all required registration fields.");
+      if (!title || !desc || !budgetStr) {
+        errorEl.textContent = 'Title, description and budget are required.';
+        errorEl.style.display = 'block';
         return;
       }
-
-      const user = { name, email, role, refCode };
-      setUser(user);
-      closeModal("authModal");
-      showToast(currentLang === "zh" ? "注册成功（示例），已自动登录。" : "Registered (demo) and logged in.");
-    });
-
-    document.getElementById("btnLogin").addEventListener("click", () => {
-      const email = document.getElementById("loginEmail").value.trim();
-      const password = document.getElementById("loginPassword").value.trim();
-
-      if (!email || !password) {
-        showToast(currentLang === "zh" ? "请输入邮箱和密码。" : "Please enter email and password.");
+      const budget = Number(budgetStr);
+      if (!Number.isFinite(budget) || budget <= 0) {
+        errorEl.textContent = 'Budget must be a positive number.';
+        errorEl.style.display = 'block';
         return;
       }
-
-      // 这里只是示例：实际项目请调用后端验证
-      const demoUser = { name: email.split("@")[0], email, role: "client" };
-      setUser(demoUser);
-      closeModal("authModal");
-      showToast(currentLang === "zh" ? "登录成功（示例）。" : "Logged in (demo).");
-    });
-
-    // 保存任务
-    document.getElementById("btnSaveTask").addEventListener("click", () => {
-      const title = document.getElementById("taskTitle").value.trim();
-      const desc = document.getElementById("taskDescription").value.trim();
-      const budget = document.getElementById("taskBudget").value.trim();
-      const tags = document
-        .getElementById("taskTags")
-        .value.split(",")
-        .map((t) => t.trim())
-        .filter(Boolean);
-      const stripeLink = document.getElementById("taskStripeLink").value.trim();
-
-      if (!title || !budget) {
-        showToast(currentLang === "zh" ? "请至少填写任务标题和预算。" : "Please fill in at least title and budget.");
+      if (link && !/^https?:\/\/.+/i.test(link)) {
+        errorEl.textContent = 'Stripe Payment Link looks invalid.';
+        errorEl.style.display = 'block';
         return;
       }
+      errorEl.style.display = 'none';
 
-      const user = getUser();
-      const tasks = getTasks();
-      tasks.unshift({
-        id: Date.now(),
+      const newId = tasks.length ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
+      const t = {
+        id: newId,
         title,
         description: desc,
         budget,
-        tags,
-        owner: user?.name || "Client",
-        status: "open",
-        stripeLink
-      });
-      saveTasks(tasks);
+        currency,
+        clientName: user.name,
+        location,
+        status: 'open',
+        createdAt: Date.now(),
+        createdByEmail: user.email,
+        acceptedByEmail: null,
+        paymentLink: link
+      };
+      tasks.unshift(t);
+      saveJSON(STORAGE_KEYS.tasks, tasks);
+      closeModal('taskModal');
       renderTasks();
-      closeModal("taskModal");
-      showToast(currentLang === "zh" ? "任务已保存（示例）。" : "Task saved (demo).");
     });
 
-    // 任务筛选 & 搜索
-    document.getElementById("taskSearch").addEventListener("input", renderTasks);
-    document.querySelectorAll(".chip").forEach((chip) => {
-      chip.addEventListener("click", () => {
-        document.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
-        chip.classList.add("active");
+    document.getElementById('taskTableBody').addEventListener('click', e => {
+      const btn = e.target.closest('button[data-action]');
+      if (!btn) return;
+      const action = btn.getAttribute('data-action');
+      const id = Number(btn.getAttribute('data-id'));
+      const task = tasks.find(t => t.id === id);
+      if (!task) return;
+
+      if (action === 'accept') {
+        if (!requireLogin()) return;
+        const user = getCurrentUser();
+        if (task.status !== 'open') return;
+        task.status = 'in_progress';
+        task.acceptedByEmail = user.email;
+        saveJSON(STORAGE_KEYS.tasks, tasks);
         renderTasks();
-      });
+      } else if (action === 'complete') {
+        task.status = 'completed';
+        saveJSON(STORAGE_KEYS.tasks, tasks);
+        renderTasks();
+      } else if (action === 'pay') {
+        if (!task.paymentLink) return;
+        window.open(task.paymentLink, '_blank');
+      }
     });
 
-    // 滚动到任务大厅
-    document.getElementById("btnScrollTasks").addEventListener("click", () => {
-      document.getElementById("task-hall").scrollIntoView({ behavior: "smooth" });
+    document.getElementById('btnHeroViewAll').addEventListener('click', () => {
+      const y = document.querySelector('.section-title').getBoundingClientRect().top +
+        window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     });
+    document.getElementById('btnHeroFreelancer').addEventListener('click', () => {
+      openModal('authModal');
+      document.querySelector('input[name="authRole"][value="freelancer"]').checked = true;
+    });
+  }
 
-    // 简单 Toast
-    let toastTimer;
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-      if (toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
-    }
+  // ------- Filters / search -------
+  function initFilters() {
+    ['filterStatus', 'filterRoleView', 'searchInput'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const evt = id === 'searchInput' ? 'input' : 'change';
+      el.addEventListener(evt, renderTasks);
+    });
+  }
 
-    // 初始化
-    applyTranslations();
-    updateLoginButtonLabel();
+  // ------- Language switch -------
+  function initLang() {
+    const select = document.getElementById('langSelect');
+    const saved = getCurrentLang();
+    select.value = saved;
+    applyTranslations(saved);
+
+    select.addEventListener('change', () => {
+      const lang = select.value;
+      localStorage.setItem(STORAGE_KEYS.lang, lang);
+      applyTranslations(lang);
+      updateUserLabel();
+    });
+  }
+
+  // ------- Init -------
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('year').textContent = new Date().getFullYear();
+    initLang();
+    initAuth();
+    initTaskCreation();
+    initFilters();
+    updateUserLabel();
     renderTasks();
-  </script>
+  });
+</script>
 </body>
 </html>
