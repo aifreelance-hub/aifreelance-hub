@@ -555,16 +555,38 @@
           throw new Error(msg);
         }
 
+        // --------- 30% PREVIEW + PAYWALL LOGIC (MODIFIED) ---------
         const full = data.text || "No content returned from Aurum Desk AI.";
         currentDraft = full;
 
-        resultBox.innerHTML = "";
-        const content = document.createElement("div");
-        content.textContent = full;
-        resultBox.appendChild(content);
+        const previewRatio = 0.3; // 30% preview
+        const previewLength = Math.floor(full.length * previewRatio);
+        const previewText = full.slice(0, previewLength);
 
-        statusText.textContent = "Draft generated. You can copy and adjust if needed.";
-        copyBtn.disabled = false;
+        resultBox.innerHTML = "";
+
+        const previewDiv = document.createElement("div");
+        previewDiv.textContent = previewText;
+        resultBox.appendChild(previewDiv);
+
+        const payNotice = document.createElement("div");
+        payNotice.style.marginTop = "18px";
+        payNotice.style.padding = "12px";
+        payNotice.style.border = "1px solid rgba(240,211,122,0.4)";
+        payNotice.style.borderRadius = "10px";
+        payNotice.style.background = "rgba(20,14,4,0.5)";
+        payNotice.style.color = "#f0d37a";
+        payNotice.style.fontSize = "13px";
+        payNotice.style.whiteSpace = "pre-wrap";
+        payNotice.innerHTML =
+          "✨ You are viewing a free 30% preview.<br><br>" +
+          "Unlock the full draft (100% content) for <b>$19.9</b>.<br><br>" +
+          "<button style='padding:8px 14px;border-radius:999px;border:1px solid #f0d37a;background:#f0d37a;color:#15100a;font-weight:600;cursor:pointer;'>Pay $19.9 to Unlock</button>";
+
+        resultBox.appendChild(payNotice);
+
+        statusText.textContent = "Preview generated — unlock full content for $19.9.";
+        copyBtn.disabled = true; // cannot copy full paid draft
       } catch (err) {
         console.error(err);
         resultBox.innerHTML =
