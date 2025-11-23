@@ -206,6 +206,52 @@
       color: #a8a295;
       padding: 10px 0 18px;
     }
+
+    /* ===== 新增：验证码登录用的小样式 ===== */
+    .divider-row {
+      margin: 14px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      color: #7f7a70;
+    }
+    .divider-row::before,
+    .divider-row::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.16));
+    }
+    .divider-row::after {
+      background: linear-gradient(to left, transparent, rgba(255,255,255,0.16));
+    }
+
+    .inline-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .inline-row .field-inline {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .btn-outline {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(240,211,122,0.8);
+      background: transparent;
+      color: #f0d37a;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-outline:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
   </style>
 </head>
 <body>
@@ -264,6 +310,39 @@
         <p class="muted">
           New here? <a href="#" id="goToSignUpLink">Create an Aurum account</a>.
         </p>
+
+        <!-- ===== 新增：手机号 + 验证码登录 ===== -->
+        <div class="divider-row">Or sign in with phone</div>
+
+        <div class="field">
+          <label for="phoneLogin">Mobile number (with country code)</label>
+          <input
+            type="tel"
+            id="phoneLogin"
+            placeholder="+1 555 123 4567"
+          />
+        </div>
+
+        <div class="inline-row" style="margin-bottom:10px;">
+          <div class="field-inline">
+            <label for="phoneCode">Verification code</label>
+            <input
+              type="text"
+              id="phoneCode"
+              placeholder="6-digit code"
+              maxlength="10"
+            />
+          </div>
+          <button type="button" class="btn-outline" id="btnSendCode">
+            Send code
+          </button>
+        </div>
+
+        <button class="btn-primary" id="btnPhoneLogin" style="margin-top:2px;">
+          Sign in with phone
+        </button>
+        <div class="status" id="phoneStatus"></div>
+        <!-- ===== 新增结束 ===== -->
       </div>
 
       <!-- Sign-up form -->
@@ -336,7 +415,7 @@
     activateTab("signup");
   });
 
-  // --- Sign in ---
+  // --- Sign in (email + password) ---
   const loginEmail = document.getElementById("loginEmail");
   const loginPassword = document.getElementById("loginPassword");
   const btnLogin = document.getElementById("btnLogin");
@@ -365,11 +444,10 @@
       if (!res.ok || !data.ok) {
         throw new Error(data.error || ("HTTP " + res.status));
       }
-      // 保存简要用户信息到 localStorage（前端用来显示名字和 plan）
       localStorage.setItem("aurum_user", JSON.stringify({
-        name: data.user.name,
-        email: data.user.email,
-        plan: data.user.plan
+        name: data.user?.name,
+        email: data.user?.email,
+        plan: data.user?.plan
       }));
       loginStatus.textContent = "Signed in. Redirecting to your Desk...";
       loginStatus.className = "status status-ok";
@@ -384,7 +462,7 @@
     }
   });
 
-  // --- Sign up ---
+  // --- Sign up (email + password) ---
   const signupName = document.getElementById("signupName");
   const signupEmail = document.getElementById("signupEmail");
   const signupPassword = document.getElementById("signupPassword");
@@ -425,9 +503,9 @@
         throw new Error(data.error || ("HTTP " + res.status));
       }
       localStorage.setItem("aurum_user", JSON.stringify({
-        name: data.user.name,
-        email: data.user.email,
-        plan: data.user.plan
+        name: data.user?.name,
+        email: data.user?.email,
+        plan: data.user?.plan
       }));
       signupStatus.textContent = "Account created. Redirecting to your Desk...";
       signupStatus.className = "status status-ok";
@@ -439,6 +517,118 @@
       signupStatus.className = "status status-err";
     } finally {
       btnSignup.disabled = false;
+    }
+  });
+
+  // === 新增：手机验证码登录逻辑 ===
+  const phoneInput = document.getElementById("phoneLogin");
+  const codeInput = document.getElementById("phoneCode");
+  const btnSendCode = document.getElementById("btnSendCode");
+  const btnPhoneLogin = document.getElementById("btnPhoneLogin");
+  const phoneStatus = document.getElementById("phoneStatus");
+
+  let sendTimer = null;
+  let sendCountdown = 0;
+
+  function startCountdown(seconds) {
+    sendCountdown = seconds;
+    updateSendButtonText();
+    btnSendCode.disabled = true;
+    if (sendTimer) clearInterval(sendTimer);
+    sendTimer = setInterval(() => {
+      sendCountdown -= 1;
+      if (sendCountdown <= 0) {
+        clearInterval(sendTimer);
+        sendTimer = null;
+        btnSendCode.disabled = false;
+        btnSendCode.textContent = "Send code";
+      } else {
+        updateSendButtonText();
+      }
+    }, 1000);
+  }
+
+  function updateSendButtonText() {
+    btnSendCode.textContent = "Resend in " + sendCountdown + "s";
+  }
+
+  btnSendCode.addEventListener("click", async () => {
+    const phone = phoneInput.value.trim();
+    if (!phone) {
+      phoneStatus.textContent = "Please enter your mobile number (with country code).";
+      phoneStatus.className = "status status-err";
+      return;
+    }
+
+    phoneStatus.textContent = "Sending verification code...";
+    phoneStatus.className = "status";
+    btnSendCode.disabled = true;
+
+    try {
+      const res = await fetch(API_BASE + "/auth/send-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+      phoneStatus.textContent = "Code sent. Please check your phone.";
+      phoneStatus.className = "status status-ok";
+      startCountdown(60);
+    } catch (err) {
+      phoneStatus.textContent = "Send failed: " + err.message;
+      phoneStatus.className = "status status-err";
+      btnSendCode.disabled = false;
+      btnSendCode.textContent = "Send code";
+    }
+  });
+
+  btnPhoneLogin.addEventListener("click", async () => {
+    const phone = phoneInput.value.trim();
+    const code = codeInput.value.trim();
+
+    if (!phone || !code) {
+      phoneStatus.textContent = "Please enter phone and verification code.";
+      phoneStatus.className = "status status-err";
+      return;
+    }
+
+    btnPhoneLogin.disabled = true;
+    phoneStatus.textContent = "Verifying code...";
+    phoneStatus.className = "status";
+
+    try {
+      const res = await fetch(API_BASE + "/auth/verify-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ phone, code })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+
+      const user = data.user || {};
+      localStorage.setItem("aurum_user", JSON.stringify({
+        name: user.name || "",
+        email: user.email || "",
+        phone: user.phone || phone,
+        plan: user.plan || "subscriber"
+      }));
+
+      phoneStatus.textContent = "Phone verified. Redirecting to your Desk...";
+      phoneStatus.className = "status status-ok";
+      setTimeout(() => {
+        window.location.href = "desk.html";
+      }, 700);
+    } catch (err) {
+      phoneStatus.textContent = "Verification failed: " + err.message;
+      phoneStatus.className = "status status-err";
+    } finally {
+      btnPhoneLogin.disabled = false;
     }
   });
 </script>
