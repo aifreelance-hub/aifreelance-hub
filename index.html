@@ -2,74 +2,89 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Task Desk – Private AI Content Office</title>
+  <title>AURUM PRIVATE AI DESK – AI Task Marketplace</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Aurum Task Desk – Wall Street–grade AI content and automation hub with Stripe payments.">
+  <meta name="description" content="Aurum Private AI Desk – a private family-office–style AI task marketplace where clients submit tasks, freelancers execute with AI, and the desk earns a clear service fee on each completed assignment.">
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
     :root {
-      --bg: #050608;
-      --bg-alt: #060712;
-      --panel: #0b0f19;
-      --panel-soft: #050712;
-      --border: #1f2933;
-      --gold: #f4c76a;
-      --gold-soft: rgba(244,199,106,0.18);
-      --accent: #38bdf8;
-      --text: #e5e7eb;
-      --text-soft: #9ca3af;
-      --danger: #f97373;
-      --success: #4ade80;
+      --bg: #f6f2ea;          /* 象牙白背景 */
+      --bg-texture: #f1ece1;
+      --panel: #fcfaf6;       /* 卡片白 */
+      --panel-alt: #f9f5ee;
+      --border: #d6cbb7;
+      --border-soft: #e3d8c5;
+      --ink: #22252b;         /* 文字深墨色 */
+      --ink-soft: #6b7280;
+      --ink-muted: #9ca3af;
+      --accent: #1f3b63;      /* 深蓝 */
+      --accent-soft: #365a8c;
+      --gold: #c89b3c;        /* 贵族金 */
+      --gold-soft: #e1c58a;
+      --danger: #d9534f;
+      --success: #15803d;
       --radius-lg: 18px;
-      --radius-full: 999px;
-      --shadow-soft: 0 18px 45px rgba(0,0,0,0.85);
-      --nav-h: 72px;
+      --radius-xl: 22px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.18);
+      --shadow-strong: 0 28px 70px rgba(15, 23, 42, 0.28);
+      --nav-h: 74px;
       --transition-fast: 0.18s ease-out;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     html, body {
-      font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      background:
-        radial-gradient(circle at top, #111827 0, #020617 40%, #000 85%);
-      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                   "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--ink);
       line-height: 1.5;
     }
-    body { min-height: 100vh; }
 
-    a { color: inherit; text-decoration: none; }
+    body {
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .page {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
-    /* 背景装饰光晕 */
-    .page::before,
+    /* 纸张纹理背景 */
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.7), transparent 45%, rgba(255,255,255,0.8)),
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.02), rgba(0,0,0,0.02) 1px, transparent 1px, transparent 3px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0.015), rgba(0,0,0,0.015) 1px, transparent 1px, transparent 4px);
+      mix-blend-mode: multiply;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: -2;
+    }
+
     .page::after {
       content: "";
       position: fixed;
-      width: 420px;
-      height: 420px;
-      border-radius: 999px;
-      filter: blur(55px);
-      opacity: 0.22;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, rgba(200,155,60,0.18), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(31,59,99,0.18), transparent 60%);
       pointer-events: none;
+      opacity: 0.6;
       z-index: -1;
-    }
-    .page::before {
-      background: radial-gradient(circle, rgba(250,204,21,0.55), transparent 60%);
-      top: -120px;
-      right: -160px;
-    }
-    .page::after {
-      background: radial-gradient(circle, rgba(56,189,248,0.5), transparent 60%);
-      bottom: -160px;
-      left: -120px;
     }
 
     .container {
@@ -84,14 +99,17 @@
       position: sticky;
       top: 0;
       z-index: 40;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(to bottom,
-        rgba(5,6,8,0.96),
-        rgba(5,6,8,0.8),
-        transparent
-      );
-      border-bottom: 1px solid rgba(15,23,42,0.9);
+      backdrop-filter: blur(16px);
+      background:
+        linear-gradient(to bottom,
+          rgba(246,242,234,0.95),
+          rgba(246,242,234,0.92),
+          rgba(246,242,234,0.80),
+          transparent
+        );
+      border-bottom: 1px solid rgba(220,210,190,0.9);
     }
+
     .nav {
       height: var(--nav-h);
       display: flex;
@@ -99,40 +117,50 @@
       justify-content: space-between;
       gap: 16px;
     }
+
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
+
     .brand-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 16px;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
       background:
-        radial-gradient(circle at 20% 15%, #ffffff, #f4c76a 40%, #b45309 80%);
+        radial-gradient(circle at 20% 15%, #ffffff, #f4e2b6 28%, #d2b47b 65%, #b38a43 90%);
       box-shadow:
-        0 0 0 1px rgba(250,204,21,0.4),
-        0 18px 40px rgba(0,0,0,0.9);
+        0 0 0 1px rgba(218,180,83,0.55),
+        0 14px 35px rgba(15,23,42,0.35);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       font-size: 22px;
-      color: #111827;
+      color: #2e1b07;
+      letter-spacing: 0.18em;
     }
+
     .brand-main {
       display: flex;
       flex-direction: column;
+      gap: 2px;
     }
+
     .brand-title {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
+      color: var(--accent);
     }
+
     .brand-sub {
       font-size: 11px;
-      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-muted);
     }
 
     .nav-right {
@@ -140,17 +168,19 @@
       align-items: center;
       gap: 10px;
     }
+
     .lang-select {
-      background: rgba(15,23,42,0.9);
-      border-radius: var(--radius-full);
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border);
-      color: var(--text-soft);
-      font-size: 13px;
-      padding: 6px 12px;
+      background: rgba(252,250,246,0.85);
+      color: var(--ink-soft);
+      font-size: 12px;
+      padding: 6px 11px;
       outline: none;
     }
+
     .nav-btn {
-      border-radius: var(--radius-full);
+      border-radius: var(--radius-pill);
       font-size: 13px;
       padding: 7px 16px;
       border: 1px solid transparent;
@@ -158,52 +188,57 @@
       transition: var(--transition-fast);
       white-space: nowrap;
     }
+
     .nav-btn-outline {
-      background: transparent;
+      background: rgba(252,250,246,0.9);
       border-color: var(--border);
-      color: var(--text-soft);
+      color: var(--ink-soft);
     }
     .nav-btn-outline:hover {
-      border-color: var(--gold);
-      color: var(--gold);
+      border-color: var(--accent-soft);
+      color: var(--accent-soft);
       transform: translateY(-1px);
     }
-    .nav-btn-gold {
-      background: linear-gradient(135deg, #facc6b, #f97316);
-      color: #111827;
+
+    .nav-btn-primary {
+      background: linear-gradient(135deg, #1f3b63, #314f7b);
+      color: #fdfaf4;
+      border-color: rgba(15,23,42,0.4);
       box-shadow:
-        0 0 0 1px rgba(250,204,21,0.4),
-        0 14px 32px rgba(250,204,21,0.6);
-      font-weight: 600;
+        0 0 0 1px rgba(15,23,42,0.06),
+        0 14px 32px rgba(15,23,42,0.35);
+      font-weight: 500;
     }
-    .nav-btn-gold:hover {
+    .nav-btn-primary:hover {
       filter: brightness(1.04);
       transform: translateY(-1px);
       box-shadow:
-        0 0 0 1px rgba(250,204,21,0.7),
-        0 18px 40px rgba(250,204,21,0.8);
+        0 0 0 1px rgba(15,23,42,0.12),
+        0 18px 40px rgba(15,23,42,0.4);
     }
 
     @media (max-width: 720px) {
-      .brand-title { font-size: 16px; }
+      .brand-title { font-size: 15px; }
       .brand-sub { display: none; }
       .nav { gap: 8px; }
       .nav-right { gap: 6px; }
-      .nav-btn { padding-inline: 10px; }
+      .nav-btn { padding-inline: 11px; }
     }
 
     /* HERO */
     main { flex: 1; }
 
     .hero {
-      padding: 28px 0 18px;
+      padding: 26px 0 20px;
     }
+
     .hero-inner {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: 26px;
+      grid-template-columns: minmax(0,1.15fr) minmax(0,0.95fr);
+      gap: 24px;
       align-items: center;
     }
+
     @media (max-width: 880px) {
       .hero-inner {
         grid-template-columns: minmax(0,1fr);
@@ -212,72 +247,77 @@
 
     .hero-kicker {
       font-size: 11px;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
+      color: var(--ink-muted);
+      margin-bottom: 10px;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
+
     .hero-kicker::before {
-      content:"";
-      width: 28px;
+      content: "";
+      width: 46px;
       height: 1px;
-      background: linear-gradient(to right, rgba(148,163,184,0.2), var(--gold));
+      background: linear-gradient(to right, rgba(148,163,184,0.5), rgba(31,59,99,0.9));
     }
 
     .hero-title {
-      font-size: clamp(28px, 4.1vw, 36px);
-      font-weight: 800;
-      letter-spacing: 0.06em;
+      font-size: clamp(28px, 3.6vw, 34px);
+      font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
+      color: var(--accent);
       margin-bottom: 10px;
     }
-    .hero-title span.gold {
-      background: linear-gradient(120deg, #facc6b, #f97316, #fb923c);
-      -webkit-background-clip: text;
-      color: transparent;
+
+    .hero-title span.em {
+      color: var(--gold);
     }
+
     .hero-subtitle {
-      font-size: 14px;
-      color: var(--text-soft);
+      font-size: 13px;
+      color: var(--ink-soft);
       max-width: 520px;
     }
 
     .hero-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 9px;
-      margin: 18px 0 20px;
+      gap: 8px;
+      margin: 16px 0 18px;
     }
+
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       font-size: 11px;
       padding: 6px 11px;
-      border-radius: var(--radius-full);
-      border: 1px solid rgba(55,65,81,0.9);
-      background: radial-gradient(circle at top left, rgba(250,204,21,0.16), rgba(15,23,42,0.98));
-      color: var(--text-soft);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: rgba(252,250,246,0.9);
+      color: var(--ink-soft);
     }
+
     .badge-dot {
       width: 7px;
       height: 7px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #22c55e, #4ade80);
-      box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
+      background: linear-gradient(135deg, #16a34a, #4ade80);
+      box-shadow: 0 0 0 3px rgba(22,163,74,0.16);
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
+
     .btn {
-      border-radius: var(--radius-full);
+      border-radius: var(--radius-pill);
       border: 1px solid transparent;
       padding: 8px 18px;
       font-size: 13px;
@@ -285,770 +325,802 @@
       transition: var(--transition-fast);
       white-space: nowrap;
     }
-    .btn-gold {
-      background: linear-gradient(130deg, #facc6b, #f97316);
-      color: #111827;
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1f3b63, #314f7b);
+      color: #fdfaf4;
+      border-color: rgba(15,23,42,0.4);
       box-shadow:
-        0 0 0 1px rgba(250,204,21,0.5),
-        0 16px 40px rgba(0,0,0,0.9);
-      font-weight: 600;
+        0 0 0 1px rgba(15,23,42,0.06),
+        0 14px 32px rgba(15,23,42,0.35);
+      font-weight: 500;
     }
-    .btn-gold:hover {
-      filter: brightness(1.04);
+
+    .btn-primary:hover {
+      filter: brightness(1.03);
       transform: translateY(-1px);
     }
-    .btn-outline-soft {
-      background: transparent;
+
+    .btn-outline {
+      background: rgba(252,250,246,0.95);
       border-color: var(--border);
-      color: var(--text-soft);
+      color: var(--ink-soft);
     }
-    .btn-outline-soft:hover {
-      border-color: var(--gold);
-      color: var(--gold);
+
+    .btn-outline:hover {
+      border-color: var(--accent-soft);
+      color: var(--accent-soft);
     }
+
     .hero-note {
       font-size: 11px;
-      color: var(--text-soft);
+      color: var(--ink-muted);
     }
 
     .hero-card {
       position: relative;
-      background:
-        radial-gradient(circle at top, rgba(250,204,21,0.16), rgba(6,7,18,1));
-      border-radius: 26px;
-      border: 1px solid rgba(55,65,81,0.95);
+      background: var(--panel);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
       box-shadow: var(--shadow-soft);
-      padding: 18px 16px 14px;
+      padding: 16px 16px 14px;
       overflow: hidden;
     }
+
     .hero-card::before {
-      content:"";
-      position:absolute;
-      inset:-80px;
+      content: "";
+      position: absolute;
+      inset: 0;
       background:
-        radial-gradient(circle at top left, rgba(250,204,21,0.2), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(8,47,73,0.66), transparent 60%);
-      opacity: 0.7;
-      pointer-events:none;
+        radial-gradient(circle at top left, rgba(255,255,255,0.75), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(214,203,183,0.6), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+      mix-blend-mode: screen;
     }
+
     .hero-card-inner {
       position: relative;
       z-index: 1;
     }
+
     .hero-card-header {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:12px;
-      font-size:12px;
-    }
-    .pill {
-      border-radius: var(--radius-full);
-      padding: 4px 10px;
-      border: 1px solid rgba(55,65,81,0.9);
-      background: rgba(6,7,18,0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
       font-size: 11px;
-      color: var(--text-soft);
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
     }
-    .pill-gold {
-      border-color: rgba(250,204,21,0.7);
-      color: var(--gold);
-      background: rgba(24,24,27,0.9);
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: var(--radius-pill);
+      padding: 5px 11px;
+      border: 1px solid var(--border);
+      background: rgba(252,250,246,0.95);
+      color: var(--ink-soft);
+      font-size: 11px;
     }
-    .hero-stats {
-      display:grid;
+
+    .pill-strong {
+      border-color: rgba(200,155,60,0.7);
+      background: rgba(255,255,255,0.96);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-mini-label {
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-bottom: 4px;
+    }
+
+    .hero-mini-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .hero-stats-row {
+      display: grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:10px;
-      margin-bottom:12px;
-      font-size:11px;
-      color: var(--text-soft);
-    }
-    .hero-stat-label {
-      margin-bottom:3px;
-    }
-    .hero-stat-value {
-      font-size:15px;
-      font-weight:600;
-      color: var(--gold);
+      gap: 12px;
+      margin-bottom: 10px;
     }
 
     .mini-task-table {
       border-radius: 14px;
-      border: 1px solid rgba(31,41,55,0.9);
-      overflow:hidden;
-      background: rgba(6,7,18,0.96);
-      font-size:11px;
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      background: rgba(253,251,246,0.95);
+      font-size: 11px;
     }
+
     .mini-task-table table {
-      width:100%;
+      width: 100%;
       border-collapse: collapse;
     }
+
     .mini-task-table th,
     .mini-task-table td {
-      padding: 8px 9px;
-      border-bottom: 1px solid rgba(31,41,55,0.8);
-      text-align:left;
+      padding: 7px 9px;
+      border-bottom: 1px solid rgba(225,215,196,0.8);
+      text-align: left;
     }
+
     .mini-task-table th {
-      color: var(--text-soft);
-      font-weight:500;
-      background: rgba(15,23,42,0.92);
+      background: rgba(251,248,242,0.9);
+      color: var(--ink-muted);
+      font-weight: 500;
     }
+
     .mini-task-table tr:last-child td {
-      border-bottom:none;
+      border-bottom: none;
     }
+
     .hero-card-footer {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-top:10px;
-      font-size:11px;
-      color: var(--text-soft);
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--ink-muted);
     }
+
     .link-soft {
-      font-size:11px;
-      color: var(--gold);
+      color: var(--accent-soft);
       text-decoration: underline;
-      cursor:pointer;
+      cursor: pointer;
     }
 
-    /* metrics ribbon + logo strip */
-    .metrics-ribbon {
-      margin-top: 6px;
-      padding: 10px 0 6px;
-      border-top: 1px solid rgba(148,163,184,0.18);
-      border-bottom: 1px solid rgba(15,23,42,0.9);
-      background: radial-gradient(circle at top, rgba(250,204,21,0.08), transparent 65%);
-    }
-    .metrics-row {
-      display:flex;
-      flex-wrap:wrap;
-      gap:16px;
-      font-size:11px;
-      color: var(--text-soft);
-      align-items:center;
-      justify-content:space-between;
-    }
-    .metric-item {
-      display:flex;
-      flex-direction:column;
-      min-width: 140px;
-    }
-    .metric-label {
-      text-transform:uppercase;
-      letter-spacing:0.12em;
-      font-size:10px;
-      color:#9ca3af;
-      margin-bottom:2px;
-    }
-    .metric-value {
-      font-size:14px;
-      font-weight:600;
-      color:var(--gold);
+    /* SECTION */
+    section {
+      padding: 16px 0 22px;
     }
 
-    .logo-strip {
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      align-items:center;
-      font-size:11px;
-      color: var(--text-soft);
-    }
-    .logo-pill {
-      border-radius:999px;
-      padding:4px 10px;
-      border:1px solid rgba(55,65,81,0.85);
-      background: rgba(6,7,18,0.96);
-      font-size:11px;
-      color:#e5e7eb;
-    }
-
-    /* SECTION TITLES */
-    section { padding: 16px 0 26px; }
     .section-header {
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-end;
-      margin-bottom:14px;
-    }
-    .section-title {
-      font-size:18px;
-      font-weight:600;
-      text-transform:uppercase;
-      letter-spacing:0.18em;
-    }
-    .section-sub {
-      font-size:12px;
-      color: var(--text-soft);
-      max-width:520px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-end;
+      margin-bottom: 12px;
     }
 
-    /* TASK BOARD */
+    .section-title {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--ink-soft);
+      max-width: 520px;
+    }
+
+    /* PANEL */
     .panel {
       background: var(--panel);
-      border-radius: 22px;
-      border: 1px solid var(--border);
-      padding: 16px 14px;
-      box-shadow: 0 14px 40px rgba(0,0,0,0.9);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 15px 14px;
     }
+
+    /* Task toolbar */
     .task-toolbar {
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      margin-bottom:14px;
-      font-size:12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 12px;
     }
-    .input, .select {
-      background: var(--panel-soft);
-      border-radius: 999px;
-      border: 1px solid #1f2937;
+
+    .input,
+    .select {
+      background: rgba(252,250,246,0.95);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
       padding: 7px 11px;
-      font-size:12px;
-      color: var(--text);
-      outline:none;
-      min-width:0;
+      font-size: 12px;
+      color: var(--ink);
+      outline: none;
+      min-width: 0;
     }
+
     .input::placeholder {
-      color: #6b7280;
+      color: var(--ink-muted);
     }
+
     .select {
       padding-right: 28px;
     }
+
     .btn-chip {
-      border-radius:999px;
-      padding:6px 12px;
-      font-size:12px;
-      border:1px solid rgba(148,163,184,1);
-      background: rgba(15,23,42,0.9);
-      color: var(--text-soft);
-      cursor:pointer;
-      transition:var(--transition-fast);
-      white-space:nowrap;
+      border-radius: var(--radius-pill);
+      padding: 6px 12px;
+      font-size: 12px;
+      border: 1px solid var(--accent-soft);
+      background: rgba(31,59,99,0.04);
+      color: var(--accent-soft);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      white-space: nowrap;
     }
+
     .btn-chip:hover {
-      border-color: var(--gold);
-      color: var(--gold);
+      background: rgba(31,59,99,0.07);
+      transform: translateY(-1px);
     }
+
     .toolbar-spacer {
-      flex:1;
+      flex: 1;
     }
+
     .helper-text {
-      font-size:11px;
-      color: var(--text-soft);
+      font-size: 11px;
+      color: var(--ink-muted);
     }
 
     .task-table-wrapper {
       border-radius: 16px;
-      border: 1px solid rgba(31,41,55,0.9);
-      overflow:hidden;
-      background:
-        radial-gradient(circle at top left, rgba(250,204,21,0.07), rgba(6,7,18,0.98));
-    }
-    table {
-      width:100%;
-      border-collapse:collapse;
-      font-size:12px;
-    }
-    thead {
-      background: rgba(15,23,42,0.96);
-    }
-    th, td {
-      padding: 9px 10px;
-      border-bottom: 1px solid rgba(31,41,55,0.8);
-      text-align:left;
-    }
-    th {
-      color: var(--text-soft);
-      font-weight:500;
-      white-space:nowrap;
-    }
-    tbody tr:last-child td { border-bottom:none; }
-    tbody tr:hover {
-      background: rgba(15,23,42,0.94);
-    }
-    .task-title {
-      font-size:13px;
-      font-weight:500;
-      color: var(--text);
-    }
-    .task-meta {
-      display:block;
-      font-size:11px;
-      color: var(--text-soft);
-    }
-    .badge-status {
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:3px 10px;
-      border-radius:999px;
-      font-size:11px;
-      border:1px solid rgba(55,65,81,1);
-    }
-    .badge-open {
-      border-color: rgba(234,179,8,0.8);
-      background: rgba(250,204,21,0.09);
-      color: #facc6b;
-    }
-    .badge-progress {
-      border-color: rgba(56,189,248,0.8);
-      background: rgba(15,23,42,0.9);
-      color: #bae6fd;
-    }
-    .badge-completed {
-      border-color: rgba(148,163,184,0.9);
-      background: rgba(15,23,42,0.7);
-      color: #e5e7eb;
-    }
-    .btn-table {
-      border-radius:999px;
-      padding:5px 11px;
-      border:1px solid rgba(31,41,55,1);
-      background: rgba(6,7,18,0.96);
-      color: var(--text);
-      font-size:11px;
-      cursor:pointer;
-      margin-left:6px;
-      transition:var(--transition-fast);
-      white-space:nowrap;
-    }
-    .btn-accept {
-      border-color: rgba(34,197,94,0.7);
-      color: #bbf7d0;
-      background: rgba(21,128,61,0.18);
-    }
-    .btn-accept:hover {
-      background: rgba(22,163,74,0.32);
-    }
-    .btn-pay {
-      border-color: rgba(250,204,21,0.8);
-      color: var(--gold);
-      background: rgba(23,23,23,0.9);
-    }
-    .btn-pay:hover {
-      background: rgba(250,204,21,0.18);
-    }
-    .btn-disabled {
-      opacity:0.4;
-      pointer-events:none;
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      background: rgba(253,251,246,0.96);
     }
 
-    /* INFO GRID */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    thead {
+      background: rgba(248,243,235,0.98);
+    }
+
+    th,
+    td {
+      padding: 9px 10px;
+      border-bottom: 1px solid rgba(229,220,204,0.9);
+      text-align: left;
+    }
+
+    th {
+      color: var(--ink-muted);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: rgba(246,240,231,0.6);
+    }
+
+    .task-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .task-meta {
+      display: block;
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      border: 1px solid var(--border);
+      background: rgba(252,250,246,0.9);
+      color: var(--ink-soft);
+    }
+
+    .badge-open {
+      border-color: rgba(200,155,60,0.7);
+      background: rgba(249,245,236,1);
+      color: var(--accent);
+    }
+
+    .badge-progress {
+      border-color: rgba(31,59,99,0.6);
+      background: rgba(232,240,252,1);
+      color: var(--accent-soft);
+    }
+
+    .badge-completed {
+      border-color: rgba(166,173,186,0.7);
+      background: rgba(243,244,246,1);
+      color: var(--ink-soft);
+    }
+
+    .btn-table {
+      border-radius: var(--radius-pill);
+      padding: 5px 11px;
+      border: 1px solid var(--border);
+      background: rgba(252,250,246,0.96);
+      color: var(--ink);
+      font-size: 11px;
+      cursor: pointer;
+      margin-left: 4px;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn-table:hover {
+      border-color: var(--accent-soft);
+      color: var(--accent-soft);
+    }
+
+    .btn-accept {
+      border-color: rgba(22,163,74,0.4);
+      background: rgba(220,252,231,0.9);
+      color: var(--success);
+    }
+
+    .btn-accept:hover {
+      background: rgba(187,247,208,0.95);
+    }
+
+    .btn-pay {
+      border-color: rgba(200,155,60,0.7);
+      background: rgba(252,245,230,0.96);
+      color: var(--accent);
+    }
+
+    .btn-pay:hover {
+      background: rgba(245,230,201,0.98);
+    }
+
+    .btn-disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* Info grid */
     .info-grid {
-      display:grid;
+      display: grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:14px;
+      gap: 14px;
     }
+
     @media (max-width: 880px) {
-      .info-grid { grid-template-columns: minmax(0,1fr); }
+      .info-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
     }
+
     .info-card {
       background: var(--panel);
-      border-radius:18px;
+      border-radius: var(--radius-lg);
       border: 1px solid var(--border);
-      padding: 14px 13px 12px;
-      font-size:12px;
-      color: var(--text-soft);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.9);
-    }
-    .info-title {
-      font-size:13px;
-      font-weight:600;
-      color: var(--gold);
-      margin-bottom:6px;
-    }
-    .dot-list {
-      list-style:none;
-      padding-left:0;
-    }
-    .dot-list li {
-      position:relative;
-      padding-left:14px;
-      margin-bottom:4px;
-    }
-    .dot-list li::before {
-      content:"•";
-      position:absolute;
-      left:3px;
-      color:#6b7280;
+      padding: 13px 13px 11px;
+      font-size: 12px;
+      color: var(--ink-soft);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
     }
 
-    /* PRICING */
-    .pricing-section {
-      padding: 10px 0 28px;
+    .info-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 6px;
     }
+
+    .dot-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .dot-list li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 4px;
+    }
+
+    .dot-list li::before {
+      content: "•";
+      position: absolute;
+      left: 3px;
+      top: 0;
+      color: var(--ink-muted);
+    }
+
+    /* Pricing */
     .pricing-grid {
-      display:grid;
+      display: grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:16px;
+      gap: 14px;
     }
+
     @media (max-width: 960px) {
       .pricing-grid {
         grid-template-columns: minmax(0,1fr);
       }
     }
+
     .pricing-card {
-      position:relative;
-      background:
-        radial-gradient(circle at top, rgba(250,204,21,0.18), rgba(6,7,18,1));
-      border-radius:22px;
-      border:1px solid rgba(250,204,21,0.7);
-      padding:16px 16px 14px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.95);
-    }
-    .pricing-card.tier-standard {
-      border-color: rgba(56,189,248,0.8);
-      background:
-        radial-gradient(circle at top, rgba(56,189,248,0.24), rgba(6,7,18,1));
-    }
-    .pricing-badge {
-      position:absolute;
-      top:10px;
-      right:16px;
-      font-size:10px;
-      padding:3px 9px;
-      border-radius:999px;
-      background: rgba(22,163,74,0.18);
-      border:1px solid rgba(34,197,94,0.7);
-      color:#bbf7d0;
-    }
-    .pricing-name {
-      font-size:15px;
-      font-weight:600;
-      margin-bottom:4px;
-      color:var(--gold);
-    }
-    .pricing-price {
-      font-size:22px;
-      font-weight:700;
-      margin-bottom:2px;
-    }
-    .pricing-sub {
-      font-size:11px;
-      color: var(--text-soft);
-      margin-bottom:8px;
-    }
-    .pricing-list {
-      list-style:none;
-      padding-left:0;
-      margin:6px 0 10px;
-      font-size:12px;
-      color: var(--text-soft);
-    }
-    .pricing-list li {
-      position:relative;
-      padding-left:16px;
-      margin-bottom:4px;
-    }
-    .pricing-list li::before {
-      content:"✓";
-      position:absolute;
-      left:2px;
-      color:#4ade80;
-      font-size:11px;
-    }
-    .pricing-cta {
-      margin-top:4px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:8px;
-      font-size:11px;
-    }
-    .pricing-cta button {
-      border-radius:999px;
-      border:1px solid rgba(250,204,21,0.85);
-      background:rgba(23,23,23,0.96);
-      padding:6px 12px;
-      font-size:11px;
-      color:var(--gold);
-      cursor:pointer;
-      white-space:nowrap;
-      transition:0.18s ease-out;
-    }
-    .pricing-cta button:hover {
-      background:rgba(250,204,21,0.16);
-    }
-
-    /* TESTIMONIALS */
-    .testimonial-section {
-      padding: 10px 0 26px;
-    }
-    .testimonial-grid {
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:16px;
-    }
-    @media (max-width: 960px) {
-      .testimonial-grid { grid-template-columns: minmax(0,1fr); }
-    }
-    .testimonial-card {
       background: var(--panel);
-      border-radius:18px;
-      border:1px solid rgba(31,41,55,0.9);
-      padding:13px 13px 11px;
-      font-size:12px;
-      color:var(--text-soft);
-      box-shadow:0 14px 40px rgba(0,0,0,0.9);
-      position:relative;
-      overflow:hidden;
-    }
-    .testimonial-card::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      background: radial-gradient(circle at top left, rgba(250,204,21,0.1), transparent 60%);
-      opacity:0.7;
-      pointer-events:none;
-    }
-    .testimonial-body {
-      position:relative;
-      z-index:1;
-    }
-    .testimonial-name {
-      margin-top:8px;
-      font-size:12px;
-      color:#e5e7eb;
-      font-weight:500;
-    }
-    .testimonial-role {
-      font-size:11px;
-      color:var(--text-soft);
-    }
-    .quote-mark {
-      font-size:24px;
-      color:rgba(250,204,21,0.6);
-      line-height:1;
-      margin-bottom:4px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      padding: 14px 15px 13px;
+      box-shadow: 0 16px 40px rgba(15,23,42,0.18);
+      position: relative;
+      overflow: hidden;
     }
 
-    /* FAQ + CTA */
-    .faq-section {
-      padding: 10px 0 30px;
+    .pricing-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.9), transparent 55%),
+        radial-gradient(circle at bottom, rgba(228,211,181,0.5), transparent 60%);
+      opacity: 0.75;
+      pointer-events: none;
+      mix-blend-mode: screen;
     }
+
+    .pricing-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      font-size: 10px;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(200,155,60,0.7);
+      background: rgba(251,245,231,0.96);
+      color: var(--accent);
+    }
+
+    .pricing-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+
+    .pricing-price {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .pricing-sub {
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+
+    .pricing-list {
+      list-style: none;
+      padding-left: 0;
+      font-size: 12px;
+      color: var(--ink-soft);
+      margin: 6px 0 10px;
+    }
+
+    .pricing-list li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 4px;
+    }
+
+    .pricing-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 2px;
+      top: 0;
+      color: var(--success);
+      font-size: 11px;
+    }
+
+    .pricing-cta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    .pricing-cta button {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(200,155,60,0.7);
+      background: rgba(252,245,230,0.96);
+      padding: 6px 12px;
+      font-size: 11px;
+      color: var(--accent);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition-fast);
+    }
+
+    .pricing-cta button:hover {
+      background: rgba(245,230,201,0.98);
+    }
+
+    /* FAQ */
     .faq-grid {
-      display:grid;
+      display: grid;
       grid-template-columns: minmax(0,2fr) minmax(0,1.3fr);
-      gap:18px;
+      gap: 16px;
     }
+
     @media (max-width: 960px) {
-      .faq-grid { grid-template-columns: minmax(0,1fr); }
+      .faq-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
     }
 
     .faq-list {
-      border-radius:18px;
-      border:1px solid var(--border);
-      background: rgba(6,7,18,0.98);
-      overflow:hidden;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: rgba(252,250,246,0.98);
+      overflow: hidden;
     }
+
     .faq-item {
-      border-bottom:1px solid rgba(31,41,55,0.9);
+      border-bottom: 1px solid rgba(227,216,198,0.9);
     }
-    .faq-item:last-child { border-bottom:none; }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
     .faq-header {
-      padding:10px 14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      cursor:pointer;
-      font-size:13px;
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-size: 13px;
     }
+
     .faq-question {
-      margin-right:10px;
-      color:#e5e7eb;
+      margin-right: 10px;
+      color: var(--accent);
     }
+
     .faq-toggle {
-      font-size:16px;
-      color:var(--text-soft);
-      transition:var(--transition-fast);
+      font-size: 16px;
+      color: var(--ink-muted);
+      transition: var(--transition-fast);
     }
+
     .faq-body {
-      display:none;
-      padding:0 14px 10px;
-      font-size:12px;
-      color:var(--text-soft);
+      display: none;
+      padding: 0 14px 10px;
+      font-size: 12px;
+      color: var(--ink-soft);
     }
+
     .faq-item.open .faq-body {
-      display:block;
+      display: block;
     }
+
     .faq-item.open .faq-toggle {
-      transform:rotate(90deg);
+      transform: rotate(90deg);
     }
 
     .faq-side {
-      border-radius:18px;
-      border:1px solid rgba(250,204,21,0.7);
-      background:
-        radial-gradient(circle at top, rgba(250,204,21,0.16), rgba(6,7,18,1));
-      padding:14px 14px 12px;
-      box-shadow:0 18px 45px rgba(0,0,0,0.95);
-      font-size:12px;
-      color:var(--text-soft);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: var(--panel);
+      padding: 13px 13px 11px;
+      box-shadow: 0 14px 35px rgba(15,23,42,0.16);
+      font-size: 12px;
+      color: var(--ink-soft);
     }
+
     .faq-side-title {
-      font-size:14px;
-      font-weight:600;
-      color:var(--gold);
-      margin-bottom:6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 6px;
     }
 
     .cta-bar {
-      margin-top:12px;
-      padding:10px 14px;
-      border-radius:14px;
-      border:1px solid rgba(250,204,21,0.7);
-      background: radial-gradient(circle at left, rgba(250,204,21,0.22), rgba(6,7,18,1));
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      gap:10px;
-      font-size:12px;
+      margin-top: 10px;
+      padding: 9px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(200,155,60,0.7);
+      background: rgba(252,245,230,0.98);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--ink-soft);
     }
+
     .cta-bar strong {
-      color:#e5e7eb;
+      color: var(--accent);
     }
+
     .cta-bar button {
-      margin-left:auto;
-      border-radius:999px;
-      border:1px solid rgba(250,204,21,0.9);
-      background:#111827;
-      color:var(--gold);
-      font-size:12px;
-      padding:6px 13px;
-      cursor:pointer;
-      white-space:nowrap;
+      margin-left: auto;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(31,59,99,0.6);
+      background: rgba(244,249,255,0.98);
+      color: var(--accent);
+      font-size: 12px;
+      padding: 6px 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition-fast);
     }
+
     .cta-bar button:hover {
-      background:rgba(250,204,21,0.16);
+      background: rgba(229,239,255,1);
     }
 
     /* FOOTER */
     footer {
-      border-top:1px solid rgba(15,23,42,0.9);
-      padding: 14px 0 18px;
-      font-size:11px;
-      color: var(--text-soft);
-      background: #020617;
+      border-top: 1px solid rgba(217,207,192,1);
+      padding: 14px 0 16px;
+      font-size: 11px;
+      color: var(--ink-muted);
+      background: rgba(246,242,234,0.96);
+      margin-top: 4px;
     }
+
     .footer-inner {
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      gap:10px;
-      align-items:center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
     }
 
     /* MODALS */
     .modal-backdrop {
-      position:fixed;
-      inset:0;
-      background: rgba(3,7,18,0.88);
-      backdrop-filter:blur(12px);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:50;
-      padding:16px;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.38);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 80;
+      padding: 16px;
     }
+
     .modal {
-      width:100%;
-      max-width:420px;
-      background: #020617;
-      border-radius:20px;
-      border:1px solid var(--border);
-      box-shadow:0 20px 50px rgba(0,0,0,0.95);
-      padding:18px 18px 16px;
-      position:relative;
+      width: 100%;
+      max-width: 420px;
+      background: var(--panel);
+      border-radius: 20px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-strong);
+      padding: 18px 18px 15px;
+      position: relative;
     }
+
     .modal-header {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
     }
+
     .modal-title {
-      font-size:16px;
-      font-weight:600;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
     }
+
     .modal-close {
-      border:none;
-      background:transparent;
-      color: var(--text-soft);
-      cursor:pointer;
-      font-size:20px;
+      border: none;
+      background: transparent;
+      color: var(--ink-muted);
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
     }
-    .modal-body { font-size:13px; }
-    .form-group { margin-bottom:10px; }
+
+    .modal-body {
+      font-size: 13px;
+    }
+
+    .form-group {
+      margin-bottom: 9px;
+    }
+
     .label {
-      display:block;
-      font-size:12px;
-      color: var(--text-soft);
-      margin-bottom:4px;
+      display: block;
+      font-size: 12px;
+      color: var(--ink-soft);
+      margin-bottom: 4px;
     }
+
     .textarea {
-      width:100%;
-      min-height:80px;
-      resize:vertical;
-      background: var(--panel-soft);
-      border-radius:12px;
-      border:1px solid #1f2937;
-      padding:7px 9px;
-      font-size:12px;
-      color:var(--text);
-      outline:none;
+      width: 100%;
+      min-height: 80px;
+      resize: vertical;
+      background: rgba(252,250,246,0.95);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 7px 9px;
+      font-size: 12px;
+      color: var(--ink);
+      outline: none;
     }
+
     .modal-actions {
-      display:flex;
-      justify-content:flex-end;
-      gap:8px;
-      margin-top:8px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 8px;
     }
+
     .btn-secondary {
-      border-radius:999px;
-      padding:7px 15px;
-      border:1px solid #1f2937;
-      background:transparent;
-      color:var(--text-soft);
-      font-size:13px;
-      cursor:pointer;
-      transition:var(--transition-fast);
+      border-radius: var(--radius-pill);
+      padding: 7px 15px;
+      border: 1px solid var(--border);
+      background: rgba(252,250,246,0.96);
+      color: var(--ink-soft);
+      font-size: 13px;
+      cursor: pointer;
+      transition: var(--transition-fast);
     }
+
     .btn-secondary:hover {
-      border-color:#4b5563;
-      color:var(--text);
+      border-color: var(--accent-soft);
+      color: var(--accent-soft);
     }
-    .btn-primary {
-      border-radius:999px;
-      padding:7px 15px;
-      border:1px solid rgba(250,204,21,0.7);
-      background:linear-gradient(130deg,#facc6b,#f97316);
-      color:#111827;
-      font-size:13px;
-      cursor:pointer;
-      transition:var(--transition-fast);
+
+    .btn-primary-modal {
+      border-radius: var(--radius-pill);
+      padding: 7px 15px;
+      border: 1px solid rgba(31,59,99,0.7);
+      background: linear-gradient(135deg, #1f3b63, #314f7b);
+      color: #fdfaf4;
+      font-size: 13px;
+      cursor: pointer;
+      transition: var(--transition-fast);
       box-shadow:
-        0 0 0 1px rgba(250,204,21,0.4),
-        0 14px 32px rgba(0,0,0,0.9);
+        0 0 0 1px rgba(15,23,42,0.08),
+        0 14px 32px rgba(15,23,42,0.4);
     }
-    .btn-primary:hover {
-      filter:brightness(1.04);
-      transform:translateY(-1px);
+
+    .btn-primary-modal:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
     }
+
     .error-text {
       color: var(--danger);
-      font-size:11px;
-      margin-top:3px;
+      font-size: 11px;
+      margin-top: 3px;
     }
 
     @media (max-width: 720px) {
-      .hero { padding-top:20px; }
-      .panel { padding-inline:12px; }
+      .hero {
+        padding-top: 20px;
+      }
+      .panel {
+        padding-inline: 12px;
+      }
     }
   </style>
 </head>
@@ -1061,8 +1133,8 @@
         <div class="brand">
           <div class="brand-logo">A</div>
           <div class="brand-main">
-            <div class="brand-title" data-i18n="brand_title">AURUM TASK DESK</div>
-            <div class="brand-sub" data-i18n="brand_sub">Private AI Content & Automation Office</div>
+            <div class="brand-title" data-i18n="brand_title">AURUM PRIVATE AI DESK</div>
+            <div class="brand-sub" data-i18n="brand_sub">AI TASKS · CURATED FREELANCERS · DESK FEE MODEL</div>
           </div>
         </div>
         <div class="nav-right">
@@ -1076,7 +1148,7 @@
           <button id="btnNavLogin" class="nav-btn nav-btn-outline" data-i18n="nav_login">
             Log in / Sign up
           </button>
-          <button id="btnNavNewTask" class="nav-btn nav-btn-gold" data-i18n="nav_post_task">
+          <button id="btnNavNewTask" class="nav-btn nav-btn-primary" data-i18n="nav_post_task">
             Post a Task
           </button>
         </div>
@@ -1091,63 +1163,65 @@
       <div class="container hero-inner">
         <div>
           <div class="hero-kicker" data-i18n="hero_kicker">
-            Wall Street–grade content, no agency overhead
+            Quiet, family-office–style desk for AI tasks
           </div>
           <h1 class="hero-title">
             <span data-i18n="hero_title_1">A private desk for</span><br>
-            <span class="gold" data-i18n="hero_title_2">AI writing & automation</span>
+            <span class="em" data-i18n="hero_title_2">AI tasks, writing & execution</span>
           </h1>
           <p class="hero-subtitle" data-i18n="hero_sub">
-            A focused hub where US / EU professionals send tasks, freelancers execute with AI assistance,
-            and Stripe settles every payment like a serious firm.
+            A small, family-office–style hub where US & EU professionals submit AI-related tasks,
+            vetted freelancers execute with AI assistance, and this desk earns a clear service fee
+            on each completed assignment.
           </p>
           <div class="hero-badges">
             <span class="badge">
               <span class="badge-dot"></span>
-              <span data-i18n="hero_badge_1">US 55+ male professionals as core clients</span>
+              <span data-i18n="hero_badge_1">Focused on 45–75 year old professionals & owners</span>
             </span>
             <span class="badge">
-              💳 <span data-i18n="hero_badge_2">Stripe settlement, no cards stored here</span>
+              💳 <span data-i18n="hero_badge_2">Clients pay via Stripe · desk keeps a fee</span>
             </span>
             <span class="badge">
-              📈 <span data-i18n="hero_badge_3">Designed like a small family office</span>
+              🤝 <span data-i18n="hero_badge_3">Not a public marketplace · invitation only</span>
             </span>
           </div>
           <div class="hero-actions">
-            <button id="btnHeroClient" class="btn btn-gold" data-i18n="hero_cta_client">
-              I’m a client – post a task
+            <button id="btnHeroClient" class="btn btn-primary" data-i18n="hero_cta_client">
+              I’m a client – submit a task
             </button>
-            <button id="btnHeroFreelancer" class="btn btn-outline-soft" data-i18n="hero_cta_freelancer">
-              I’m a freelancer – see tasks
+            <button id="btnHeroFreelancer" class="btn btn-outline" data-i18n="hero_cta_freelancer">
+              I’m a freelancer – see open tasks
             </button>
           </div>
           <p class="hero-note" data-i18n="hero_note">
-            Clear budgets, human conversation, Stripe links only when you’re ready to move real money.
+            The model is simple: clients pay Stripe, the desk keeps a transparent service fee,
+            and freelancers receive the remainder. No balances are held on this site.
           </p>
         </div>
 
         <div class="hero-card">
           <div class="hero-card-inner">
             <div class="hero-card-header">
-              <span class="pill pill-gold" data-i18n="hero_card_title">
-                Current Desk Snapshot
+              <span class="pill pill-strong" data-i18n="hero_card_title">
+                Today’s Desk Snapshot
               </span>
               <span class="pill">
-                🪙 <span data-i18n="hero_card_safe">No funds held on-site – Stripe only</span>
+                🪙 <span data-i18n="hero_card_safe">Stripe handles payments · this desk tracks tasks</span>
               </span>
             </div>
-            <div class="hero-stats">
+            <div class="hero-stats-row">
               <div>
-                <div class="hero-stat-label" data-i18n="hero_stat_open">Open tasks</div>
-                <div class="hero-stat-value" id="statOpen">0</div>
+                <div class="hero-mini-label" data-i18n="hero_stat_open">Open tasks</div>
+                <div class="hero-mini-value" id="statOpen">0</div>
               </div>
               <div>
-                <div class="hero-stat-label" data-i18n="hero_stat_progress">In progress</div>
-                <div class="hero-stat-value" id="statProgress">0</div>
+                <div class="hero-mini-label" data-i18n="hero_stat_progress">In progress</div>
+                <div class="hero-mini-value" id="statProgress">0</div>
               </div>
               <div>
-                <div class="hero-stat-label" data-i18n="hero_stat_completed">Completed</div>
-                <div class="hero-stat-value" id="statCompleted">0</div>
+                <div class="hero-mini-label" data-i18n="hero_stat_completed">Completed</div>
+                <div class="hero-mini-value" id="statCompleted">0</div>
               </div>
             </div>
             <div class="mini-task-table">
@@ -1162,39 +1236,9 @@
               </table>
             </div>
             <div class="hero-card-footer">
-              <span data-i18n="hero_card_footer">A simple desk for high-intent, low-drama tasks.</span>
-              <span class="link-soft" id="linkScrollTasks" data-i18n="hero_view_all">View task board</span>
+              <span data-i18n="hero_card_footer">A quiet desk for a small circle of serious tasks.</span>
+              <span class="link-soft" id="linkScrollTasks" data-i18n="hero_view_all">View full board</span>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- METRICS + LOGOS -->
-    <section class="metrics-ribbon">
-      <div class="container">
-        <div class="metrics-row">
-          <div class="metric-item">
-            <div class="metric-label">SAMPLE VOLUME</div>
-            <div class="metric-value">$1,350</div>
-            <div style="font-size:11px;color:var(--text-soft);">Based on demo tasks</div>
-          </div>
-          <div class="metric-item">
-            <div class="metric-label">TYPICAL FEE</div>
-            <div class="metric-value">10–20%</div>
-            <div style="font-size:11px;color:var(--text-soft);">You define margin via Stripe</div>
-          </div>
-          <div class="metric-item">
-            <div class="metric-label">CLIENT PROFILE</div>
-            <div class="metric-value">US 55+ men</div>
-            <div style="font-size:11px;color:var(--text-soft);">Retirees, executives, owners</div>
-          </div>
-          <div class="logo-strip">
-            <span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#9ca3af;">BUILT FOR</span>
-            <span class="logo-pill">Advisors</span>
-            <span class="logo-pill">Veterans</span>
-            <span class="logo-pill">Logistics & trucking</span>
-            <span class="logo-pill">Small business owners</span>
           </div>
         </div>
       </div>
@@ -1205,9 +1249,10 @@
       <div class="container">
         <div class="section-header">
           <div>
-            <h2 class="section-title" data-i18n="section_tasks_title">TASK MARKETPLACE</h2>
+            <h2 class="section-title" data-i18n="section_tasks_title">AI TASK MARKETPLACE</h2>
             <p class="section-sub" data-i18n="section_tasks_sub">
-              Clients post tasks, freelancers accept, and Stripe links are shared only when both sides are comfortable.
+              Clients quietly submit AI tasks, freelancers accept and execute, and this desk earns a clear service fee
+              on each completed assignment.
             </p>
           </div>
           <div class="helper-text" id="currentUserLabel"></div>
@@ -1215,7 +1260,7 @@
 
         <div class="panel">
           <div class="task-toolbar">
-            <input id="searchInput" class="input" type="text" placeholder="Search by title or client…" />
+            <input id="searchInput" class="input" type="text" placeholder="Search by title, client, or description…" />
             <select id="filterStatus" class="select">
               <option value="all" data-i18n="filter_status_all">All statuses</option>
               <option value="open" data-i18n="filter_status_open">Open</option>
@@ -1252,7 +1297,8 @@
           <div>
             <h2 class="section-title" data-i18n="section_how_title">HOW THE DESK RUNS</h2>
             <p class="section-sub" data-i18n="section_how_sub">
-              Everything is intentionally simple: clear roles, simple flows, and no hidden tech complexity for your clients.
+              Think of this as a very small private office, not a big platform. Clear scopes, AI support,
+              human oversight, and a visible desk fee model.
             </p>
           </div>
         </div>
@@ -1260,25 +1306,25 @@
           <article class="info-card">
             <h3 class="info-title" data-i18n="how_client_title">For clients</h3>
             <ul class="dot-list">
-              <li data-i18n="how_client_1">Describe what you need: AI writing, letters, LinkedIn posts, WhatsApp flows.</li>
-              <li data-i18n="how_client_2">Set a budget and wait for a trusted freelancer to accept.</li>
-              <li data-i18n="how_client_3">Only share a Stripe Payment Link when you’re happy with the person.</li>
+              <li data-i18n="how_client_1">Describe your AI-related task: writing, letters, LinkedIn content, WhatsApp flows, simple automation, research notes.</li>
+              <li data-i18n="how_client_2">Set a budget range and wait for a trusted freelancer to accept the task.</li>
+              <li data-i18n="how_client_3">When you both agree, pay via Stripe using a clear link. The desk keeps a fee, the freelancer receives the rest.</li>
             </ul>
           </article>
           <article class="info-card">
             <h3 class="info-title" data-i18n="how_freelancer_title">For freelancers</h3>
             <ul class="dot-list">
-              <li data-i18n="how_freelancer_1">Log in once, your profile stays on this private desk.</li>
-              <li data-i18n="how_freelancer_2">Accept only tasks that match your capacity and skill.</li>
-              <li data-i18n="how_freelancer_3">Coordinate payments via Stripe links and keep your own ledger.</li>
+              <li data-i18n="how_freelancer_1">Log in once. Your profile and activity remain in this private desk, not on a noisy public marketplace.</li>
+              <li data-i18n="how_freelancer_2">Accept only the tasks you are comfortable with, and use AI tools to move faster with quality control.</li>
+              <li data-i18n="how_freelancer_3">You are paid from the Stripe flow, minus a desk fee that compensates the office for coordination.</li>
             </ul>
           </article>
           <article class="info-card">
-            <h3 class="info-title" data-i18n="how_owner_title">For you (desk owner)</h3>
+            <h3 class="info-title" data-i18n="how_owner_title">For the desk owner (you)</h3>
             <ul class="dot-list">
-              <li data-i18n="how_owner_1">You control who gets invited—older US professionals only, if that’s your niche.</li>
-              <li data-i18n="how_owner_2">Use Stripe prices with built-in margin so the desk quietly earns a spread.</li>
-              <li data-i18n="how_owner_3">The site stays minimal; your real value is relationship and guidance.</li>
+              <li data-i18n="how_owner_1">You decide who is invited: older US professionals, small business owners, veterans, executives.</li>
+              <li data-i18n="how_owner_2">You quote total prices to clients, then privately agree a net payout with freelancers. The spread is your desk fee.</li>
+              <li data-i18n="how_owner_3">Over time you can also add Stripe subscriptions for ongoing content and communication support.</li>
             </ul>
           </article>
         </div>
@@ -1286,133 +1332,90 @@
     </section>
 
     <!-- PRICING -->
-    <section class="pricing-section">
+    <section>
       <div class="container">
         <div class="section-header">
           <div>
-            <h2 class="section-title">SIGNATURE PACKAGES</h2>
+            <h2 class="section-title">DESK PACKAGES</h2>
             <p class="section-sub">
-              These are pre-defined offers you can talk about in chat. When a client agrees, you send a Stripe link and post a task here.
+              Use these as simple, repeatable offers. Create Stripe Payment Links for each,
+              and post tasks on this desk when a client agrees.
             </p>
           </div>
         </div>
 
         <div class="pricing-grid">
-          <!-- Tier 1 -->
           <article class="pricing-card">
-            <div class="pricing-badge">Starter</div>
-            <h3 class="pricing-name">Letter & Email Desk</h3>
-            <div class="pricing-price">$199</div>
-            <div class="pricing-sub">
-              For US 55+ men who just want their words to sound clear, calm and professional.
-            </div>
-            <ul class="pricing-list">
-              <li>Up to 5 letters or long emails</li>
-              <li>Includes “soft but firm” wording</li>
-              <li>One revision per piece</li>
-              <li>Delivered privately through this desk</li>
-            </ul>
-            <div class="pricing-cta">
-              <span>Good entry point.</span>
-              <button onclick="alert('Talk in chat, then send them a Stripe link for $199.')">How to sell</button>
+            <div class="pricing-inner">
+              <div class="pricing-badge">Light</div>
+              <h3 class="pricing-name">Letter & Email Support</h3>
+              <div class="pricing-price">$250</div>
+              <div class="pricing-sub">
+                For clients who need help with important letters, explanations, and emails,
+                but do not want a big agency.
+              </div>
+              <ul class="pricing-list">
+                <li>Up to 5 letters or long emails per month</li>
+                <li>AI-assisted drafting, human editing</li>
+                <li>Soft but firm wording, tailored to them</li>
+                <li>Desk fee included in the price you quote</li>
+              </ul>
+              <div class="pricing-cta">
+                <span>Simple “start here” offer.</span>
+                <button onclick="alert('In Stripe: create a $250 Payment Link named “Letter & Email Support”, then paste it into a task on this desk.')">How to use</button>
+              </div>
             </div>
           </article>
 
-          <!-- Tier 2 -->
-          <article class="pricing-card tier-standard">
-            <div class="pricing-badge">Most used</div>
-            <h3 class="pricing-name">Retirement Presence Bundle</h3>
-            <div class="pricing-price">$450</div>
-            <div class="pricing-sub">
-              Long-form article + social presence for advisors, veterans, or small business owners.
-            </div>
-            <ul class="pricing-list">
-              <li>One 3,000+ word AI-assisted article</li>
-              <li>10 LinkedIn posts tailored to his voice</li>
-              <li>Polished by hand for clarity</li>
-              <li>Guidance on what to post first</li>
-            </ul>
-            <div class="pricing-cta">
-              <span>Ideal for “I need to look serious online.”</span>
-              <button onclick="alert('Create a $450 Stripe payment link and paste it into the task form.')">Use this offer</button>
+          <article class="pricing-card">
+            <div class="pricing-inner">
+              <div class="pricing-badge">Most used</div>
+              <h3 class="pricing-name">Presence & Content Desk</h3>
+              <div class="pricing-price">$480</div>
+              <div class="pricing-sub">
+                For small business owners and professionals who want consistent,
+                dignified content without sounding like “hustle culture”.
+              </div>
+              <ul class="pricing-list">
+                <li>1 long-form article (3,000+ words)</li>
+                <li>10 LinkedIn or Facebook posts per month</li>
+                <li>Written in their voice, with your guidance</li>
+                <li>Desk fee included in the Stripe price</li>
+              </ul>
+              <div class="pricing-cta">
+                <span>Ideal for US men 50–70 with stories to tell.</span>
+                <button onclick="alert('Create a $480 Stripe Payment Link. When a client agrees, paste that link into the “Stripe Payment Link” field when posting the task.')">Use this offer</button>
+              </div>
             </div>
           </article>
 
-          <!-- Tier 3 -->
           <article class="pricing-card">
-            <div class="pricing-badge">Premium</div>
-            <h3 class="pricing-name">WhatsApp & Follow-up Flow</h3>
-            <div class="pricing-price">$580</div>
-            <div class="pricing-sub">
-              Fully written WhatsApp / SMS flow to keep conversations warm without sounding like a bot.
-            </div>
-            <ul class="pricing-list">
-              <li>Welcome + 5–7 follow-up messages</li>
-              <li>Separate paths for “serious / not ready / no”</li>
-              <li>Suitable for older US men & family tone</li>
-              <li>Hooks ready for Stripe payment requests</li>
-            </ul>
-            <div class="pricing-cta">
-              <span>Great for side-business owners.</span>
-              <button onclick="alert('Create a $580 Stripe link, then mention this package in chat.')">Position this</button>
+            <div class="pricing-inner">
+              <div class="pricing-badge">Private</div>
+              <h3 class="pricing-name">WhatsApp & Follow-up Flows</h3>
+              <div class="pricing-price">$750</div>
+              <div class="pricing-sub">
+                For clients who want calm, human follow-up messages that keep conversations warm
+                without sounding like a bot.
+              </div>
+              <ul class="pricing-list">
+                <li>Welcome flow + 6–8 follow-up messages</li>
+                <li>Different paths for “ready / not yet / no” replies</li>
+                <li>Built for older US / EU audiences</li>
+                <li>Hooks ready to attach Stripe payment links</li>
+              </ul>
+              <div class="pricing-cta">
+                <span>Great for serious side-business owners.</span>
+                <button onclick="alert('Use a $750 Stripe Payment Link when a client wants a full WhatsApp / SMS flow. The desk fee is embedded in that price.')">Position this</button>
+              </div>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section class="testimonial-section">
-      <div class="container">
-        <div class="section-header">
-          <div>
-            <h2 class="section-title">QUIET FEEDBACK</h2>
-            <p class="section-sub">
-              This is the style of words your clients might say. You can adapt, translate, or show it directly once you have real cases.
-            </p>
-          </div>
-        </div>
-
-        <div class="testimonial-grid">
-          <article class="testimonial-card">
-            <div class="testimonial-body">
-              <div class="quote-mark">“</div>
-              <p>
-                I’m not good with words, but she made my letters sound like me, just calmer. My daughters said
-                it was the first time I sounded ‘soft but still dad’.
-              </p>
-              <div class="testimonial-name">US Veteran · 62</div>
-              <div class="testimonial-role">Texas · Family letters & apologies</div>
-            </div>
-          </article>
-          <article class="testimonial-card">
-            <div class="testimonial-body">
-              <div class="quote-mark">“</div>
-              <p>
-                The LinkedIn posts you wrote started real conversations. I didn’t want fake “hustle” content,
-                just honest stories. That’s exactly what I got.
-              </p>
-              <div class="testimonial-name">Truck Fleet Owner · 57</div>
-              <div class="testimonial-role">Midwest US · LinkedIn presence</div>
-            </div>
-          </article>
-          <article class="testimonial-card">
-            <div class="testimonial-body">
-              <div class="quote-mark">“</div>
-              <p>
-                WhatsApp used to drain me. Now people still feel I’m present, even when I’m on the road. The
-                messages sound human, not like some robot.
-              </p>
-              <div class="testimonial-name">Logistics Executive · 59</div>
-              <div class="testimonial-role">East Coast · WhatsApp flows</div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ + CTA -->
-    <section class="faq-section">
+    <!-- FAQ -->
+    <section>
       <div class="container">
         <div class="faq-grid">
           <div>
@@ -1420,7 +1423,8 @@
               <div>
                 <h2 class="section-title">QUESTIONS & BOUNDARIES</h2>
                 <p class="section-sub">
-                  You can keep this very honest. Older US men respect clear rules more than “big promises”.
+                  This desk is intentionally small. The language stays calm, clear and honest—
+                  especially for older US professionals who value stability.
                 </p>
               </div>
             </div>
@@ -1431,53 +1435,57 @@
                   <span class="faq-toggle">›</span>
                 </div>
                 <div class="faq-body">
-                  No. This desk is for words and structure only: messages, content, explanation letters, and communication flows.
-                  Money always stays between you, your bank, and Stripe.
+                  No. This desk supports words, structure and communication: letters, content, scripts, and flows.
+                  Clients keep full control of their own accounts, wallets and investments. Payments here are for work
+                  delivered, not for asset management.
                 </div>
               </div>
               <div class="faq-item">
                 <div class="faq-header">
-                  <span class="faq-question">Is this a big public platform?</span>
+                  <span class="faq-question">How does the desk fee work?</span>
                   <span class="faq-toggle">›</span>
                 </div>
                 <div class="faq-body">
-                  No. It is intentionally small and quiet. You invite the people you trust. They invite the freelancers they trust.
+                  The client sees a single price, paid via Stripe. Behind the scenes, part of that goes to the freelancer,
+                  and part stays with the desk as a service fee for coordination, quality control, and ongoing support.
                 </div>
               </div>
               <div class="faq-item">
                 <div class="faq-header">
-                  <span class="faq-question">Who actually sees my tasks?</span>
+                  <span class="faq-question">Is this a big public marketplace?</span>
                   <span class="faq-toggle">›</span>
                 </div>
                 <div class="faq-body">
-                  Only the people you decide to bring onto the desk. Think of it more like a private office, not like a marketplace with thousands of strangers.
+                  No. It is closer to a private office. You decide who may submit tasks and who may see them.
+                  This is built for depth and trust, not for volume.
                 </div>
               </div>
               <div class="faq-item">
                 <div class="faq-header">
-                  <span class="faq-question">How do payments work?</span>
+                  <span class="faq-question">Who sees my tasks?</span>
                   <span class="faq-toggle">›</span>
                 </div>
                 <div class="faq-body">
-                  When both sides agree on scope and price, you send (or receive) a Stripe Payment Link. The “Pay with Stripe” button only appears when there’s a real link.
+                  Only the freelancers and clients you or the desk owner invite. Tasks are not indexed or shared publicly.
                 </div>
               </div>
             </div>
           </div>
 
           <aside class="faq-side">
-            <div class="faq-side-title">How you use this as your “Sophie desk”</div>
+            <div class="faq-side-title">How you use this desk to earn fees</div>
             <p>
-              You don’t have to show anyone the whole system at first. You can:
+              You do not have to explain the full model to everyone. In simple terms:
             </p>
             <ul class="dot-list" style="margin-top:6px;">
-              <li>Chat with them like normal, build trust.</li>
-              <li>When they ask for help with words or content, mention this as your “private desk”.</li>
-              <li>Post a task in their name, paste a Stripe link, and use the board to stay organized.</li>
+              <li>You chat with clients as yourself, building trust in WhatsApp, Telegram or email.</li>
+              <li>When a serious task appears, you mention that you run a small “private AI desk”.</li>
+              <li>You set the total price, create a Stripe Payment Link, and post a task on this board.</li>
+              <li>You pay your freelancer a net amount and keep the spread as your desk fee.</li>
             </ul>
             <div class="cta-bar">
-              <span><strong>Next step:</strong> pick one package and talk about it in your chats tonight.</span>
-              <button onclick="document.getElementById('linkScrollTasks').click()">Use the task board</button>
+              <span><strong>Next step:</strong> choose one package above and talk about it in your conversations tonight.</span>
+              <button onclick="document.getElementById('linkScrollTasks').click()">Open the task board</button>
             </div>
           </aside>
         </div>
@@ -1489,8 +1497,10 @@
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <span>&copy; <span id="year"></span> Aurum Task Desk.</span>
-        <span data-i18n="footer_rights">All rights reserved. This desk does not store card data – all payments go through Stripe.</span>
+        <span>&copy; <span id="year"></span> Aurum Private AI Desk.</span>
+        <span data-i18n="footer_rights">
+          All rights reserved. This desk does not store card data – all payments are processed by Stripe.
+        </span>
       </div>
     </div>
   </footer>
@@ -1503,7 +1513,7 @@
       <div>
         <div class="modal-title" data-i18n="auth_title">Log in / Sign up</div>
         <p class="helper-text" data-i18n="auth_sub">
-          One identity to post tasks and accept them – like a small, private network.
+          One identity to submit tasks, accept them, and keep your activity on this private desk.
         </p>
       </div>
       <button class="modal-close" data-close="authModal">&times;</button>
@@ -1524,7 +1534,7 @@
       <div id="authError" class="error-text" style="display:none;"></div>
       <div class="modal-actions">
         <button class="btn-secondary" data-close="authModal" data-i18n="btn_cancel">Cancel</button>
-        <button id="btnAuthSubmit" class="btn-primary" data-i18n="auth_submit">Continue</button>
+        <button id="btnAuthSubmit" class="btn-primary-modal" data-i18n="auth_submit">Continue</button>
       </div>
     </div>
   </div>
@@ -1537,7 +1547,8 @@
       <div>
         <div class="modal-title" data-i18n="task_modal_title">Post a new task</div>
         <p class="helper-text" data-i18n="task_modal_sub">
-          Use this for serious tasks only. Stripe link is optional and only appears if you paste it.
+          Use this for serious tasks only. If you paste a Stripe Payment Link below,
+          the task row will show a “Pay with Stripe” button.
         </p>
       </div>
       <button class="modal-close" data-close="taskModal">&times;</button>
@@ -1560,7 +1571,7 @@
             <option value="EUR">€ EUR</option>
             <option value="GBP">£ GBP</option>
           </select>
-          <input id="taskBudget" class="input" type="number" min="0" step="1" placeholder="450" style="flex:1;" />
+          <input id="taskBudget" class="input" type="number" min="0" step="1" placeholder="480" style="flex:1;" />
         </div>
       </div>
       <div class="form-group">
@@ -1571,14 +1582,14 @@
         <label for="taskStripeLink" class="label" data-i18n="task_stripe_label">Stripe Payment Link (optional)</label>
         <input id="taskStripeLink" class="input" placeholder="https://buy.stripe.com/..." />
         <p class="helper-text" data-i18n="task_stripe_helper">
-          If you paste a live Stripe Payment Link here, the task row will show a gold “Pay with Stripe” button.
-          If you leave it empty, no payment button is shown.
+          When you paste a live Stripe Payment Link, the task will show a “Pay with Stripe” button
+          that opens the Stripe checkout in a new tab.
         </p>
       </div>
       <div id="taskError" class="error-text" style="display:none;"></div>
       <div class="modal-actions">
         <button class="btn-secondary" data-close="taskModal" data-i18n="btn_cancel">Cancel</button>
-        <button id="btnTaskSubmit" class="btn-primary" data-i18n="task_submit">Save task</button>
+        <button id="btnTaskSubmit" class="btn-primary-modal" data-i18n="task_submit">Save task</button>
       </div>
     </div>
   </div>
@@ -1588,29 +1599,29 @@
   /* ---------- i18n ---------- */
   const translations = {
     en: {
-      brand_title: 'AURUM TASK DESK',
-      brand_sub: 'Private AI Content & Automation Office',
+      brand_title: 'AURUM PRIVATE AI DESK',
+      brand_sub: 'AI TASKS · CURATED FREELANCERS · DESK FEE MODEL',
       nav_login: 'Log in / Sign up',
       nav_post_task: 'Post a Task',
-      hero_kicker: 'Wall Street–grade content, no agency overhead',
+      hero_kicker: 'Quiet, family-office–style desk for AI tasks',
       hero_title_1: 'A private desk for',
-      hero_title_2: 'AI writing & automation',
-      hero_sub: 'A focused hub where US / EU professionals send tasks, freelancers execute with AI assistance, and Stripe settles every payment like a serious firm.',
-      hero_badge_1: 'US 55+ male professionals as core clients',
-      hero_badge_2: 'Stripe settlement, no cards stored here',
-      hero_badge_3: 'Designed like a small family office',
-      hero_cta_client: 'I’m a client – post a task',
-      hero_cta_freelancer: 'I’m a freelancer – see tasks',
-      hero_note: 'Clear budgets, human conversation, Stripe links only when you’re ready to move real money.',
-      hero_card_title: 'Current Desk Snapshot',
-      hero_card_safe: 'No funds held on-site – Stripe only',
+      hero_title_2: 'AI tasks, writing & execution',
+      hero_sub: 'A small, family-office–style hub where US & EU professionals submit AI-related tasks, vetted freelancers execute with AI assistance, and this desk earns a clear service fee on each completed assignment.',
+      hero_badge_1: 'Focused on 45–75 year old professionals & owners',
+      hero_badge_2: 'Clients pay via Stripe · desk keeps a fee',
+      hero_badge_3: 'Not a public marketplace · invitation only',
+      hero_cta_client: 'I’m a client – submit a task',
+      hero_cta_freelancer: 'I’m a freelancer – see open tasks',
+      hero_note: 'The model is simple: clients pay Stripe, the desk keeps a transparent service fee, and freelancers receive the remainder. No balances are held on this site.',
+      hero_card_title: 'Today’s Desk Snapshot',
+      hero_card_safe: 'Stripe handles payments · this desk tracks tasks',
       hero_stat_open: 'Open tasks',
       hero_stat_progress: 'In progress',
       hero_stat_completed: 'Completed',
-      hero_card_footer: 'A simple desk for high-intent, low-drama tasks.',
-      hero_view_all: 'View task board',
-      section_tasks_title: 'TASK MARKETPLACE',
-      section_tasks_sub: 'Clients post tasks, freelancers accept, and Stripe links are shared only when both sides are comfortable.',
+      hero_card_footer: 'A quiet desk for a small circle of serious tasks.',
+      hero_view_all: 'View full board',
+      section_tasks_title: 'AI TASK MARKETPLACE',
+      section_tasks_sub: 'Clients quietly submit AI tasks, freelancers accept and execute, and this desk earns a clear service fee on each completed assignment.',
       filter_status_all: 'All statuses',
       filter_status_open: 'Open',
       filter_status_progress: 'In progress',
@@ -1623,61 +1634,61 @@
       tbl_status: 'Status',
       tbl_actions: 'Actions',
       section_how_title: 'HOW THE DESK RUNS',
-      section_how_sub: 'Everything is intentionally simple: clear roles, simple flows, and no hidden tech complexity for your clients.',
+      section_how_sub: 'Think of this as a very small private office, not a big platform. Clear scopes, AI support, human oversight, and a visible desk fee model.',
       how_client_title: 'For clients',
-      how_client_1: 'Describe what you need: AI writing, letters, LinkedIn posts, WhatsApp flows.',
-      how_client_2: 'Set a budget and wait for a trusted freelancer to accept.',
-      how_client_3: 'Only share a Stripe Payment Link when you’re happy with the person.',
+      how_client_1: 'Describe your AI-related task: writing, letters, LinkedIn content, WhatsApp flows, simple automation, research notes.',
+      how_client_2: 'Set a budget range and wait for a trusted freelancer to accept the task.',
+      how_client_3: 'When you both agree, pay via Stripe using a clear link. The desk keeps a fee, the freelancer receives the rest.',
       how_freelancer_title: 'For freelancers',
-      how_freelancer_1: 'Log in once, your profile stays on this private desk.',
-      how_freelancer_2: 'Accept only tasks that match your capacity and skill.',
-      how_freelancer_3: 'Coordinate payments via Stripe links and keep your own ledger.',
-      how_owner_title: 'For you (desk owner)',
-      how_owner_1: 'You control who gets invited—older US professionals only, if that’s your niche.',
-      how_owner_2: 'Use Stripe prices with built-in margin so the desk quietly earns a spread.',
-      how_owner_3: 'The site stays minimal; your real value is relationship and guidance.',
-      footer_rights: 'All rights reserved. This desk does not store card data – all payments go through Stripe.',
+      how_freelancer_1: 'Log in once. Your profile and activity remain in this private desk, not on a noisy public marketplace.',
+      how_freelancer_2: 'Accept only the tasks you are comfortable with, and use AI tools to move faster with quality control.',
+      how_freelancer_3: 'You are paid from the Stripe flow, minus a desk fee that compensates the office for coordination.',
+      how_owner_title: 'For the desk owner (you)',
+      how_owner_1: 'You decide who is invited: older US professionals, small business owners, veterans, executives.',
+      how_owner_2: 'You quote total prices to clients, then privately agree a net payout with freelancers. The spread is your desk fee.',
+      how_owner_3: 'Over time you can also add Stripe subscriptions for ongoing content and communication support.',
+      footer_rights: 'All rights reserved. This desk does not store card data – all payments are processed by Stripe.',
       auth_title: 'Log in / Sign up',
-      auth_sub: 'One identity to post tasks and accept them – like a small, private network.',
+      auth_sub: 'One identity to submit tasks, accept them, and keep your activity on this private desk.',
       auth_email: 'Email',
       auth_name: 'Display name',
       auth_password: 'Password',
       auth_submit: 'Continue',
       btn_cancel: 'Cancel',
       task_modal_title: 'Post a new task',
-      task_modal_sub: 'Use this for serious tasks only. Stripe link is optional and only appears if you paste it.',
+      task_modal_sub: 'Use this for serious tasks only. If you paste a Stripe Payment Link below, the task row will show a “Pay with Stripe” button.',
       task_title_label: 'Title',
       task_desc_label: 'Description',
       task_budget_label: 'Budget',
       task_location_label: 'Client location (optional)',
       task_stripe_label: 'Stripe Payment Link (optional)',
-      task_stripe_helper: 'If you paste a live Stripe Payment Link here, the task row will show a gold “Pay with Stripe” button. If you leave it empty, no payment button is shown.',
+      task_stripe_helper: 'When you paste a live Stripe Payment Link, the task will show a “Pay with Stripe” button that opens the Stripe checkout in a new tab.',
       task_submit: 'Save task'
     },
     zh: {
-      brand_title: 'AURUM TASK DESK',
-      brand_sub: '私人的 AI 内容与自动化工作台',
+      brand_title: 'AURUM PRIVATE AI DESK',
+      brand_sub: 'AI 任务 · 精选自由职业者 · 抽佣模式',
       nav_login: '登录 / 注册',
       nav_post_task: '发布任务',
-      hero_kicker: '华尔街级别内容，没有代理商中间层',
+      hero_kicker: '安静的「AI 任务私人工作台」',
       hero_title_1: '一个私密工作台，用于',
-      hero_title_2: 'AI 写作和自动化',
-      hero_sub: '专门为欧美客户服务：客户在这里发任务，自由职业者用 AI 协助完成，所有款项通过 Stripe 结算，像小型家族办公室一样稳。',
-      hero_badge_1: '核心客户：美国 55+ 男性专业人士',
-      hero_badge_2: 'Stripe 结算，本网站不保存任何卡片信息',
-      hero_badge_3: '设计风格接近小型 Family Office',
-      hero_cta_client: '我是客户，要发任务',
-      hero_cta_freelancer: '我是自由职业者，要接任务',
-      hero_note: '预算透明、沟通真实。只有双方都确认合作时才使用 Stripe 支付链接。',
-      hero_card_title: '当前工作台概览',
-      hero_card_safe: '资金全部在 Stripe，不在本站滞留',
+      hero_title_2: 'AI 任务、写作与执行',
+      hero_sub: '这是一个小型「家族办公室」风格的平台：欧美客户在这里发 AI 相关任务，自由职业者用 AI + 人工完成，你作为工作台在每单完成后收取清晰的服务费。',
+      hero_badge_1: '主要服务 45–75 岁专业人士 / 企业主',
+      hero_badge_2: '客户使用 Stripe 付款 · 你从中抽佣',
+      hero_badge_3: '不是公开市场 · 邀请制小圈子',
+      hero_cta_client: '我是客户，要发 AI 任务',
+      hero_cta_freelancer: '我是自由职业者，要看任务',
+      hero_note: '模式很简单：客户用 Stripe 付款，你从总价中收取「Desk Fee」，剩余部分支付给接单人。本网站不代管余额。',
+      hero_card_title: '今日工作台概览',
+      hero_card_safe: 'Stripe 处理收款 · 这里只记录任务',
       hero_stat_open: '开放任务',
       hero_stat_progress: '进行中',
       hero_stat_completed: '已完成',
-      hero_card_footer: '专注少而精的任务，而不是混乱的公开平台。',
-      hero_view_all: '查看任务大厅',
-      section_tasks_title: '任务大厅',
-      section_tasks_sub: '客户在这里发任务，自由职业者接单；Stripe 支付链接只在双方确定合作后才会出现。',
+      hero_card_footer: '一个只服务少数认真任务的小工作台。',
+      hero_view_all: '查看完整任务板',
+      section_tasks_title: 'AI 任务大厅',
+      section_tasks_sub: '客户安静地发 AI 任务，自由职业者接单并执行，你的工作台在每一单完成后收取服务费。',
       filter_status_all: '全部状态',
       filter_status_open: '开放中',
       filter_status_progress: '进行中',
@@ -1690,35 +1701,35 @@
       tbl_status: '状态',
       tbl_actions: '操作',
       section_how_title: '工作台的运作方式',
-      section_how_sub: '保持极简：角色清晰、流程简单，不给客户增加任何技术负担。',
-      how_client_title: '客户',
-      how_client_1: '说明你的需求：AI 写作、情感信件、LinkedIn 帖子、WhatsApp 话术等。',
-      how_client_2: '设定预算，等待值得信任的自由职业者接单。',
-      how_client_3: '只在你对对方满意时，才共享 Stripe 支付链接。',
-      how_freelancer_title: '自由职业者',
-      how_freelancer_1: '登录一次，你的身份就保留在这个私密工作台。',
-      how_freelancer_2: '只接符合你能力和时间的任务，不用疲于奔命抢单。',
-      how_freelancer_3: '用 Stripe 支付链接和客户结算，账目自己掌握。',
-      how_owner_title: '你（工作台拥有者）',
-      how_owner_1: '你决定谁能被邀请进来——例如只做美国中高阶层的 55+ 男性。',
-      how_owner_2: '在 Stripe 的产品价格里内置抽成，这个工作台像家办一样默默赚钱。',
-      how_owner_3: '网站保持极简，你真正的价值是关系和建议。',
-      footer_rights: '版权所有。本网站不保存银行卡信息，所有付款由 Stripe 完成。',
+      section_how_sub: '把它当做一个很小的「私人办公室」，而不是大型平台：任务清晰、AI 辅助、人为把关、抽佣模式透明。',
+      how_client_title: '对于客户',
+      how_client_1: '说明你的 AI 相关需求：写作、情感信件、LinkedIn 内容、WhatsApp 话术、简单自动化、调研摘要等。',
+      how_client_2: '设定预算范围，等待值得信任的自由职业者接单。',
+      how_client_3: '双方确认后，通过 Stripe 支付链接付款；你看到的是总价，工作台在中间收取服务费。',
+      how_freelancer_title: '对于自由职业者',
+      how_freelancer_1: '登录一次，你的身份和记录都留在这个私密工作台，而不是嘈杂的公开平台。',
+      how_freelancer_2: '只接自己有把握的任务，用 AI 工具提高效率，再人工把控质量。',
+      how_freelancer_3: '你的收入来自 Stripe 流程中的分成，扣除工作台的协调服务费。',
+      how_owner_title: '对于你（工作台拥有者）',
+      how_owner_1: '你决定谁能进来：比如美国中高阶层、退役军人、企业主等。',
+      how_owner_2: '你给客户的是总价，再单独和接单人谈净收入，中间差额就是你的 Desk Fee（抽成）。',
+      how_owner_3: '以后你还可以在 Stripe 里添加「订阅制」，做持续的内容 / 沟通支持收入。',
+      footer_rights: '版权所有。本网站不保存银行卡信息，所有付款均由 Stripe 处理完成。',
       auth_title: '登录 / 注册',
-      auth_sub: '一个身份即可同时发任务和接任务，就像一个小型私密圈子。',
+      auth_sub: '一个身份即可在这个私密工作台发任务、接任务，并保留你的记录。',
       auth_email: '邮箱',
       auth_name: '显示名称',
       auth_password: '密码',
       auth_submit: '继续',
       btn_cancel: '取消',
       task_modal_title: '发布新任务',
-      task_modal_sub: '只用于真实、严肃的任务。Stripe 支付链接可选，只有你粘贴时才会显示按钮。',
+      task_modal_sub: '只用于真实、严肃的任务。如果你在下面粘贴 Stripe 支付链接，任务行里会出现「使用 Stripe 付款」按钮。',
       task_title_label: '任务标题',
       task_desc_label: '任务描述',
       task_budget_label: '预算',
       task_location_label: '客户地区（可选）',
       task_stripe_label: 'Stripe 支付链接（可选）',
-      task_stripe_helper: '如果在这里粘贴 Stripe 的支付链接，任务列表中会显示一个金色“使用 Stripe 付款”按钮；留空则不会显示支付按钮。',
+      task_stripe_helper: '如果在这里粘贴 Stripe 的支付链接，任务列表中的该任务会出现「使用 Stripe 付款」按钮，点击会在新标签页打开 Stripe 付款页面。',
       task_submit: '保存任务'
     }
   };
@@ -1727,22 +1738,18 @@
   function getCurrentLang() {
     return localStorage.getItem('aurum_lang') || 'en';
   }
+
   function applyTranslations(lang) {
     const dict = translations[lang] || translations.en;
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (!dict[key]) return;
-      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        // 保留原 placeholder
-      } else {
-        el.textContent = dict[key];
-      }
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') return;
+      el.textContent = dict[key];
     });
+
     const user = getCurrentUser();
-    if (!user) {
-      const btn = document.getElementById('btnNavLogin');
-      if (btn && dict.nav_login) btn.textContent = dict.nav_login;
-    }
+    updateUserLabel(); // ensure nav login text is correct for current lang & user
   }
 
   /* ---------- Storage helpers ---------- */
@@ -1760,6 +1767,7 @@
       return fallback;
     }
   }
+
   function saveJSON(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
   }
@@ -1767,13 +1775,16 @@
   function getCurrentUser() {
     return loadJSON(STORAGE_KEYS.user, null);
   }
+
   function setCurrentUser(user) {
     if (user) saveJSON(STORAGE_KEYS.user, user);
     else localStorage.removeItem(STORAGE_KEYS.user);
   }
+
   function getUsers() {
     return loadJSON(STORAGE_KEYS.users, []);
   }
+
   function setUsers(u) {
     saveJSON(STORAGE_KEYS.users, u);
   }
@@ -1781,45 +1792,46 @@
   /* ---------- Seed tasks ---------- */
   let tasks = loadJSON(STORAGE_KEYS.tasks, null);
   if (!tasks || !Array.isArray(tasks) || !tasks.length) {
+    const now = Date.now();
     tasks = [
       {
         id: 1,
         title: 'Long-form article for retired US investors (3,000+ words)',
-        description: 'Need an AI-assisted but human-edited article about retirement income strategies for US men 55+, including tax angles and risk disclaimers.',
-        budget: 450,
+        description: 'AI-assisted but human-edited article about retirement income and risk for US men 55+, calm and clear tone.',
+        budget: 480,
         currency: 'USD',
-        clientName: 'Sample Client · Houston',
-        location: 'Houston, TX · United States',
+        clientName: 'Sample Client · Florida',
+        location: 'Naples, FL · United States',
         status: 'open',
-        createdAt: Date.now() - 86400000,
+        createdAt: now - 86400000,
         createdByEmail: 'client@example.com',
         acceptedByEmail: null,
         paymentLink: ''
       },
       {
         id: 2,
-        title: '10-piece LinkedIn content pack (executive tone)',
-        description: 'Monthly pack of 10 posts for a US logistics executive. Tone: professional, slightly personal, no political content.',
+        title: 'LinkedIn presence for logistics executive (10 posts)',
+        description: 'Monthly content pack: 10 posts with a dignified, non-hype tone for a US logistics executive.',
         budget: 320,
         currency: 'USD',
-        clientName: 'Sample Client · Dallas',
-        location: 'Dallas, TX · United States',
+        clientName: 'Sample Client · Midwest',
+        location: 'Midwest US · Remote',
         status: 'open',
-        createdAt: Date.now() - 3600000,
+        createdAt: now - 3600000,
         createdByEmail: 'client@example.com',
         acceptedByEmail: null,
         paymentLink: ''
       },
       {
         id: 3,
-        title: 'WhatsApp automation script for older male audience',
-        description: 'Flow design + copy for a WhatsApp sequence targeting US men 55+, focusing on trust, calm, and clear financial expectations.',
-        budget: 580,
+        title: 'WhatsApp follow-up flow for small trucking company',
+        description: 'Design and write a full WhatsApp flow to follow up with leads without sounding like a bot.',
+        budget: 750,
         currency: 'USD',
-        clientName: 'Sample Client · Remote',
-        location: 'Remote · Global',
+        clientName: 'Sample Client · Texas',
+        location: 'Houston, TX · United States',
         status: 'open',
-        createdAt: Date.now(),
+        createdAt: now,
         createdByEmail: 'client@example.com',
         acceptedByEmail: null,
         paymentLink: ''
@@ -1882,7 +1894,7 @@
       if (task.status === 'open') {
         actions += `<button class="btn-table btn-accept ${loggedIn?'':'btn-disabled'}"
                      data-action="accept" data-id="${task.id}">
-                     ${loggedIn ? 'Accept' : 'Login to accept'}
+                     ${loggedIn ? 'Accept task' : 'Login to accept'}
                     </button>`;
       } else if (task.status === 'in_progress' &&
                  currentUser && currentUser.email === task.createdByEmail) {
@@ -1921,6 +1933,7 @@
     const el = document.getElementById(id);
     if (el) el.style.display = 'flex';
   }
+
   function closeModal(id) {
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
@@ -2006,7 +2019,7 @@
     return true;
   }
 
-  /* ---------- Task creation & actions ---------- */
+  /* ---------- Tasks ---------- */
   function initTasks() {
     const openButtons = ['btnNavNewTask','btnHeroClient','btnNewTask'];
     openButtons.forEach(id => {
@@ -2116,7 +2129,7 @@
     });
   }
 
-  /* ---------- Lang & other init ---------- */
+  /* ---------- Lang & init ---------- */
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -2129,7 +2142,6 @@
       const lang = langSelect.value;
       localStorage.setItem('aurum_lang', lang);
       applyTranslations(lang);
-      updateUserLabel();
     });
 
     document.getElementById('linkScrollTasks').addEventListener('click', () => {
