@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aurum Task Desk — 私人AI写作台</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <title>Aurum Task Desk — Private AI Writing & Automation Desk</title>
+  <link rel="icon" href="favicon.png" />
+  <link rel="icon" type="image/png" href="favicon.png">
   <style>
-    * { box-sizing: border-box; }
+    /* ===== 基础样式（全站统一） ===== */
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
       background: #050816;
       color: #f7f5f0;
       line-height: 1.6;
     }
-    a { color: inherit; text-decoration: none; }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
     .container {
       max-width: 1180px;
@@ -22,487 +28,720 @@
       padding: 20px;
     }
 
-    /* 顶部导航 */
     .navbar {
       position: sticky;
       top: 0;
       z-index: 20;
       backdrop-filter: blur(14px);
-      background: rgba(5, 8, 22, 0.95);
+      background: rgba(5, 8, 22, 0.9);
       border-bottom: 1px solid rgba(204, 188, 119, 0.12);
-      padding: 14px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 14px 20px;
     }
+
     .nav-left {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       color: #f5f2e6;
     }
+
     .nav-right a {
       margin-left: 22px;
       font-size: 14px;
       opacity: 0.86;
     }
+
     .nav-right a:hover {
       opacity: 1;
       color: #f0d37a;
     }
 
-    /* 主体布局 */
-    .layout {
+    .footer {
+      margin-top: 80px;
+      border-top: 1px solid rgba(204, 188, 119, 0.25);
+      padding: 30px 20px 40px;
+      text-align: center;
+      font-size: 13px;
+      opacity: 0.8;
+      color: #c3c0ba;
+    }
+
+    /* ===== HERO 区：华尔街深色 + 金边卡片 ===== */
+    .hero {
+      padding: 70px 20px 40px;
+    }
+
+    .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-      gap: 24px;
-      margin-top: 30px;
-      align-items: flex-start;
-    }
-    @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 32px;
+      align-items: stretch;
     }
 
-    .card {
-      background: radial-gradient(circle at top left, #181923, #050816);
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 18px 18px 20px;
-    }
-    .card-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .card-sub {
-      font-size: 13px;
-      color: #b7b3aa;
-      margin-bottom: 16px;
+    .hero-left-title {
+      font-size: 40px;
+      font-weight: 800;
+      color: #f7f5ef;
+      line-height: 1.18;
     }
 
-    label {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 4px;
-      color: #f5f2ea;
+    .hero-left-title span {
+      color: #f0d37a;
     }
-    textarea, select, input {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(8, 10, 25, 0.9);
-      color: #f7f5f0;
-      font-family: inherit;
-      font-size: 13px;
-    }
-    textarea { min-height: 160px; resize: vertical; }
 
-    .inline {
+    .hero-left-sub {
+      margin-top: 18px;
+      font-size: 16px;
+      max-width: 620px;
+      color: #cbc7be;
+    }
+
+    .hero-tags {
       display: flex;
+      flex-wrap: wrap;
       gap: 10px;
-      margin-top: 10px;
+      margin-top: 18px;
     }
-    .inline .field { flex: 1; }
 
-    .hint {
+    .tag-pill {
       font-size: 12px;
-      color: #8f8b82;
-      margin-top: 4px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(240, 211, 122, 0.4);
+      background: radial-gradient(circle at top left, #2c2a23, #111218);
+      color: #f5f2e8;
+      opacity: 0.9;
     }
 
-    .btn-primary {
-      padding: 9px 18px;
+    .hero-cta-row {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn-gold {
+      padding: 11px 22px;
       border-radius: 999px;
       border: 1px solid #f0d37a;
       background: linear-gradient(135deg, #f0d37a, #cba84f);
       color: #18120a;
-      font-size: 14px;
       font-weight: 600;
+      font-size: 14px;
       cursor: pointer;
-      margin-right: 10px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
     }
-    .btn-primary:disabled {
-      opacity: 0.6;
-      cursor: default;
+
+    .btn-gold:hover {
+      filter: brightness(1.05);
     }
-    .btn-secondary {
-      padding: 8px 14px;
+
+    .btn-outline {
+      padding: 11px 22px;
       border-radius: 999px;
-      border: 1px solid rgba(240, 211, 122, 0.5);
+      border: 1px solid rgba(240, 211, 122, 0.6);
       background: transparent;
-      font-size: 12px;
       color: #f0d37a;
+      font-weight: 500;
+      font-size: 14px;
       cursor: pointer;
-      margin-right: 10px;
     }
-    .btn-secondary:hover {
+
+    .btn-outline:hover {
       background: rgba(240, 211, 122, 0.08);
     }
-    .btn-pay {
-      padding: 9px 16px;
-      border-radius: 999px;
-      border: 1px solid #35c66a;
-      background: linear-gradient(135deg, #35c66a, #1c8a47);
-      color: #04120a;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-right: 10px;
-    }
-    .btn-pay:disabled {
-      opacity: 0.6;
-      cursor: default;
-    }
 
-    .status-text {
-      font-size: 12px;
-      color: #a7a39b;
-      margin-top: 6px;
-    }
-
-    /* 结果区域 */
-    .result-box {
-      position: relative;
+    .hero-note {
       margin-top: 10px;
-      padding: 12px;
-      border-radius: 10px;
-      background: radial-gradient(circle at top, #161827, #050816);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 13px;
-      white-space: pre-wrap;
-      max-height: 420px;
-      overflow-y: auto;
-    }
-    .result-empty {
-      font-size: 13px;
-      color: #9c978d;
-    }
-
-    /* 预览遮罩 */
-    .preview-mask {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 70px;
-      background: linear-gradient(to bottom, rgba(5,8,22,0) 0%, rgba(5,8,22,0.92) 70%);
-      pointer-events: none;
-    }
-    .preview-tag {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.55);
-      border: 1px solid rgba(240, 211, 122, 0.7);
-      color: #f0d37a;
-    }
-
-    .pay-note {
       font-size: 12px;
-      color: #c1bcaf;
-      margin-top: 6px;
+      color: #9a968c;
     }
-    .pay-note strong { color: #f0d37a; }
 
-    .footer {
-      margin-top: 60px;
-      padding: 24px 0 32px;
-      border-top: 1px solid rgba(204, 188, 119, 0.22);
+    .hero-right-card {
+      height: 100%;
+      border-radius: 18px;
+      padding: 22px 22px 20px;
+      border: 1px solid rgba(240, 211, 122, 0.5);
+      background: radial-gradient(circle at 0% 0%, #3b3b3b 0, #151722 42%, #050816 82%);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .card-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: #c3c0ba;
+    }
+
+    .card-pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(170, 255, 170, 0.4);
+      font-size: 11px;
+      color: #adffb3;
+      background: rgba(10, 54, 25, 0.6);
+    }
+
+    .card-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
       font-size: 13px;
-      color: #a59f94;
-      text-align: center;
+    }
+
+    .card-table th,
+    .card-table td {
+      padding: 7px 6px;
+      text-align: left;
+    }
+
+    .card-table th {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #8b8880;
+    }
+
+    .card-table td {
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+      color: #f5f2ea;
+    }
+
+    .col-right {
+      text-align: right;
+      color: #f0d37a;
+      white-space: nowrap;
+    }
+
+    .card-footer {
+      margin-top: 14px;
+      font-size: 11px;
+      color: #a8a49c;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px 10px;
+    }
+
+    /* ===== 信任条 / 统计数字 ===== */
+    .trust-strip {
+      border-top: 1px solid rgba(204, 188, 119, 0.18);
+      border-bottom: 1px solid rgba(204, 188, 119, 0.18);
+      background: linear-gradient(
+        90deg,
+        rgba(240, 211, 122, 0.06),
+        rgba(16, 20, 33, 0.9),
+        rgba(240, 211, 122, 0.06)
+      );
+      padding: 18px 20px;
+    }
+
+    .trust-grid {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #d9d5cf;
+    }
+
+    .trust-main {
+      font-weight: 500;
+    }
+
+    .trust-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+    }
+
+    .trust-pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(134, 189, 255, 0.4);
+      background: rgba(12, 30, 60, 0.7);
+      color: #e2ecff;
+    }
+
+    /* ===== 三大板块：How / Built for / Use cases ===== */
+    .section {
+      padding: 36px 20px 0;
+    }
+
+    .section-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #f5f2e6;
+      margin-bottom: 6px;
+    }
+
+    .section-sub {
+      font-size: 14px;
+      color: #a9a59b;
+      max-width: 620px;
+      margin-bottom: 20px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      border-radius: 12px;
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top left, #26252a, #14151c);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 14px;
+    }
+
+    .card h3 {
+      font-size: 15px;
+      margin: 0 0 6px;
+      color: #f5f2ea;
+    }
+
+    .card p {
+      margin: 0;
+      color: #c5c1b8;
+    }
+
+    .pill-label {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #f0d37a;
+      margin-bottom: 4px;
+    }
+
+    /* ===== Use Cases 列表 ===== */
+    .usecase-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .usecase-item {
+      border-radius: 10px;
+      padding: 14px 15px;
+      background: rgba(15, 20, 35, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #dcd8cf;
+    }
+
+    .usecase-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #f5f2ea;
+    }
+
+    /* ===== “Why not a marketplace” 区块 ===== */
+    .contrast-block {
+      border-radius: 16px;
+      padding: 22px 20px 20px;
+      background: linear-gradient(
+        135deg,
+        rgba(240, 211, 122, 0.12),
+        rgba(9, 12, 26, 0.98)
+      );
+      border: 1px solid rgba(240, 211, 122, 0.6);
+      margin-top: 24px;
+      font-size: 14px;
+      color: #f9f6ee;
+    }
+
+    .contrast-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .contrast-col h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin: 0 0 6px;
+    }
+
+    .contrast-col ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #f2efe6;
+      font-size: 13px;
+    }
+
+    /* ===== FAQ & CTA ===== */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 26px;
+      align-items: flex-start;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+
+    .faq-item {
+      margin-bottom: 10px;
+    }
+
+    .faq-item strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #f5f2ea;
+    }
+
+    .cta-panel {
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top left, #2a2515, #120f0a);
+      border: 1px solid rgba(240, 211, 122, 0.6);
+    }
+
+    .cta-panel p {
+      margin: 8px 0;
+      color: #e3ddcf;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 60px;
+      }
+
+      .nav-right a {
+        margin-left: 14px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .hero-left-title {
+        font-size: 30px;
+      }
+
+      .hero-right-card {
+        margin-top: 4px;
+      }
     }
   </style>
 </head>
 <body>
   <!-- 顶部导航 -->
   <header class="navbar">
-    <div class="nav-left">AURUM TASK DESK</div>
-    <nav class="nav-right">
-      <a href="index.html">首页</a>
-      <a href="tasks.html">任务市场</a>
-      <a href="about.html">关于</a>
-      <a href="pricing.html">我们的定价</a>
-      <a href="contact.html">联系我们</a>
-    </nav>
+    <div class="nav-left">Aurum Task Desk</div>
+    <div class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="tasks.html">Task Marketplace</a>
+      <a href="about.html">About</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+    </div>
   </header>
 
-  <main class="container">
-    <section class="layout">
-      <!-- 左侧：客户输入 -->
-      <article class="card">
-        <h2 class="card-title">AI 桌面台（私有）</h2>
-        <p class="card-sub">
-          粘贴客户的备注或大致想法。桌面台会将其转换为清晰、适合美国 / 欧洲中老年专业人士阅读的文本。
-          你可以先预览，再决定是否解锁完整稿件。
+  <!-- HERO：华尔街式“交易面板 + 私人办公桌” -->
+  <main class="hero">
+    <div class="container hero-grid">
+      <div class="hero-left">
+        <h1 class="hero-left-title">
+          A quiet <span>AI task desk</span><br />
+          for older US & EU professionals
+        </h1>
+        <p class="hero-left-sub">
+          Aurum Task Desk is a private coordination desk. Clients send tasks,
+          trusted freelancers execute with AI, and the Desk quietly manages
+          scope, words, and settlement — like a small Wall Street back office,
+          built only for people you choose.
         </p>
 
-        <div class="field">
-          <label for="clientNote">客户任务 / 备注</label>
-          <textarea id="clientNote" placeholder="例如：Please draft a debt collection agreement for me."></textarea>
-          <div class="hint">可以是中英文混合、口语化描述，AI 会帮你整理成清晰稿件。</div>
+        <div class="hero-tags">
+          <span class="tag-pill">US / EU clients · 50+ core age</span>
+          <span class="tag-pill">AI writing · scripts · light automation</span>
+          <span class="tag-pill">Desk fee on each completed task</span>
         </div>
 
-        <div class="inline">
-          <div class="field">
-            <label for="tone">语气</label>
-            <select id="tone">
-              <option value="calm">平静、尊重</option>
-              <option value="professional">专业、正式</option>
-              <option value="warm">温和、关心</option>
-              <option value="firm">坚定但礼貌</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="language">语言</label>
-            <select id="language">
-              <option value="english">英文</option>
-              <option value="chinese">中文</option>
-              <option value="bilingual">中英文双语</option>
-            </select>
-          </div>
+        <div class="hero-cta-row">
+          <a href="tasks.html" class="btn-gold">View current demo tasks</a>
+          <a href="about.html" class="btn-outline">How Aurum Task Desk works</a>
         </div>
 
-        <div style="margin-top: 16px;">
-          <button type="button" class="btn-primary" id="generateBtn">生成草稿（预览）</button>
-          <button type="button" class="btn-secondary" id="exampleBtn">填入示例</button>
-          <div class="status-text" id="statusText"></div>
+        <div class="hero-note">
+          No open marketplace. You control who sees the desk, who posts tasks,
+          and who gets invited to work.
         </div>
-      </article>
+      </div>
 
-      <!-- 右侧：AI 结果 + 收费解锁 -->
-      <aside class="card">
-        <h2 class="card-title">桌面 AI 智能草稿</h2>
-        <p class="card-sub">
-          下面首先展示 <strong>预览部分</strong>，方便你判断是否合适。完整稿件和复制功能在付款后解锁。
-        </p>
-
-        <div id="resultBox" class="result-box">
-          <div class="result-empty">
-            尚未生成草稿。请在左侧粘贴客户备注，点击「生成草稿（预览）」。
-          </div>
+      <aside class="hero-right-card">
+        <div class="card-heading">
+          <div class="card-title">Current Desk Snapshot</div>
+          <div class="card-pill">No funds held on-site</div>
         </div>
-
-        <div style="margin-top: 12px;">
-          <button type="button" class="btn-pay" id="unlockBtn" disabled>解锁完整稿件（$9.99）</button>
-          <button type="button" class="btn-secondary" id="copyBtn" disabled>复制完整稿件</button>
-        </div>
-        <div class="pay-note" id="payNote">
-          预览为全文的部分片段。<br>
-          支付后将自动返回本页面并解锁本次稿件的 <strong>完整内容 + 复制按钮</strong>。
+        <table class="card-table">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th class="col-right">Budget</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Long-form article for retired US investor</td>
+              <td class="col-right">$450</td>
+            </tr>
+            <tr>
+              <td>10-piece LinkedIn pack (executive tone)</td>
+              <td class="col-right">$320</td>
+            </tr>
+            <tr>
+              <td>WhatsApp automation script for older male audience</td>
+              <td class="col-right">$580</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card-footer">
+          <span>Example volumes only · Desk fee built into each number</span>
+          <span>Stripe settlement · no custody of client funds</span>
         </div>
       </aside>
-    </section>
-
-    <footer class="footer">
-      © 2025 Aurum Task Desk — 私人 AI 任务协调桌面台
-    </footer>
+    </div>
   </main>
 
-  <script>
-    // ✅ 你的 Cloudflare Worker AI 接口（已确认）
-    const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
+  <!-- 信任条 -->
+  <section class="trust-strip">
+    <div class="trust-grid">
+      <div class="trust-main">
+        Designed for calm, low-drama work with older professionals — not for
+        hype or noisy mass markets.
+      </div>
+      <div class="trust-badges">
+        <span class="trust-pill">US &amp; EU retirees · executives · small business owners</span>
+        <span class="trust-pill">Writing · messaging · follow-up flows</span>
+        <span class="trust-pill">Stripe-based settlement</span>
+      </div>
+    </div>
+  </section>
 
-    // ✅ Stripe 支付链接（需要你替换成自己的 Payment Link）
-    // 建议在 Stripe 创建一个一次性付款链接：
-    // 价格例如 9.99 USD，成功跳转地址设置为：
-    // https://aifreelance-hub.github.io/aifreelance-hub/index.html?paid=1
-    const STRIPE_PAYMENT_URL = "https://STRIPE_PAYMENT_URL_HERE";
+  <!-- How the Desk works -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">How Aurum Task Desk Runs</h2>
+      <p class="section-sub">
+        Think of it as a small private office between clients and freelancers.
+        You coordinate the relationship; AI and humans handle the work.
+      </p>
+      <div class="three-col">
+        <div class="card">
+          <span class="pill-label">Step 01</span>
+          <h3>Clients send tasks in plain language</h3>
+          <p>
+            A US client writes: “I need a letter to my daughter,” or
+            “I need 10 posts explaining my business calmly.” The Desk turns
+            this into a clear scope and budget.
+          </p>
+        </div>
+        <div class="card">
+          <span class="pill-label">Step 02</span>
+          <h3>Freelancers execute with AI + structure</h3>
+          <p>
+            Contributors use AI tools to draft, but the Desk enforces tone,
+            clarity, and structure so clients feel understood — not spammed.
+          </p>
+        </div>
+        <div class="card">
+          <span class="pill-label">Step 03</span>
+          <h3>Stripe settlement & desk fee</h3>
+          <p>
+            Clients pay one Stripe amount. Freelancers receive a net payout.
+            The desk fee is the spread — just like a quiet coordination office.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    const clientNoteEl = document.getElementById("clientNote");
-    const toneEl = document.getElementById("tone");
-    const languageEl = document.getElementById("language");
-    const generateBtn = document.getElementById("generateBtn");
-    const exampleBtn = document.getElementById("exampleBtn");
-    const statusText = document.getElementById("statusText");
-    const resultBox = document.getElementById("resultBox");
-    const unlockBtn = document.getElementById("unlockBtn");
-    const copyBtn = document.getElementById("copyBtn");
-    const payNote = document.getElementById("payNote");
+  <!-- Built for / Use cases -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">Who this Desk is Built For</h2>
+      <p class="section-sub">
+        Aurum Task Desk is intentionally narrow. It’s not for everyone — it is
+        for people who prefer low-noise, private help.
+      </p>
+      <div class="three-col">
+        <div class="card">
+          <h3>Older US & EU men (50+)</h3>
+          <p>
+            Retirees, veterans, business owners, or professionals who want
+            help with words, stories, and careful communication.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Small business & advisory work</h3>
+          <p>
+            Independent advisors, family businesses, logistics owners, or
+            consultants who want content and scripts without a marketing circus.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Quiet, long-term relationships</h3>
+          <p>
+            People who like to work with the same desk over months or years,
+            not random one-off strangers each time.
+          </p>
+        </div>
+      </div>
 
-    // 用于保存当前完整稿件
-    let currentFullDraft = "";
-    let previewMode = true; // 是否处于预览模式
+      <h2 class="section-title" style="margin-top: 34px">
+        Typical Use Cases
+      </h2>
+      <div class="usecase-list">
+        <div class="usecase-item">
+          <strong>Letters & personal notes</strong>
+          To family, partners, or clients — written in calm, respectful tone.
+        </div>
+        <div class="usecase-item">
+          <strong>Content packs</strong>
+          LinkedIn posts, website updates, FAQ answers, and email sequences
+          written clearly for older audiences.
+        </div>
+        <div class="usecase-item">
+          <strong>WhatsApp & SMS scripts</strong>
+          Simple templates for daily follow-ups, check-ins, and polite
+          reminders that still sound human.
+        </div>
+        <div class="usecase-item">
+          <strong>Light automations</strong>
+          Basic flows to reuse messages and content without feeling like a
+          robot is talking.
+        </div>
+      </div>
+    </div>
+  </section>
 
-    // 示例填入
-    exampleBtn.addEventListener("click", () => {
-      clientNoteEl.value = "Please draft a debt collection agreement for me. " +
-        "The debtor has delayed payment for 8 months. I want the tone to be serious but respectful, " +
-        "and I would like it to be suitable for an older US businessman.";
-      toneEl.value = "professional";
-      languageEl.value = "bilingual";
-    });
+  <!-- 为什么不是公开市场 -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="contrast-block">
+        <h2 class="section-title" style="margin-bottom: 4px">
+          Why a Private Desk — not a Big Marketplace
+        </h2>
+        <p class="section-sub" style="margin-bottom: 12px">
+          Public platforms are full of noise, bids, and mixed quality. Aurum
+          Task Desk is intentionally small and private.
+        </p>
+        <div class="contrast-grid">
+          <div class="contrast-col">
+            <h3>Typical marketplace</h3>
+            <ul>
+              <li>Hundreds of strangers competing for each task</li>
+              <li>Clients must filter, manage, and correct everything</li>
+              <li>Inconsistent tone, especially with older clients</li>
+              <li>Fees and structure feel “platform first”</li>
+            </ul>
+          </div>
+          <div class="contrast-col">
+            <h3>Aurum Task Desk</h3>
+            <ul>
+              <li>You decide who sees the desk and who can post</li>
+              <li>One calm office in the middle of every task</li>
+              <li>AI used with care, not for spam or mass output</li>
+              <li>Desk fee is clear: client price minus net payout</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    // 生成草稿（预览）
-    generateBtn.addEventListener("click", async () => {
-      const note = clientNoteEl.value.trim();
-      const tone = toneEl.value;
-      const lang = languageEl.value;
+  <!-- FAQ + 最终 CTA -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">Common Questions</h2>
+      <div class="faq-grid">
+        <div>
+          <div class="faq-item">
+            <strong>Is this a company or just a tool?</strong>
+            <span
+              >It is structured like a small private office. You decide if you
+              present it as a firm, a personal desk, or part of your existing
+              business.</span
+            >
+          </div>
+          <div class="faq-item">
+            <strong>Do clients need to know about AI?</strong>
+            <span
+              >No. Many clients just see that their letters, posts, or scripts
+              are done clearly and on time. The Desk quietly uses AI where it
+              helps.</span
+            >
+          </div>
+          <div class="faq-item">
+            <strong>How does the Desk earn money?</strong>
+            <span
+              >Clients pay one amount (for example, USD 480). Freelancers or
+              contributors receive a net amount. The difference is the Desk fee,
+              which compensates you for scoping, coordination, and quality
+              control.</span
+            >
+          </div>
+        </div>
+        <aside class="cta-panel">
+          <span class="pill-label">Next step</span>
+          <h3 style="margin: 0; font-size: 16px; color: #f5f2ea">
+            Ready to shape your own Aurum Task Desk?
+          </h3>
+          <p>
+            Use the Task Marketplace to draft example tasks, the Pricing page to
+            frame your desk fee model, and the Contact page to invite the first
+            clients privately.
+          </p>
+          <a href="tasks.html" class="btn-gold" style="display: inline-block; margin-top: 8px;"
+            >Open the Task Marketplace</a
+          >
+          <p style="margin-top: 10px; font-size: 12px;">
+            You can adjust the numbers, wording, and audience over time. The
+            Desk is designed to grow with the relationships you build.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
 
-      if (!note) {
-        alert("请先粘贴或输入客户的任务 / 备注。");
-        return;
-      }
-
-      generateBtn.disabled = true;
-      generateBtn.textContent = "生成中...";
-      statusText.textContent = "正在向 Aurum 桌面 AI 请求草稿，请稍候...";
-      resultBox.innerHTML = "";
-
-      // 每次生成新稿件时，锁定按钮，避免旧的解锁状态污染
-      currentFullDraft = "";
-      previewMode = true;
-      unlockBtn.disabled = true;
-      copyBtn.disabled = true;
-      payNote.innerHTML =
-        '预览为全文的部分片段。<br>支付后将自动返回本页面并解锁本次稿件的 <strong>完整内容 + 复制按钮</strong>。';
-
-      try {
-        let prompt = "You are Aurum Task Desk AI. You help older US and EU men (50+), " +
-          "including veterans, truck drivers, engineers and small business owners, " +
-          "to write calm, clear and respectful texts.\n\n";
-        prompt += "Client note: " + note + "\n";
-        prompt += "Tone: " + tone + "\n";
-        prompt += "Language: " + lang + " (if bilingual, give English first then Chinese).\n\n";
-        prompt += "Write a complete draft that this client can directly copy and send. " +
-          "Avoid overly fancy words. Sound mature and sincere.\n";
-
-        const res = await fetch(WORKER_API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt })
-        });
-
-        const data = await res.json();
-
-        if (!res.ok || !data.ok) {
-          const msg = (data && data.error) ? data.error : ("HTTP " + res.status);
-          throw new Error(msg);
-        }
-
-        const fullText = data.text || "No content returned from Aurum AI.";
-        currentFullDraft = fullText;
-
-        const previewText = createPreview(fullText);
-
-        renderResult(previewText, true);
-        previewMode = true;
-
-        // 允许用户解锁（付款）当前稿件
-        unlockBtn.disabled = false;
-        statusText.textContent = "预览已生成。如满意方向，可以解锁完整稿件。";
-      } catch (err) {
-        console.error(err);
-        resultBox.innerHTML =
-          '<div class="result-empty">生成草稿时出现问题：' +
-          (err.message || String(err)) +
-          "</div>";
-        statusText.textContent = "";
-      } finally {
-        generateBtn.disabled = false;
-        generateBtn.textContent = "生成草稿（预览）";
-      }
-    });
-
-    // 生成预览内容：取前 30% 左右，至少保留几段
-    function createPreview(text) {
-      if (!text) return "";
-
-      const maxChars = 900; // 预览最大字数（可自己调节）
-      if (text.length <= maxChars) return text;
-
-      // 尽量在换行处截断更自然
-      let cut = maxChars;
-      const nextBreak = text.indexOf("\n", maxChars);
-      if (nextBreak > 0 && nextBreak - maxChars < 120) {
-        cut = nextBreak;
-      }
-      return text.slice(0, cut) + "\n\n[……以下为预览截断，完整稿件解锁后可见……]";
-    }
-
-    // 渲染结果（预览 / 完整）
-    function renderResult(text, isPreview) {
-      resultBox.innerHTML = "";
-      const wrapper = document.createElement("div");
-      wrapper.textContent = text;
-      resultBox.appendChild(wrapper);
-
-      if (isPreview) {
-        // 预览遮罩
-        const mask = document.createElement("div");
-        mask.className = "preview-mask";
-        resultBox.appendChild(mask);
-
-        const tag = document.createElement("div");
-        tag.className = "preview-tag";
-        tag.textContent = "预览片段 · 完整稿件需解锁";
-        resultBox.appendChild(tag);
-
-        copyBtn.disabled = true;
-      } else {
-        copyBtn.disabled = false;
-      }
-    }
-
-    // 解锁完整稿件（付款）
-    unlockBtn.addEventListener("click", () => {
-      if (!currentFullDraft) {
-        alert("请先生成一份草稿。");
-        return;
-      }
-      if (!STRIPE_PAYMENT_URL || STRIPE_PAYMENT_URL.includes("STRIPE_PAYMENT_URL_HERE")) {
-        alert("还没有配置 Stripe 支付链接。请先在代码中替换 STRIPE_PAYMENT_URL。");
-        return;
-      }
-
-      // 把当前完整稿件暂存到 localStorage
-      localStorage.setItem("aurum_latest_draft", currentFullDraft);
-
-      // 跳转到 Stripe 支付页面
-      window.location.href = STRIPE_PAYMENT_URL;
-    });
-
-    // 复制完整稿件
-    copyBtn.addEventListener("click", async () => {
-      if (!currentFullDraft) {
-        alert("暂无可复制的稿件。");
-        return;
-      }
-      try {
-        await navigator.clipboard.writeText(currentFullDraft);
-        statusText.textContent = "完整稿件已复制到剪贴板。";
-      } catch (e) {
-        alert("复制失败，请手动选择文本复制。");
-      }
-    });
-
-    // 页面加载时，检测是否是支付成功返回
-    (function initUnlockFromReturn() {
-      const params = new URLSearchParams(window.location.search);
-      const paid = params.get("paid");
-
-      if (paid === "1") {
-        const saved = localStorage.getItem("aurum_latest_draft");
-        if (saved) {
-          currentFullDraft = saved;
-          previewMode = false;
-          renderResult(currentFullDraft, false);
-          unlockBtn.disabled = true;
-          copyBtn.disabled = false;
-          payNote.innerHTML = "<strong>本次稿件已解锁完整内容。</strong><br>你可以复制、保存或发送给客户。";
-          statusText.textContent = "付款成功，完整稿件已解锁。";
-        } else {
-          // 没有缓存草稿，就提示用户重新生成
-          resultBox.innerHTML =
-            '<div class="result-empty">已从支付页面返回，但未找到本次稿件缓存。请重新生成一次草稿。</div>';
-        }
-      }
-    })();
-  </script>
+  <footer class="footer">
+    © 2025 Aurum Task Desk — Private AI Task Coordination Desk
+  </footer>
 </body>
 </html>
