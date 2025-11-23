@@ -2,44 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AIFreelance Hub – Hire AI-Powered Freelancers</title>
+  <title>Aurum Task Desk – Private AI Content Office</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="AIFreelance Hub – Task marketplace to hire AI-powered freelancers for writing, design and automation.">
+  <meta name="description" content="Aurum Task Desk – Wall Street–grade AI content and automation hub with Stripe payments.">
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
     :root {
-      --bg: #050816;
-      --bg-elevated: #0b1120;
-      --bg-soft: #020617;
-      --primary: #3b82f6;
-      --primary-soft: rgba(59,130,246,0.15);
-      --accent: #22d3ee;
-      --border: #1f2937;
-      --text-main: #e5e7eb;
+      --bg: #050608;
+      --bg-alt: #060712;
+      --panel: #0b0f19;
+      --panel-soft: #050712;
+      --border: #1f2933;
+      --gold: #f4c76a;
+      --gold-soft: rgba(244,199,106,0.18);
+      --accent: #38bdf8;
+      --text: #e5e7eb;
       --text-soft: #9ca3af;
       --danger: #f97373;
       --success: #4ade80;
       --radius-lg: 18px;
       --radius-full: 999px;
-      --shadow-soft: 0 18px 45px rgba(15,23,42,0.75);
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.85);
+      --nav-h: 72px;
       --transition-fast: 0.18s ease-out;
-      --nav-height: 70px;
     }
 
-    * { box-sizing: border-box; margin:0; padding:0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
-      background: radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%);
-      color: var(--text-main);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top, #111827 0, #020617 40%, #000 85%);
+      color: var(--text);
       line-height: 1.5;
     }
     body { min-height: 100vh; }
 
     a { color: inherit; text-decoration: none; }
 
-    /* Layout */
     .page {
       min-height: 100vh;
       display: flex;
@@ -47,26 +47,26 @@
     }
     .container {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 0 16px;
     }
 
-    /* Header */
+    /* HEADER */
     header {
       position: sticky;
       top: 0;
       z-index: 40;
       backdrop-filter: blur(18px);
       background: linear-gradient(to bottom,
-        rgba(5,6,24,0.95),
-        rgba(5,6,24,0.7),
+        rgba(5,6,8,0.96),
+        rgba(5,6,8,0.8),
         transparent
       );
-      border-bottom: 1px solid rgba(15,23,42,0.8);
+      border-bottom: 1px solid rgba(15,23,42,0.9);
     }
     .nav {
-      height: var(--nav-height);
+      height: var(--nav-h);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -75,27 +75,35 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     .brand-logo {
       width: 44px;
       height: 44px;
-      border-radius: 20%;
-      background: radial-gradient(circle at 20% 20%, #e5f2ff, #3b82f6 45%, #1d4ed8 85%);
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 20% 15%, #ffffff, #f4c76a 40%, #b45309 80%);
+      box-shadow:
+        0 0 0 1px rgba(250,204,21,0.4),
+        0 18px 40px rgba(0,0,0,0.9);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 35px rgba(59,130,246,0.85);
       font-weight: 800;
-      font-size: 24px;
-      color: #e5f2ff;
+      font-size: 22px;
+      color: #111827;
     }
-    .brand-text-title {
+    .brand-main {
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-title {
       font-size: 20px;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
-    .brand-text-sub {
+    .brand-sub {
       font-size: 11px;
       color: var(--text-soft);
     }
@@ -120,8 +128,7 @@
       padding: 7px 16px;
       border: 1px solid transparent;
       cursor: pointer;
-      transition: background var(--transition-fast), border var(--transition-fast),
-        transform var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+      transition: var(--transition-fast);
       white-space: nowrap;
     }
     .nav-btn-outline {
@@ -130,60 +137,92 @@
       color: var(--text-soft);
     }
     .nav-btn-outline:hover {
-      border-color: var(--primary);
-      color: var(--primary);
+      border-color: var(--gold);
+      color: var(--gold);
       transform: translateY(-1px);
     }
-    .nav-btn-primary {
-      background: linear-gradient(135deg, var(--primary), #2563eb);
-      color: #f9fafb;
-      box-shadow: 0 10px 25px rgba(37,99,235,0.7);
+    .nav-btn-gold {
+      background: linear-gradient(135deg, #facc6b, #f97316);
+      color: #111827;
+      box-shadow:
+        0 0 0 1px rgba(250,204,21,0.4),
+        0 14px 32px rgba(250,204,21,0.6);
+      font-weight: 600;
     }
-    .nav-btn-primary:hover {
-      filter: brightness(1.05);
+    .nav-btn-gold:hover {
+      filter: brightness(1.04);
       transform: translateY(-1px);
-      box-shadow: 0 16px 40px rgba(37,99,235,0.8);
+      box-shadow:
+        0 0 0 1px rgba(250,204,21,0.7),
+        0 18px 40px rgba(250,204,21,0.8);
     }
 
-    /* Hero */
-    main {
-      flex: 1;
+    @media (max-width: 720px) {
+      .brand-title { font-size: 16px; }
+      .brand-sub { display: none; }
+      .nav { gap: 8px; }
+      .nav-right { gap: 6px; }
+      .nav-btn { padding-inline: 10px; }
     }
+
+    /* HERO */
+    main { flex: 1; }
+
     .hero {
-      padding: 32px 0 24px;
+      padding: 28px 0 18px;
     }
     .hero-inner {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 32px;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 26px;
       align-items: center;
     }
     @media (max-width: 880px) {
       .hero-inner {
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-columns: minmax(0,1fr);
       }
     }
+
+    .hero-kicker {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-kicker::before {
+      content:"";
+      width: 28px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(148,163,184,0.2), var(--gold));
+    }
+
     .hero-title {
-      font-size: clamp(26px, 4vw, 36px);
+      font-size: clamp(28px, 4.1vw, 36px);
       font-weight: 800;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       margin-bottom: 10px;
     }
-    .hero-title-gradient {
-      background: linear-gradient(135deg, #60a5fa, #22d3ee);
+    .hero-title span.gold {
+      background: linear-gradient(120deg, #facc6b, #f97316, #fb923c);
       -webkit-background-clip: text;
       color: transparent;
     }
     .hero-subtitle {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text-soft);
       max-width: 520px;
     }
+
     .hero-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin: 20px 0 24px;
+      gap: 9px;
+      margin: 18px 0 20px;
     }
     .badge {
       display: inline-flex;
@@ -193,7 +232,7 @@
       padding: 6px 11px;
       border-radius: var(--radius-full);
       border: 1px solid rgba(55,65,81,0.9);
-      background: radial-gradient(circle at top left, rgba(59,130,246,0.15), rgba(15,23,42,0.95));
+      background: radial-gradient(circle at top left, rgba(250,204,21,0.16), rgba(15,23,42,0.98));
       color: var(--text-soft);
     }
     .badge-dot {
@@ -207,427 +246,495 @@
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 18px;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .btn {
+      border-radius: var(--radius-full);
+      border: 1px solid transparent;
+      padding: 8px 18px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: var(--transition-fast);
+      white-space: nowrap;
+    }
+    .btn-gold {
+      background: linear-gradient(130deg, #facc6b, #f97316);
+      color: #111827;
+      box-shadow:
+        0 0 0 1px rgba(250,204,21,0.5),
+        0 16px 40px rgba(0,0,0,0.9);
+      font-weight: 600;
+    }
+    .btn-gold:hover {
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+    }
+    .btn-outline-soft {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--text-soft);
+    }
+    .btn-outline-soft:hover {
+      border-color: var(--gold);
+      color: var(--gold);
     }
     .hero-note {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-soft);
     }
 
     .hero-card {
-      background: radial-gradient(circle at top, rgba(56,189,248,0.07), rgba(15,23,42,0.98));
-      border-radius: 26px;
-      border: 1px solid rgba(31,41,55,0.9);
-      padding: 20px 18px;
-      box-shadow: var(--shadow-soft);
       position: relative;
+      background:
+        radial-gradient(circle at top, rgba(250,204,21,0.16), rgba(6,7,18,1));
+      border-radius: 26px;
+      border: 1px solid rgba(55,65,81,0.95);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 16px 14px;
       overflow: hidden;
     }
     .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -80px;
+      content:"";
+      position:absolute;
+      inset:-80px;
       background:
-        radial-gradient(circle at top left, rgba(59,130,246,0.26), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(45,212,191,0.3), transparent 55%);
-      opacity: 0.6;
-      pointer-events: none;
+        radial-gradient(circle at top left, rgba(250,204,21,0.2), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(8,47,73,0.66), transparent 60%);
+      opacity: 0.7;
+      pointer-events:none;
     }
     .hero-card-inner {
       position: relative;
       z-index: 1;
     }
     .hero-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:12px;
+      font-size:12px;
     }
-    .hero-pill {
-      font-size: 11px;
-      padding: 4px 10px;
+    .pill {
       border-radius: var(--radius-full);
-      background: rgba(15,23,42,0.85);
+      padding: 4px 10px;
       border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(6,7,18,0.9);
+      font-size: 11px;
       color: var(--text-soft);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+    }
+    .pill-gold {
+      border-color: rgba(250,204,21,0.7);
+      color: var(--gold);
+      background: rgba(24,24,27,0.9);
     }
     .hero-stats {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 14px;
-      font-size: 11px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:10px;
+      margin-bottom:12px;
+      font-size:11px;
       color: var(--text-soft);
     }
-    .hero-stats strong { color: #e5e7eb; }
-    .hero-card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 8px;
-      font-size: 11px;
-      color: var(--text-soft);
+    .hero-stat-label {
+      margin-bottom:3px;
+    }
+    .hero-stat-value {
+      font-size:15px;
+      font-weight:600;
+      color: var(--gold);
     }
 
-    /* Sections */
-    section {
-      padding: 8px 0 32px;
+    .mini-task-table {
+      border-radius: 14px;
+      border: 1px solid rgba(31,41,55,0.9);
+      overflow:hidden;
+      background: rgba(6,7,18,0.96);
+      font-size:11px;
     }
+    .mini-task-table table {
+      width:100%;
+      border-collapse: collapse;
+    }
+    .mini-task-table th,
+    .mini-task-table td {
+      padding: 8px 9px;
+      border-bottom: 1px solid rgba(31,41,55,0.8);
+      text-align:left;
+    }
+    .mini-task-table th {
+      color: var(--text-soft);
+      font-weight:500;
+      background: rgba(15,23,42,0.92);
+    }
+    .mini-task-table tr:last-child td {
+      border-bottom:none;
+    }
+    .hero-card-footer {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:10px;
+      font-size:11px;
+      color: var(--text-soft);
+    }
+    .link-soft {
+      font-size:11px;
+      color: var(--gold);
+      text-decoration: underline;
+      cursor:pointer;
+    }
+
+    /* SECTION TITLES */
+    section { padding: 10px 0 26px; }
     .section-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 14px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-end;
+      margin-bottom:14px;
     }
     .section-title {
-      font-size: 18px;
-      font-weight: 600;
+      font-size:18px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
     }
     .section-sub {
-      font-size: 12px;
+      font-size:12px;
       color: var(--text-soft);
+      max-width:520px;
     }
 
-    /* Task Board */
-    .card {
-      background: linear-gradient(to bottom right, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
-      border-radius: var(--radius-lg);
+    /* TASK BOARD */
+    .panel {
+      background: var(--panel);
+      border-radius: 22px;
       border: 1px solid var(--border);
       padding: 16px 14px;
-      box-shadow: 0 8px 28px rgba(15,23,42,0.7);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.9);
     }
     .task-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
-      font-size: 12px;
-      align-items: center;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      margin-bottom:14px;
+      font-size:12px;
     }
     .input, .select {
-      background: #020617;
-      border-radius: 10px;
+      background: var(--panel-soft);
+      border-radius: 999px;
       border: 1px solid #1f2937;
-      padding: 6px 9px;
-      font-size: 12px;
-      color: var(--text-main);
-      outline: none;
-      min-width: 0;
+      padding: 7px 11px;
+      font-size:12px;
+      color: var(--text);
+      outline:none;
+      min-width:0;
     }
     .input::placeholder {
       color: #6b7280;
     }
     .select {
-      padding-right: 26px;
+      padding-right: 28px;
     }
-    .task-toolbar .btn-sm {
-      font-size: 12px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--primary);
-      background: rgba(37,99,235,0.12);
-      color: #bfdbfe;
-      cursor: pointer;
-      transition: var(--transition-fast);
-      white-space: nowrap;
+    .btn-chip {
+      border-radius:999px;
+      padding:6px 12px;
+      font-size:12px;
+      border:1px solid rgba(148,163,184,1);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-soft);
+      cursor:pointer;
+      transition:var(--transition-fast);
+      white-space:nowrap;
     }
-    .task-toolbar .btn-sm:hover {
-      background: rgba(37,99,235,0.32);
+    .btn-chip:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .toolbar-spacer {
+      flex:1;
+    }
+    .helper-text {
+      font-size:11px;
+      color: var(--text-soft);
     }
 
     .task-table-wrapper {
-      border-radius: 14px;
+      border-radius: 16px;
       border: 1px solid rgba(31,41,55,0.9);
-      overflow: hidden;
-      background: radial-gradient(circle at top left, rgba(30,64,175,0.18), rgba(15,23,42,1));
+      overflow:hidden;
+      background:
+        radial-gradient(circle at top left, rgba(250,204,21,0.07), rgba(6,7,18,0.98));
     }
     table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
+      width:100%;
+      border-collapse:collapse;
+      font-size:12px;
     }
     thead {
-      background: rgba(15,23,42,0.92);
+      background: rgba(15,23,42,0.96);
     }
     th, td {
       padding: 9px 10px;
-      text-align: left;
-      border-bottom: 1px solid rgba(31,41,55,0.75);
+      border-bottom: 1px solid rgba(31,41,55,0.8);
+      text-align:left;
     }
     th {
-      font-weight: 500;
-      color: #9ca3af;
-      white-space: nowrap;
+      color: var(--text-soft);
+      font-weight:500;
+      white-space:nowrap;
     }
-    tbody tr:last-child td {
-      border-bottom: none;
-    }
+    tbody tr:last-child td { border-bottom:none; }
     tbody tr:hover {
-      background: rgba(15,23,42,0.9);
+      background: rgba(15,23,42,0.94);
     }
     .task-title {
-      font-weight: 500;
-      font-size: 13px;
-      color: #e5e7eb;
+      font-size:13px;
+      font-weight:500;
+      color: var(--text);
     }
     .task-meta {
-      display: block;
-      font-size: 11px;
+      display:block;
+      font-size:11px;
       color: var(--text-soft);
     }
     .badge-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      border: 1px solid rgba(55,65,81,1);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:3px 10px;
+      border-radius:999px;
+      font-size:11px;
+      border:1px solid rgba(55,65,81,1);
     }
-    .badge-status-open {
-      border-color: rgba(34,197,94,0.7);
-      color: #bbf7d0;
-      background: rgba(22,163,74,0.12);
+    .badge-open {
+      border-color: rgba(234,179,8,0.8);
+      background: rgba(250,204,21,0.09);
+      color: #facc6b;
     }
-    .badge-status-progress {
-      border-color: rgba(59,130,246,0.7);
-      color: #bfdbfe;
-      background: rgba(37,99,235,0.12);
+    .badge-progress {
+      border-color: rgba(56,189,248,0.8);
+      background: rgba(15,23,42,0.9);
+      color: #bae6fd;
     }
-    .badge-status-completed {
+    .badge-completed {
       border-color: rgba(148,163,184,0.9);
-      color: #cbd5f5;
-      background: rgba(15,23,42,0.5);
+      background: rgba(15,23,42,0.7);
+      color: #e5e7eb;
     }
     .btn-table {
-      border-radius: 999px;
-      padding: 5px 11px;
-      border: 1px solid rgba(31,41,55,1);
-      background: rgba(15,23,42,0.9);
-      color: #e5e7eb;
-      font-size: 11px;
-      cursor: pointer;
-      margin-left: 6px;
-      transition: var(--transition-fast);
-      white-space: nowrap;
+      border-radius:999px;
+      padding:5px 11px;
+      border:1px solid rgba(31,41,55,1);
+      background: rgba(6,7,18,0.96);
+      color: var(--text);
+      font-size:11px;
+      cursor:pointer;
+      margin-left:6px;
+      transition:var(--transition-fast);
+      white-space:nowrap;
     }
     .btn-accept {
       border-color: rgba(34,197,94,0.7);
       color: #bbf7d0;
-      background: rgba(22,163,74,0.08);
+      background: rgba(21,128,61,0.18);
     }
     .btn-accept:hover {
-      background: rgba(22,163,74,0.22);
+      background: rgba(22,163,74,0.32);
     }
     .btn-pay {
-      border-color: rgba(59,130,246,0.7);
-      color: #bfdbfe;
-      background: rgba(37,99,235,0.15);
+      border-color: rgba(250,204,21,0.8);
+      color: var(--gold);
+      background: rgba(23,23,23,0.9);
     }
     .btn-pay:hover {
-      background: rgba(37,99,235,0.3);
+      background: rgba(250,204,21,0.18);
     }
     .btn-disabled {
-      opacity: 0.4;
-      pointer-events: none;
+      opacity:0.4;
+      pointer-events:none;
     }
 
-    /* Info sections */
+    /* INFO GRID */
     .info-grid {
-      display: grid;
+      display:grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 14px;
+      gap:14px;
     }
     @media (max-width: 880px) {
-      .info-grid {
-        grid-template-columns: minmax(0,1fr);
-      }
+      .info-grid { grid-template-columns: minmax(0,1fr); }
     }
     .info-card {
-      background: rgba(15,23,42,0.96);
-      border-radius: var(--radius-lg);
+      background: var(--panel);
+      border-radius:18px;
       border: 1px solid var(--border);
-      padding: 14px 14px 12px;
-      font-size: 12px;
+      padding: 14px 13px 12px;
+      font-size:12px;
       color: var(--text-soft);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.9);
     }
-    .info-card-title {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #e5e7eb;
+    .info-title {
+      font-size:13px;
+      font-weight:600;
+      color: var(--gold);
+      margin-bottom:6px;
     }
     .dot-list {
-      list-style: none;
-      padding-left: 0;
+      list-style:none;
+      padding-left:0;
     }
     .dot-list li {
-      position: relative;
-      padding-left: 14px;
-      margin-bottom: 4px;
+      position:relative;
+      padding-left:14px;
+      margin-bottom:4px;
     }
     .dot-list li::before {
-      content: "•";
-      position: absolute;
-      left: 3px;
-      color: #6b7280;
+      content:"•";
+      position:absolute;
+      left:3px;
+      color:#6b7280;
     }
 
-    /* Footer */
+    /* FOOTER */
     footer {
-      border-top: 1px solid rgba(15,23,42,0.9);
+      border-top:1px solid rgba(15,23,42,0.9);
       padding: 14px 0 18px;
-      font-size: 11px;
+      font-size:11px;
       color: var(--text-soft);
+      background: #020617;
     }
     .footer-inner {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
     }
 
-    /* Modals */
+    /* MODALS */
     .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,0.86);
-      backdrop-filter: blur(12px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 50;
-      padding: 16px;
+      position:fixed;
+      inset:0;
+      background: rgba(3,7,18,0.88);
+      backdrop-filter:blur(12px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:50;
+      padding:16px;
     }
     .modal {
-      width: 100%;
-      max-width: 420px;
+      width:100%;
+      max-width:420px;
       background: #020617;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      box-shadow: 0 18px 50px rgba(15,23,42,0.9);
-      padding: 18px 18px 16px;
-      position: relative;
+      border-radius:20px;
+      border:1px solid var(--border);
+      box-shadow:0 20px 50px rgba(0,0,0,0.95);
+      padding:18px 18px 16px;
+      position:relative;
     }
     .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:10px;
     }
     .modal-title {
-      font-size: 16px;
-      font-weight: 600;
+      font-size:16px;
+      font-weight:600;
     }
     .modal-close {
-      border: none;
-      background: transparent;
+      border:none;
+      background:transparent;
       color: var(--text-soft);
-      cursor: pointer;
-      font-size: 18px;
+      cursor:pointer;
+      font-size:20px;
     }
-    .modal-body {
-      font-size: 13px;
-    }
-    .form-group {
-      margin-bottom: 10px;
-    }
+    .modal-body { font-size:13px; }
+    .form-group { margin-bottom:10px; }
     .label {
-      display: block;
-      font-size: 12px;
+      display:block;
+      font-size:12px;
       color: var(--text-soft);
-      margin-bottom: 4px;
-    }
-    .radio-row {
-      display: flex;
-      gap: 14px;
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 4px;
+      margin-bottom:4px;
     }
     .textarea {
-      width: 100%;
-      min-height: 80px;
-      resize: vertical;
-      background: #020617;
-      border-radius: 10px;
-      border: 1px solid #1f2937;
-      padding: 7px 9px;
-      font-size: 12px;
-      color: var(--text-main);
-      outline: none;
+      width:100%;
+      min-height:80px;
+      resize:vertical;
+      background: var(--panel-soft);
+      border-radius:12px;
+      border:1px solid #1f2937;
+      padding:7px 9px;
+      font-size:12px;
+      color:var(--text);
+      outline:none;
     }
     .modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      margin-top: 8px;
-    }
-    .btn {
-      border-radius: 999px;
-      padding: 7px 15px;
-      border: 1px solid transparent;
-      font-size: 13px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: var(--transition-fast);
+      display:flex;
+      justify-content:flex-end;
+      gap:8px;
+      margin-top:8px;
     }
     .btn-secondary {
-      background: transparent;
-      border-color: #1f2937;
-      color: var(--text-soft);
+      border-radius:999px;
+      padding:7px 15px;
+      border:1px solid #1f2937;
+      background:transparent;
+      color:var(--text-soft);
+      font-size:13px;
+      cursor:pointer;
+      transition:var(--transition-fast);
     }
     .btn-secondary:hover {
-      border-color: #4b5563;
-      color: #e5e7eb;
+      border-color:#4b5563;
+      color:var(--text);
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), #2563eb);
-      color: #f9fafb;
-      box-shadow: 0 10px 25px rgba(37,99,235,0.7);
+      border-radius:999px;
+      padding:7px 15px;
+      border:1px solid rgba(250,204,21,0.7);
+      background:linear-gradient(130deg,#facc6b,#f97316);
+      color:#111827;
+      font-size:13px;
+      cursor:pointer;
+      transition:var(--transition-fast);
+      box-shadow:
+        0 0 0 1px rgba(250,204,21,0.4),
+        0 14px 32px rgba(0,0,0,0.9);
     }
     .btn-primary:hover {
-      filter: brightness(1.05);
-      box-shadow: 0 16px 40px rgba(37,99,235,0.8);
-    }
-    .helper-text {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-top: 4px;
+      filter:brightness(1.04);
+      transform:translateY(-1px);
     }
     .error-text {
       color: var(--danger);
-      font-size: 11px;
-      margin-top: 3px;
+      font-size:11px;
+      margin-top:3px;
     }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border-radius: 999px;
-      padding: 3px 9px;
-      font-size: 11px;
-      border: 1px solid rgba(55,65,81,1);
-      color: var(--text-soft);
+
+    @media (max-width: 720px) {
+      .hero { padding-top:20px; }
+      .panel { padding-inline:12px; }
     }
   </style>
 </head>
 <body>
 <div class="page">
-  <!-- Header -->
+  <!-- HEADER -->
   <header>
     <div class="container">
       <div class="nav">
         <div class="brand">
           <div class="brand-logo">A</div>
-          <div>
-            <div class="brand-text-title" data-i18n="brand_title">AIFreelance Hub</div>
-            <div class="brand-text-sub" data-i18n="brand_sub">
-              Hire AI-powered freelancers worldwide
-            </div>
+          <div class="brand-main">
+            <div class="brand-title" data-i18n="brand_title">AURUM TASK DESK</div>
+            <div class="brand-sub" data-i18n="brand_sub">Private AI Content & Automation Office</div>
           </div>
         </div>
         <div class="nav-right">
@@ -641,7 +748,7 @@
           <button id="btnNavLogin" class="nav-btn nav-btn-outline" data-i18n="nav_login">
             Log in / Sign up
           </button>
-          <button id="btnNavNewTask" class="nav-btn nav-btn-primary" data-i18n="nav_post_task">
+          <button id="btnNavNewTask" class="nav-btn nav-btn-gold" data-i18n="nav_post_task">
             Post a Task
           </button>
         </div>
@@ -649,125 +756,116 @@
     </div>
   </header>
 
-  <!-- Main -->
+  <!-- MAIN -->
   <main>
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero-inner">
         <div>
+          <div class="hero-kicker" data-i18n="hero_kicker">
+            Wall Street–grade content, no agency overhead
+          </div>
           <h1 class="hero-title">
-            <span data-i18n="hero_title_1">Hire AI-powered</span>
-            <span class="hero-title-gradient" data-i18n="hero_title_2">
-              Freelancers & Automation Experts
-            </span>
+            <span data-i18n="hero_title_1">A private desk for</span><br>
+            <span class="gold" data-i18n="hero_title_2">AI writing & automation</span>
           </h1>
           <p class="hero-subtitle" data-i18n="hero_sub">
-            Post tasks, hire vetted AI freelancers, and get paid automatically through
-            Stripe – one dashboard for writing, design and automation.
+            A focused hub where US / EU professionals send tasks, freelancers execute with AI assistance,
+            and Stripe settles every payment like a serious firm.
           </p>
-
           <div class="hero-badges">
             <span class="badge">
               <span class="badge-dot"></span>
-              <span data-i18n="hero_badge_1">US / UK / EU clients ready</span>
+              <span data-i18n="hero_badge_1">US 55+ male professionals as core clients</span>
             </span>
             <span class="badge">
-              ⚡ <span data-i18n="hero_badge_2">AI-assisted, human-reviewed output</span>
+              💳 <span data-i18n="hero_badge_2">Stripe settlement, no cards stored here</span>
             </span>
             <span class="badge">
-              💳 <span data-i18n="hero_badge_3">Stripe online payments</span>
+              📈 <span data-i18n="hero_badge_3">Designed like a small family office</span>
             </span>
           </div>
-
           <div class="hero-actions">
-            <button id="btnHeroPost" class="btn btn-primary" data-i18n="hero_cta_client">
-              Post a client task
+            <button id="btnHeroClient" class="btn btn-gold" data-i18n="hero_cta_client">
+              I’m a client – post a task
             </button>
-            <button id="btnHeroFreelancer" class="btn btn-secondary" data-i18n="hero_cta_freelancer">
-              I am a freelancer
+            <button id="btnHeroFreelancer" class="btn btn-outline-soft" data-i18n="hero_cta_freelancer">
+              I’m a freelancer – see tasks
             </button>
           </div>
           <p class="hero-note" data-i18n="hero_note">
-            Clear pricing. Talk directly via WhatsApp or email after you accept a task.
+            Clear budgets, human conversation, Stripe links only when you’re ready to move real money.
           </p>
         </div>
 
         <div class="hero-card">
           <div class="hero-card-inner">
             <div class="hero-card-header">
-              <span class="hero-pill" data-i18n="hero_card_title">
-                Live Task Snapshot
+              <span class="pill pill-gold" data-i18n="hero_card_title">
+                Current Desk Snapshot
               </span>
               <span class="pill">
-                🪙 <span data-i18n="hero_card_safe">Secure Stripe payouts</span>
+                🪙 <span data-i18n="hero_card_safe">No funds held on-site – Stripe only</span>
               </span>
             </div>
             <div class="hero-stats">
-              <span data-i18n="hero_card_stat1">
-                Open tasks: <strong id="statOpen">0</strong>
-              </span>
-              <span data-i18n="hero_card_stat2">
-                In progress: <strong id="statProgress">0</strong>
-              </span>
-              <span data-i18n="hero_card_stat3">
-                Completed: <strong id="statCompleted">0</strong>
-              </span>
+              <div>
+                <div class="hero-stat-label" data-i18n="hero_stat_open">Open tasks</div>
+                <div class="hero-stat-value" id="statOpen">0</div>
+              </div>
+              <div>
+                <div class="hero-stat-label" data-i18n="hero_stat_progress">In progress</div>
+                <div class="hero-stat-value" id="statProgress">0</div>
+              </div>
+              <div>
+                <div class="hero-stat-label" data-i18n="hero_stat_completed">Completed</div>
+                <div class="hero-stat-value" id="statCompleted">0</div>
+              </div>
             </div>
-            <div class="task-table-wrapper" style="margin-top:6px;">
+            <div class="mini-task-table">
               <table>
                 <thead>
                 <tr>
                   <th data-i18n="tbl_task">Task</th>
                   <th data-i18n="tbl_budget">Budget</th>
-                  <th data-i18n="tbl_status">Status</th>
                 </tr>
                 </thead>
                 <tbody id="heroMiniTasks"></tbody>
               </table>
             </div>
             <div class="hero-card-footer">
-              <span data-i18n="hero_card_footer">
-                New AI writing & automation tasks added daily.
-              </span>
-              <button id="btnHeroViewAll" class="btn-table" style="margin-left:10px;" data-i18n="hero_view_all">
-                View all
-              </button>
+              <span data-i18n="hero_card_footer">A simple desk for high-intent, low-drama tasks.</span>
+              <span class="link-soft" id="linkScrollTasks" data-i18n="hero_view_all">View task board</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Task Board -->
+    <!-- TASK MARKETPLACE -->
     <section>
       <div class="container">
         <div class="section-header">
           <div>
-            <h2 class="section-title" data-i18n="section_tasks_title">Task Marketplace</h2>
+            <h2 class="section-title" data-i18n="section_tasks_title">TASK MARKETPLACE</h2>
             <p class="section-sub" data-i18n="section_tasks_sub">
-              Clients and freelancers can manage everything here – post tasks,
-              accept work, and pay via Stripe.
+              Clients post tasks, freelancers accept, and Stripe links are shared only when both sides are comfortable.
             </p>
           </div>
+          <div class="helper-text" id="currentUserLabel"></div>
         </div>
 
-        <div class="card">
+        <div class="panel">
           <div class="task-toolbar">
-            <input id="searchInput" class="input" type="text" placeholder="Search tasks…" />
+            <input id="searchInput" class="input" type="text" placeholder="Search by title or client…" />
             <select id="filterStatus" class="select">
               <option value="all" data-i18n="filter_status_all">All statuses</option>
               <option value="open" data-i18n="filter_status_open">Open</option>
               <option value="in_progress" data-i18n="filter_status_progress">In progress</option>
               <option value="completed" data-i18n="filter_status_completed">Completed</option>
             </select>
-            <select id="filterRoleView" class="select">
-              <option value="all" data-i18n="filter_role_all">All roles</option>
-              <option value="client" data-i18n="filter_role_client">My posted tasks</option>
-              <option value="freelancer" data-i18n="filter_role_freelancer">My accepted tasks</option>
-            </select>
-            <button id="btnNewTask" class="btn-sm" data-i18n="btn_post_task">
-              + Post a new task
-            </button>
-            <span class="helper-text" style="margin-left:auto;" id="currentUserLabel"></span>
+            <div class="toolbar-spacer"></div>
+            <button id="btnNewTask" class="btn-chip" data-i18n="btn_post_task">+ Post new task</button>
           </div>
 
           <div class="task-table-wrapper">
@@ -789,43 +887,40 @@
       </div>
     </section>
 
-    <!-- Info: How it works & Pricing -->
+    <!-- HOW IT WORKS -->
     <section>
       <div class="container">
         <div class="section-header">
           <div>
-            <h2 class="section-title" data-i18n="section_how_title">How AIFreelance Hub works</h2>
+            <h2 class="section-title" data-i18n="section_how_title">HOW THE DESK RUNS</h2>
             <p class="section-sub" data-i18n="section_how_sub">
-              A simple flow for both clients and freelancers. You decide the pricing and Stripe payout rules.
+              Everything is intentionally simple: clear roles, simple flows, and no hidden tech complexity for your clients.
             </p>
           </div>
         </div>
-
         <div class="info-grid">
           <article class="info-card">
-            <h3 class="info-card-title" data-i18n="how_client_title">For clients</h3>
+            <h3 class="info-title" data-i18n="how_client_title">For clients</h3>
             <ul class="dot-list">
-              <li data-i18n="how_client_1">Post a task with your budget and Stripe payment link.</li>
-              <li data-i18n="how_client_2">Review freelancers who accept, chat via WhatsApp or email.</li>
-              <li data-i18n="how_client_3">Pay securely through Stripe and receive AI-assisted results.</li>
+              <li data-i18n="how_client_1">Describe what you need: AI writing, letters, LinkedIn posts, WhatsApp flows.</li>
+              <li data-i18n="how_client_2">Set a budget and wait for a trusted freelancer to accept.</li>
+              <li data-i18n="how_client_3">Only share a Stripe Payment Link when you’re happy with the person.</li>
             </ul>
           </article>
-
           <article class="info-card">
-            <h3 class="info-card-title" data-i18n="how_freelancer_title">For freelancers</h3>
+            <h3 class="info-title" data-i18n="how_freelancer_title">For freelancers</h3>
             <ul class="dot-list">
-              <li data-i18n="how_freelancer_1">Create a freelancer account and complete your profile.</li>
-              <li data-i18n="how_freelancer_2">Browse open tasks and accept the ones that match your skills.</li>
-              <li data-i18n="how_freelancer_3">Deliver work and coordinate Stripe payouts with the client.</li>
+              <li data-i18n="how_freelancer_1">Log in once, your profile stays on this private desk.</li>
+              <li data-i18n="how_freelancer_2">Accept only tasks that match your capacity and skill.</li>
+              <li data-i18n="how_freelancer_3">Coordinate payments via Stripe links and keep your own ledger.</li>
             </ul>
           </article>
-
           <article class="info-card">
-            <h3 class="info-card-title" data-i18n="how_owner_title">For platform owner (you)</h3>
+            <h3 class="info-title" data-i18n="how_owner_title">For you (desk owner)</h3>
             <ul class="dot-list">
-              <li data-i18n="how_owner_1">Use Stripe prices or Payment Links with a built-in platform fee.</li>
-              <li data-i18n="how_owner_2">Decide which clients and freelancers you invite into the system.</li>
-              <li data-i18n="how_owner_3">Focus on marketing and relationships – the site handles workflows.</li>
+              <li data-i18n="how_owner_1">You control who gets invited—older US professionals only, if that’s your niche.</li>
+              <li data-i18n="how_owner_2">Use Stripe prices with built-in margin so the desk quietly earns a spread.</li>
+              <li data-i18n="how_owner_3">The site stays minimal; your real value is relationship and guidance.</li>
             </ul>
           </article>
         </div>
@@ -833,79 +928,72 @@
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-inner">
-        <span>&copy; <span id="year"></span> AIFreelance Hub.</span>
-        <span data-i18n="footer_rights">All rights reserved. This site does not store payment details – Stripe handles all payments.</span>
+        <span>&copy; <span id="year"></span> Aurum Task Desk.</span>
+        <span data-i18n="footer_rights">All rights reserved. This desk does not store card data – all payments go through Stripe.</span>
       </div>
     </div>
   </footer>
 </div>
 
-<!-- Login / Register Modal -->
+<!-- LOGIN / SIGNUP MODAL -->
 <div class="modal-backdrop" id="authModal">
   <div class="modal">
     <div class="modal-header">
       <div>
-        <h3 class="modal-title" data-i18n="auth_title">Log in / Sign up</h3>
+        <div class="modal-title" data-i18n="auth_title">Log in / Sign up</div>
         <p class="helper-text" data-i18n="auth_sub">
-          One account can both post tasks and work as a freelancer.
+          One identity to post tasks and accept them – like a small, private network.
         </p>
       </div>
       <button class="modal-close" data-close="authModal">&times;</button>
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label class="label" for="authEmail" data-i18n="auth_email">Email</label>
-        <input id="authEmail" type="email" class="input" placeholder="you@example.com" />
+        <label for="authEmail" class="label" data-i18n="auth_email">Email</label>
+        <input id="authEmail" class="input" type="email" placeholder="you@example.com" />
       </div>
       <div class="form-group">
-        <label class="label" for="authName" data-i18n="auth_name">Display name</label>
-        <input id="authName" type="text" class="input" placeholder="Your name on the platform" />
+        <label for="authName" class="label" data-i18n="auth_name">Display name</label>
+        <input id="authName" class="input" type="text" placeholder="Name clients will see" />
       </div>
       <div class="form-group">
-        <label class="label" for="authPassword" data-i18n="auth_password">Password</label>
-        <input id="authPassword" type="password" class="input" placeholder="Minimum 6 characters" />
-      </div>
-      <div class="form-group">
-        <div class="label" data-i18n="auth_role_label">Default role after login</div>
-        <div class="radio-row">
-          <label><input type="radio" name="authRole" value="client" checked /> <span data-i18n="auth_role_client">Client</span></label>
-          <label><input type="radio" name="authRole" value="freelancer" /> <span data-i18n="auth_role_freelancer">Freelancer</span></label>
-        </div>
+        <label for="authPassword" class="label" data-i18n="auth_password">Password</label>
+        <input id="authPassword" class="input" type="password" placeholder="Minimum 6 characters" />
       </div>
       <div id="authError" class="error-text" style="display:none;"></div>
       <div class="modal-actions">
-        <button class="btn btn-secondary" data-close="authModal" data-i18n="btn_cancel">Cancel</button>
-        <button id="btnAuthSubmit" class="btn btn-primary" data-i18n="auth_submit">Continue</button>
+        <button class="btn-secondary" data-close="authModal" data-i18n="btn_cancel">Cancel</button>
+        <button id="btnAuthSubmit" class="btn-primary" data-i18n="auth_submit">Continue</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- New Task Modal -->
+<!-- NEW TASK MODAL -->
 <div class="modal-backdrop" id="taskModal">
   <div class="modal">
     <div class="modal-header">
       <div>
-        <h3 class="modal-title" data-i18n="task_modal_title">Post a new task</h3>
+        <div class="modal-title" data-i18n="task_modal_title">Post a new task</div>
         <p class="helper-text" data-i18n="task_modal_sub">
-          Add as much detail as possible. You can paste a Stripe Payment Link for online payment.
+          Use this for serious tasks only. Stripe link is optional and only appears if you paste it.
         </p>
       </div>
       <button class="modal-close" data-close="taskModal">&times;</button>
     </div>
     <div class="modal-body">
       <div class="form-group">
-        <label class="label" for="taskTitle" data-i18n="task_title_label">Title</label>
-        <input id="taskTitle" class="input" placeholder="e.g. AI long-form article about retirement investing" />
+        <label for="taskTitle" class="label" data-i18n="task_title_label">Title</label>
+        <input id="taskTitle" class="input" placeholder="Example: Long-form article for retired US investors" />
       </div>
       <div class="form-group">
-        <label class="label" for="taskDescription" data-i18n="task_desc_label">Description</label>
+        <label for="taskDescription" class="label" data-i18n="task_desc_label">Description</label>
         <textarea id="taskDescription" class="textarea"
-                  placeholder="Explain what you need, target audience, style, tone, and deadline."></textarea>
+                  placeholder="Explain what you need, who it is for, length, tone, and deadline."></textarea>
       </div>
       <div class="form-group">
         <label class="label" data-i18n="task_budget_label">Budget</label>
@@ -915,142 +1003,128 @@
             <option value="EUR">€ EUR</option>
             <option value="GBP">£ GBP</option>
           </select>
-          <input id="taskBudget" type="number" class="input" min="0" step="1" style="flex:1;" placeholder="450" />
+          <input id="taskBudget" class="input" type="number" min="0" step="1" placeholder="450" style="flex:1;" />
         </div>
       </div>
       <div class="form-group">
-        <label class="label" for="taskLocation" data-i18n="task_location_label">Client location (optional)</label>
-        <input id="taskLocation" class="input" placeholder="e.g. Houston, TX · United States" />
+        <label for="taskLocation" class="label" data-i18n="task_location_label">Client location (optional)</label>
+        <input id="taskLocation" class="input" placeholder="Houston, TX · United States" />
       </div>
       <div class="form-group">
-        <label class="label" for="taskStripeLink" data-i18n="task_stripe_label">Stripe Payment Link (optional)</label>
+        <label for="taskStripeLink" class="label" data-i18n="task_stripe_label">Stripe Payment Link (optional)</label>
         <input id="taskStripeLink" class="input" placeholder="https://buy.stripe.com/..." />
         <p class="helper-text" data-i18n="task_stripe_helper">
-          Use a real Stripe Payment Link when you are in live mode. If this field is empty, the “Pay with Stripe” button will be hidden.
+          If you paste a live Stripe Payment Link here, the task row will show a gold “Pay with Stripe” button.
+          If you leave it empty, no payment button is shown.
         </p>
       </div>
       <div id="taskError" class="error-text" style="display:none;"></div>
       <div class="modal-actions">
-        <button class="btn btn-secondary" data-close="taskModal" data-i18n="btn_cancel">Cancel</button>
-        <button id="btnTaskSubmit" class="btn btn-primary" data-i18n="task_submit">Save task</button>
+        <button class="btn-secondary" data-close="taskModal" data-i18n="btn_cancel">Cancel</button>
+        <button id="btnTaskSubmit" class="btn-primary" data-i18n="task_submit">Save task</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  // ------- Simple local storage keys -------
-  const STORAGE_KEYS = {
-    user: 'afh_current_user',
-    users: 'afh_users',
-    tasks: 'afh_tasks',
-    lang: 'afh_lang'
-  };
-
-  // ------- i18n dictionary -------
+  /* ---------- i18n ---------- */
   const translations = {
     en: {
-      brand_title: 'AIFreelance Hub',
-      brand_sub: 'Hire AI-powered freelancers worldwide',
+      brand_title: 'AURUM TASK DESK',
+      brand_sub: 'Private AI Content & Automation Office',
       nav_login: 'Log in / Sign up',
       nav_post_task: 'Post a Task',
-      hero_title_1: 'Hire AI-powered',
-      hero_title_2: 'Freelancers & Automation Experts',
-      hero_sub: 'Post tasks, hire vetted AI freelancers, and get paid automatically through Stripe – one dashboard for writing, design and automation.',
-      hero_badge_1: 'US / UK / EU clients ready',
-      hero_badge_2: 'AI-assisted, human-reviewed output',
-      hero_badge_3: 'Stripe online payments',
-      hero_cta_client: 'Post a client task',
-      hero_cta_freelancer: 'I am a freelancer',
-      hero_note: 'Clear pricing. Talk directly via WhatsApp or email after you accept a task.',
-      hero_card_title: 'Live Task Snapshot',
-      hero_card_safe: 'Secure Stripe payouts',
-      hero_card_stat1: 'Open tasks:',
-      hero_card_stat2: 'In progress:',
-      hero_card_stat3: 'Completed:',
-      hero_card_footer: 'New AI writing & automation tasks added daily.',
-      hero_view_all: 'View all',
-      section_tasks_title: 'Task Marketplace',
-      section_tasks_sub: 'Clients and freelancers can manage everything here – post tasks, accept work, and pay via Stripe.',
+      hero_kicker: 'Wall Street–grade content, no agency overhead',
+      hero_title_1: 'A private desk for',
+      hero_title_2: 'AI writing & automation',
+      hero_sub: 'A focused hub where US / EU professionals send tasks, freelancers execute with AI assistance, and Stripe settles every payment like a serious firm.',
+      hero_badge_1: 'US 55+ male professionals as core clients',
+      hero_badge_2: 'Stripe settlement, no cards stored here',
+      hero_badge_3: 'Designed like a small family office',
+      hero_cta_client: 'I’m a client – post a task',
+      hero_cta_freelancer: 'I’m a freelancer – see tasks',
+      hero_note: 'Clear budgets, human conversation, Stripe links only when you’re ready to move real money.',
+      hero_card_title: 'Current Desk Snapshot',
+      hero_card_safe: 'No funds held on-site – Stripe only',
+      hero_stat_open: 'Open tasks',
+      hero_stat_progress: 'In progress',
+      hero_stat_completed: 'Completed',
+      hero_card_footer: 'A simple desk for high-intent, low-drama tasks.',
+      hero_view_all: 'View task board',
+      section_tasks_title: 'TASK MARKETPLACE',
+      section_tasks_sub: 'Clients post tasks, freelancers accept, and Stripe links are shared only when both sides are comfortable.',
       filter_status_all: 'All statuses',
       filter_status_open: 'Open',
       filter_status_progress: 'In progress',
       filter_status_completed: 'Completed',
-      filter_role_all: 'All roles',
-      filter_role_client: 'My posted tasks',
-      filter_role_freelancer: 'My accepted tasks',
-      btn_post_task: '+ Post a new task',
+      btn_post_task: '+ Post new task',
       tbl_task: 'Task',
       tbl_budget: 'Budget',
       tbl_client: 'Client',
       tbl_location: 'Location',
       tbl_status: 'Status',
       tbl_actions: 'Actions',
-      section_how_title: 'How AIFreelance Hub works',
-      section_how_sub: 'A simple flow for both clients and freelancers. You decide the pricing and Stripe payout rules.',
+      section_how_title: 'HOW THE DESK RUNS',
+      section_how_sub: 'Everything is intentionally simple: clear roles, simple flows, and no hidden tech complexity for your clients.',
       how_client_title: 'For clients',
-      how_client_1: 'Post a task with your budget and Stripe payment link.',
-      how_client_2: 'Review freelancers who accept, chat via WhatsApp or email.',
-      how_client_3: 'Pay securely through Stripe and receive AI-assisted results.',
+      how_client_1: 'Describe what you need: AI writing, letters, LinkedIn posts, WhatsApp flows.',
+      how_client_2: 'Set a budget and wait for a trusted freelancer to accept.',
+      how_client_3: 'Only share a Stripe Payment Link when you’re happy with the person.',
       how_freelancer_title: 'For freelancers',
-      how_freelancer_1: 'Create a freelancer account and complete your profile.',
-      how_freelancer_2: 'Browse open tasks and accept the ones that match your skills.',
-      how_freelancer_3: 'Deliver work and coordinate Stripe payouts with the client.',
-      how_owner_title: 'For platform owner (you)',
-      how_owner_1: 'Use Stripe prices or Payment Links with a built-in platform fee.',
-      how_owner_2: 'Decide which clients and freelancers you invite into the system.',
-      how_owner_3: 'Focus on marketing and relationships – the site handles workflows.',
-      footer_rights: 'All rights reserved. This site does not store payment details – Stripe handles all payments.',
+      how_freelancer_1: 'Log in once, your profile stays on this private desk.',
+      how_freelancer_2: 'Accept only tasks that match your capacity and skill.',
+      how_freelancer_3: 'Coordinate payments via Stripe links and keep your own ledger.',
+      how_owner_title: 'For you (desk owner)',
+      how_owner_1: 'You control who gets invited—older US professionals only, if that’s your niche.',
+      how_owner_2: 'Use Stripe prices with built-in margin so the desk quietly earns a spread.',
+      how_owner_3: 'The site stays minimal; your real value is relationship and guidance.',
+      footer_rights: 'All rights reserved. This desk does not store card data – all payments go through Stripe.',
       auth_title: 'Log in / Sign up',
-      auth_sub: 'One account can both post tasks and work as a freelancer.',
+      auth_sub: 'One identity to post tasks and accept them – like a small, private network.',
       auth_email: 'Email',
       auth_name: 'Display name',
       auth_password: 'Password',
-      auth_role_label: 'Default role after login',
-      auth_role_client: 'Client',
-      auth_role_freelancer: 'Freelancer',
       auth_submit: 'Continue',
       btn_cancel: 'Cancel',
       task_modal_title: 'Post a new task',
-      task_modal_sub: 'Add as much detail as possible. You can paste a Stripe Payment Link for online payment.',
+      task_modal_sub: 'Use this for serious tasks only. Stripe link is optional and only appears if you paste it.',
       task_title_label: 'Title',
       task_desc_label: 'Description',
       task_budget_label: 'Budget',
       task_location_label: 'Client location (optional)',
       task_stripe_label: 'Stripe Payment Link (optional)',
-      task_stripe_helper: 'Use a real Stripe Payment Link when you are in live mode. If this field is empty, the “Pay with Stripe” button will be hidden.',
+      task_stripe_helper: 'If you paste a live Stripe Payment Link here, the task row will show a gold “Pay with Stripe” button. If you leave it empty, no payment button is shown.',
       task_submit: 'Save task'
     },
     zh: {
-      brand_title: 'AIFreelance Hub',
-      brand_sub: '雇佣由 AI 驱动的全球自由职业者',
+      brand_title: 'AURUM TASK DESK',
+      brand_sub: '私人的 AI 内容与自动化工作台',
       nav_login: '登录 / 注册',
       nav_post_task: '发布任务',
-      hero_title_1: '雇佣 AI 驱动的',
-      hero_title_2: '自由职业者和自动化专家',
-      hero_sub: '在一个平台上完成发单、接单、Stripe 在线收款——用于写作、设计和自动化。',
-      hero_badge_1: '支持美国 / 英国 / 欧洲客户',
-      hero_badge_2: 'AI + 人工复审，高质量输出',
-      hero_badge_3: 'Stripe 在线付款',
+      hero_kicker: '华尔街级别内容，没有代理商中间层',
+      hero_title_1: '一个私密工作台，用于',
+      hero_title_2: 'AI 写作和自动化',
+      hero_sub: '专门为欧美客户服务：客户在这里发任务，自由职业者用 AI 协助完成，所有款项通过 Stripe 结算，像小型家族办公室一样稳。',
+      hero_badge_1: '核心客户：美国 55+ 男性专业人士',
+      hero_badge_2: 'Stripe 结算，本网站不保存任何卡片信息',
+      hero_badge_3: '设计风格接近小型 Family Office',
       hero_cta_client: '我是客户，要发任务',
-      hero_cta_freelancer: '我是自由职业者',
-      hero_note: '价格透明。接单后可以通过 WhatsApp 或邮箱直接沟通。',
-      hero_card_title: '实时任务快照',
-      hero_card_safe: 'Stripe 安全结算',
-      hero_card_stat1: '开放任务：',
-      hero_card_stat2: '进行中：',
-      hero_card_stat3: '已完成：',
-      hero_card_footer: '每天都会新增 AI 写作与自动化任务。',
-      hero_view_all: '查看全部任务',
+      hero_cta_freelancer: '我是自由职业者，要接任务',
+      hero_note: '预算透明、沟通真实。只有双方都确认合作时才使用 Stripe 支付链接。',
+      hero_card_title: '当前工作台概览',
+      hero_card_safe: '资金全部在 Stripe，不在本站滞留',
+      hero_stat_open: '开放任务',
+      hero_stat_progress: '进行中',
+      hero_stat_completed: '已完成',
+      hero_card_footer: '专注少而精的任务，而不是混乱的公开平台。',
+      hero_view_all: '查看任务大厅',
       section_tasks_title: '任务大厅',
-      section_tasks_sub: '客户和自由职业者在这里完成全部流程：发任务、接任务、Stripe 支付。',
+      section_tasks_sub: '客户在这里发任务，自由职业者接单；Stripe 支付链接只在双方确定合作后才会出现。',
       filter_status_all: '全部状态',
       filter_status_open: '开放中',
       filter_status_progress: '进行中',
       filter_status_completed: '已完成',
-      filter_role_all: '全部任务',
-      filter_role_client: '我发布的任务',
-      filter_role_freelancer: '我接的任务',
       btn_post_task: '+ 发布新任务',
       tbl_task: '任务',
       tbl_budget: '预算',
@@ -1058,123 +1132,80 @@
       tbl_location: '地区',
       tbl_status: '状态',
       tbl_actions: '操作',
-      section_how_title: '平台如何运作',
-      section_how_sub: '对客户和自由职业者都是极简流程，你来决定收费方式和 Stripe 分成。',
+      section_how_title: '工作台的运作方式',
+      section_how_sub: '保持极简：角色清晰、流程简单，不给客户增加任何技术负担。',
       how_client_title: '客户',
-      how_client_1: '填写任务说明、预算和 Stripe 支付链接。',
-      how_client_2: '查看接单的自由职业者，通过 WhatsApp/邮箱沟通细节。',
-      how_client_3: '通过 Stripe 安全付款，收到 AI + 人工优化后的成果。',
+      how_client_1: '说明你的需求：AI 写作、情感信件、LinkedIn 帖子、WhatsApp 话术等。',
+      how_client_2: '设定预算，等待值得信任的自由职业者接单。',
+      how_client_3: '只在你对对方满意时，才共享 Stripe 支付链接。',
       how_freelancer_title: '自由职业者',
-      how_freelancer_1: '注册账号并完善个人资料。',
-      how_freelancer_2: '浏览开放任务，接适合自己的任务。',
-      how_freelancer_3: '交付成果，并与客户确认 Stripe 结算。',
-      how_owner_title: '平台拥有者（你）',
-      how_owner_1: '在 Stripe 产品/链接里设置平台抽成。',
-      how_owner_2: '你决定邀请哪些客户和自由职业者进入系统。',
-      how_owner_3: '你专注于引流和关系，网站负责流程。',
-      footer_rights: '版权所有。本网站不保存任何银行卡信息，所有付款由 Stripe 处理。',
+      how_freelancer_1: '登录一次，你的身份就保留在这个私密工作台。',
+      how_freelancer_2: '只接符合你能力和时间的任务，不用疲于奔命抢单。',
+      how_freelancer_3: '用 Stripe 支付链接和客户结算，账目自己掌握。',
+      how_owner_title: '你（工作台拥有者）',
+      how_owner_1: '你决定谁能被邀请进来——例如只做美国中高阶层的 55+ 男性。',
+      how_owner_2: '在 Stripe 的产品价格里内置抽成，这个工作台像家办一样默默赚钱。',
+      how_owner_3: '网站保持极简，你真正的价值是关系和建议。',
+      footer_rights: '版权所有。本网站不保存银行卡信息，所有付款由 Stripe 完成。',
       auth_title: '登录 / 注册',
-      auth_sub: '一个账户即可同时发任务和接任务。',
+      auth_sub: '一个身份即可同时发任务和接任务，就像一个小型私密圈子。',
       auth_email: '邮箱',
       auth_name: '显示名称',
       auth_password: '密码',
-      auth_role_label: '登录后的默认身份',
-      auth_role_client: '客户',
-      auth_role_freelancer: '自由职业者',
       auth_submit: '继续',
       btn_cancel: '取消',
       task_modal_title: '发布新任务',
-      task_modal_sub: '尽量写清楚你需要什么，可以粘贴 Stripe 支付链接以便在线收款。',
+      task_modal_sub: '只用于真实、严肃的任务。Stripe 支付链接可选，只有你粘贴时才会显示按钮。',
       task_title_label: '任务标题',
       task_desc_label: '任务描述',
       task_budget_label: '预算',
       task_location_label: '客户地区（可选）',
       task_stripe_label: 'Stripe 支付链接（可选）',
-      task_stripe_helper: '开通 Stripe 正式收款后，把真实 Payment Link 粘贴到这里。如果留空，此任务不会显示“使用 Stripe 付款”按钮。',
+      task_stripe_helper: '如果在这里粘贴 Stripe 的支付链接，任务列表中会显示一个金色“使用 Stripe 付款”按钮；留空则不会显示支付按钮。',
       task_submit: '保存任务'
-    },
-    // For brevity, other languages reuse English text
-    ar: {}, fr: {}, de: {}
+    }
   };
   translations.ar = translations.fr = translations.de = translations.en;
 
+  function getCurrentLang() {
+    return localStorage.getItem('aurum_lang') || 'en';
+  }
   function applyTranslations(lang) {
     const dict = translations[lang] || translations.en;
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (dict[key]) {
-        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-          el.placeholder = dict[key];
-        } else {
-          el.textContent = dict[key];
-        }
+      if (!dict[key]) return;
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        // 这里只对 placeholder 不强制翻译，保持简洁
+      } else {
+        el.textContent = dict[key];
       }
     });
+    // 更新登录按钮文字（如果未登录）
+    const user = getCurrentUser();
+    if (!user) {
+      const btn = document.getElementById('btnNavLogin');
+      if (btn && dict.nav_login) btn.textContent = dict.nav_login;
+    }
   }
 
-  // ------- Data helpers -------
+  /* ---------- Storage helpers ---------- */
+  const STORAGE_KEYS = {
+    user: 'aurum_current_user',
+    users: 'aurum_users',
+    tasks: 'aurum_tasks'
+  };
+
   function loadJSON(key, fallback) {
     try {
       const v = localStorage.getItem(key);
       return v ? JSON.parse(v) : fallback;
-    } catch (e) {
+    } catch {
       return fallback;
     }
   }
   function saveJSON(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
-  }
-
-  function seedTasksIfEmpty() {
-    let tasks = loadJSON(STORAGE_KEYS.tasks, null);
-    if (!tasks || !Array.isArray(tasks) || !tasks.length) {
-      tasks = [
-        {
-          id: 1,
-          title: '面向美国退休投资者的 AI 长篇报道',
-          description: '撰写一篇 3,000 字的长篇文章，目标读者为即将退休的美国中产男性。需要案例研究、风险提示和清晰的小标题结构。',
-          budget: 450,
-          currency: 'USD',
-          clientName: '示例客户',
-          location: 'Houston, TX · United States',
-          status: 'open',
-          createdAt: Date.now() - 86400000,
-          createdByEmail: 'demo-client@example.com',
-          acceptedByEmail: null,
-          paymentLink: ''
-        },
-        {
-          id: 2,
-          title: 'LinkedIn 内容包（月度 10 篇）',
-          description: '为一位 55+ 美国男性高管撰写 10 篇 LinkedIn 帖子，主题围绕领导力、退休规划以及 AI 与商业。',
-          budget: 320,
-          currency: 'USD',
-          clientName: '示例客户',
-          location: 'Dallas, TX · United States',
-          status: 'open',
-          createdAt: Date.now() - 3600000,
-          createdByEmail: 'demo-client@example.com',
-          acceptedByEmail: null,
-          paymentLink: ''
-        },
-        {
-          id: 3,
-          title: 'WhatsApp AI 自动回复流程搭建',
-          description: '为美国地区客户搭建一个针对 55+ 男性的 WhatsApp 自动回复流程，包括欢迎话术、常见问题和转 Stripe 付款的逻辑设计。',
-          budget: 580,
-          currency: 'USD',
-          clientName: '示例客户',
-          location: 'Remote · Global',
-          status: 'open',
-          createdAt: Date.now(),
-          createdByEmail: 'demo-client@example.com',
-          acceptedByEmail: null,
-          paymentLink: ''
-        }
-      ];
-      saveJSON(STORAGE_KEYS.tasks, tasks);
-    }
-    return tasks;
   }
 
   function getCurrentUser() {
@@ -1187,114 +1218,141 @@
   function getUsers() {
     return loadJSON(STORAGE_KEYS.users, []);
   }
-  function setUsers(arr) {
-    saveJSON(STORAGE_KEYS.users, arr);
+  function setUsers(u) {
+    saveJSON(STORAGE_KEYS.users, u);
   }
 
-  // ------- Rendering -------
-  let tasks = seedTasksIfEmpty();
+  /* ---------- Seed tasks ---------- */
+  let tasks = loadJSON(STORAGE_KEYS.tasks, null);
+  if (!tasks || !Array.isArray(tasks) || !tasks.length) {
+    tasks = [
+      {
+        id: 1,
+        title: 'Long-form article for retired US investors (3,000+ words)',
+        description: 'Need an AI-assisted but human-edited article about retirement income strategies for US men 55+, including tax angles and risk disclaimers.',
+        budget: 450,
+        currency: 'USD',
+        clientName: 'Sample Client · Houston',
+        location: 'Houston, TX · United States',
+        status: 'open',
+        createdAt: Date.now() - 86400000,
+        createdByEmail: 'client@example.com',
+        acceptedByEmail: null,
+        paymentLink: ''
+      },
+      {
+        id: 2,
+        title: '10-piece LinkedIn content pack (executive tone)',
+        description: 'Monthly pack of 10 posts for a US logistics executive. Tone: professional, slightly personal, no political content.',
+        budget: 320,
+        currency: 'USD',
+        clientName: 'Sample Client · Dallas',
+        location: 'Dallas, TX · United States',
+        status: 'open',
+        createdAt: Date.now() - 3600000,
+        createdByEmail: 'client@example.com',
+        acceptedByEmail: null,
+        paymentLink: ''
+      },
+      {
+        id: 3,
+        title: 'WhatsApp automation script for older male audience',
+        description: 'Flow design + copy for a WhatsApp sequence targeting US men 55+, focusing on trust, calm, and clear financial expectations.',
+        budget: 580,
+        currency: 'USD',
+        clientName: 'Sample Client · Remote',
+        location: 'Remote · Global',
+        status: 'open',
+        createdAt: Date.now(),
+        createdByEmail: 'client@example.com',
+        acceptedByEmail: null,
+        paymentLink: ''
+      }
+    ];
+    saveJSON(STORAGE_KEYS.tasks, tasks);
+  }
 
+  /* ---------- Rendering ---------- */
   function formatCurrency(amount, currency) {
-    return (currency === 'USD' ? '$' : currency + ' ') + amount;
+    if (!amount && amount !== 0) return '';
+    if (currency === 'USD') return '$' + amount;
+    if (currency === 'EUR') return '€' + amount;
+    if (currency === 'GBP') return '£' + amount;
+    return currency + ' ' + amount;
   }
 
   function renderStats() {
     const open = tasks.filter(t => t.status === 'open').length;
-    const progress = tasks.filter(t => t.status === 'in_progress').length;
-    const completed = tasks.filter(t => t.status === 'completed').length;
+    const prog = tasks.filter(t => t.status === 'in_progress').length;
+    const comp = tasks.filter(t => t.status === 'completed').length;
     document.getElementById('statOpen').textContent = open;
-    document.getElementById('statProgress').textContent = progress;
-    document.getElementById('statCompleted').textContent = completed;
+    document.getElementById('statProgress').textContent = prog;
+    document.getElementById('statCompleted').textContent = comp;
 
     const mini = document.getElementById('heroMiniTasks');
     mini.innerHTML = '';
     tasks.slice(0, 3).forEach(t => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>
-          <span class="task-title">${t.title}</span>
-          <span class="task-meta">${t.clientName || ''}</span>
-        </td>
+        <td>${t.title.slice(0,45)}${t.title.length>45?'…':''}</td>
         <td>${formatCurrency(t.budget, t.currency)}</td>
-        <td><span class="badge-status badge-status-${t.status === 'open' ? 'open' : t.status === 'in_progress' ? 'progress' : 'completed'}">
-          ${t.status}
-        </span></td>`;
+      `;
       mini.appendChild(tr);
     });
   }
 
   function renderTasks() {
     const tbody = document.getElementById('taskTableBody');
-    tbody.innerHTML = '';
-
-    const currentUser = getCurrentUser();
     const statusFilter = document.getElementById('filterStatus').value;
-    const roleFilter = document.getElementById('filterRoleView').value;
-    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    const currentUser = getCurrentUser();
+    tbody.innerHTML = '';
 
     tasks.forEach(task => {
       if (statusFilter !== 'all' && task.status !== statusFilter) return;
-
-      if (roleFilter === 'client' && currentUser) {
-        if (task.createdByEmail !== currentUser.email) return;
-      }
-      if (roleFilter === 'freelancer' && currentUser) {
-        if (task.acceptedByEmail !== currentUser.email) return;
-      }
-      if (!currentUser && (roleFilter === 'client' || roleFilter === 'freelancer')) return;
-
-      if (query && !(
-        task.title.toLowerCase().includes(query) ||
-        task.description.toLowerCase().includes(query) ||
-        (task.clientName || '').toLowerCase().includes(query)
-      )) return;
+      if (q &&
+          !(task.title.toLowerCase().includes(q) ||
+            (task.clientName || '').toLowerCase().includes(q) ||
+            (task.description || '').toLowerCase().includes(q))) return;
 
       const tr = document.createElement('tr');
-
       const statusClass =
-        task.status === 'open' ? 'badge-status-open'
-          : task.status === 'in_progress' ? 'badge-status-progress'
-            : 'badge-status-completed';
+        task.status === 'open' ? 'badge-open' :
+        task.status === 'in_progress' ? 'badge-progress' : 'badge-completed';
 
-      let actionsHTML = '';
-
+      let actions = '';
       const loggedIn = !!currentUser;
-      const isClient = currentUser && task.createdByEmail === currentUser.email;
-      const isFreelancer = currentUser && task.acceptedByEmail === currentUser.email;
 
       if (task.status === 'open') {
-        actionsHTML += `<button class="btn-table btn-accept ${!loggedIn ? 'btn-disabled' : ''}"
-          data-action="accept" data-id="${task.id}">
-          ${loggedIn ? 'Accept' : 'Login to accept'}
-        </button>`;
-      } else if (task.status === 'in_progress' && isClient) {
-        actionsHTML += `<button class="btn-table"
-          data-action="complete" data-id="${task.id}">
-          Mark completed
-        </button>`;
+        actions += `<button class="btn-table btn-accept ${loggedIn?'':'btn-disabled'}"
+                     data-action="accept" data-id="${task.id}">
+                     ${loggedIn ? 'Accept' : 'Login to accept'}
+                    </button>`;
+      } else if (task.status === 'in_progress' &&
+                 currentUser && currentUser.email === task.createdByEmail) {
+        actions += `<button class="btn-table"
+                     data-action="complete" data-id="${task.id}">
+                     Mark completed
+                    </button>`;
       }
 
       if (task.paymentLink) {
-        actionsHTML += `<button class="btn-table btn-pay"
-          data-action="pay" data-id="${task.id}">
-          Pay with Stripe
-        </button>`;
+        actions += `<button class="btn-table btn-pay"
+                     data-action="pay" data-id="${task.id}">
+                     Pay with Stripe
+                    </button>`;
       }
 
       tr.innerHTML = `
         <td>
           <span class="task-title">${task.title}</span>
-          <span class="task-meta">${task.description.slice(0, 90)}${task.description.length > 90 ? '…' : ''}</span>
+          <span class="task-meta">${task.description.slice(0,90)}${task.description.length>90?'…':''}</span>
         </td>
         <td>${formatCurrency(task.budget, task.currency)}</td>
         <td>${task.clientName || ''}</td>
         <td>${task.location || ''}</td>
-        <td>
-          <span class="badge-status ${statusClass}">
-            ${task.status}
-          </span>
-        </td>
-        <td>${actionsHTML}</td>
+        <td><span class="badge-status ${statusClass}">${task.status}</span></td>
+        <td>${actions}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -1302,48 +1360,46 @@
     renderStats();
   }
 
-  // ------- Modals -------
+  /* ---------- Modals ---------- */
   function openModal(id) {
-    document.getElementById(id).style.display = 'flex';
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'flex';
   }
   function closeModal(id) {
-    document.getElementById(id).style.display = 'none';
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
   }
 
-  document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-    backdrop.addEventListener('click', e => {
-      if (e.target === backdrop) {
-        backdrop.style.display = 'none';
-      }
-    });
-  });
-  document.querySelectorAll('[data-close]').forEach(btn => {
-    btn.addEventListener('click', () => closeModal(btn.getAttribute('data-close')));
+  document.addEventListener('click', e => {
+    const target = e.target;
+    if (target.matches('[data-close]')) {
+      closeModal(target.getAttribute('data-close'));
+    }
+    if (target.classList.contains('modal-backdrop')) {
+      target.style.display = 'none';
+    }
   });
 
-  // ------- Auth logic -------
+  /* ---------- Auth ---------- */
   function updateUserLabel() {
     const label = document.getElementById('currentUserLabel');
+    const btnLogin = document.getElementById('btnNavLogin');
+    const lang = getCurrentLang();
+    const dict = translations[lang] || translations.en;
     const user = getCurrentUser();
     if (user) {
-      label.textContent = `Logged in as ${user.name} (${user.role})`;
-      document.getElementById('btnNavLogin').textContent = 'Log out';
+      label.textContent = `Logged in as ${user.name}`;
+      btnLogin.textContent = 'Log out';
     } else {
       label.textContent = '';
-      document.getElementById('btnNavLogin').textContent = translations[getCurrentLang()].nav_login;
+      btnLogin.textContent = dict.nav_login || 'Log in / Sign up';
     }
   }
 
-  function getCurrentLang() {
-    return localStorage.getItem(STORAGE_KEYS.lang) || 'en';
-  }
-
   function initAuth() {
-    const btnNavLogin = document.getElementById('btnNavLogin');
-    btnNavLogin.addEventListener('click', () => {
+    document.getElementById('btnNavLogin').addEventListener('click', () => {
       const user = getCurrentUser();
       if (user) {
-        // log out
         setCurrentUser(null);
         updateUserLabel();
         renderTasks();
@@ -1357,36 +1413,34 @@
       const email = document.getElementById('authEmail').value.trim().toLowerCase();
       const name = document.getElementById('authName').value.trim();
       const pass = document.getElementById('authPassword').value;
-      const role = document.querySelector('input[name="authRole"]:checked').value;
-      const errorEl = document.getElementById('authError');
+      const err = document.getElementById('authError');
       if (!email || !name || !pass) {
-        errorEl.textContent = 'Please fill in all fields.';
-        errorEl.style.display = 'block';
+        err.textContent = 'Please fill in all fields.';
+        err.style.display = 'block';
         return;
       }
       if (pass.length < 6) {
-        errorEl.textContent = 'Password must be at least 6 characters.';
-        errorEl.style.display = 'block';
+        err.textContent = 'Password must be at least 6 characters.';
+        err.style.display = 'block';
         return;
       }
-      errorEl.style.display = 'none';
+      err.style.display = 'none';
 
       let users = getUsers();
-      let existing = users.find(u => u.email === email);
-      if (!existing) {
-        existing = { email, name, password: pass, role };
-        users.push(existing);
+      let u = users.find(x => x.email === email);
+      if (!u) {
+        u = { email, name, password: pass };
+        users.push(u);
         setUsers(users);
       }
-      setCurrentUser(existing);
+      setCurrentUser(u);
       updateUserLabel();
       closeModal('authModal');
       renderTasks();
     });
   }
 
-  // ------- Task creation and actions -------
-  function requireLogin(action) {
+  function requireLogin() {
     const user = getCurrentUser();
     if (!user) {
       alert('Please log in first.');
@@ -1396,9 +1450,10 @@
     return true;
   }
 
-  function initTaskCreation() {
-    const openTaskModalBtns = ['btnNavNewTask', 'btnHeroPost', 'btnNewTask'];
-    openTaskModalBtns.forEach(id => {
+  /* ---------- Task creation & actions ---------- */
+  function initTasks() {
+    const openButtons = ['btnNavNewTask','btnHeroClient','btnNewTask'];
+    openButtons.forEach(id => {
       const el = document.getElementById(id);
       if (!el) return;
       el.addEventListener('click', () => {
@@ -1414,36 +1469,33 @@
     });
 
     document.getElementById('btnTaskSubmit').addEventListener('click', () => {
+      if (!requireLogin()) return;
       const user = getCurrentUser();
-      if (!user) {
-        alert('Please log in first.');
-        return;
-      }
       const title = document.getElementById('taskTitle').value.trim();
       const desc = document.getElementById('taskDescription').value.trim();
       const budgetStr = document.getElementById('taskBudget').value.trim();
       const currency = document.getElementById('taskCurrency').value;
       const location = document.getElementById('taskLocation').value.trim();
       const link = document.getElementById('taskStripeLink').value.trim();
-      const errorEl = document.getElementById('taskError');
+      const err = document.getElementById('taskError');
 
       if (!title || !desc || !budgetStr) {
-        errorEl.textContent = 'Title, description and budget are required.';
-        errorEl.style.display = 'block';
+        err.textContent = 'Title, description and budget are required.';
+        err.style.display = 'block';
         return;
       }
       const budget = Number(budgetStr);
       if (!Number.isFinite(budget) || budget <= 0) {
-        errorEl.textContent = 'Budget must be a positive number.';
-        errorEl.style.display = 'block';
+        err.textContent = 'Budget must be a positive number.';
+        err.style.display = 'block';
         return;
       }
       if (link && !/^https?:\/\/.+/i.test(link)) {
-        errorEl.textContent = 'Stripe Payment Link looks invalid.';
-        errorEl.style.display = 'block';
+        err.textContent = 'Stripe Payment Link looks invalid.';
+        err.style.display = 'block';
         return;
       }
-      errorEl.style.display = 'none';
+      err.style.display = 'none';
 
       const newId = tasks.length ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
       const t = {
@@ -1492,49 +1544,42 @@
       }
     });
 
-    document.getElementById('btnHeroViewAll').addEventListener('click', () => {
-      const y = document.querySelector('.section-title').getBoundingClientRect().top +
-        window.scrollY - 80;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    });
-    document.getElementById('btnHeroFreelancer').addEventListener('click', () => {
-      openModal('authModal');
-      document.querySelector('input[name="authRole"][value="freelancer"]').checked = true;
-    });
+    document.getElementById('filterStatus').addEventListener('change', renderTasks);
+    document.getElementById('searchInput').addEventListener('input', renderTasks);
   }
 
-  // ------- Filters / search -------
-  function initFilters() {
-    ['filterStatus', 'filterRoleView', 'searchInput'].forEach(id => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const evt = id === 'searchInput' ? 'input' : 'change';
-      el.addEventListener(evt, renderTasks);
-    });
-  }
+  /* ---------- Lang & other init ---------- */
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ------- Language switch -------
-  function initLang() {
-    const select = document.getElementById('langSelect');
-    const saved = getCurrentLang();
-    select.value = saved;
-    applyTranslations(saved);
+    const langSelect = document.getElementById('langSelect');
+    const savedLang = getCurrentLang();
+    langSelect.value = savedLang;
+    applyTranslations(savedLang);
 
-    select.addEventListener('change', () => {
-      const lang = select.value;
-      localStorage.setItem(STORAGE_KEYS.lang, lang);
+    langSelect.addEventListener('change', () => {
+      const lang = langSelect.value;
+      localStorage.setItem('aurum_lang', lang);
       applyTranslations(lang);
       updateUserLabel();
     });
-  }
 
-  // ------- Init -------
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('year').textContent = new Date().getFullYear();
-    initLang();
+    document.getElementById('linkScrollTasks').addEventListener('click', () => {
+      const section = document.querySelector('[data-i18n="section_tasks_title"]');
+      if (!section) return;
+      const y = section.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+
+    document.getElementById('btnHeroFreelancer').addEventListener('click', () => {
+      const section = document.querySelector('[data-i18n="section_tasks_title"]');
+      if (!section) return;
+      const y = section.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+
     initAuth();
-    initTaskCreation();
-    initFilters();
+    initTasks();
     updateUserLabel();
     renderTasks();
   });
