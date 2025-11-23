@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aurum Task Desk — Task Generator</title>
+  <title>Aurum Task Desk — 任务生成器</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
       background: #f5f3ef;
-      background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
       color: #1d2a39;
       line-height: 1.6;
     }
     a { text-decoration: none; color: inherit; }
+
     .container {
       max-width: 1180px;
-      margin: auto;
+      margin: 0 auto;
       padding: 20px;
     }
+
+    /* 顶部导航 */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -49,40 +52,39 @@
       color: #7a642f;
     }
 
+    /* 页面标题 */
     .page-header {
       margin-top: 32px;
       margin-bottom: 8px;
     }
     .header-title {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 800;
       color: #132033;
     }
     .header-sub {
-      font-size: 15px;
+      font-size: 14px;
       opacity: 0.85;
       max-width: 640px;
     }
 
+    /* 主体布局 */
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 26px;
-      margin-top: 26px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 24px;
+      margin-top: 24px;
       align-items: flex-start;
     }
     @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
+      .layout { grid-template-columns: 1fr; }
     }
 
     .card {
-      background: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.96);
       border-radius: 12px;
       border: 1px solid #dcd9d3;
       padding: 18px 18px 20px;
-      box-sizing: border-box;
     }
     .card-title {
       font-size: 18px;
@@ -96,26 +98,22 @@
       margin-bottom: 16px;
     }
 
-    .form-row {
-      margin-bottom: 12px;
-    }
+    .form-row { margin-bottom: 12px; }
     label {
       display: block;
       font-size: 13px;
       margin-bottom: 4px;
       color: #132033;
     }
-    input[type="text"],
-    select,
-    textarea {
+    input[type="text"], select, textarea {
       width: 100%;
       padding: 9px 10px;
       border-radius: 6px;
       border: 1px solid #ccc7bf;
-      box-sizing: border-box;
+      background: #fcfaf6;
       font-size: 13px;
       font-family: inherit;
-      background: #fcfaf6;
+      box-sizing: border-box;
     }
     textarea {
       resize: vertical;
@@ -126,9 +124,7 @@
       display: flex;
       gap: 10px;
     }
-    .inline .form-row {
-      flex: 1;
-    }
+    .inline .form-row { flex: 1; }
 
     .hint {
       font-size: 12px;
@@ -145,6 +141,7 @@
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
+      margin-right: 8px;
     }
     .btn-primary:disabled {
       opacity: 0.55;
@@ -159,31 +156,35 @@
       color: #7a642f;
       font-size: 12px;
       cursor: pointer;
+      margin-top: 4px;
+    }
+    .btn-outline:hover { background: #ebe3d1; }
+
+    .btn-pay {
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: 1px solid #35a45d;
+      background: linear-gradient(135deg, #35c66a, #1c8a47);
+      color: #04120a;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    .btn-pay:disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .status-text {
+      font-size: 12px;
+      opacity: 0.8;
       margin-top: 6px;
     }
-    .btn-outline:hover {
-      background: #ebe3d1;
-    }
 
-    .badge {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 11px;
-      border: 1px solid #d3c7ab;
-      background: #f5f0e2;
-      color: #7a622e;
-      margin-right: 6px;
-      margin-bottom: 4px;
-    }
-
-    .result-title {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #132033;
-    }
+    /* 结果区域 */
     .result-box {
+      position: relative;
       margin-top: 10px;
       padding: 12px;
       border-radius: 8px;
@@ -191,16 +192,41 @@
       border: 1px solid #e0dcd4;
       font-size: 13px;
       white-space: pre-wrap;
+      max-height: 420px;
+      overflow-y: auto;
     }
     .result-empty {
       font-size: 13px;
       opacity: 0.7;
     }
-    .status-text {
+
+    .preview-mask {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 70px;
+      background: linear-gradient(to bottom, rgba(252,251,247,0) 0%, rgba(252,251,247,0.96) 70%);
+      pointer-events: none;
+    }
+    .preview-tag {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid #d4c29a;
+      color: #f5f0e2;
+    }
+
+    .pay-note {
       font-size: 12px;
-      opacity: 0.8;
+      color: #7c7363;
       margin-top: 6px;
     }
+    .pay-note strong { color: #514021; }
 
     .footer {
       margin-top: 50px;
@@ -210,204 +236,219 @@
       font-size: 13px;
       opacity: 0.75;
     }
-
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- 顶部导航 -->
   <nav class="navbar container">
     <div class="nav-left">Aurum Task Desk</div>
     <div class="nav-right">
-      <a href="index.html">Home</a>
-      <a href="tasks.html">Task Marketplace</a>
-      <a href="about.html">About</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact</a>
+      <a href="index.html">首页</a>
+      <a href="tasks.html">任务市场</a>
+      <a href="about.html">关于</a>
+      <a href="pricing.html">我们的定价</a>
+      <a href="contact.html">联系我们</a>
     </div>
   </nav>
 
-  <!-- HEADER -->
+  <!-- 页面标题 -->
   <header class="container page-header">
-    <h1 class="header-title">Task Generator (Client-facing)</h1>
+    <h1 class="header-title">任务生成器（面向客户）</h1>
     <p class="header-sub">
-      Clients can describe their task here. Aurum AI will immediately generate a first draft
-      based on their instructions. You can later review, edit, or copy the result.
+      客户可以在这里描述任务。桌面 AI 会立即生成一份草稿。你可以先看预览，满意后再解锁完整稿件并复制使用。
     </p>
   </header>
 
   <main class="container layout">
-    <!-- LEFT: FORM -->
+    <!-- 左侧：表单 -->
     <section class="card">
-      <div class="card-title">Submit a Task</div>
+      <div class="card-title">提交任务</div>
       <div class="card-sub">
-        For older US/EU professionals, veterans, truck drivers, engineers, and business owners.
-        Simple language, calm tone, clear structure.
+        面向美国 / 欧洲的年长专业人士、退伍军人、卡车司机、工程师和企业主。语言简洁、语气平和、结构清楚。
       </div>
 
       <form id="task-form">
         <div class="form-row">
-          <label for="clientName">Your first name (optional)</label>
+          <label for="clientName">您的名字（可选）</label>
           <input type="text" id="clientName" placeholder="Mike, John, David...">
-          <div class="hint">This can help the AI personalize tone, but it’s optional.</div>
+          <div class="hint">可以帮助 AI 个性化语气，不填也可以。</div>
         </div>
 
         <div class="inline">
           <div class="form-row">
-            <label for="taskType">Task type</label>
+            <label for="taskType">任务类型</label>
             <select id="taskType">
-              <option value="email">Email / Letter</option>
-              <option value="whatsapp">WhatsApp / SMS reply</option>
-              <option value="linkedin">LinkedIn post</option>
-              <option value="article">Long-form article</option>
-              <option value="speech">Speech / talking points</option>
-              <option value="family">Family communication</option>
-              <option value="business">Business text / contract-style language</option>
-              <option value="other">Other</option>
+              <option value="business">商务文本 / 合同式语言</option>
+              <option value="email">邮件 / 信件</option>
+              <option value="whatsapp">WhatsApp / SMS 回复</option>
+              <option value="linkedin">LinkedIn 帖子 / 内容包</option>
+              <option value="speech">讲话稿 / 发言要点</option>
+              <option value="family">家庭沟通类</option>
+              <option value="other">其他</option>
             </select>
           </div>
           <div class="form-row">
-            <label for="tone">Tone</label>
+            <label for="tone">语气</label>
             <select id="tone">
-              <option value="calm">Calm and respectful</option>
-              <option value="professional">Professional and clear</option>
-              <option value="warm">Warm and supportive</option>
-              <option value="firm">Firm but polite</option>
-              <option value="simple">Very simple English</option>
+              <option value="calm">平静、尊重</option>
+              <option value="professional">专业、正式</option>
+              <option value="warm">温和、关心</option>
+              <option value="firm">坚定但礼貌</option>
+              <option value="simple">非常简单的英语</option>
             </select>
           </div>
         </div>
 
         <div class="inline">
           <div class="form-row">
-            <label for="language">Language</label>
+            <label for="language">语言</label>
             <select id="language">
-              <option value="english">English</option>
-              <option value="chinese">Chinese</option>
-              <option value="bilingual">English + Chinese</option>
+              <option value="english">英文</option>
+              <option value="chinese">中文</option>
+              <option value="bilingual">中英文双语</option>
             </select>
           </div>
           <div class="form-row">
-            <label for="length">Length</label>
-            <select id="length">
-              <option value="short">Short (1–2 paragraphs)</option>
-              <option value="medium">Medium (3–6 paragraphs)</option>
-              <option value="long">Long (article style)</option>
+            <label for="readingLevel">阅读水平</label>
+            <select id="readingLevel">
+              <option value="basic">基础（3–6年级）</option>
+              <option value="middle">中等（7–9年级）</option>
+              <option value="high">较高（10–12年级）</option>
             </select>
           </div>
         </div>
 
         <div class="form-row">
-          <label for="audience">Who is this for?</label>
-          <input type="text" id="audience" placeholder="My daughter, my ex-wife, my boss, LinkedIn followers...">
+          <label for="audience">这是给谁看的？</label>
+          <input type="text" id="audience" placeholder="我的老板、我的女儿、前妻、客户、LinkedIn 关注者…">
         </div>
 
         <div class="form-row">
-          <label for="details">What do you want to say? (details)</label>
-          <textarea id="details" placeholder="Explain what happened, what you want to say or solve, any key facts or phrases. The AI will shape it into a clear message."></textarea>
+          <label for="details">你想讲什么？（详细）</label>
+          <textarea id="details" placeholder="解释发生了什么，你希望解决什么问题，有哪些关键事实或句子，AI 会帮你整理成完整稿件。"></textarea>
         </div>
 
         <div class="form-row">
-          <button type="button" class="btn-primary" id="generateBtn">Generate with Aurum AI</button>
-          <button type="button" class="btn-outline" id="exampleBtn">Load example task</button>
+          <button type="button" class="btn-primary" id="generateBtn">使用 Aurum AI 生成（预览）</button>
+          <button type="button" class="btn-outline" id="exampleBtn">加载示例任务</button>
           <div class="status-text" id="statusText"></div>
         </div>
       </form>
     </section>
 
-    <!-- RIGHT: RESULT -->
+    <!-- 右侧：AI 草稿 + 收费解锁 -->
     <section class="card">
-      <div class="card-title">AI Draft</div>
+      <div class="card-title">AI 智能草稿</div>
       <div class="card-sub">
-        The draft below is generated instantly. You can copy, edit, and send it to your client
-        or let them see it directly on the page.
+        下方首先显示 <strong>部分预览</strong>，方便你判断方向是否正确。完整稿件与复制功能需要付款解锁（一次性 $19.99）。
       </div>
 
-      <div id="resultContainer">
+      <div id="resultContainer" class="result-box">
         <div class="result-empty">
-          No draft yet. Submit a task on the left and click “Generate with Aurum AI”.
+          还没有草稿。请在左侧填写任务信息，然后点击「使用 Aurum AI 生成（预览）」。
         </div>
+      </div>
+
+      <div style="margin-top: 12px;">
+        <button type="button" class="btn-pay" id="unlockBtn" disabled>解锁完整稿件（$19.99）</button>
+        <button type="button" class="btn-outline" id="copyBtn" disabled>复制完整稿件</button>
+      </div>
+      <div class="pay-note" id="payNote">
+        预览只展示全文的一部分。支付后会自动返回本页并解锁本次任务的
+        <strong>完整内容 + 复制按钮</strong>，适合直接发送给客户或用于 WhatsApp / 邮件。
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    © 2025 Aurum Task Desk — Private AI Task Coordination Desk
+    © 2025 Aurum Task Desk — 私人 AI 任务协调平台
   </footer>
 
   <script>
-    // ✅ 这里使用 Cloudflare Worker 作为后端，不在前端暴露任何 API Key
+    // ✅ 你的 Cloudflare Worker API（后端保护 OpenAI Key）
     const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
+
+    // ✅ 任务页面专用 Stripe 支付链接（$19.99 解锁完整稿件）
+    // 在 Stripe 新建 Payment Link，价格 19.99 USD，
+    // 成功返回地址 success_url = https://aifreelance-hub.github.io/aifreelance-hub/tasks.html?paid=1
+    const STRIPE_TASK_PAYMENT_URL = "https://YOUR_STRIPE_TASKS_PAYMENT_LINK_HERE";
+
+    // 表单元素
+    const clientNameEl = document.getElementById('clientName');
+    const taskTypeEl = document.getElementById('taskType');
+    const toneEl = document.getElementById('tone');
+    const languageEl = document.getElementById('language');
+    const readingLevelEl = document.getElementById('readingLevel');
+    const audienceEl = document.getElementById('audience');
+    const detailsEl = document.getElementById('details');
 
     const generateBtn = document.getElementById('generateBtn');
     const exampleBtn = document.getElementById('exampleBtn');
     const statusText = document.getElementById('statusText');
     const resultContainer = document.getElementById('resultContainer');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const payNote = document.getElementById('payNote');
 
-    const clientNameEl = document.getElementById('clientName');
-    const taskTypeEl = document.getElementById('taskType');
-    const toneEl = document.getElementById('tone');
-    const languageEl = document.getElementById('language');
-    const lengthEl = document.getElementById('length');
-    const audienceEl = document.getElementById('audience');
-    const detailsEl = document.getElementById('details');
+    // 当前完整稿件
+    let currentFullDraft = "";
 
     // 示例任务
     exampleBtn.addEventListener('click', () => {
       clientNameEl.value = "Mike";
-      taskTypeEl.value = "email";
-      toneEl.value = "warm";
+      taskTypeEl.value = "business";
+      toneEl.value = "professional";
       languageEl.value = "english";
-      lengthEl.value = "medium";
-      audienceEl.value = "my adult daughter";
-      detailsEl.value =
-        "I want to tell her I am sorry for being absent when she was younger, " +
-        "explain that I was working and struggling, but I always loved her. " +
-        "I don’t want to blame anyone. I want to open the door for more conversation.";
+      readingLevelEl.value = "middle";
+      audienceEl.value = "my trucking client";
+      detailsEl.value = "Client has delayed payment for 8 months. I want a clear but respectful message that sets a deadline and explains that I need to protect my own business as well. I do not want to sound angry, but I need them to understand this is serious.";
     });
 
-    // 生成按钮
+    // 生成草稿（预览）
     generateBtn.addEventListener('click', async () => {
-      const clientName = clientNameEl.value.trim();
+      const name = clientNameEl.value.trim();
       const taskType = taskTypeEl.value;
       const tone = toneEl.value;
       const language = languageEl.value;
-      const length = lengthEl.value;
+      const reading = readingLevelEl.value;
       const audience = audienceEl.value.trim();
       const details = detailsEl.value.trim();
 
       if (!details) {
-        alert("Please describe the task details so Aurum AI knows what to generate.");
+        alert("请先详细描述任务内容，方便 AI 帮你生成草稿。");
         return;
       }
 
-      // 构造给后端的 prompt
-      let prompt = "You are Aurum Task Desk AI. You help older US and EU men (55+), veterans, truck drivers, engineers and business owners write clear, calm, respectful messages, letters, LinkedIn posts and scripts.\n\n";
-      if (clientName) {
-        prompt += "Client name: " + clientName + ".\n";
-      }
-      prompt += "Task type: " + taskType + ".\n";
-      prompt += "Tone: " + tone + ".\n";
-      prompt += "Preferred language: " + language + ".\n";
-      prompt += "Length: " + length + ".\n";
-      if (audience) {
-        prompt += "Audience: " + audience + ".\n";
-      }
-      prompt += "Details: " + details + ".\n\n";
-      prompt += "Write a complete draft that this client can directly copy and send. Avoid overly fancy words. Sound mature and sincere. If language = Chinese, reply in Chinese. If bilingual, give English first, then Chinese.\n";
-
-      // UI 状态
-      statusText.textContent = "Generating with Aurum AI...";
       generateBtn.disabled = true;
-      generateBtn.textContent = "Generating...";
+      generateBtn.textContent = "生成中…";
+      statusText.textContent = "正在向 Aurum AI 请求草稿，请稍候…";
       resultContainer.innerHTML = "";
 
+      // 每次新任务都先锁定支付/复制按钮
+      currentFullDraft = "";
+      unlockBtn.disabled = true;
+      copyBtn.disabled = true;
+      payNote.innerHTML = '预览只展示全文的一部分。支付后会自动返回本页并解锁本次任务的 <strong>完整内容 + 复制按钮</strong>。';
+
       try {
+        let prompt = "You are Aurum Task Desk AI. You help older US and EU men (50+), including " +
+          "veterans, truck drivers, engineers and business owners, to write calm, clear and respectful texts.\n\n";
+
+        if (name) prompt += "Client name: " + name + ".\n";
+        prompt += "Task type: " + taskType + ".\n";
+        prompt += "Tone: " + tone + ".\n";
+        prompt += "Preferred language: " + language + ".\n";
+        prompt += "Reading level: " + reading + " (3-6 basic, 7-9 middle, 10-12 higher).\n";
+        if (audience) prompt += "Audience: " + audience + ".\n";
+        prompt += "Details: " + details + ".\n\n";
+        prompt += "Write a complete draft that this client can directly copy and send. " +
+          "Avoid overly fancy words. Sound mature and sincere. If language = Chinese, reply in Chinese. " +
+          "If bilingual, give English first, then Chinese.\n";
+
         const res = await fetch(WORKER_API_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ prompt })
         });
 
@@ -418,27 +459,116 @@
           throw new Error(msg);
         }
 
-        const reply = data.text || "No content returned from Aurum AI.";
+        const full = data.text || "No content returned from Aurum AI.";
+        currentFullDraft = full;
 
-        const box = document.createElement('div');
-        box.className = 'result-box';
-        box.textContent = reply;
-        resultContainer.innerHTML = "";
-        resultContainer.appendChild(box);
+        const preview = makePreview(full);
+        renderResult(preview, true);
 
-        statusText.textContent = "Draft generated. You can copy and adjust if needed.";
+        unlockBtn.disabled = false;   // 可以去解锁
+        statusText.textContent = "预览已生成。如方向合适，可以解锁完整稿件。";
       } catch (err) {
         console.error(err);
         resultContainer.innerHTML =
-          '<div class="result-box">Something went wrong while talking to Aurum AI: ' +
-          (err.message || err) +
-          '</div>';
+          '<div class="result-empty">生成草稿时出现错误：' +
+          (err.message || String(err)) +
+          "</div>";
         statusText.textContent = "";
       } finally {
         generateBtn.disabled = false;
-        generateBtn.textContent = "Generate with Aurum AI";
+        generateBtn.textContent = "使用 Aurum AI 生成（预览）";
       }
     });
+
+    // 生成预览文本（约前 30%）
+    function makePreview(text) {
+      if (!text) return "";
+      const maxChars = 900; // 可根据情况调整
+      if (text.length <= maxChars) return text;
+
+      let cut = maxChars;
+      const nextBreak = text.indexOf("\n", maxChars);
+      if (nextBreak > 0 && nextBreak - maxChars < 120) {
+        cut = nextBreak;
+      }
+      return text.slice(0, cut) + "\n\n[……以下内容为预览截断，完整稿件解锁后可见……]";
+    }
+
+    // 渲染结果
+    function renderResult(text, isPreview) {
+      resultContainer.innerHTML = "";
+      const contentDiv = document.createElement("div");
+      contentDiv.textContent = text;
+      resultContainer.appendChild(contentDiv);
+
+      if (isPreview) {
+        const mask = document.createElement("div");
+        mask.className = "preview-mask";
+        resultContainer.appendChild(mask);
+
+        const tag = document.createElement("div");
+        tag.className = "preview-tag";
+        tag.textContent = "预览片段 · 完整稿件需解锁";
+        resultContainer.appendChild(tag);
+
+        copyBtn.disabled = true;
+      } else {
+        copyBtn.disabled = false;
+      }
+    }
+
+    // 解锁完整稿件（Stripe 支付）
+    unlockBtn.addEventListener('click', () => {
+      if (!currentFullDraft) {
+        alert("请先生成一份草稿。");
+        return;
+      }
+      if (!STRIPE_TASK_PAYMENT_URL || STRIPE_TASK_PAYMENT_URL.includes("YOUR_STRIPE_TASKS_PAYMENT_LINK_HERE")) {
+        alert("还没有配置 Stripe 支付链接，请先在代码中设置 STRIPE_TASK_PAYMENT_URL。");
+        return;
+      }
+
+      // 把当前任务稿件缓存到 localStorage
+      localStorage.setItem("aurum_tasks_latest_draft", currentFullDraft);
+
+      // 跳转到 Stripe 付款页
+      window.location.href = STRIPE_TASK_PAYMENT_URL;
+    });
+
+    // 复制完整稿件
+    copyBtn.addEventListener('click', async () => {
+      if (!currentFullDraft) {
+        alert("暂无可复制的稿件。");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(currentFullDraft);
+        statusText.textContent = "完整稿件已复制到剪贴板。";
+      } catch (e) {
+        alert("复制失败，请手动选择文本复制。");
+      }
+    });
+
+    // 页面加载时，检查是否是从支付成功返回
+    (function initFromPaymentReturn() {
+      const params = new URLSearchParams(window.location.search);
+      const paid = params.get("paid");
+
+      if (paid === "1") {
+        const savedDraft = localStorage.getItem("aurum_tasks_latest_draft");
+        if (savedDraft) {
+          currentFullDraft = savedDraft;
+          renderResult(currentFullDraft, false);
+          unlockBtn.disabled = true;
+          copyBtn.disabled = false;
+          payNote.innerHTML = "<strong>本次任务的完整稿件已解锁。</strong><br>你可以复制、保存或发送给客户使用。";
+          statusText.textContent = "付款成功，完整稿件已解锁。";
+        } else {
+          resultContainer.innerHTML =
+            '<div class="result-empty">已从支付页面返回，但没有找到本次任务的缓存。请重新生成一份草稿。</div>';
+        }
+      }
+    })();
   </script>
 </body>
 </html>
