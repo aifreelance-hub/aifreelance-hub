@@ -3,31 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AURUM PRIVATE AI DESK — Private Office for AI Tasks</title>
-
+<title>Aurum Task Desk — Home</title>
 <style>
-/* ----------------------------------
-   GLOBAL STYLES — FAMILY OFFICE LUXE
------------------------------------ */
 
 body {
   margin: 0;
-  font-family: "Inter", sans-serif;
-  background: #f5f3ef; /* 象牙白 */
-  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png'); 
-  color: #1d2a39; /* 深蓝/石墨 */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f3ef;
+  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  color: #1d2a39;
   line-height: 1.6;
 }
-
 a { text-decoration: none; color: inherit; }
-
 .container {
   max-width: 1180px;
   margin: auto;
   padding: 20px;
 }
-
-/* NAVBAR */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -35,59 +27,46 @@ a { text-decoration: none; color: inherit; }
   padding: 18px 0;
   border-bottom: 1px solid #d5d3ce;
 }
-
 .nav-left {
   font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.5px;
   color: #0f1c2c;
 }
-
 .nav-right a {
   margin-left: 24px;
   font-size: 15px;
-  color: #1e2d3c;
   opacity: 0.85;
 }
 .nav-right a:hover { opacity: 1; }
-
-/* HERO SECTION */
-.hero {
-  padding: 80px 0;
-  text-align: left;
+.footer {
+  margin-top: 70px;
+  border-top: 1px solid #d2cfca;
+  padding: 35px 0;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.75;
 }
 
+.hero {
+  padding: 70px 0 40px;
+}
 .hero-title {
-  font-size: 42px;
+  font-size: 38px;
   font-weight: 800;
   color: #132033;
   line-height: 1.2;
 }
-
 .hero-sub {
   margin-top: 16px;
-  font-size: 18px;
-  max-width: 620px;
+  font-size: 17px;
+  max-width: 640px;
   opacity: 0.85;
 }
-
 .cta-row {
-  margin-top: 30px;
+  margin-top: 28px;
   display: flex;
-  gap: 18px;
+  gap: 16px;
 }
-
-/* CTA BUTTONS */
-.btn-gold {
-  padding: 12px 22px;
-  border-radius: 4px;
-  border: 1px solid #bfa76f;
-  background: #f5f2eb;
-  color: #7a642f;
-  font-weight: 600;
-  font-size: 15px;
-}
-
 .btn-blue {
   padding: 12px 22px;
   border-radius: 4px;
@@ -97,94 +76,48 @@ a { text-decoration: none; color: inherit; }
   font-weight: 600;
   font-size: 15px;
 }
-
-/* SECTION HEADERS */
+.btn-gold {
+  padding: 12px 22px;
+  border-radius: 4px;
+  border: 1px solid #bfa76f;
+  background: #f5f2eb;
+  color: #7a642f;
+  font-weight: 600;
+  font-size: 15px;
+}
 .section-title {
   font-size: 26px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-top: 60px;
+  margin-bottom: 8px;
   color: #132033;
 }
-
 .section-sub {
   font-size: 15px;
   opacity: 0.8;
-  max-width: 600px;
-  margin-bottom: 20px;
+  max-width: 620px;
+  margin-bottom: 18px;
 }
-
-/* VALUE CARDS */
 .value-grid {
   display: flex;
-  gap: 24px;
   flex-wrap: wrap;
+  gap: 20px;
 }
-
 .value-card {
   flex: 1;
   min-width: 260px;
-  padding: 20px;
+  padding: 18px 18px 16px;
   border-radius: 8px;
-  background: rgba(255,255,255,0.72);
+  background: rgba(255,255,255,0.8);
   border: 1px solid #dcd9d3;
-}
-
-/* SERVICE CARDS */
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 22px;
-}
-
-.service-card {
-  padding: 20px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.76);
-  border: 1px solid #ddd9d2;
-}
-
-/* PRICING */
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-}
-
-.price-card {
-  padding: 24px;
-  border-radius: 8px;
-  background: #ffffff;
-  border: 1px solid #d8d5cf;
-}
-
-.price-card h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.price-amount {
-  font-size: 30px;
-  font-weight: 700;
-  margin: 10px 0;
-  color: #132033;
-}
-
-/* FOOTER */
-.footer {
-  margin-top: 60px;
-  border-top: 1px solid #d2cfca;
-  padding: 35px 0;
-  text-align: center;
   font-size: 14px;
-  opacity: 0.75;
 }
 </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar container">
-  <div class="nav-left">AURUM PRIVATE AI DESK</div>
+  <div class="nav-left">Aurum Task Desk</div>
   <div class="nav-right">
     <a href="index.html">Home</a>
     <a href="tasks.html">Task Marketplace</a>
@@ -194,103 +127,45 @@ a { text-decoration: none; color: inherit; }
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero container">
   <h1 class="hero-title">
-    A Private AI Desk for Tasks, Writing<br> & Curated Execution
+    Aurum Task Desk<br>for AI‑assisted work and private execution
   </h1>
   <p class="hero-sub">
-    A small, private-desk model where professionals submit AI-assisted tasks, 
-    vetted freelancers execute the work, and the Desk earns a clear service fee. 
-    Inspired by the structure of family offices & discretionary advisory desks.
+    A quiet, invitation‑only task desk where serious clients submit AI‑related work,
+    and trusted freelancers execute under clear scopes. You oversee the relationships
+    and keep a transparent desk fee on each assignment.
   </p>
-
   <div class="cta-row">
-    <a href="tasks.html" class="btn-blue">Send a Task</a>
-    <a href="about.html" class="btn-gold">How the Desk Works</a>
+    <a href="tasks.html" class="btn-blue">View Task Marketplace</a>
+    <a href="about.html" class="btn-gold">How Aurum Task Desk Works</a>
   </div>
 </section>
 
-
-<!-- VALUE PROPOSITION -->
-<section class="container" style="margin-top:60px;">
-  <h2 class="section-title">What Makes This Desk Different</h2>
-  <p class="section-sub">Not a public marketplace — a private coordination desk with clear service fees and professional structure.</p>
-
+<section class="container">
+  <h2 class="section-title">What Aurum Task Desk Offers</h2>
+  <p class="section-sub">
+    This is not a public marketplace. It is a private coordination layer designed for older US/EU professionals,
+    small business owners, and high‑intent individuals who prefer calm, structured collaboration.
+  </p>
   <div class="value-grid">
     <div class="value-card">
-      <strong>Private, Invitation-Only Access</strong>
-      <p>No crowds, no randomness — tasks are curated and processed like a small advisory office.</p>
+      <strong>Private, curated environment</strong>
+      <p>No crowds or bidding wars. You invite the clients and freelancers you trust, and keep everything inside one desk.</p>
     </div>
     <div class="value-card">
-      <strong>AI-Assisted, Human-Supervised Execution</strong>
-      <p>Freelancers use AI tools while following precise scopes and guidelines from the Desk.</p>
+      <strong>AI‑assisted, human‑controlled output</strong>
+      <p>AI tools are used for speed and structure, while the Desk ensures quality and tone fit each client.</p>
     </div>
     <div class="value-card">
-      <strong>Stripe Settlement & Desk Fee Model</strong>
-      <p>The Desk keeps a transparent service fee and forwards the remainder to the freelancer.</p>
+      <strong>Clear desk‑fee model</strong>
+      <p>Clients pay one price. You agree net payouts with freelancers. The spread is your desk fee.</p>
     </div>
   </div>
 </section>
 
-
-<!-- SIGNATURE SERVICES -->
-<section class="container" style="margin-top:70px;">
-  <h2 class="section-title">Signature AI Services</h2>
-  <p class="section-sub">Common tasks processed by this Desk for US / EU private clients.</p>
-
-  <div class="service-grid">
-    <div class="service-card">
-      <strong>Long-Form Writing for Professionals</strong>
-      <p>Articles, letters, structured narratives & high-clarity communication.</p>
-    </div>
-    <div class="service-card">
-      <strong>WhatsApp, Email & Chat Scripts</strong>
-      <p>AI-optimized outreach, communication, or personal messaging.</p>
-    </div>
-    <div class="service-card">
-      <strong>LinkedIn Presence & Content</strong>
-      <p>Short-form posts, content series, and profile-aligned writing.</p>
-    </div>
-    <div class="service-card">
-      <strong>Automation & Task Workflow Setup</strong>
-      <p>AI workflows for repetitive messaging, summaries, or simple research.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- PRICING -->
-<section class="container" style="margin-top:70px;">
-  <h2 class="section-title">Pricing</h2>
-  <p class="section-sub">Choose from monthly desk access or per-task settlement.</p>
-
-  <div class="pricing-grid">
-    <div class="price-card">
-      <h3>Starter Desk</h3>
-      <div class="price-amount">$250 / month</div>
-      <p>Light clients with small recurring tasks.</p>
-    </div>
-
-    <div class="price-card">
-      <h3>Professional Desk</h3>
-      <div class="price-amount">$480 / month</div>
-      <p>Most common tier for US professionals.</p>
-    </div>
-
-    <div class="price-card">
-      <h3>Private Office Tier</h3>
-      <div class="price-amount">$950 / month</div>
-      <p>High-touch support, priority dispatching, and structured execution.</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- FOOTER -->
 <footer class="footer">
-  © 2025 AURUM PRIVATE AI DESK — Confidential Private Coordination Desk  
+  © 2025 Aurum Task Desk — Private AI Task Coordination Desk
 </footer>
-
 </body>
 </html>

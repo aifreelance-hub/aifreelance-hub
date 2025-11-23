@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurum Task Desk — Pricing</title>
+<style>
+
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f3ef;
+  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  color: #1d2a39;
+  line-height: 1.6;
+}
+a { text-decoration: none; color: inherit; }
+.container {
+  max-width: 1180px;
+  margin: auto;
+  padding: 20px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid #d5d3ce;
+}
+.nav-left {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f1c2c;
+}
+.nav-right a {
+  margin-left: 24px;
+  font-size: 15px;
+  opacity: 0.85;
+}
+.nav-right a:hover { opacity: 1; }
+.footer {
+  margin-top: 70px;
+  border-top: 1px solid #d2cfca;
+  padding: 35px 0;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+.page-header {
+  margin-top: 40px;
+}
+.header-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #132033;
+}
+.header-sub {
+  font-size: 16px;
+  opacity: 0.85;
+  max-width: 720px;
+}
+.section-block {
+  margin-top: 50px;
+}
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #132033;
+  margin-bottom: 8px;
+}
+.section-sub {
+  font-size: 15px;
+  opacity: 0.85;
+  max-width: 680px;
+}
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+.price-card {
+  padding: 22px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #d8d5cf;
+}
+.price-card h3 {
+  font-size: 20px;
+  margin-bottom: 6px;
+  color: #132033;
+}
+.price-tag {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 8px 0;
+  color: #132033;
+}
+.price-note {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+.price-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 14px;
+  opacity: 0.95;
+}
+.price-list li {
+  margin-bottom: 4px;
+}
+.desk-fee-box {
+  margin-top: 26px;
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.78);
+  border: 1px solid #d3d0ca;
+  font-size: 14px;
+}
+.desk-fee-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #132033;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar container">
+  <div class="nav-left">Aurum Task Desk</div>
+  <div class="nav-right">
+    <a href="index.html">Home</a>
+    <a href="tasks.html">Task Marketplace</a>
+    <a href="about.html">About</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+
+<section class="page-header container">
+  <h1 class="header-title">Pricing & Desk Fee Model</h1>
+  <p class="header-sub">
+    Aurum Task Desk can be used with simple monthly packages or one‑off tasks. In every case,
+    the financial logic is clear: the client pays one number, contributors receive a net amount,
+    and the Desk keeps the spread as its fee.
+  </p>
+</section>
+
+<section class="section-block container">
+  <h2 class="section-title">Monthly Desk Packages</h2>
+  <p class="section-sub">
+    Useful for clients who prefer ongoing support: letters, content, follow‑ups, and structured communication.
+  </p>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3>Starter Desk</h3>
+      <div class="price-tag">$250 / month</div>
+      <p class="price-note">For light but recurring needs.</p>
+      <ul class="price-list">
+        <li>Up to 5 important letters or emails</li>
+        <li>AI‑assisted drafts with human editing</li>
+        <li>Small content pieces or notes</li>
+        <li>Desk fee already inside the $250</li>
+      </ul>
+    </div>
+
+    <div class="price-card">
+      <h3>Professional Desk</h3>
+      <div class="price-tag">$480 / month</div>
+      <p class="price-note">Most common tier for US/EU professionals.</p>
+      <ul class="price-list">
+        <li>1 long‑form article (2,500–3,000+ words)</li>
+        <li>Up to 10 short‑form posts per month</li>
+        <li>Help with tone, structure, and messaging</li>
+        <li>Desk fee already inside the $480</li>
+      </ul>
+    </div>
+
+    <div class="price-card">
+      <h3>Private Desk Tier</h3>
+      <div class="price-tag">$950 / month</div>
+      <p class="price-note">For clients who want calm but high‑touch support.</p>
+      <ul class="price-list">
+        <li>Priority access for urgent tasks</li>
+        <li>Combination of writing, scripts, and flows</li>
+        <li>Guidance on what to say and how to say it</li>
+        <li>Desk fee already inside the $950</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="desk-fee-box">
+    <div class="desk-fee-title">How the Desk Fee Works in Monthly Packages</div>
+    <p>
+      The client only sees the package price on Stripe (for example, USD 480). Behind the scenes, the Desk
+      decides how much of that goes to contributors. The difference between the package price and their net
+      payout is the Desk’s coordination fee.
+    </p>
+  </div>
+</section>
+
+<section class="section-block container">
+  <h2 class="section-title">Per‑Task Example</h2>
+  <p class="section-sub">
+    Not everyone needs a monthly arrangement. Some tasks can be handled one at a time.
+  </p>
+
+  <div class="desk-fee-box">
+    <div class="desk-fee-title">Single Task, Clear Spread</div>
+    <p>
+      A client asks for a 2,000‑word article and is quoted USD 450. The Desk later agrees a net payout of
+      USD 320 with the person who writes it. The remaining USD 130 is the Desk’s fee for scoping, refining,
+      supervising, and delivering the work.
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  © 2025 Aurum Task Desk — Private AI Task Coordination Desk
+</footer>
+</body>
+</html>

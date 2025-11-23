@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurum Task Desk — Task Marketplace</title>
+<style>
+
+body {
+  margin: 0;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f3ef;
+  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  color: #1d2a39;
+  line-height: 1.6;
+}
+a { text-decoration: none; color: inherit; }
+.container {
+  max-width: 1180px;
+  margin: auto;
+  padding: 20px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid #d5d3ce;
+}
+.nav-left {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f1c2c;
+}
+.nav-right a {
+  margin-left: 24px;
+  font-size: 15px;
+  opacity: 0.85;
+}
+.nav-right a:hover { opacity: 1; }
+.footer {
+  margin-top: 70px;
+  border-top: 1px solid #d2cfca;
+  padding: 35px 0;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+.header-block {
+  margin-top: 40px;
+}
+.header-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #132033;
+}
+.header-sub {
+  font-size: 16px;
+  opacity: 0.8;
+  max-width: 620px;
+}
+.table-wrap {
+  margin-top: 32px;
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255,255,255,0.78);
+  border: 1px solid #d2cfc9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+th {
+  text-align: left;
+  padding: 14px;
+  background: #eae6df;
+  color: #24364c;
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: 1px solid #d2cdc6;
+}
+td {
+  padding: 14px;
+  border-bottom: 1px solid #e3e0da;
+  font-size: 15px;
+}
+tr:hover {
+  background: rgba(240,238,233,0.6);
+}
+.status {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.status-pending {
+  background: #eee7d6;
+  color: #7a622e;
+  border: 1px solid #d3c7ab;
+}
+.status-assigned {
+  background: #dce4f5;
+  color: #24364c;
+  border: 1px solid #a9b6cb;
+}
+.status-completed {
+  background: #d2ecd7;
+  color: #1e5930;
+  border: 1px solid #9ec8ac;
+}
+.btn-blue {
+  padding: 7px 14px;
+  border-radius: 4px;
+  border: 1px solid #24364c;
+  background: #24364c;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn-gold {
+  padding: 7px 14px;
+  border-radius: 4px;
+  border: 1px solid #bfa76f;
+  background: #f5f2eb;
+  color: #7a642f;
+  font-size: 14px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar container">
+  <div class="nav-left">Aurum Task Desk</div>
+  <div class="nav-right">
+    <a href="index.html">Home</a>
+    <a href="tasks.html">Task Marketplace</a>
+    <a href="about.html">About</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+
+<section class="header-block container">
+  <h1 class="header-title">Task Marketplace</h1>
+  <p class="header-sub">
+    A curated, private‑desk environment where tasks are submitted by clients and quietly picked
+    up by trusted freelancers. You stay in the middle as the Desk.
+  </p>
+</section>
+
+<div class="container table-wrap">
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Budget</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  <tr>
+    <td>Long‑form article for US professional (2,000+ words)</td>
+    <td>$450</td>
+    <td><span class="status status-pending">Pending</span></td>
+    <td><button class="btn-blue">Accept</button></td>
+  </tr>
+  <tr>
+    <td>WhatsApp communication script (3 versions)</td>
+    <td>$180</td>
+    <td><span class="status status-assigned">Assigned</span></td>
+    <td><button class="btn-gold">View</button></td>
+  </tr>
+  <tr>
+    <td>LinkedIn content bundle (10 posts)</td>
+    <td>$320</td>
+    <td><span class="status status-completed">Completed</span></td>
+    <td><button class="btn-gold">View</button></td>
+  </tr>
+</table>
+</div>
+
+<footer class="footer">
+  © 2025 Aurum Task Desk — Private AI Task Coordination Desk
+</footer>
+</body>
+</html>
