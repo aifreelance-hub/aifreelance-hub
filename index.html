@@ -6,6 +6,17 @@
   <title>Aurum Task Desk — Private AI Writing & Automation Desk</title>
   <link rel="icon" href="favicon.png" />
   <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- 基础 SEO -->
+  <meta
+    name="description"
+    content="Aurum Task Desk is a quiet AI writing & automation desk for older US & EU professionals. Private task coordination, calm letters, content packs, WhatsApp scripts, and light automations with Stripe settlement."
+  />
+  <meta
+    name="keywords"
+    content="AI writing desk, private AI task desk, older professionals, US EU retirees, calm letters, WhatsApp scripts, LinkedIn content, Stripe settlement"
+  />
+
   <style>
     /* ===== 基础样式（全站统一） ===== */
     body {
@@ -60,7 +71,7 @@
       color: #f0d37a;
     }
 
-    /* ===== 新增：登录区域样式 ===== */
+    /* ===== 登录区域样式 ===== */
     .nav-user-area {
       display: inline-flex;
       align-items: center;
@@ -95,11 +106,25 @@
     .footer {
       margin-top: 80px;
       border-top: 1px solid rgba(204, 188, 119, 0.25);
-      padding: 30px 20px 40px;
+      padding: 24px 20px 36px;
       text-align: center;
       font-size: 13px;
-      opacity: 0.8;
       color: #c3c0ba;
+    }
+
+    .footer-links {
+      margin-bottom: 8px;
+    }
+
+    .footer-links a {
+      margin: 0 10px;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .footer-links a:hover {
+      color: #f0d37a;
+      opacity: 1;
     }
 
     /* ===== HERO 区：华尔街深色 + 金边卡片 ===== */
@@ -166,6 +191,7 @@
       font-size: 14px;
       cursor: pointer;
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+      display: inline-block;
     }
 
     .btn-gold:hover {
@@ -181,6 +207,7 @@
       font-weight: 500;
       font-size: 14px;
       cursor: pointer;
+      display: inline-block;
     }
 
     .btn-outline:hover {
@@ -191,6 +218,11 @@
       margin-top: 10px;
       font-size: 12px;
       color: #9a968c;
+    }
+
+    .hero-note a {
+      color: #f0d37a;
+      text-decoration: underline;
     }
 
     .hero-right-card {
@@ -311,7 +343,7 @@
       color: #e2ecff;
     }
 
-    /* ===== 三大板块：How / Built for / Use cases ===== */
+    /* ===== 通用 Section 样式 ===== */
     .section {
       padding: 36px 20px 0;
     }
@@ -331,7 +363,7 @@
     .section-sub {
       font-size: 14px;
       color: #a9a59b;
-      max-width: 620px;
+      max-width: 720px;
       margin-bottom: 20px;
     }
 
@@ -391,6 +423,150 @@
       color: #f5f2ea;
     }
 
+    /* ===== Testimonials & Work Samples ===== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .testimonial-card {
+      border-radius: 12px;
+      padding: 16px 16px 14px;
+      background: radial-gradient(circle at top left, #27252a, #14151c);
+      border: 1px solid rgba(240, 211, 122, 0.25);
+      font-size: 14px;
+    }
+
+    .testimonial-quote {
+      font-style: italic;
+      color: #e7e2d7;
+      margin-bottom: 8px;
+    }
+
+    .testimonial-meta {
+      font-size: 12px;
+      color: #b8b3a8;
+    }
+
+    .work-samples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 14px;
+    }
+
+    .work-sample-card {
+      border-radius: 10px;
+      padding: 14px 15px;
+      background: rgba(10, 15, 28, 0.98);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+      color: #dcd8cf;
+    }
+
+    .work-sample-card strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #f5f2ea;
+    }
+
+    .work-sample-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #f0d37a;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    /* ===== About & Team ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 26px;
+      align-items: flex-start;
+    }
+
+    .about-card {
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top left, #26252a, #14151c);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 14px;
+    }
+
+    .about-lead-card {
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top left, #2a2515, #120f0a);
+      border: 1px solid rgba(240, 211, 122, 0.6);
+      font-size: 14px;
+    }
+
+    .about-lead-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: #f5f2ea;
+    }
+
+    .about-lead-role {
+      font-size: 12px;
+      color: #d0c8b4;
+      margin-bottom: 8px;
+    }
+
+    .about-lead-meta {
+      font-size: 12px;
+      color: #b9b3a6;
+      margin-top: 6px;
+    }
+
+    /* ===== Privacy & Safety ===== */
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .privacy-card {
+      border-radius: 12px;
+      padding: 16px 16px 14px;
+      background: radial-gradient(circle at top left, #151822, #080a11);
+      border: 1px solid rgba(106, 144, 208, 0.45);
+      color: #dfe6ff;
+    }
+
+    .privacy-card h3 {
+      font-size: 14px;
+      margin: 0 0 6px;
+      color: #f5f7ff;
+    }
+
+    .privacy-card p {
+      margin: 0;
+      font-size: 13px;
+    }
+
+    /* ===== Pricing Overview ===== */
+    .pricing-overview {
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top left, #25242a, #12131a);
+      border: 1px solid rgba(240, 211, 122, 0.4);
+      margin-top: 20px;
+      font-size: 14px;
+      color: #e8e1d6;
+    }
+
+    .pricing-list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      font-size: 13px;
+      color: #d6d0c3;
+    }
+
     /* ===== “Why not a marketplace” 区块 ===== */
     .contrast-block {
       border-radius: 16px;
@@ -447,6 +623,11 @@
       color: #f5f2ea;
     }
 
+    .faq-item span {
+      font-size: 13px;
+      color: #cac5ba;
+    }
+
     .cta-panel {
       border-radius: 14px;
       padding: 18px 18px 16px;
@@ -460,6 +641,17 @@
       font-size: 13px;
     }
 
+    .inline-cta {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #cfc9bc;
+    }
+
+    .inline-cta a {
+      color: #f0d37a;
+      text-decoration: underline;
+    }
+
     @media (max-width: 900px) {
       .hero-grid {
         grid-template-columns: 1fr;
@@ -471,6 +663,14 @@
 
       .nav-right a {
         margin-left: 14px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .faq-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -501,7 +701,7 @@
       <a href="about.html">About</a>
       <a href="pricing.html">Pricing</a>
       <a href="contact.html">Contact</a>
-      <!-- 新增：登录状态显示区域 -->
+      <!-- 登录状态显示区域 -->
       <span id="navUserArea" class="nav-user-area"></span>
     </div>
   </header>
@@ -528,13 +728,14 @@
         </div>
 
         <div class="hero-cta-row">
-          <a href="tasks.html" class="btn-gold">View current demo tasks</a>
-          <a href="about.html" class="btn-outline">How Aurum Task Desk works</a>
+          <a href="tasks.html" class="btn-gold">Send your first task</a>
+          <a href="contact.html" class="btn-outline">Describe your task — get a quiet quote</a>
         </div>
 
         <div class="hero-note">
-          No open marketplace. You control who sees the desk, who posts tasks,
-          and who gets invited to work.
+          Prefer to talk first?
+          <a href="contact.html">Start with a calm 10-minute call</a>.
+          No pressure, no spam — just a quiet desk listening.
         </div>
       </div>
 
@@ -623,6 +824,11 @@
           </p>
         </div>
       </div>
+
+      <div class="inline-cta">
+        Ready to see how tasks look on your desk?
+        <a href="tasks.html">Open the Task Marketplace</a> and sketch your first example.
+      </div>
     </div>
   </section>
 
@@ -685,14 +891,214 @@
     </div>
   </section>
 
+  <!-- 客户案例 + 成果样本 -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">Client stories & quiet results</h2>
+      <p class="section-sub">
+        Names and details are lightly anonymised, but the patterns are real:
+        older professionals, calm communication, and long-term trust.
+      </p>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">
+            “I needed to write something honest to my daughters after the
+            divorce. The desk took my rough thoughts and turned them into a
+            calm, respectful letter I was proud to send.”
+          </div>
+          <div class="testimonial-meta">
+            – Retired US veteran, 60s · private family letter
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">
+            “I don’t want hype. I wanted 10 LinkedIn posts that sounded like me,
+            not a marketing agency. The desk kept everything grounded and clear.”
+          </div>
+          <div class="testimonial-meta">
+            – Logistics business owner, US · LinkedIn content pack
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">
+            “We used the desk to prepare simple WhatsApp sequences for our older
+            male clients. It feels like a real person checking in, not a bot.”
+          </div>
+          <div class="testimonial-meta">
+            – Small advisory firm, EU · WhatsApp follow-up scripts
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title" style="margin-top: 30px;">
+        Sample work snapshots
+      </h2>
+      <p class="section-sub">
+        These are typical transformations — you control the final tone, but the
+        Desk makes sure everything is structured, clear, and ready to send.
+      </p>
+
+      <div class="work-samples-grid">
+        <div class="work-sample-card">
+          <span class="work-sample-tag">Letter · Before → After</span>
+          <strong>From rough notes to a finished letter</strong>
+          Short bullet notes from a client about regret, gratitude, and plans
+          for the future are turned into a 900-word letter with clear sections,
+          calm language, and a closing that feels natural for a 50+ voice.
+        </div>
+        <div class="work-sample-card">
+          <span class="work-sample-tag">LinkedIn · Structured Pack</span>
+          <strong>10-post executive pack</strong>
+          One 40-minute call produces an outline of 10 posts: personal story,
+          lessons from work, client FAQs, and future plans — all edited into
+          short, readable posts scheduled over 4–6 weeks.
+        </div>
+        <div class="work-sample-card">
+          <span class="work-sample-tag">WhatsApp · Scripts</span>
+          <strong>Follow-up messages that sound human</strong>
+          Instead of generic “Hi dear client” automation, the desk drafts simple
+          1–2 line messages for check-ins, reminders, and thank-you notes that
+          fit how older men actually talk.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于桌子 & 团队简介 -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">About the Desk & the Desk Lead</h2>
+      <p class="section-sub">
+        Aurum Task Desk is not a mass platform. It is a small, curated desk
+        focused on older professionals who prefer calm, private work.
+      </p>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <p>
+            The Desk is structured like a quiet back office: clients on one
+            side, contributors on the other, and a calm coordinator in the
+            middle. Tasks are scoped, priced, and quality-checked before
+            anything is delivered.
+          </p>
+          <p style="margin-top: 10px;">
+            Over time, the goal is simple: a few dozen long-term relationships
+            instead of thousands of one-off transactions. Many clients are in
+            their 50s, 60s, or 70s, and want help putting thoughts into words
+            without feeling rushed or judged.
+          </p>
+          <p style="margin-top: 10px;">
+            AI is used like a quiet assistant — helpful in drafting and
+            structuring, but never left alone to send raw output to older
+            clients. Every important piece still passes through human eyes.
+          </p>
+        </div>
+        <aside class="about-lead-card">
+          <span class="pill-label">Desk lead</span>
+          <div class="about-lead-name">Sophie · Aurum Desk Coordinator</div>
+          <div class="about-lead-role">
+            Runs the desk, scopes tasks, and checks final tone.
+          </div>
+          <p>
+            Works closely with older US &amp; EU professionals, especially
+            veterans, business owners, and advisors who want their stories and
+            messages handled with care.
+          </p>
+          <p class="about-lead-meta">
+            The Desk can present as your personal back office or as a named
+            service — depending on how you prefer to introduce it to your
+            clients.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 隐私 & 安全说明 -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">Privacy, safety & calm boundaries</h2>
+      <p class="section-sub">
+        Older clients often share personal stories and sensitive details. The
+        Desk is designed to keep those details safe and handled with respect.
+      </p>
+
+      <div class="privacy-grid">
+        <div class="privacy-card">
+          <h3>Data & confidentiality</h3>
+          <p>
+            Client messages are treated as confidential working material. Drafts
+            can be deleted on request once a task is completed. For sensitive
+            tasks, you can work under a non-disclosure agreement (NDA).
+          </p>
+        </div>
+        <div class="privacy-card">
+          <h3>AI usage policy</h3>
+          <p>
+            AI is used to support drafting and structure, not to blast mass
+            messages. No raw AI output is sent directly to older clients without
+            human review for tone and clarity.
+          </p>
+        </div>
+        <div class="privacy-card">
+          <h3>Payments & Stripe</h3>
+          <p>
+            All payments are processed via Stripe. The Desk does not hold
+            deposits or client funds on-site. You see a clear client price and
+            a clear net payout, with the Desk fee as the difference.
+          </p>
+        </div>
+      </div>
+
+      <div class="inline-cta" style="margin-top: 16px;">
+        Full details will live in the
+        <a href="privacy.html">Privacy Policy</a> and
+        <a href="terms.html">Terms of Service</a> pages as your desk grows.
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Overview -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">Pricing overview & desk fee model</h2>
+      <p class="section-sub">
+        The Desk is built to be transparent. Clients see one clear amount.
+        Contributors see their net payout. Your desk fee is the quiet spread
+        in between.
+      </p>
+
+      <div class="pricing-overview">
+        <p>
+          Typical starting points (you can adjust these on the Pricing page):
+        </p>
+        <ul class="pricing-list">
+          <li>Letters &amp; personal notes: from USD 80–180 per piece</li>
+          <li>10-post LinkedIn content packs: from USD 120–260</li>
+          <li>WhatsApp / SMS scripts: from USD 80–160 per sequence</li>
+          <li>Light automations &amp; flows: scoped individually</li>
+        </ul>
+        <p style="margin-top: 10px;">
+          The exact numbers depend on your clients, your contributors, and how
+          hands-on you want the Desk to be. You can keep the Desk premium and
+          calm, not cheap and loud.
+        </p>
+        <a href="pricing.html" class="btn-outline" style="margin-top: 10px; display: inline-block;">
+          View detailed pricing examples
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- 为什么不是公开市场 -->
   <section class="section">
     <div class="section-inner">
       <div class="contrast-block">
-        <h2 class="section-title" style="margin-bottom: 4px">
+        <h2 class="section-title" style="margin-bottom: 4px;">
           Why a Private Desk — not a Big Marketplace
         </h2>
-        <p class="section-sub" style="margin-bottom: 12px">
+        <p class="section-sub" style="margin-bottom: 12px;">
           Public platforms are full of noise, bids, and mixed quality. Aurum
           Task Desk is intentionally small and private.
         </p>
@@ -739,7 +1145,7 @@
             <span>
               No. Many clients just see that their letters, posts, or scripts
               are done clearly and on time. The Desk quietly uses AI where it
-              helps.
+              helps, but you stay in control of the tone.
             </span>
           </div>
           <div class="faq-item">
@@ -751,10 +1157,34 @@
               control.
             </span>
           </div>
+          <div class="faq-item">
+            <strong>How long does a typical task take?</strong>
+            <span>
+              Simple letters and small content pieces are often turned around
+              within a few days. Larger packs and automations are scoped with
+              clear timelines so older clients are never left wondering.
+            </span>
+          </div>
+          <div class="faq-item">
+            <strong>What if a client wants changes?</strong>
+            <span>
+              Most tasks assume one round of small revisions as part of the
+              scope. For bigger changes or new ideas, you can treat them as a
+              follow-up task with a new budget.
+            </span>
+          </div>
+          <div class="faq-item">
+            <strong>Can we use NDAs or delete data?</strong>
+            <span>
+              Yes. For sensitive stories or business details, you can work under
+              an NDA and request that drafts be deleted from active systems
+              after completion, except where law or accounting requires records.
+            </span>
+          </div>
         </div>
         <aside class="cta-panel">
           <span class="pill-label">Next step</span>
-          <h3 style="margin: 0; font-size: 16px; color: #f5f2ea">
+          <h3 style="margin: 0; font-size: 16px; color: #f5f2ea;">
             Ready to shape your own Aurum Task Desk?
           </h3>
           <p>
@@ -762,7 +1192,7 @@
             frame your desk fee model, and the Contact page to invite the first
             clients privately.
           </p>
-          <a href="tasks.html" class="btn-gold" style="display: inline-block; margin-top: 8px;">
+          <a href="tasks.html" class="btn-gold" style="margin-top: 8px;">
             Open the Task Marketplace
           </a>
           <p style="margin-top: 10px; font-size: 12px;">
@@ -775,7 +1205,14 @@
   </section>
 
   <footer class="footer">
-    © 2025 Aurum Task Desk — Private AI Task Coordination Desk
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div>
+      © 2025 Aurum Task Desk — Private AI Task Coordination Desk
+    </div>
   </footer>
 
   <!-- 登录状态脚本：读取 localStorage.aurum_user -->
