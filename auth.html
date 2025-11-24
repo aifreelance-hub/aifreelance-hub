@@ -37,7 +37,7 @@
       text-transform: uppercase;
       color: #f5f2e6;
     }
-    .nav-right a {
+    .nav-right a, .nav-right span {
       margin-left: 22px;
       font-size: 14px;
       opacity: 0.85;
@@ -236,11 +236,11 @@
 <body>
 <header class="navbar">
   <div class="nav-left">AURUM TASK DESK</div>
-  <nav class="nav-right">
+  <nav class="nav-right" id="navRight">
     <a href="index.html">Home</a>
     <a href="tasks.html">Task Marketplace</a>
     <a href="pricing.html">Pricing</a>
-    <a href="auth.html">Sign in</a>
+    <a href="auth.html" id="navSignInLink">Sign in</a>
   </nav>
 </header>
 
@@ -433,6 +433,9 @@
         throw new Error(data.error || ("HTTP " + res.status));
       }
       loginToken = data.token;
+      // NEW: 保存到 localStorage，防止刷新后丢失
+      localStorage.setItem("aurum_login_email", email);
+      localStorage.setItem("aurum_login_token", loginToken);
       loginStatus.textContent = "Code sent. Please check your inbox.";
       loginStatus.className = "status status-ok";
       startLoginCountdown(60);
@@ -451,6 +454,10 @@
       loginStatus.textContent = "Please enter email and code.";
       loginStatus.className = "status status-err";
       return;
+    }
+    // NEW: 如果内存里的 token 没了，用 localStorage 里的
+    if (!loginToken) {
+      loginToken = localStorage.getItem("aurum_login_token");
     }
     if (!loginToken) {
       loginStatus.textContent = "Please request a code first.";
@@ -475,7 +482,7 @@
 
       const user = data.user || { email };
       localStorage.setItem("aurum_user", JSON.stringify({
-        name: user.email.split("@")[0],
+        name: user.name || user.email.split("@")[0],
         email: user.email,
         plan: user.plan || "free"
       }));
@@ -546,6 +553,9 @@
         throw new Error(data.error || ("HTTP " + res.status));
       }
       signupToken = data.token;
+      // NEW: 也保存一下，方便刷新后还能用
+      localStorage.setItem("aurum_signup_email", email);
+      localStorage.setItem("aurum_signup_token", signupToken);
       signupStatus.textContent = "Code sent. Please check your inbox.";
       signupStatus.className = "status status-ok";
       startSignupCountdown(60);
@@ -567,6 +577,9 @@
       signupStatus.textContent = "Please fill in name, email and code.";
       signupStatus.className = "status status-err";
       return;
+    }
+    if (!signupToken) {
+      signupToken = localStorage.getItem("aurum_signup_token");
     }
     if (!signupToken) {
       signupStatus.textContent = "Please request a code first.";
@@ -607,6 +620,52 @@
       btnSignup.disabled = false;
     }
   });
+
+  // NEW: 页面加载时，用本地已登录信息预填邮箱/名字 + 更新导航栏显示 Hi, xxx
+  (function initFromStoredUser() {
+    try {
+      const raw = localStorage.getItem("aurum_user");
+      if (!raw) return;
+      const user = JSON.parse(raw);
+      const displayName = user.name || (user.email ? user.email.split("@")[0] : "there");
+
+      // 预填表单
+      if (user.email) {
+        if (loginEmail) loginEmail.value = user.email;
+        if (signupEmail) signupEmail.value = user.email;
+      }
+      if (user.name && signupName) {
+        signupName.value = user.name;
+      }
+
+      // 更新导航栏：去掉 Sign in，变成 Hi, xxx + Logout
+      const navRight = document.getElementById("navRight");
+      const signInLink = document.getElementById("navSignInLink");
+      if (navRight) {
+        if (signInLink) navRight.removeChild(signInLink);
+
+        const hiSpan = document.createElement("span");
+        hiSpan.textContent = "Hi, " + displayName;
+        navRight.appendChild(hiSpan);
+
+        const logoutLink = document.createElement("a");
+        logoutLink.href = "#";
+        logoutLink.textContent = "Logout";
+        logoutLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          localStorage.removeItem("aurum_user");
+          localStorage.removeItem("aurum_login_token");
+          localStorage.removeItem("aurum_signup_token");
+          localStorage.removeItem("aurum_login_email");
+          localStorage.removeItem("aurum_signup_email");
+          window.location.reload();
+        });
+        navRight.appendChild(logoutLink);
+      }
+    } catch (e) {
+      console.warn("initFromStoredUser error", e);
+    }
+  })();
 </script>
 </body>
 </html>
