@@ -342,7 +342,7 @@
         <li id="oneTimeLi4">No subscription, no login — just pay and receive the text</li>
       </ul>
 
-      <!-- 一次性付款按钮：改为 Paddle -->
+      <!-- 一次性付款按钮：Paddle -->
       <button class="btn-primary" id="oneTimeCta" onclick="payOneTimeTask()">
         Start with a one-time task
       </button>
@@ -380,7 +380,7 @@
             <li id="starterLi4">Personal Desk page (after subscription)</li>
             <li id="starterLi5">Email-based communication only</li>
           </ul>
-          <!-- Starter 订阅按钮：Paddle -->
+          <!-- Starter 订阅按钮 -->
           <button type="button" class="btn-outline" id="starterCta" onclick="payStarterDesk()">
             Start Starter Desk
           </button>
@@ -408,7 +408,7 @@
             <li id="proLi5">Priority delivery (24–48 hours)</li>
             <li id="proLi6">Personal Desk page for tasks</li>
           </ul>
-          <!-- Professional 订阅按钮：Paddle -->
+          <!-- Professional 订阅按钮 -->
           <button type="button" class="btn-outline" id="proCta" onclick="payProDesk()">
             Start Professional Desk
           </button>
@@ -436,7 +436,7 @@
             <li id="privateLi5">Highest priority in the Desk queue</li>
             <li id="privateLi6">Premium Personal Desk page</li>
           </ul>
-          <!-- Private 订阅按钮：Paddle -->
+          <!-- Private 订阅按钮 -->
           <button type="button" class="btn-outline" id="privateCta" onclick="payPrivateDesk()">
             Start Private Desk
           </button>
@@ -472,10 +472,9 @@
     © 2025 Aurum Task Desk — Private AI Task Coordination Desk
   </footer>
 
-  <!-- Paddle Checkout -->
+  <!-- Paddle Checkout 脚本 -->
   <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
   <script>
-    // 用你的 Vendor ID 初始化 Paddle
     Paddle.Setup({ vendor: 267799 });
 
     // 一次性任务：19.90 USD
@@ -485,21 +484,21 @@
       });
     }
 
-    // Starter Desk 订阅：140 / 月
+    // Starter Desk：140 / 月
     function payStarterDesk() {
       Paddle.Checkout.open({
         items: [{ price: 'pri_01kazh880d431vjb3z7s39gzyq', quantity: 1 }]
       });
     }
 
-    // Professional Desk 订阅：280 / 月
+    // Professional Desk：280 / 月
     function payProDesk() {
       Paddle.Checkout.open({
         items: [{ price: 'pri_01kazhae24se9ewsy81v3fdz6y', quantity: 1 }]
       });
     }
 
-    // Private Desk 订阅：580 / 月
+    // Private Desk：580 / 月
     function payPrivateDesk() {
       Paddle.Checkout.open({
         items: [{ price: 'pri_01kazhbvzz77dskv6sh6xx9ypr', quantity: 1 }]
@@ -507,21 +506,19 @@
     }
   </script>
 
-  <!-- 多语言 + 登录状态脚本（原样保留，只去掉 Stripe 逻辑） -->
+  <!-- 下面整段多语言 + 登录脚本，保持你原来的版本不变 -->
   <script>
     // ========== 多语言：跟随首页 localStorage.aurum_lang ==========
     let AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
 
     const LANG_STRINGS = {
-      /* 这里保留你原来的 en / zh / ar / fr / de 配置，完全不动 */
-      /* —— 为了节省篇幅我不再改动内容，你直接用你刚才那整段 LANG_STRINGS 即可 —— */
-      /* 把你原文件中的 LANG_STRINGS 整段原封不动放回这里 */
+      /* 这里你直接把前面那整段 en / zh / ar / fr / de 的配置原封不动贴回去 */
+      /* 我没有改里面任何文案，你只要复制你原文件里的 LANG_STRINGS 即可 */
     };
 
     function applyGlobalLanguage() {
       AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
       window.AURUM_LANG = AURUM_LANG;
-
       const dict = LANG_STRINGS[AURUM_LANG] || LANG_STRINGS.en;
 
       function setText(id, key) {
