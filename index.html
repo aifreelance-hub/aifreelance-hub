@@ -199,7 +199,7 @@
       opacity: 1;
     }
 
-    /* ===== HERO 区：华尔街深色 + 金边卡片 ===== */
+    /* ===== HERO 区 ===== */
     .hero {
       padding: 70px 20px 40px;
     }
@@ -227,6 +227,14 @@
       font-size: 16px;
       max-width: 620px;
       color: #cbc7be;
+    }
+
+    .hero-core-value {
+      margin-top: 14px;
+      font-size: 15px;
+      max-width: 640px;
+      color: #f5f2e8;
+      font-weight: 500;
     }
 
     .hero-tags {
@@ -415,30 +423,6 @@
       color: #e2ecff;
     }
 
-    /* ===== 核心价值 Highlight ===== */
-    .core-value {
-      margin: 14px 0 8px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      background: radial-gradient(circle at top left, #302818, #141016);
-      border: 1px solid rgba(240, 211, 122, 0.7);
-      color: #f8f3e5;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.55);
-    }
-
-    .core-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: radial-gradient(circle, #ffe9a0, #f0d37a);
-      box-shadow: 0 0 10px rgba(240, 211, 122, 0.9);
-      flex-shrink: 0;
-    }
-
     /* ===== 通用 Section 样式 ===== */
     .section {
       padding: 36px 20px 0;
@@ -495,48 +479,6 @@
       letter-spacing: 0.1em;
       color: #f0d37a;
       margin-bottom: 4px;
-    }
-
-    /* ===== “开始任务很简单” 流程 ===== */
-    .step-flow {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-top: 16px;
-    }
-
-    .step-item {
-      border-radius: 14px;
-      padding: 16px 16px 14px;
-      background: radial-gradient(circle at top left, #25242a, #111119);
-      border: 1px solid rgba(240, 211, 122, 0.3);
-      font-size: 14px;
-    }
-
-    .step-number {
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
-      background: linear-gradient(135deg, #f0d37a, #cba84f);
-      color: #18120a;
-      margin-bottom: 8px;
-    }
-
-    .step-item h3 {
-      font-size: 15px;
-      margin: 0 0 6px;
-      color: #f5f2ea;
-    }
-
-    .step-item p {
-      margin: 0;
-      color: #c9c4b9;
-      font-size: 13px;
     }
 
     /* ===== Use Cases 列表 ===== */
@@ -598,6 +540,7 @@
       border: 2px solid rgba(240, 211, 122, 0.7);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
       margin-bottom: 6px;
+      loading: lazy;
     }
 
     .testimonials-grid {
@@ -743,7 +686,96 @@
       color: #d6d0c3;
     }
 
-    /* ===== “Why not a marketplace” 区块 & ChatGPT 对比 ===== */
+    /* ===== 新增：Why clients need a Desk ===== */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .why-item {
+      border-radius: 12px;
+      padding: 16px 16px 14px;
+      background: radial-gradient(circle at top left, #26252a, #14151c);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #dcd8cf;
+    }
+
+    .why-item h3 {
+      font-size: 14px;
+      margin: 0 0 6px;
+      color: #f5f2ea;
+    }
+
+    /* ===== 客户类型引导 ===== */
+    .client-type-card {
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top left, #222127, #111319);
+      border: 1px solid rgba(240, 211, 122, 0.35);
+      font-size: 14px;
+    }
+
+    .client-type-card h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      color: #f5f2ea;
+    }
+
+    .client-type-card p {
+      margin: 0 0 10px;
+      color: #cbc7bd;
+    }
+
+    .client-type-cta {
+      font-size: 13px;
+      color: #f0d37a;
+      text-decoration: underline;
+    }
+
+    /* ===== NOT do & ChatGPT 对比 ===== */
+    .not-do-block,
+    .compare-block {
+      border-radius: 16px;
+      padding: 22px 20px 20px;
+      background: radial-gradient(circle at top left, #1c1922, #050816);
+      border: 1px solid rgba(240, 211, 122, 0.4);
+      font-size: 14px;
+      color: #f5f2ea;
+      margin-top: 20px;
+    }
+
+    .not-do-block ul,
+    .compare-list ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+      font-size: 13px;
+      color: #dcd8cf;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .compare-col h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin: 0 0 6px;
+    }
+
+    .compare-col ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 13px;
+      color: #f2efe6;
+    }
+
+    /* ===== “Why not a marketplace” 区块 ===== */
     .contrast-block {
       border-radius: 16px;
       padding: 22px 20px 20px;
@@ -779,7 +811,7 @@
       font-size: 13px;
     }
 
-    /* ===== FAQ & CTA ===== */
+    /* ===== FAQ Accordion ===== */
     .faq-grid {
       display: grid;
       grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
@@ -791,17 +823,53 @@
 
     .faq-item {
       margin-bottom: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: radial-gradient(circle at top left, #1b1a20, #070811);
+      overflow: hidden;
     }
 
-    .faq-item strong {
-      display: block;
-      margin-bottom: 3px;
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: 10px 12px;
       color: #f5f2ea;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .faq-item span {
+    .faq-question span {
+      flex: 1;
+      text-align: left;
+    }
+
+    .faq-toggle-icon {
+      margin-left: 8px;
+      font-size: 16px;
+      color: #f0d37a;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 12px;
+      transition: max-height 0.22s ease, padding 0.22s ease;
       font-size: 13px;
       color: #cac5ba;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 180px;
+      padding: 0 12px 10px;
+    }
+
+    .faq-item.active .faq-question {
+      background: rgba(240, 211, 122, 0.06);
     }
 
     .cta-panel {
@@ -826,6 +894,34 @@
     .inline-cta a {
       color: #f0d37a;
       text-decoration: underline;
+    }
+
+    /* ===== 返回顶部按钮 ===== */
+    .back-to-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid rgba(240, 211, 122, 0.7);
+      background: radial-gradient(circle at top left, #25242a, #050816);
+      color: #f0d37a;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 30;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
 
     @media (max-width: 900px) {
@@ -920,6 +1016,11 @@
           built only for people you choose.
         </p>
 
+        <!-- 新增：核心价值一句话 -->
+        <p class="hero-core-value" data-i18n="hero.coreValue">
+          A calm private desk that turns messy notes, half-written thoughts, and unfinished drafts into clear letters, content packs, and follow-up scripts your older clients feel comfortable receiving.
+        </p>
+
         <div class="hero-tags">
           <span class="tag-pill" data-i18n="hero.tag1">US / EU clients · 50+ core age</span>
           <span class="tag-pill" data-i18n="hero.tag2">AI writing · scripts · light automation</span>
@@ -954,56 +1055,53 @@
           </thead>
           <tbody>
             <tr>
-              <td data-i18n="hero.snapshot.row1">Long-form article for retired US investor</td>
-              <td class="col-right">—</td>
+              <td data-i18n="hero.snapshot.row1.task">Long-form letter for retired US investor</td>
+              <td class="col-right" data-i18n="hero.snapshot.row1.budget">USD 180–260</td>
             </tr>
             <tr>
-              <td data-i18n="hero.snapshot.row2">10-piece LinkedIn pack (executive tone)</td>
-              <td class="col-right">—</td>
+              <td data-i18n="hero.snapshot.row2.task">10-piece LinkedIn pack (executive tone)</td>
+              <td class="col-right" data-i18n="hero.snapshot.row2.budget">USD 160–320</td>
             </tr>
             <tr>
-              <td data-i18n="hero.snapshot.row3">WhatsApp automation script for older male audience</td>
-              <td class="col-right">—</td>
+              <td data-i18n="hero.snapshot.row3.task">WhatsApp follow-up script for older male clients</td>
+              <td class="col-right" data-i18n="hero.snapshot.row3.budget">USD 80–160</td>
             </tr>
           </tbody>
         </table>
         <div class="card-footer">
-          <span data-i18n="hero.snapshot.foot1">Example volumes only · Desk fee built into each number</span>
-          <span data-i18n="hero.snapshot.foot2">Stripe settlement · no custody of client funds</span>
+          <span data-i18n="hero.snapshot.footer.left">Example volumes only · Desk fee built into each number</span>
+          <span data-i18n="hero.snapshot.footer.right">Stripe settlement · no custody of client funds</span>
         </div>
       </aside>
     </div>
   </main>
 
-  <!-- ===== Case Studies (basic version) ===== -->
+  <!-- 简单案例 strip（保持原有） -->
   <section class="section" style="padding-top: 10px;">
     <div class="section-inner">
-      <h2 class="section-title" data-i18n="cases.title">Recent Quiet Desk Cases</h2>
-      <p class="section-sub" data-i18n="cases.sub">
+      <h2 class="section-title">Recent Quiet Desk Cases</h2>
+      <p class="section-sub">
         A blend of real patterns from older US & EU professionals — shown without client names for privacy.
       </p>
 
-      <!-- 表格：3 条任务 -->
       <table class="card-table" style="margin-top: 10px; font-size: 14px;">
         <thead>
           <tr>
-            <th data-i18n="cases.table.head">Task</th>
+            <th>Task</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td data-i18n="cases.table.row1">Letter to adult daughter about rebuilding relationship</td></tr>
-          <tr><td data-i18n="cases.table.row2">Calm explanation message to ex-partner after long silence</td></tr>
-          <tr><td data-i18n="cases.table.row3">LinkedIn summary rewrite for logistics business owner</td></tr>
+          <tr><td>Letter to adult daughter about rebuilding relationship</td></tr>
+          <tr><td>Calm explanation message to ex-partner after long silence</td></tr>
+          <tr><td>LinkedIn summary rewrite for logistics business owner</td></tr>
         </tbody>
       </table>
 
-      <!-- 卡片案例 -->
       <div class="three-col" style="margin-top: 26px;">
-
         <div class="card">
           <span class="pill-label">Case 01</span>
-          <h3 data-i18n="cases.card1.title">Veteran · Family Letter</h3>
-          <p data-i18n="cases.card1.text">
+          <h3>Veteran · Family Letter</h3>
+          <p>
             Client provided 8 bullet points. Desk expanded into a respectful
             1,000-word letter expressing regret, gratitude, and a plan to reconnect.
           </p>
@@ -1011,8 +1109,8 @@
 
         <div class="card">
           <span class="pill-label">Case 02</span>
-          <h3 data-i18n="cases.card2.title">Logistics Owner · LinkedIn Pack</h3>
-          <p data-i18n="cases.card2.text">
+          <h3>Logistics Owner · LinkedIn Pack</h3>
+          <p>
             After a 30-minute call, the Desk structured a 10-post content pack:
             business story, lessons, client FAQs, and future goals — in mature tone.
           </p>
@@ -1020,8 +1118,8 @@
 
         <div class="card">
           <span class="pill-label">Case 03</span>
-          <h3 data-i18n="cases.card3.title">Truck Driver · Profile Rewrite</h3>
-          <p data-i18n="cases.card3.text">
+          <h3>Truck Driver · Profile Rewrite</h3>
+          <p>
             The client wanted to “sound more professional.” Desk rewrote his 
             Facebook About section and intro message with clarity and confidence.
           </p>
@@ -1029,8 +1127,8 @@
 
         <div class="card">
           <span class="pill-label">Case 04</span>
-          <h3 data-i18n="cases.card4.title">Small Advisor · Follow-up Scripts</h3>
-          <p data-i18n="cases.card4.text">
+          <h3>Small Advisor · Follow-up Scripts</h3>
+          <p>
             Replaced generic marketing lines with simple, human 1–2 sentence
             check-ins suitable for older male clients.
           </p>
@@ -1038,8 +1136,8 @@
 
         <div class="card">
           <span class="pill-label">Case 05</span>
-          <h3 data-i18n="cases.card5.title">Retired Engineer · Reconciliation Email</h3>
-          <p data-i18n="cases.card5.text">
+          <h3>Retired Engineer · Reconciliation Email</h3>
+          <p>
             Desk turned a rough emotional message into a calm, structured email
             he could confidently send to his separated son.
           </p>
@@ -1047,15 +1145,13 @@
 
         <div class="card">
           <span class="pill-label">Case 06</span>
-          <h3 data-i18n="cases.card6.title">EU Small Business · Website Cleanup</h3>
-          <p data-i18n="cases.card6.text">
+          <h3>EU Small Business · Website Cleanup</h3>
+          <p>
             Rewrote home, about, and FAQ sections in a neutral, trustworthy tone
             tailored for older customers.
           </p>
         </div>
-
       </div>
-
     </div>
   </section>
 
@@ -1074,169 +1170,156 @@
     </div>
   </section>
 
-  <!-- 为什么客户需要 Desk + 3 大客户类型专属引导 -->
+  <!-- Why clients need a Desk -->
   <section class="section">
     <div class="section-inner">
       <h2 class="section-title" data-i18n="whyDesk.title">Why clients need a Desk — not just another app</h2>
       <p class="section-sub" data-i18n="whyDesk.sub">
-        Most older clients don’t want to learn tools. They want a calm human desk that turns messy stories and notes into finished letters, content, and scripts — without drama.
+        Older clients often have complicated stories, relationships, and responsibilities.
+        They don’t need more tools. They need a calm place where their words are handled carefully.
       </p>
-
-      <div class="core-value">
-        <span class="core-dot"></span>
-        <span data-i18n="whyDesk.core">
-          One quiet desk that protects your client relationships while AI quietly does the heavy lifting in the back office.
-        </span>
-      </div>
-
-      <div class="three-col" style="margin-top: 22px;">
-        <div class="card">
-          <span class="pill-label" data-i18n="whyDesk.card1.label">Client type 01</span>
-          <h3 data-i18n="whyDesk.card1.title">Retirees & veterans</h3>
-          <p data-i18n="whyDesk.card1.text">
-            Need help putting emotions into words: letters to family, explanations after divorce, or messages they’ve avoided for years.
+      <div class="why-grid">
+        <div class="why-item">
+          <h3 data-i18n="whyDesk.item1.title">Turning rough thoughts into finished words</h3>
+          <p data-i18n="whyDesk.item1.text">
+            Clients arrive with bullet points, screenshots, or half-written drafts.
+            The Desk turns that into letters, posts, and scripts that feel complete — not rushed.
           </p>
         </div>
-        <div class="card">
-          <span class="pill-label" data-i18n="whyDesk.card2.label">Client type 02</span>
-          <h3 data-i18n="whyDesk.card2.title">Small business owners</h3>
-          <p data-i18n="whyDesk.card2.text">
-            Want clear LinkedIn posts, website text, and WhatsApp messages that sound professional but still like a real person.
+        <div class="why-item">
+          <h3 data-i18n="whyDesk.item2.title">Handling sensitive, emotional messages</h3>
+          <p data-i18n="whyDesk.item2.text">
+            Many tasks involve regret, divorce, family tension, or long-term client relationships.
+            The Desk slows things down and keeps tone respectful.
           </p>
         </div>
-        <div class="card">
-          <span class="pill-label" data-i18n="whyDesk.card3.label">Client type 03</span>
-          <h3 data-i18n="whyDesk.card3.title">Advisors & consultants</h3>
-          <p data-i18n="whyDesk.card3.text">
-            Need repeatable scripts and content packs so they can stay in touch with older clients without spamming or sounding like a robot.
+        <div class="why-item">
+          <h3 data-i18n="whyDesk.item3.title">Protecting time and energy</h3>
+          <p data-i18n="whyDesk.item3.text">
+            Instead of fighting templates, platforms, or “AI settings”, clients send one clear task.
+            The Desk handles the structure, wording, and coordination behind the scenes.
           </p>
         </div>
-      </div>
-
-      <div class="inline-cta" style="margin-top: 14px;">
-        <span data-i18n="whyDesk.inline">
-          If your contacts fit one of these three groups, you already have a warm client list for this Desk.
-        </span>
-        &nbsp;
-        <a href="tasks.html" data-i18n="whyDesk.inline.link">Open the Task Marketplace and sketch their first task.</a>
       </div>
     </div>
   </section>
 
-  <!-- 开始任务很简单流程（降低恐惧感） -->
+  <!-- Getting started is simple -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-title" data-i18n="start.title">Getting started is simple</h2>
-      <p class="section-sub" data-i18n="start.sub">
-        Your clients do not need accounts, dashboards, or “learning a new platform”. You can start with one quiet task and grow from there.
-      </p>
-
-      <div class="step-flow">
-        <div class="step-item">
-          <div class="step-number">1</div>
-          <h3 data-i18n="start.step1.title">You collect a simple brief</h3>
-          <p data-i18n="start.step1.text">
-            A voice note, a WhatsApp message, or a short email from your client is enough. The Desk turns it into a clear written task.
-          </p>
-        </div>
-        <div class="step-item">
-          <div class="step-number">2</div>
-          <h3 data-i18n="start.step2.title">Desk scopes & quotes</h3>
-          <p data-i18n="start.step2.text">
-            You see a calm scope, timeline, and client price. You decide the desk fee and who should execute the work.
-          </p>
-        </div>
-        <div class="step-item">
-          <div class="step-number">3</div>
-          <h3 data-i18n="start.step3.title">Client approves · work begins</h3>
-          <p data-i18n="start.step3.text">
-            The client agrees to one clear amount. AI and freelancers draft; you control tone, final edits, and the relationship.
-          </p>
-        </div>
-      </div>
-
-      <div class="inline-cta" style="margin-top: 16px;">
-        <span data-i18n="start.inline">
-          To practise, you can role-play one client and run through all three steps on your own Desk before inviting real clients.
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <!-- How the Desk works -->
-  <section class="section">
-    <div class="section-inner">
-      <h2 class="section-title" data-i18n="how.title">How Aurum Task Desk Runs</h2>
-      <p class="section-sub" data-i18n="how.sub">
-        Think of it as a small private office between clients and freelancers.
-        You coordinate the relationship; AI and humans handle the work.
+      <h2 class="section-title" data-i18n="startSimple.title">Getting started is simple</h2>
+      <p class="section-sub" data-i18n="startSimple.sub">
+        The first task doesn’t need to be perfect. It just needs to be honest about what you want to say or get done.
       </p>
       <div class="three-col">
         <div class="card">
-          <span class="pill-label">Step 01</span>
-          <h3 data-i18n="how.step1.title">Clients send tasks in plain language</h3>
-          <p data-i18n="how.step1.text">
-            A US client writes: “I need a letter to my daughter,” or
-            “I need 10 posts explaining my business calmly.” The Desk turns
-            this into a clear scope and budget.
+          <span class="pill-label" data-i18n="startSimple.step1.label">Step 01</span>
+          <h3 data-i18n="startSimple.step1.title">Sketch your situation</h3>
+          <p data-i18n="startSimple.step1.text">
+            Tell the Desk who you are writing to and what you want to explain or propose.
+            Bullet points, notes, or screenshots are all fine.
           </p>
         </div>
         <div class="card">
-          <span class="pill-label">Step 02</span>
-          <h3 data-i18n="how.step2.title">Freelancers execute with AI + structure</h3>
-          <p data-i18n="how.step2.text">
-            Contributors use AI tools to draft, but the Desk enforces tone,
-            clarity, and structure so clients feel understood — not spammed.
+          <span class="pill-label" data-i18n="startSimple.step2.label">Step 02</span>
+          <h3 data-i18n="startSimple.step2.title">Receive a draft & fixed price</h3>
+          <p data-i18n="startSimple.step2.text">
+            The Desk turns your notes into a structured draft and a clear fixed price,
+            before anything is finalized or sent.
           </p>
         </div>
         <div class="card">
-          <span class="pill-label">Step 03</span>
-          <h3 data-i18n="how.step3.title">Stripe settlement & desk fee</h3>
-          <p data-i18n="how.step3.text">
-            Clients pay one Stripe amount. Freelancers receive a net payout.
-            The desk fee is the spread — just like a quiet coordination office.
+          <span class="pill-label" data-i18n="startSimple.step3.label">Step 03</span>
+          <h3 data-i18n="startSimple.step3.title">Review, adjust, send</h3>
+          <p data-i18n="startSimple.step3.text">
+            You adjust the tone, request small changes, and then send with confidence —
+            without fighting any platform or template.
           </p>
         </div>
       </div>
-
       <div class="inline-cta">
-        <span data-i18n="how.inline">
-          Ready to see how tasks look on your desk?
+        <span data-i18n="startSimple.inline">
+          Want to see how your first task could look?
         </span>
-        <a href="tasks.html" data-i18n="how.inline.link">Open the Task Marketplace</a>
-        <span data-i18n="how.inline.tail"> and sketch your first example.</span>
+        <a href="tasks.html" data-i18n="startSimple.inline.link">Open the Task Marketplace</a>
+        <span data-i18n="startSimple.inline.tail"> and sketch a private example.</span>
       </div>
     </div>
   </section>
 
-  <!-- Built for / Use cases -->
+  <!-- 3 大客户类型引导 -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title" data-i18n="clientTypes.title">Three client types this Desk fits best</h2>
+      <p class="section-sub" data-i18n="clientTypes.sub">
+        Pick the profile that feels closest to you or your clients — it will help you imagine the right first task.
+      </p>
+      <div class="three-col">
+        <div class="client-type-card">
+          <span class="pill-label" data-i18n="clientTypes.card1.label">Client Type 01</span>
+          <h3 data-i18n="clientTypes.card1.title">Retirees & veterans (US / EU · 50+)</h3>
+          <p data-i18n="clientTypes.card1.text">
+            Family letters, reconnection messages, life-story summaries, and calm notes for people
+            they care about but struggle to speak to directly.
+          </p>
+          <a href="tasks.html?profile=retiree" class="client-type-cta" data-i18n="clientTypes.card1.cta">
+            View example tasks for retirees
+          </a>
+        </div>
+        <div class="client-type-card">
+          <span class="pill-label" data-i18n="clientTypes.card2.label">Client Type 02</span>
+          <h3 data-i18n="clientTypes.card2.title">Small business owners & advisors</h3>
+          <p data-i18n="clientTypes.card2.text">
+            LinkedIn packs, website cleanups, FAQ answers, and follow-up scripts that sound calm and mature,
+            not like a noisy marketing agency.
+          </p>
+          <a href="tasks.html?profile=owner" class="client-type-cta" data-i18n="clientTypes.card2.cta">
+            View tasks for owners & advisors
+          </a>
+        </div>
+        <div class="client-type-card">
+          <span class="pill-label" data-i18n="clientTypes.card3.label">Client Type 03</span>
+          <h3 data-i18n="clientTypes.card3.title">Veterans, truckers & working professionals</h3>
+          <p data-i18n="clientTypes.card3.text">
+            Profile rewrites, intro messages, and 1–2 line scripts that feel real, not corporate —
+            especially for men who “don’t like writing”.
+          </p>
+          <a href="tasks.html?profile=worker" class="client-type-cta" data-i18n="clientTypes.card3.cta">
+            View tasks for working professionals
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who this Desk is Built For + Use Cases（保持但稍抽象） -->
   <section class="section">
     <div class="section-inner">
       <h2 class="section-title" data-i18n="who.title">Who this Desk is Built For</h2>
       <p class="section-sub" data-i18n="who.sub">
         Aurum Task Desk is intentionally narrow. It’s not for everyone — it is
-        for people who prefer low-noise, private help.
+        for people who prefer low-noise, private help and long-term relationships.
       </p>
       <div class="three-col">
         <div class="card">
-          <h3 data-i18n="who.card1.title">Older US & EU men (50+)</h3>
+          <h3 data-i18n="who.card1.title">Relationship-driven work</h3>
           <p data-i18n="who.card1.text">
-            Retirees, veterans, business owners, or professionals who want
-            help with words, stories, and careful communication.
+            Families, long-time clients, and close partners where tone matters more
+            than speed or reach.
           </p>
         </div>
         <div class="card">
-          <h3 data-i18n="who.card2.title">Small business & advisory work</h3>
+          <h3 data-i18n="who.card2.title">Sensitive personal stories</h3>
           <p data-i18n="who.card2.text">
-            Independent advisors, family businesses, logistics owners, or
-            consultants who want content and scripts without a marketing circus.
+            Regret, apology, gratitude, and life updates that need to feel honest and
+            respectful, not like marketing copy.
           </p>
         </div>
         <div class="card">
-          <h3 data-i18n="who.card3.title">Quiet, long-term relationships</h3>
+          <h3 data-i18n="who.card3.title">Owners who value privacy over noise</h3>
           <p data-i18n="who.card3.text">
-            People who like to work with the same desk over months or years,
-            not random one-off strangers each time.
+            People who would rather work quietly with one desk over time than test dozens
+            of random freelancers in public.
           </p>
         </div>
       </div>
@@ -1285,7 +1368,6 @@
         older professionals, calm communication, and long-term trust.
       </p>
 
-      <!-- 头像 strip：你后面可以把图片换成自己的 -->
       <div class="avatar-strip">
         <div class="avatar-title" data-i18n="clients.avatars.title">
           A desk built around real older professionals:
@@ -1293,49 +1375,49 @@
         <div class="avatar-row">
           <div class="avatar-card">
             <img src="https://images.pexels.com/photos/819530/pexels-photo-819530.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Retired US veteran portrait">
-            <span data-i18n="clients.avatar1">Retired US veteran</span>
+            <span>Retired US veteran</span>
           </div>
           <div class="avatar-card">
             <img src="https://images.pexels.com/photos/3831185/pexels-photo-3831185.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Logistics business owner portrait">
-            <span data-i18n="clients.avatar2">Logistics owner</span>
+            <span>Logistics owner</span>
           </div>
           <div class="avatar-card">
             <img src="https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Advisor portrait">
-            <span data-i18n="clients.avatar3">Advisor / consultant</span>
+            <span>Advisor / consultant</span>
           </div>
           <div class="avatar-card">
             <img src="https://images.pexels.com/photos/936008/pexels-photo-936008.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Small business owner portrait">
-            <span data-i18n="clients.avatar4">Small business owner</span>
+            <span>Small business owner</span>
           </div>
         </div>
       </div>
 
       <div class="testimonials-grid">
         <div class="testimonial-card">
-          <div class="testimonial-quote" data-i18n="clients.test1.text">
+          <div class="testimonial-quote">
             “I needed to write something honest to my daughters after the
             divorce. The desk took my rough thoughts and turned them into a
             calm, respectful letter I was proud to send.”
           </div>
-          <div class="testimonial-meta" data-i18n="clients.test1.meta">
+          <div class="testimonial-meta">
             – Retired US veteran, 60s · private family letter
           </div>
         </div>
         <div class="testimonial-card">
-          <div class="testimonial-quote" data-i18n="clients.test2.text">
+          <div class="testimonial-quote">
             “I don’t want hype. I wanted 10 LinkedIn posts that sounded like me,
             not a marketing agency. The desk kept everything grounded and clear.”
           </div>
-          <div class="testimonial-meta" data-i18n="clients.test2.meta">
+          <div class="testimonial-meta">
             – Logistics business owner, US · LinkedIn content pack
           </div>
         </div>
         <div class="testimonial-card">
-          <div class="testimonial-quote" data-i18n="clients.test3.text">
+          <div class="testimonial-quote">
             “We used the desk to prepare simple WhatsApp sequences for our older
             male clients. It feels like a real person checking in, not a bot.”
           </div>
-          <div class="testimonial-meta" data-i18n="clients.test3.meta">
+          <div class="testimonial-meta">
             – Small advisory firm, EU · WhatsApp follow-up scripts
           </div>
         </div>
@@ -1351,31 +1433,25 @@
 
       <div class="work-samples-grid">
         <div class="work-sample-card">
-          <span class="work-sample-tag" data-i18n="samples.card1.tag">Letter · Before → After</span>
-          <strong data-i18n="samples.card1.title">From rough notes to a finished letter</strong>
-          <span data-i18n="samples.card1.text">
-            Short bullet notes from a client about regret, gratitude, and plans
-            for the future are turned into a 900-word letter with clear sections,
-            calm language, and a closing that feels natural for a 50+ voice.
-          </span>
+          <span class="work-sample-tag">Letter · Before → After</span>
+          <strong>From rough notes to a finished letter</strong>
+          Short bullet notes from a client about regret, gratitude, and plans
+          for the future are turned into a 900-word letter with clear sections,
+          calm language, and a closing that feels natural for a 50+ voice.
         </div>
         <div class="work-sample-card">
-          <span class="work-sample-tag" data-i18n="samples.card2.tag">LinkedIn · Structured Pack</span>
-          <strong data-i18n="samples.card2.title">10-post executive pack</strong>
-          <span data-i18n="samples.card2.text">
-            One 40-minute call produces an outline of 10 posts: personal story,
-            lessons from work, client FAQs, and future plans — all edited into
-            short, readable posts scheduled over 4–6 weeks.
-          </span>
+          <span class="work-sample-tag">LinkedIn · Structured Pack</span>
+          <strong>10-post executive pack</strong>
+          One 40-minute call produces an outline of 10 posts: personal story,
+          lessons from work, client FAQs, and future plans — all edited into
+          short, readable posts scheduled over 4–6 weeks.
         </div>
         <div class="work-sample-card">
-          <span class="work-sample-tag" data-i18n="samples.card3.tag">WhatsApp · Scripts</span>
-          <strong data-i18n="samples.card3.title">Follow-up messages that sound human</strong>
-          <span data-i18n="samples.card3.text">
-            Instead of generic “Hi dear client” automation, the desk drafts simple
-            1–2 line messages for check-ins, reminders, and thank-you notes that
-            fit how older men actually talk.
-          </span>
+          <span class="work-sample-tag">WhatsApp · Scripts</span>
+          <strong>Follow-up messages that sound human</strong>
+          Instead of generic “Hi dear client” automation, the desk drafts simple
+          1–2 line messages for check-ins, reminders, and thank-you notes that
+          fit how older men actually talk.
         </div>
       </div>
     </div>
@@ -1392,19 +1468,19 @@
 
       <div class="about-grid">
         <div class="about-card">
-          <p data-i18n="about.body1">
+          <p>
             The Desk is structured like a quiet back office: clients on one
             side, contributors on the other, and a calm coordinator in the
             middle. Tasks are scoped, priced, and quality-checked before
             anything is delivered.
           </p>
-          <p style="margin-top: 10px;" data-i18n="about.body2">
+          <p style="margin-top: 10px;">
             Over time, the goal is simple: a few dozen long-term relationships
             instead of thousands of one-off transactions. Many clients are in
             their 50s, 60s, or 70s, and want help putting thoughts into words
             without feeling rushed or judged.
           </p>
-          <p style="margin-top: 10px;" data-i18n="about.body3">
+          <p style="margin-top: 10px;">
             AI is used like a quiet assistant — helpful in drafting and
             structuring, but never left alone to send raw output to older
             clients. Every important piece still passes through human eyes.
@@ -1412,16 +1488,16 @@
         </div>
         <aside class="about-lead-card">
           <span class="pill-label" data-i18n="about.lead.label">Desk lead</span>
-          <div class="about-lead-name" data-i18n="about.lead.name">Sophie · Aurum Desk Coordinator</div>
-          <div class="about-lead-role" data-i18n="about.lead.role">
+          <div class="about-lead-name">Sophie · Aurum Desk Coordinator</div>
+          <div class="about-lead-role">
             Runs the desk, scopes tasks, and checks final tone.
           </div>
-          <p data-i18n="about.lead.body1">
+          <p>
             Works closely with older US &amp; EU professionals, especially
             veterans, business owners, and advisors who want their stories and
             messages handled with care.
           </p>
-          <p class="about-lead-meta" data-i18n="about.lead.body2">
+          <p class="about-lead-meta">
             The Desk can present as your personal back office or as a named
             service — depending on how you prefer to introduce it to your
             clients.
@@ -1480,7 +1556,7 @@
     </div>
   </section>
 
-  <!-- Pricing Overview -->
+  <!-- Pricing Overview + money flow 简单说明 -->
   <section class="section">
     <div class="section-inner">
       <h2 class="section-title" data-i18n="pricing.title.page">Pricing overview & desk fee model</h2>
@@ -1495,40 +1571,27 @@
           Typical starting points (you can adjust these on the Pricing page):
         </p>
         <ul class="pricing-list">
-          <li data-i18n="pricing.overview.row1">Letters &amp; personal notes: from USD 80–180 per piece</li>
-          <li data-i18n="pricing.overview.row2">10-post LinkedIn content packs: from USD 120–260</li>
-          <li data-i18n="pricing.overview.row3">WhatsApp / SMS scripts: from USD 80–160 per sequence</li>
-          <li data-i18n="pricing.overview.row4">Light automations &amp; flows: scoped individually</li>
+          <li data-i18n="pricing.list1">Letters &amp; personal notes: from USD 80–180 per piece</li>
+          <li data-i18n="pricing.list2">10-post LinkedIn content packs: from USD 120–260</li>
+          <li data-i18n="pricing.list3">WhatsApp / SMS scripts: from USD 80–160 per sequence</li>
+          <li data-i18n="pricing.list4">Light automations &amp; flows: scoped individually</li>
         </ul>
         <p style="margin-top: 10px;" data-i18n="pricing.detail">
           The exact numbers depend on your clients, your contributors, and how
           hands-on you want the Desk to be. You can keep the Desk premium and
           calm, not cheap and loud.
         </p>
+
+        <p style="margin-top: 10px;" data-i18n="pricing.example">
+          Example: a client pays <strong>USD 480</strong>. A contributor receives
+          <strong>USD 320</strong> as a net payout. The remaining
+          <strong>USD 160</strong> is the Desk fee for scoping, coordination,
+          and quality control.
+        </p>
+
         <a href="pricing.html" class="btn-outline" style="margin-top: 10px; display: inline-block;" data-i18n="pricing.button">
           View detailed pricing examples
         </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- What the Desk does NOT do （欧美奇效边界区块） -->
-  <section class="section">
-    <div class="section-inner">
-      <div class="contrast-block">
-        <h2 class="section-title" style="margin-bottom: 4px;" data-i18n="notDo.title">
-          What the Desk does NOT do
-        </h2>
-        <p class="section-sub" style="margin-bottom: 12px;" data-i18n="notDo.sub">
-          Clear boundaries make older US & EU clients feel safer. This is a quiet, professional desk — not a hype engine.
-        </p>
-        <ul style="margin: 0; padding-left: 20px; font-size: 13px;">
-          <li data-i18n="notDo.li1">No mass cold outreach campaigns or spammy “blast to 10,000 people” projects.</li>
-          <li data-i18n="notDo.li2">No aggressive dating scripts, adult content, or manipulative emotional tactics.</li>
-          <li data-i18n="notDo.li3">No fake reviews, fake identities, or fabricated life stories for clients.</li>
-          <li data-i18n="notDo.li4">No high-pressure sales funnels designed to frighten older clients into buying.</li>
-          <li data-i18n="notDo.li5">No “set it and forget it” bots talking to your clients without human oversight.</li>
-        </ul>
       </div>
     </div>
   </section>
@@ -1548,53 +1611,66 @@
           <div class="contrast-col">
             <h3 data-i18n="why.col1.title">Typical marketplace</h3>
             <ul>
-              <li data-i18n="why.col1.li1">Hundreds of strangers competing for each task</li>
-              <li data-i18n="why.col1.li2">Clients must filter, manage, and correct everything</li>
-              <li data-i18n="why.col1.li3">Inconsistent tone, especially with older clients</li>
-              <li data-i18n="why.col1.li4">Fees and structure feel “platform first”</li>
+              <li>Hundreds of strangers competing for each task</li>
+              <li>Clients must filter, manage, and correct everything</li>
+              <li>Inconsistent tone, especially with older clients</li>
+              <li>Fees and structure feel “platform first”</li>
             </ul>
           </div>
           <div class="contrast-col">
             <h3 data-i18n="why.col2.title">Aurum Task Desk</h3>
             <ul>
-              <li data-i18n="why.col2.li1">You decide who sees the desk and who can post</li>
-              <li data-i18n="why.col2.li2">One calm office in the middle of every task</li>
-              <li data-i18n="why.col2.li3">AI used with care, not for spam or mass output</li>
-              <li data-i18n="why.col2.li4">Desk fee is clear: client price minus net payout</li>
+              <li>You decide who sees the desk and who can post</li>
+              <li>One calm office in the middle of every task</li>
+              <li>AI used with care, not for spam or mass output</li>
+              <li>Desk fee is clear: client price minus net payout</li>
             </ul>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- 为什么不用 ChatGPT？对比区 -->
-  <section class="section">
-    <div class="section-inner">
-      <div class="contrast-block">
-        <h2 class="section-title" style="margin-bottom: 4px;" data-i18n="chatgpt.title">
+      <!-- 新增：What the Desk does NOT do -->
+      <div class="not-do-block">
+        <h2 class="section-title" style="margin-bottom: 4px;" data-i18n="notDo.title">
+          What this Desk does NOT do
+        </h2>
+        <p class="section-sub" style="margin-bottom: 8px;" data-i18n="notDo.sub">
+          Clear boundaries protect both you and your clients — especially when work is personal.
+        </p>
+        <ul>
+          <li data-i18n="notDo.item1">Not a dating or romance service.</li>
+          <li data-i18n="notDo.item2">Not high-pressure sales funnels or aggressive spam.</li>
+          <li data-i18n="notDo.item3">Not legal, tax, or medical advice.</li>
+          <li data-i18n="notDo.item4">Not mass-market “grow fast” marketing campaigns.</li>
+          <li data-i18n="notDo.item5">Only calm writing, messaging, and light automations for people you already trust.</li>
+        </ul>
+      </div>
+
+      <!-- 新增：Why not just use ChatGPT? -->
+      <div class="compare-block">
+        <h2 class="section-title" style="margin-bottom: 4px;" data-i18n="chatgptCompare.title">
           Why not just use ChatGPT?
         </h2>
-        <p class="section-sub" style="margin-bottom: 12px;" data-i18n="chatgpt.sub">
-          ChatGPT is powerful — but older clients rarely want to talk to a raw model. The Desk sits in front, using AI in the background while protecting your relationships.
+        <p class="section-sub" style="margin-bottom: 12px;" data-i18n="chatgptCompare.sub">
+          ChatGPT is powerful, but it doesn’t replace a calm human desk — especially for older, sensitive audiences.
         </p>
-        <div class="contrast-grid">
-          <div class="contrast-col">
-            <h3 data-i18n="chatgpt.col1.title">ChatGPT alone</h3>
+        <div class="compare-grid">
+          <div class="compare-col">
+            <h3 data-i18n="chatgptCompare.col1.title">ChatGPT on your own</h3>
             <ul>
-              <li data-i18n="chatgpt.col1.li1">Clients must learn prompts, interfaces, and settings.</li>
-              <li data-i18n="chatgpt.col1.li2">Output can feel generic, robotic, or “too internet”.</li>
-              <li data-i18n="chatgpt.col1.li3">No one checks whether the tone fits a 60–70 year old audience.</li>
-              <li data-i18n="chatgpt.col1.li4">You still need to scope work, edit, and manage revisions yourself.</li>
+              <li data-i18n="chatgptCompare.col1.item1">You must explain everything from scratch each time.</li>
+              <li data-i18n="chatgptCompare.col1.item2">No one checks tone for your 50+ clients.</li>
+              <li data-i18n="chatgptCompare.col1.item3">Easy to overshare or sound robotic and cold.</li>
+              <li data-i18n="chatgptCompare.col1.item4">No accountability if a message lands badly.</li>
             </ul>
           </div>
-          <div class="contrast-col">
-            <h3 data-i18n="chatgpt.col2.title">Aurum Task Desk + AI</h3>
+          <div class="compare-col">
+            <h3 data-i18n="chatgptCompare.col2.title">Aurum Task Desk</h3>
             <ul>
-              <li data-i18n="chatgpt.col2.li1">Clients only see a calm human desk and finished letters, posts, or scripts.</li>
-              <li data-i18n="chatgpt.col2.li2">AI is used behind the scenes to speed up drafting — not to replace judgment.</li>
-              <li data-i18n="chatgpt.col2.li3">You control tone, boundaries, and what is safe for your older clients.</li>
-              <li data-i18n="chatgpt.col2.li4">Desk fee compensates you for scoping, coordination, and quality control.</li>
+              <li data-i18n="chatgptCompare.col2.item1">One desk that slowly learns your style over time.</li>
+              <li data-i18n="chatgptCompare.col2.item2">Drafts reviewed for older US & EU audiences.</li>
+              <li data-i18n="chatgptCompare.col2.item3">Guardrails on what to say — and what not to say.</li>
+              <li data-i18n="chatgptCompare.col2.item4">Clear budgets, revisions, and human accountability.</li>
             </ul>
           </div>
         </div>
@@ -1602,60 +1678,90 @@
     </div>
   </section>
 
-  <!-- FAQ + 最终 CTA -->
+  <!-- FAQ + 最终 CTA（Accordion） -->
   <section class="section">
     <div class="section-inner">
       <h2 class="section-title" data-i18n="faq.title">Common Questions</h2>
       <div class="faq-grid">
         <div>
           <div class="faq-item">
-            <strong data-i18n="faq.q1.title">Is this a company or just a tool?</strong>
-            <span data-i18n="faq.q1.text">
-              It is structured like a small private office. You decide if you
-              present it as a firm, a personal desk, or part of your existing
-              business.
-            </span>
+            <button class="faq-question">
+              <span data-i18n="faq.q1.title">Is this a company or just a tool?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <span data-i18n="faq.q1.text">
+                It is structured like a small private office. You decide if you
+                present it as a firm, a personal desk, or part of your existing
+                business.
+              </span>
+            </div>
           </div>
           <div class="faq-item">
-            <strong data-i18n="faq.q2.title">Do clients need to know about AI?</strong>
-            <span data-i18n="faq.q2.text">
-              No. Many clients just see that their letters, posts, or scripts
-              are done clearly and on time. The Desk quietly uses AI where it
-              helps, but you stay in control of the tone.
-            </span>
+            <button class="faq-question">
+              <span data-i18n="faq.q2.title">Do clients need to know about AI?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <span data-i18n="faq.q2.text">
+                No. Many clients just see that their letters, posts, or scripts
+                are done clearly and on time. The Desk quietly uses AI where it
+                helps, but you stay in control of the tone.
+              </span>
+            </div>
           </div>
           <div class="faq-item">
-            <strong data-i18n="faq.q3.title">How does the Desk earn money?</strong>
-            <span data-i18n="faq.q3.text">
-              Clients pay one amount (for example, USD 480). Freelancers or
-              contributors receive a net amount. The difference is the Desk fee,
-              which compensates you for scoping, coordination, and quality
-              control.
-            </span>
+            <button class="faq-question">
+              <span data-i18n="faq.q3.title">How does the Desk earn money?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <span data-i18n="faq.q3.text">
+                Clients pay one amount (for example, USD 480). Freelancers or
+                contributors receive a net amount. The difference is the Desk fee,
+                which compensates you for scoping, coordination, and quality
+                control.
+              </span>
+            </div>
           </div>
           <div class="faq-item">
-            <strong data-i18n="faq.q4.title">How long does a typical task take?</strong>
-            <span data-i18n="faq.q4.text">
-              Simple letters and small content pieces are often turned around
-              within a few days. Larger packs and automations are scoped with
-              clear timelines so older clients are never left wondering.
-            </span>
+            <button class="faq-question">
+              <span data-i18n="faq.q4.title">How long does a typical task take?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <span data-i18n="faq.q4.text">
+                Simple letters and small content pieces are often turned around
+                within a few days. Larger packs and automations are scoped with
+                clear timelines so older clients are never left wondering.
+              </span>
+            </div>
           </div>
           <div class="faq-item">
-            <strong data-i18n="faq.q5.title">What if a client wants changes?</strong>
-            <span data-i18n="faq.q5.text">
-              Most tasks assume one round of small revisions as part of the
-              scope. For bigger changes or new ideas, you can treat them as a
-              follow-up task with a new budget.
-            </span>
+            <button class="faq-question">
+              <span data-i18n="faq.q5.title">What if a client wants changes?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <span data-i18n="faq.q5.text">
+                Most tasks assume one round of small revisions as part of the
+                scope. For bigger changes or new ideas, you can treat them as a
+                follow-up task with a new budget.
+              </span>
+            </div>
           </div>
           <div class="faq-item">
-            <strong data-i18n="faq.q6.title">Can we use NDAs or delete data?</strong>
-            <span data-i18n="faq.q6.text">
-              Yes. For sensitive stories or business details, you can work under
-              an NDA and request that drafts be deleted from active systems
-              after completion, except where law or accounting requires records.
-            </span>
+            <button class="faq-question">
+              <span data-i18n="faq.q6.title">Can we use NDAs or delete data?</span>
+              <span class="faq-toggle-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <span data-i18n="faq.q6.text">
+                Yes. For sensitive stories or business details, you can work under
+                an NDA and request that drafts be deleted from active systems
+                after completion, except where law or accounting requires records.
+              </span>
+            </div>
           </div>
         </div>
         <aside class="cta-panel">
@@ -1691,9 +1797,12 @@
     </div>
   </footer>
 
-  <!-- 多语言 + 登录状态脚本 -->
+  <!-- 返回顶部按钮 -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+  <!-- 多语言 + 登录状态 + FAQ + 返回顶部脚本 -->
   <script>
-    // 简单多语言字典（可以在其它页面复用同一结构）
+    // 简单多语言字典
     const I18N = {
       en: {
         "nav.home": "Home",
@@ -1707,6 +1816,8 @@
         "hero.title.part3": "for older US & EU professionals",
         "hero.subtitle":
           "Aurum Task Desk is a private coordination desk. Clients send tasks, trusted freelancers execute with AI, and the Desk quietly manages scope, words, and settlement — like a small Wall Street back office, built only for people you choose.",
+        "hero.coreValue":
+          "A calm private desk that turns messy notes, half-written thoughts, and unfinished drafts into clear letters, content packs, and follow-up scripts your older clients feel comfortable receiving.",
         "hero.tag1": "US / EU clients · 50+ core age",
         "hero.tag2": "AI writing · scripts · light automation",
         "hero.tag3": "Desk fee on each completed task",
@@ -1719,37 +1830,14 @@
         "hero.snapshot.badge": "No funds held on-site",
         "hero.snapshot.col.task": "Task",
         "hero.snapshot.col.budget": "Budget",
-        "hero.snapshot.row1": "Long-form article for retired US investor",
-        "hero.snapshot.row2": "10-piece LinkedIn pack (executive tone)",
-        "hero.snapshot.row3": "WhatsApp automation script for older male audience",
-        "hero.snapshot.foot1": "Example volumes only · Desk fee built into each number",
-        "hero.snapshot.foot2": "Stripe settlement · no custody of client funds",
-
-        "cases.title": "Recent Quiet Desk Cases",
-        "cases.sub":
-          "A blend of real patterns from older US & EU professionals — shown without client names for privacy.",
-        "cases.table.head": "Task",
-        "cases.table.row1": "Letter to adult daughter about rebuilding relationship",
-        "cases.table.row2": "Calm explanation message to ex-partner after long silence",
-        "cases.table.row3": "LinkedIn summary rewrite for logistics business owner",
-        "cases.card1.title": "Veteran · Family Letter",
-        "cases.card1.text":
-          "Client provided 8 bullet points. Desk expanded into a respectful 1,000-word letter expressing regret, gratitude, and a plan to reconnect.",
-        "cases.card2.title": "Logistics Owner · LinkedIn Pack",
-        "cases.card2.text":
-          "After a 30-minute call, the Desk structured a 10-post content pack: business story, lessons, client FAQs, and future goals — in mature tone.",
-        "cases.card3.title": "Truck Driver · Profile Rewrite",
-        "cases.card3.text":
-          "The client wanted to “sound more professional.” Desk rewrote his Facebook About section and intro message with clarity and confidence.",
-        "cases.card4.title": "Small Advisor · Follow-up Scripts",
-        "cases.card4.text":
-          "Replaced generic marketing lines with simple, human 1–2 sentence check-ins suitable for older male clients.",
-        "cases.card5.title": "Retired Engineer · Reconciliation Email",
-        "cases.card5.text":
-          "Desk turned a rough emotional message into a calm, structured email he could confidently send to his separated son.",
-        "cases.card6.title": "EU Small Business · Website Cleanup",
-        "cases.card6.text":
-          "Rewrote home, about, and FAQ sections in a neutral, trustworthy tone tailored for older customers.",
+        "hero.snapshot.row1.task": "Long-form letter for retired US investor",
+        "hero.snapshot.row1.budget": "USD 180–260",
+        "hero.snapshot.row2.task": "10-piece LinkedIn pack (executive tone)",
+        "hero.snapshot.row2.budget": "USD 160–320",
+        "hero.snapshot.row3.task": "WhatsApp follow-up script for older male clients",
+        "hero.snapshot.row3.budget": "USD 80–160",
+        "hero.snapshot.footer.left": "Example volumes only · Desk fee built into each number",
+        "hero.snapshot.footer.right": "Stripe settlement · no custody of client funds",
 
         "trust.main":
           "Designed for calm, low-drama work with older professionals — not for hype or noisy mass markets.",
@@ -1759,69 +1847,68 @@
 
         "whyDesk.title": "Why clients need a Desk — not just another app",
         "whyDesk.sub":
-          "Most older clients don’t want to learn tools. They want a calm human desk that turns messy stories and notes into finished letters, content, and scripts — without drama.",
-        "whyDesk.core":
-          "One quiet desk that protects your client relationships while AI quietly does the heavy lifting in the back office.",
-        "whyDesk.card1.label": "Client type 01",
-        "whyDesk.card1.title": "Retirees & veterans",
-        "whyDesk.card1.text":
-          "Need help putting emotions into words: letters to family, explanations after divorce, or messages they’ve avoided for years.",
-        "whyDesk.card2.label": "Client type 02",
-        "whyDesk.card2.title": "Small business owners",
-        "whyDesk.card2.text":
-          "Want clear LinkedIn posts, website text, and WhatsApp messages that sound professional but still like a real person.",
-        "whyDesk.card3.label": "Client type 03",
-        "whyDesk.card3.title": "Advisors & consultants",
-        "whyDesk.card3.text":
-          "Need repeatable scripts and content packs so they can stay in touch with older clients without spamming or sounding like a robot.",
-        "whyDesk.inline":
-          "If your contacts fit one of these three groups, you already have a warm client list for this Desk.",
-        "whyDesk.inline.link":
-          "Open the Task Marketplace and sketch their first task.",
+          "Older clients often have complicated stories, relationships, and responsibilities. They don’t need more tools. They need a calm place where their words are handled carefully.",
+        "whyDesk.item1.title": "Turning rough thoughts into finished words",
+        "whyDesk.item1.text":
+          "Clients arrive with bullet points, screenshots, or half-written drafts. The Desk turns that into letters, posts, and scripts that feel complete — not rushed.",
+        "whyDesk.item2.title": "Handling sensitive, emotional messages",
+        "whyDesk.item2.text":
+          "Many tasks involve regret, divorce, family tension, or long-term client relationships. The Desk slows things down and keeps tone respectful.",
+        "whyDesk.item3.title": "Protecting time and energy",
+        "whyDesk.item3.text":
+          "Instead of fighting templates, platforms, or “AI settings”, clients send one clear task. The Desk handles the structure, wording, and coordination behind the scenes.",
 
-        "start.title": "Getting started is simple",
-        "start.sub":
-          "Your clients do not need accounts, dashboards, or “learning a new platform”. You can start with one quiet task and grow from there.",
-        "start.step1.title": "You collect a simple brief",
-        "start.step1.text":
-          "A voice note, a WhatsApp message, or a short email from your client is enough. The Desk turns it into a clear written task.",
-        "start.step2.title": "Desk scopes & quotes",
-        "start.step2.text":
-          "You see a calm scope, timeline, and client price. You decide the desk fee and who should execute the work.",
-        "start.step3.title": "Client approves · work begins",
-        "start.step3.text":
-          "The client agrees to one clear amount. AI and freelancers draft; you control tone, final edits, and the relationship.",
-        "start.inline":
-          "To practise, you can role-play one client and run through all three steps on your own Desk before inviting real clients.",
+        "startSimple.title": "Getting started is simple",
+        "startSimple.sub":
+          "The first task doesn’t need to be perfect. It just needs to be honest about what you want to say or get done.",
+        "startSimple.step1.label": "Step 01",
+        "startSimple.step1.title": "Sketch your situation",
+        "startSimple.step1.text":
+          "Tell the Desk who you are writing to and what you want to explain or propose. Bullet points, notes, or screenshots are all fine.",
+        "startSimple.step2.label": "Step 02",
+        "startSimple.step2.title": "Receive a draft & fixed price",
+        "startSimple.step2.text":
+          "The Desk turns your notes into a structured draft and a clear fixed price, before anything is finalized or sent.",
+        "startSimple.step3.label": "Step 03",
+        "startSimple.step3.title": "Review, adjust, send",
+        "startSimple.step3.text":
+          "You adjust the tone, request small changes, and then send with confidence — without fighting any platform or template.",
+        "startSimple.inline":
+          "Want to see how your first task could look?",
+        "startSimple.inline.link": "Open the Task Marketplace",
+        "startSimple.inline.tail": " and sketch a private example.",
 
-        "how.title": "How Aurum Task Desk Runs",
-        "how.sub":
-          "Think of it as a small private office between clients and freelancers. You coordinate the relationship; AI and humans handle the work.",
-        "how.step1.title": "Clients send tasks in plain language",
-        "how.step1.text":
-          "A US client writes: “I need a letter to my daughter,” or “I need 10 posts explaining my business calmly.” The Desk turns this into a clear scope and budget.",
-        "how.step2.title": "Freelancers execute with AI + structure",
-        "how.step2.text":
-          "Contributors use AI tools to draft, but the Desk enforces tone, clarity, and structure so clients feel understood — not spammed.",
-        "how.step3.title": "Stripe settlement & desk fee",
-        "how.step3.text":
-          "Clients pay one Stripe amount. Freelancers receive a net payout. The desk fee is the spread — just like a quiet coordination office.",
-        "how.inline": "Ready to see how tasks look on your desk?",
-        "how.inline.link": "Open the Task Marketplace",
-        "how.inline.tail": " and sketch your first example.",
+        "clientTypes.title": "Three client types this Desk fits best",
+        "clientTypes.sub":
+          "Pick the profile that feels closest to you or your clients — it will help you imagine the right first task.",
+        "clientTypes.card1.label": "Client Type 01",
+        "clientTypes.card1.title": "Retirees & veterans (US / EU · 50+)",
+        "clientTypes.card1.text":
+          "Family letters, reconnection messages, life-story summaries, and calm notes for people they care about but struggle to speak to directly.",
+        "clientTypes.card1.cta": "View example tasks for retirees",
+        "clientTypes.card2.label": "Client Type 02",
+        "clientTypes.card2.title": "Small business owners & advisors",
+        "clientTypes.card2.text":
+          "LinkedIn packs, website cleanups, FAQ answers, and follow-up scripts that sound calm and mature, not like a noisy marketing agency.",
+        "clientTypes.card2.cta": "View tasks for owners & advisors",
+        "clientTypes.card3.label": "Client Type 03",
+        "clientTypes.card3.title": "Veterans, truckers & working professionals",
+        "clientTypes.card3.text":
+          "Profile rewrites, intro messages, and 1–2 line scripts that feel real, not corporate — especially for men who “don’t like writing”.",
+        "clientTypes.card3.cta": "View tasks for working professionals",
 
         "who.title": "Who this Desk is Built For",
         "who.sub":
-          "Aurum Task Desk is intentionally narrow. It’s not for everyone — it is for people who prefer low-noise, private help.",
-        "who.card1.title": "Older US & EU men (50+)",
+          "Aurum Task Desk is intentionally narrow. It’s not for everyone — it is for people who prefer low-noise, private help and long-term relationships.",
+        "who.card1.title": "Relationship-driven work",
         "who.card1.text":
-          "Retirees, veterans, business owners, or professionals who want help with words, stories, and careful communication.",
-        "who.card2.title": "Small business & advisory work",
+          "Families, long-time clients, and close partners where tone matters more than speed or reach.",
+        "who.card2.title": "Sensitive personal stories",
         "who.card2.text":
-          "Independent advisors, family businesses, logistics owners, or consultants who want content and scripts without a marketing circus.",
-        "who.card3.title": "Quiet, long-term relationships",
+          "Regret, apology, gratitude, and life updates that need to feel honest and respectful, not like marketing copy.",
+        "who.card3.title": "Owners who value privacy over noise",
         "who.card3.text":
-          "People who like to work with the same desk over months or years, not random one-off strangers each time.",
+          "People who would rather work quietly with one desk over time than test dozens of random freelancers in public.",
 
         "usecases.title": "Typical Use Cases",
         "usecases.item1.title": "Letters & personal notes",
@@ -1841,56 +1928,15 @@
         "clients.sub":
           "Names and details are lightly anonymised, but the patterns are real: older professionals, calm communication, and long-term trust.",
         "clients.avatars.title": "A desk built around real older professionals:",
-        "clients.avatar1": "Retired US veteran",
-        "clients.avatar2": "Logistics owner",
-        "clients.avatar3": "Advisor / consultant",
-        "clients.avatar4": "Small business owner",
-        "clients.test1.text":
-          "“I needed to write something honest to my daughters after the divorce. The desk took my rough thoughts and turned them into a calm, respectful letter I was proud to send.”",
-        "clients.test1.meta":
-          "– Retired US veteran, 60s · private family letter",
-        "clients.test2.text":
-          "“I don’t want hype. I wanted 10 LinkedIn posts that sounded like me, not a marketing agency. The desk kept everything grounded and clear.”",
-        "clients.test2.meta":
-          "– Logistics business owner, US · LinkedIn content pack",
-        "clients.test3.text":
-          "“We used the desk to prepare simple WhatsApp sequences for our older male clients. It feels like a real person checking in, not a bot.”",
-        "clients.test3.meta":
-          "– Small advisory firm, EU · WhatsApp follow-up scripts",
 
         "samples.title": "Sample work snapshots",
         "samples.sub":
           "These are typical transformations — you control the final tone, but the Desk makes sure everything is structured, clear, and ready to send.",
-        "samples.card1.tag": "Letter · Before → After",
-        "samples.card1.title": "From rough notes to a finished letter",
-        "samples.card1.text":
-          "Short bullet notes from a client about regret, gratitude, and plans for the future are turned into a 900-word letter with clear sections, calm language, and a closing that feels natural for a 50+ voice.",
-        "samples.card2.tag": "LinkedIn · Structured Pack",
-        "samples.card2.title": "10-post executive pack",
-        "samples.card2.text":
-          "One 40-minute call produces an outline of 10 posts: personal story, lessons from work, client FAQs, and future plans — all edited into short, readable posts scheduled over 4–6 weeks.",
-        "samples.card3.tag": "WhatsApp · Scripts",
-        "samples.card3.title": "Follow-up messages that sound human",
-        "samples.card3.text":
-          "Instead of generic “Hi dear client” automation, the desk drafts simple 1–2 line messages for check-ins, reminders, and thank-you notes that fit how older men actually talk.",
 
         "about.title": "About the Desk & the Desk Lead",
         "about.sub":
           "Aurum Task Desk is not a mass platform. It is a small, curated desk focused on older professionals who prefer calm, private work.",
         "about.lead.label": "Desk lead",
-        "about.body1":
-          "The Desk is structured like a quiet back office: clients on one side, contributors on the other, and a calm coordinator in the middle. Tasks are scoped, priced, and quality-checked before anything is delivered.",
-        "about.body2":
-          "Over time, the goal is simple: a few dozen long-term relationships instead of thousands of one-off transactions. Many clients are in their 50s, 60s, or 70s, and want help putting thoughts into words without feeling rushed or judged.",
-        "about.body3":
-          "AI is used like a quiet assistant — helpful in drafting and structuring, but never left alone to send raw output to older clients. Every important piece still passes through human eyes.",
-        "about.lead.name": "Sophie · Aurum Desk Coordinator",
-        "about.lead.role":
-          "Runs the desk, scopes tasks, and checks final tone.",
-        "about.lead.body1":
-          "Works closely with older US &amp; EU professionals, especially veterans, business owners, and advisors who want their stories and messages handled with care.",
-        "about.lead.body2":
-          "The Desk can present as your personal back office or as a named service — depending on how you prefer to introduce it to your clients.",
 
         "privacy.title": "Privacy, safety & calm boundaries",
         "privacy.sub":
@@ -1916,67 +1962,52 @@
           "The Desk is built to be transparent. Clients see one clear amount. Contributors see their net payout. Your desk fee is the quiet spread in between.",
         "pricing.overview.text":
           "Typical starting points (you can adjust these on the Pricing page):",
-        "pricing.overview.row1":
-          "Letters &amp; personal notes: from USD 80–180 per piece",
-        "pricing.overview.row2":
-          "10-post LinkedIn content packs: from USD 120–260",
-        "pricing.overview.row3":
-          "WhatsApp / SMS scripts: from USD 80–160 per sequence",
-        "pricing.overview.row4":
-          "Light automations &amp; flows: scoped individually",
+        "pricing.list1": "Letters & personal notes: from USD 80–180 per piece",
+        "pricing.list2": "10-post LinkedIn content packs: from USD 120–260",
+        "pricing.list3": "WhatsApp / SMS scripts: from USD 80–160 per sequence",
+        "pricing.list4": "Light automations & flows: scoped individually",
         "pricing.detail":
           "The exact numbers depend on your clients, your contributors, and how hands-on you want the Desk to be. You can keep the Desk premium and calm, not cheap and loud.",
+        "pricing.example":
+          "Example: a client pays USD 480. A contributor receives USD 320 as a net payout. The remaining USD 160 is the Desk fee for scoping, coordination, and quality control.",
         "pricing.button": "View detailed pricing examples",
-
-        "notDo.title": "What the Desk does NOT do",
-        "notDo.sub":
-          "Clear boundaries make older US & EU clients feel safer. This is a quiet, professional desk — not a hype engine.",
-        "notDo.li1":
-          "No mass cold outreach campaigns or spammy “blast to 10,000 people” projects.",
-        "notDo.li2":
-          "No aggressive dating scripts, adult content, or manipulative emotional tactics.",
-        "notDo.li3":
-          "No fake reviews, fake identities, or fabricated life stories for clients.",
-        "notDo.li4":
-          "No high-pressure sales funnels designed to frighten older clients into buying.",
-        "notDo.li5":
-          "No “set it and forget it” bots talking to your clients without human oversight.",
 
         "why.title": "Why a Private Desk — not a Big Marketplace",
         "why.sub":
           "Public platforms are full of noise, bids, and mixed quality. Aurum Task Desk is intentionally small and private.",
         "why.col1.title": "Typical marketplace",
-        "why.col1.li1": "Hundreds of strangers competing for each task",
-        "why.col1.li2": "Clients must filter, manage, and correct everything",
-        "why.col1.li3": "Inconsistent tone, especially with older clients",
-        "why.col1.li4": "Fees and structure feel “platform first”",
         "why.col2.title": "Aurum Task Desk",
-        "why.col2.li1": "You decide who sees the desk and who can post",
-        "why.col2.li2": "One calm office in the middle of every task",
-        "why.col2.li3": "AI used with care, not for spam or mass output",
-        "why.col2.li4": "Desk fee is clear: client price minus net payout",
 
-        "chatgpt.title": "Why not just use ChatGPT?",
-        "chatgpt.sub":
-          "ChatGPT is powerful — but older clients rarely want to talk to a raw model. The Desk sits in front, using AI in the background while protecting your relationships.",
-        "chatgpt.col1.title": "ChatGPT alone",
-        "chatgpt.col1.li1":
-          "Clients must learn prompts, interfaces, and settings.",
-        "chatgpt.col1.li2":
-          "Output can feel generic, robotic, or “too internet”.",
-        "chatgpt.col1.li3":
-          "No one checks whether the tone fits a 60–70 year old audience.",
-        "chatgpt.col1.li4":
-          "You still need to scope work, edit, and manage revisions yourself.",
-        "chatgpt.col2.title": "Aurum Task Desk + AI",
-        "chatgpt.col2.li1":
-          "Clients only see a calm human desk and finished letters, posts, or scripts.",
-        "chatgpt.col2.li2":
-          "AI is used behind the scenes to speed up drafting — not to replace judgment.",
-        "chatgpt.col2.li3":
-          "You control tone, boundaries, and what is safe for your older clients.",
-        "chatgpt.col2.li4":
-          "Desk fee compensates you for scoping, coordination, and quality control.",
+        "notDo.title": "What this Desk does NOT do",
+        "notDo.sub":
+          "Clear boundaries protect both you and your clients — especially when work is personal.",
+        "notDo.item1": "Not a dating or romance service.",
+        "notDo.item2": "Not high-pressure sales funnels or aggressive spam.",
+        "notDo.item3": "Not legal, tax, or medical advice.",
+        "notDo.item4": "Not mass-market “grow fast” marketing campaigns.",
+        "notDo.item5": "Only calm writing, messaging, and light automations for people you already trust.",
+
+        "chatgptCompare.title": "Why not just use ChatGPT?",
+        "chatgptCompare.sub":
+          "ChatGPT is powerful, but it doesn’t replace a calm human desk — especially for older, sensitive audiences.",
+        "chatgptCompare.col1.title": "ChatGPT on your own",
+        "chatgptCompare.col1.item1":
+          "You must explain everything from scratch each time.",
+        "chatgptCompare.col1.item2":
+          "No one checks tone for your 50+ clients.",
+        "chatgptCompare.col1.item3":
+          "Easy to overshare or sound robotic and cold.",
+        "chatgptCompare.col1.item4":
+          "No accountability if a message lands badly.",
+        "chatgptCompare.col2.title": "Aurum Task Desk",
+        "chatgptCompare.col2.item1":
+          "One desk that slowly learns your style over time.",
+        "chatgptCompare.col2.item2":
+          "Drafts reviewed for older US & EU audiences.",
+        "chatgptCompare.col2.item3":
+          "Guardrails on what to say — and what not to say.",
+        "chatgptCompare.col2.item4":
+          "Clear budgets, revisions, and human accountability.",
 
         "faq.title": "Common Questions",
         "faq.q1.title": "Is this a company or just a tool?",
@@ -2012,7 +2043,7 @@
           "© 2025 Aurum Task Desk — Private AI Task Coordination Desk"
       },
 
-      // 简体中文
+      // 简体中文（只翻译核心区块，其它保持英文也可以）
       zh: {
         "nav.home": "首页",
         "nav.tasks": "任务大厅",
@@ -2025,6 +2056,8 @@
         "hero.title.part3": "为欧美 50+ 专业人士服务",
         "hero.subtitle":
           "Aurum 任务桌是一张私密协调桌。客户发来需求，受信任的自由职业者结合 AI 执行，你在中间安静地管理任务范围、文案和结算，就像一间只为你的人脉服务的小型后台办公室。",
+        "hero.coreValue":
+          "把客户零散的想法、半成品草稿和语音笔记，整理成可以直接发送的信件、内容包和跟进话术，让中老年客户看着舒服、愿意回复。",
         "hero.tag1": "欧美客户 · 核心年龄 50+",
         "hero.tag2": "AI 写作 · 文案脚本 · 轻自动化",
         "hero.tag3": "每个完成任务中包含 Desk 费",
@@ -2037,175 +2070,113 @@
         "hero.snapshot.badge": "不在平台内代为托管资金",
         "hero.snapshot.col.task": "任务",
         "hero.snapshot.col.budget": "预算",
-        "hero.snapshot.row1": "为退休投资者撰写长文文章",
-        "hero.snapshot.row2": "10 篇高管语气的 LinkedIn 内容包",
-        "hero.snapshot.row3": "面向中老年男性客群的 WhatsApp 自动化脚本",
-        "hero.snapshot.foot1": "以上为示意数据 · Desk 费已包含在每个金额中",
-        "hero.snapshot.foot2": "Stripe 结算 · 不在平台托管客户资金",
-
-        "cases.title": "最近一些安静完成的任务",
-        "cases.sub":
-          "基于真实的欧美中老年客户模式整理，不展示姓名，仅保留任务类型和故事结构。",
-        "cases.table.head": "任务示例",
-        "cases.table.row1": "写给成年女儿的和解信",
-        "cases.table.row2": "多年未联系后，发给前任的一封解释信",
-        "cases.table.row3": "为物流老板重写 LinkedIn 个人简介",
-        "cases.card1.title": "退伍军人 · 家庭来信",
-        "cases.card1.text":
-          "客户给了 8 条要点，任务桌扩展为一封 1000 字的正式家信，表达歉意、感恩和重新联系的计划。",
-        "cases.card2.title": "物流老板 · LinkedIn 内容包",
-        "cases.card2.text":
-          "通过 30 分钟通话，任务桌整理出 10 篇内容：创业故事、经验教训、客户常问问题和未来规划，语气成熟稳重。",
-        "cases.card3.title": "卡车司机 · 个人简介重写",
-        "cases.card3.text":
-          "客户只说“想看起来专业一点”，任务桌重写了他的 Facebook 个人简介和开场信息，让表达清晰又有自信。",
-        "cases.card4.title": "小顾问 · 跟进话术",
-        "cases.card4.text":
-          "把泛泛的营销口号改成简单、真诚的 1–2 句跟进话术，更适合中老年男性客户。",
-        "cases.card5.title": "退休工程师 · 和解邮件",
-        "cases.card5.text":
-          "任务桌将一段情绪化的长语音整理成有结构的邮件，让他有底气发给分居多年的儿子。",
-        "cases.card6.title": "欧洲小企业 · 官网文案整理",
-        "cases.card6.text":
-          "重写首页、关于、常见问题，用中性可信的语气，更适合年纪偏大的客户群体。",
+        "hero.snapshot.row1.task": "给退休投资者的一封长信",
+        "hero.snapshot.row1.budget": "USD 180–260",
+        "hero.snapshot.row2.task": "10 篇 LinkedIn 商务内容包",
+        "hero.snapshot.row2.budget": "USD 160–320",
+        "hero.snapshot.row3.task": "面向中老年男性客户的 WhatsApp 跟进脚本",
+        "hero.snapshot.row3.budget": "USD 80–160",
+        "hero.snapshot.footer.left": "以上为示例体量 · 已含 Desk 费",
+        "hero.snapshot.footer.right": "Stripe 结算 · 不托管客户资金",
 
         "trust.main":
           "专为中老年专业人士设计，工作节奏平静、低噪音，而不是面向喧闹的大众市场。",
         "trust.badge1": "欧美退休人群 · 管理层 · 小企业主",
         "trust.badge2": "文字内容 · 沟通信息 · 跟进话术",
-        "trust.badge3": "Stripe 结算 · 不托管客户资金",
+        "trust.badge3": "Stripe 结算 · 不代为托管资金",
 
-        "whyDesk.title": "为什么客户需要一张 Desk，而不是再多一个软件？",
+        "whyDesk.title": "为什么需要一张 Desk，而不是再多一个 App？",
         "whyDesk.sub":
-          "大多数中老年客户不想学工具，也不想研究“怎么用 AI”。他们要的是：有人安静地把自己的故事和碎片信息，整理成可以直接发送的信、文案和脚本。",
-        "whyDesk.core":
-          "一张安静的任务桌，替你守住客户关系，让 AI 在后台悄悄完成重活。",
-        "whyDesk.card1.label": "客户类型 01",
-        "whyDesk.card1.title": "退休人士 & 退伍军人",
-        "whyDesk.card1.text":
-          "需要把情绪变成文字：写给家人的信、离婚后的解释，或者多年不敢开口的那一句话。",
-        "whyDesk.card2.label": "客户类型 02",
-        "whyDesk.card2.title": "小企业老板",
-        "whyDesk.card2.text":
-          "希望 LinkedIn、官网、WhatsApp 上的文字既专业，又像自己在说话，而不是像广告公司代写。",
-        "whyDesk.card3.label": "客户类型 03",
-        "whyDesk.card3.title": "顾问 & 咨询类工作者",
-        "whyDesk.card3.text":
-          "需要成套的脚本和内容包，便于定期跟进中老年客户，但又不想变成“群发骚扰”。",
-        "whyDesk.inline":
-          "如果你的联系人符合这三类中的任意一类，你其实已经拥有了这张 Desk 的第一批种子客户。",
-        "whyDesk.inline.link": "打开任务大厅，先帮他们写出第一个示例任务。",
+          "中老年客户往往有复杂的故事、关系和责任。他们不缺工具，而是缺一张安静的桌子，有人认真帮他们处理要说的话。",
+        "whyDesk.item1.title": "把零散想法变成完整文字",
+        "whyDesk.item1.text":
+          "客户给的是要点、截图或半成品草稿，任务桌把它们整理成可以直接发送的信件、内容和脚本，而不是仓促拼凑。",
+        "whyDesk.item2.title": "处理敏感、带情绪的信息",
+        "whyDesk.item2.text":
+          "很多任务涉及离婚、和解、家庭矛盾或长期客户关系。任务桌帮你放慢节奏，保证语气尊重、不失礼。",
+        "whyDesk.item3.title": "节省精力和时间",
+        "whyDesk.item3.text":
+          "你不需要再折腾各种模板和功能，只要发来清晰的任务说明，其余由任务桌在后台安静处理。",
 
-        "start.title": "开始一个任务，其实很简单",
-        "start.sub":
-          "你的客户不需要注册账号、不需要学新系统。你可以先从一个安静的小任务开始，再慢慢放大规模。",
-        "start.step1.title": "你先收到一个简单的“背景说明”",
-        "start.step1.text":
-          "客户只需要发一段语音、一条 WhatsApp 消息，或者一封大概说明的邮件。任务桌会把它变成清晰的书面任务。",
-        "start.step2.title": "任务桌帮你做范围 & 报价",
-        "start.step2.text":
-          "你会看到平静、明确的范围、时间和客户价格。你决定 Desk 费，以及由谁来执行具体工作。",
-        "start.step3.title": "客户确认 · 工作开始",
-        "start.step3.text":
-          "客户只需同意一个清晰金额。AI 和执行者负责起稿，你负责语气、边界，以及最后能不能放心发送。",
-        "start.inline":
-          "你甚至可以先把自己当成“假客户”，在这张桌子上完整跑一遍流程，再去邀请真正的客户。",
+        "startSimple.title": "开始一个任务，其实很简单",
+        "startSimple.sub":
+          "第一次任务不需要完美，只要坦诚写出你想表达什么、想解决什么问题就好。",
+        "startSimple.step1.label": "步骤 01",
+        "startSimple.step1.title": "简单说明你的情况",
+        "startSimple.step1.text":
+          "告诉任务桌你要写给谁、想解释或提出什么。可以是要点、备注，甚至是截图。",
+        "startSimple.step2.label": "步骤 02",
+        "startSimple.step2.title": "收到草稿和固定报价",
+        "startSimple.step2.text":
+          "任务桌会先给出结构化草稿和一个固定价格，在你确认之前不会直接发送。",
+        "startSimple.step3.label": "步骤 03",
+        "startSimple.step3.title": "调整语气 · 确认发送",
+        "startSimple.step3.text":
+          "你只需要微调语气或提出小修改，确认后就可以安心发送，不必和各种平台功能搏斗。",
+        "startSimple.inline":
+          "想看看你的第一批任务会长什么样？",
+        "startSimple.inline.link": "打开任务大厅",
+        "startSimple.inline.tail": "，先写几个示例任务草稿。",
 
-        "how.title": "Aurum 任务桌如何运转",
-        "how.sub":
-          "可以把它理解为：在客户和执行者之间，有一间安静的小办公室。你负责协调关系，AI 和人工负责完成具体工作。",
-        "how.step1.title": "客户用日常语言发来需求",
-        "how.step1.text":
-          "美国客户只会说：我要一封写给女儿的信，或者“帮我写 10 篇平静介绍业务的帖子”。任务桌把这些话整理成清晰的范围和预算。",
-        "how.step2.title": "自由职业者用 AI+结构完成稿件",
-        "how.step2.text":
-          "协作者使用 AI 工具起草，但任务桌严格把关语气、逻辑和结构，让客户感觉被理解，而不是被“机器人”群发。",
-        "how.step3.title": "Stripe 收款 & Desk 费",
-        "how.step3.text":
-          "客户通过 Stripe 支付一个金额，执行者收到净到手金额，两者之间的差额就是 Desk 费，类似一个安静的协调办公室。",
-
-        "how.inline": "想看一看，把任务放上桌之后是什么样子？",
-        "how.inline.link": "打开任务大厅",
-        "how.inline.tail": "，先写几个示例任务练练手。",
+        "clientTypes.title": "这张桌子最适合的三类客户",
+        "clientTypes.sub":
+          "选一个最接近你（或你的客户）的画像，有助于你更快想出第一个任务。",
+        "clientTypes.card1.label": "客户类型 01",
+        "clientTypes.card1.title": "退休人士 / 退伍军人（欧美 50+）",
+        "clientTypes.card1.text":
+          "给家人的信、重新联系的消息、人生故事总结，以及那些“很难当面说出口”的话。",
+        "clientTypes.card1.cta": "查看适合退休人群的任务示例",
+        "clientTypes.card2.label": "客户类型 02",
+        "clientTypes.card2.title": "小企业主 / 顾问",
+        "clientTypes.card2.text":
+          "LinkedIn 内容包、网站文案整理、FAQ 回答和跟进话术，语气成熟、不过度营销。",
+        "clientTypes.card2.cta": "查看适合老板和顾问的任务示例",
+        "clientTypes.card3.label": "客户类型 03",
+        "clientTypes.card3.title": "卡车司机、技工等在岗专业人士",
+        "clientTypes.card3.text":
+          "个人简介重写、介绍信息和 1–2 句的简短脚本，听起来真实、不做作，尤其适合“不爱写字”的男性。",
+        "clientTypes.card3.cta": "查看适合在岗人群的任务示例",
 
         "who.title": "这张桌子为谁而建？",
         "who.sub":
-          "Aurum 任务桌刻意做窄，不服务所有人，而是只服务那些喜欢私密、安静协助的客户。",
-        "who.card1.title": "欧美 50+ 男性为主",
+          "Aurum 任务桌刻意做窄，不服务所有人，而是只服务那些喜欢私密、安静协助并重视长期关系的客户。",
+        "who.card1.title": "以关系为中心的沟通",
         "who.card1.text":
-          "退休人士、退伍军人、生意老板、技术出身的专业人士，希望有人协助把故事、想法和情绪写清楚。",
-        "who.card2.title": "小企业主 & 顾问型工作者",
+          "家庭成员、长期客户和重要合作伙伴，语气比效率更重要。",
+        "who.card2.title": "带情绪、带故事的内容",
         "who.card2.text":
-          "独立顾问、家族企业、物流老板、咨询师等，需要稳定产出内容和脚本，但不想被“营销公司”绑架。",
-        "who.card3.title": "重视长期关系的人",
+          "悔意、道歉、感激和人生更新，需要真实而不做作的表达，而不是营销文案。",
+        "who.card3.title": "更看重隐私而非曝光的人",
         "who.card3.text":
-          "更愿意和同一张桌子长期协作，而不是每次都去公开平台上找陌生人。",
+          "宁愿长期与同一张桌子合作，而不是在公开平台上不断试错。",
 
         "usecases.title": "典型使用场景",
-        "usecases.item1.title": "信件与私人留言",
+        "usecases.item1.title": "信件与私人消息",
         "usecases.item1.text":
-          "写给家人、伴侣或重要客户的信件，用平静、尊重的语言说清楚内心想说的话。",
+          "写给家人、伴侣或客户的信件，用平静、尊重的语气表达。",
         "usecases.item2.title": "内容包",
         "usecases.item2.text":
-          "LinkedIn 帖子、网站文案更新、常见问题回答、邮件序列等，专门面向中老年受众来写。",
+          "LinkedIn 内容、网站文案更新、常见问题解答和邮件序列，专为中老年受众设计。",
         "usecases.item3.title": "WhatsApp / 短信脚本",
         "usecases.item3.text":
-          "日常问候、温和提醒、感谢信息等脚本，让你坚持跟进客户，又不会显得机械。",
-        "usecases.item4.title": "轻自动化",
+          "日常跟进、问候和提醒用的简短话术，依然保留“像真人说话”的感觉。",
+        "usecases.item4.title": "轻量自动化",
         "usecases.item4.text":
-          "把已经写好的文案和脚本用简单流程复用，但仍保留真实人的感觉。",
+          "让有价值的信息被重复利用，而不会让客户感觉在和机器人说话。",
 
         "clients.title": "客户故事与安静的结果",
         "clients.sub":
           "下面的名字和细节略做匿名化，但模式都是真实的：中老年客户、平静的沟通、长期的信任。",
         "clients.avatars.title": "围绕真实 50+ 客户打造的一张桌：",
-        "clients.avatar1": "退休美国退伍军人",
-        "clients.avatar2": "物流企业老板",
-        "clients.avatar3": "顾问 / 咨询师",
-        "clients.avatar4": "小企业老板",
-        "clients.test1.text":
-          "“离婚后，我需要给女儿们写一封坦诚的信。任务桌把我零碎的想法整理成一封平静、尊重的长信，我终于敢发出去。”",
-        "clients.test1.meta": "—— 美国退伍军人 · 60 多岁 · 家庭来信",
-        "clients.test2.text":
-          "“我不喜欢夸张的营销，只想要 10 篇听起来像我自己的 LinkedIn 帖子，而不是广告公司写的。任务桌帮我保持了真实和清晰。”",
-        "clients.test2.meta": "—— 美国物流企业老板 · LinkedIn 内容包",
-        "clients.test3.text":
-          "“我们用任务桌设计了面向中老年男性客户的 WhatsApp 跟进话术，看起来就像真人在问候，而不是机器人自动回复。”",
-        "clients.test3.meta": "—— 欧洲一家小型咨询公司 · WhatsApp 跟进脚本",
 
         "samples.title": "部分工作成果示例",
         "samples.sub":
           "这些是常见的转化方式——你控制最终语气，任务桌负责结构清晰、可以直接发送。",
-        "samples.card1.tag": "私人信件 · 前后对比",
-        "samples.card1.title": "从零碎笔记到可直接发送的信",
-        "samples.card1.text":
-          "客户只给出一些关于悔意、感恩和未来计划的要点。任务桌把这些整理为一封约 900 字、有段落、有逻辑、语气平静的信件。",
-        "samples.card2.tag": "LinkedIn · 结构化内容包",
-        "samples.card2.title": "10 篇高管风格内容包",
-        "samples.card2.text":
-          "一次 40 分钟通话，产出 10 篇帖子的纲要：个人经历、工作经验、客户常见疑问、未来规划等，再编辑成 4–6 周内可以排期发布的短文。",
-        "samples.card3.tag": "WhatsApp · 脚本",
-        "samples.card3.title": "既像真人，又能复用的跟进话术",
-        "samples.card3.text":
-          "不再使用“Hi dear client”式群发文案，而是为不同场景搭配 1–2 句简短、自然的日常问候与提醒，更适合中老年男性客户。",
 
         "about.title": "关于这张桌子，以及桌子背后的协调者",
         "about.sub":
           "Aurum 任务桌不是大众平台，而是一张为中老年专业人士精细打造的小而精的任务桌。",
         "about.lead.label": "桌子协调人",
-        "about.body1":
-          "这张桌子像一个安静的后台办公室：一边是客户，一边是协作者，中间是冷静的协调者。所有任务都会先经过范围、价格和质量的梳理，再交付出去。",
-        "about.body2":
-          "长期目标很简单：几十个长期合作关系，而不是成千上万笔一次性交易。很多客户已经 50、60、70 多岁，他们需要的是有人帮自己把想法写清楚，而不是被催促或评判。",
-        "about.body3":
-          "AI 更像一位安静的助理：帮你起草、搭框架，但不会“直接把生 AI 文案丢给客户”。所有重要内容，最后仍由人来做审查和调整。",
-        "about.lead.name": "Sophie · Aurum 任务桌协调者",
-        "about.lead.role":
-          "负责运行整张桌子、拆解任务，以及把控最终语气。",
-        "about.lead.body1":
-          "尤其擅长和欧美中老年客户打交道，包括退伍军人、生意老板和顾问，他们更在乎故事被理解、情绪被尊重。",
-        "about.lead.body2":
-          "在客户面前，这张任务桌可以表现为“你的私人后台团队”，也可以是一个独立品牌服务，由你来选择。",
 
         "privacy.title": "隐私、安全与边界",
         "privacy.sub":
@@ -2229,63 +2200,52 @@
         "pricing.sub.page":
           "这张桌子强调透明：客户只看到一个金额，执行者看到净到手金额，你的 Desk 费就是中间那一段差价。",
         "pricing.overview.text": "以下是常见起步区间（具体数字可在定价页调整）：",
-        "pricing.overview.row1": "信件与私人留言：约 80–180 美金 / 封起",
-        "pricing.overview.row2": "10 篇 LinkedIn 内容包：约 120–260 美金起",
-        "pricing.overview.row3": "WhatsApp / 短信脚本：约 80–160 美金 / 套起",
-        "pricing.overview.row4": "轻自动化流程：按项目单独评估",
+        "pricing.list1": "信件与私人消息：单件约 USD 80–180 起",
+        "pricing.list2": "10 篇 LinkedIn 内容包：约 USD 120–260 起",
+        "pricing.list3": "WhatsApp / 短信脚本：每组约 USD 80–160 起",
+        "pricing.list4": "轻量自动化与流程：按具体范围单独估价",
         "pricing.detail":
           "具体数字取决于你的客户、协作者，以及你希望 Desk 参与的深度。你可以保持“高质、安静”的定位，而不是“低价、吵闹”。",
+        "pricing.example":
+          "例如：客户支付 480 美金，执行端拿到 320 美金净额，中间 160 美金是 Desk 费，用来覆盖任务范围、协调和质量把关。",
         "pricing.button": "查看更详细的定价示例",
-
-        "notDo.title": "这张 Desk 不会做的事",
-        "notDo.sub":
-          "清晰的边界，会让欧美中老年客户更有安全感。这是一张安静、专业的桌子，而不是“炒作机器”。",
-        "notDo.li1":
-          "不会承接“群发 1 万人”的冷开发垃圾营销任务。",
-        "notDo.li2":
-          "不会写带有强烈煽动、色情或过度操控情绪的脚本。",
-        "notDo.li3":
-          "不会为客户编造虚假的身份、经历或评价。",
-        "notDo.li4":
-          "不会设计刻意恐吓中老年客户的“高压销售漏斗”。",
-        "notDo.li5":
-          "不会放任完全无人监管的机器人长期替你与客户沟通。",
 
         "why.title": "为什么选择私密任务桌，而不是大平台？",
         "why.sub":
           "公开平台充满噪音、竞价和参差不齐的质量。Aurum 任务桌刻意保持小而私密。",
         "why.col1.title": "典型大平台",
-        "why.col1.li1": "每个任务都有成百上千个陌生人来抢单",
-        "why.col1.li2": "客户需要自己筛选、管理、不断纠错",
-        "why.col1.li3": "语气风格严重不一致，尤其是面向中老年客户时",
-        "why.col1.li4": "平台规则和费用优先，客户关系排在后面",
         "why.col2.title": "Aurum 任务桌",
-        "why.col2.li1": "由你决定谁能看到这张桌子、谁有权限发任务",
-        "why.col2.li2": "每个任务中，都只有一间冷静的办公室在中间协调",
-        "why.col2.li3": "AI 用得很克制，只为提效，不为刷量或群发",
-        "why.col2.li4": "Desk 费逻辑清晰：客户总价减去执行方净到手。",
 
-        "chatgpt.title": "为什么不是“让客户自己用 ChatGPT”？",
-        "chatgpt.sub":
-          "ChatGPT 很强大，但多数中老年客户并不想直接和“模型界面”对话。任务桌站在前台，在后台使用 AI，同时帮你守住客户关系。",
-        "chatgpt.col1.title": "只有 ChatGPT 时",
-        "chatgpt.col1.li1":
-          "客户需要自己学习提示词、界面操作和各种设置。",
-        "chatgpt.col1.li2":
-          "输出内容容易显得模板化、机械或“太互联网”。",
-        "chatgpt.col1.li3":
-          "没人去检查，这些文字是否适合 60–70 岁的阅读习惯和情绪节奏。",
-        "chatgpt.col1.li4":
-          "你仍要自己拆任务、改文案、处理所有来回修改。",
-        "chatgpt.col2.title": "Aurum 任务桌 + AI",
-        "chatgpt.col2.li1":
-          "客户只看到一张安静的任务桌，以及写好的信件、帖子和脚本。",
-        "chatgpt.col2.li2":
-          "AI 主要在后台帮你起稿和搭结构，不代替你的判断和底线。",
-        "chatgpt.col2.li3":
-          "你来控制语气、边界，以及什么内容适合发给中老年客户。",
-        "chatgpt.col2.li4":
-          "Desk 费体现的是：你在拆解、协调与质量把关上的价值。",
+        "notDo.title": "这张桌子不会做什么",
+        "notDo.sub":
+          "清晰的边界可以保护你，也保护你的客户，特别是涉及个人故事的工作。",
+        "notDo.item1": "不是情感 / 交友服务。",
+        "notDo.item2": "不是高压销售漏斗，也不是群发骚扰信息。",
+        "notDo.item3": "不提供法律、税务或医疗专业意见。",
+        "notDo.item4": "不是那种“快速暴涨”的大众营销项目。",
+        "notDo.item5": "只做安静的写作、沟通和轻量自动化，面向你已经信任的人。",
+
+        "chatgptCompare.title": "为什么不直接自己用 ChatGPT？",
+        "chatgptCompare.sub":
+          "ChatGPT 很强，但它不能替代一张冷静的人类任务桌，尤其面对中老年、敏感的受众。",
+        "chatgptCompare.col1.title": "自己单独用 ChatGPT",
+        "chatgptCompare.col1.item1":
+          "每次都要从头解释背景和关系。",
+        "chatgptCompare.col1.item2":
+          "没有人帮你判断语气是否适合 50+ 客户。",
+        "chatgptCompare.col1.item3":
+          "很容易说太多、说错话，或者显得机械冷淡。",
+        "chatgptCompare.col1.item4":
+          "如果信息效果不好，也没有真正负责的人。",
+        "chatgptCompare.col2.title": "Aurum 任务桌",
+        "chatgptCompare.col2.item1":
+          "同一张桌子长期与你合作，慢慢熟悉你的风格。",
+        "chatgptCompare.col2.item2":
+          "所有重要内容都会按“欧美中老年受众”来审视语气。",
+        "chatgptCompare.col2.item3":
+          "帮你判断哪些话该说、哪些话最好不要写出来。",
+        "chatgptCompare.col2.item4":
+          "有清晰的预算、修改和责任边界。",
 
         "faq.title": "常见问题",
         "faq.q1.title": "这是公司，还是一个工具？",
@@ -2321,14 +2281,13 @@
           "© 2025 Aurum Task Desk — 私密 AI 任务协调桌"
       },
 
-      // 下面是阿拉伯语、法语、德语，做简化版（主要标题和关键文案）
+      // 其它语言（阿语 / 法语 / 德语）保持原有简化版
       ar: {
         "nav.home": "الرئيسية",
         "nav.tasks": "سوق المهام",
         "nav.about": "حول",
         "nav.pricing": "الأسعار",
         "nav.contact": "تواصل",
-
         "hero.title.part1": "مكتب مهام هادئ ",
         "hero.title.part2": "مدعوم بالذكاء الاصطناعي",
         "hero.title.part3": "لمحترفين أكبر سنًا في أمريكا وأوروبا",
@@ -2347,78 +2306,15 @@
         "hero.snapshot.col.task": "المهمة",
         "hero.snapshot.col.budget": "الميزانية",
 
-        "cases.title": "حالات هادئة حديثة",
-        "cases.sub":
-          "أنماط حقيقية من عملاء أكبر سنًا في أمريكا وأوروبا — دون ذكر الأسماء لحفظ الخصوصية.",
-        "cases.table.head": "المهمة",
-
         "trust.main":
           "مصمم لعمل هادئ ومنخفض الضوضاء مع عملاء أكبر سنًا، وليس للأسواق الجماهيرية الصاخبة.",
         "trust.badge1": "متقاعدون ومدراء وأصحاب أعمال",
         "trust.badge2": "كتابة · رسائل · متابعات",
         "trust.badge3": "تسوية عبر Stripe",
 
-        "whyDesk.title": "لماذا يحتاج العملاء إلى مكتب حقيقي، وليس مجرد تطبيق؟",
-        "whyDesk.sub":
-          "معظم العملاء الأكبر سنًا لا يريدون تعلّم أدوات جديدة. يريدون مكتبًا هادئًا يحول القصص والملاحظات إلى رسائل ونصوص جاهزة للإرسال.",
-        "whyDesk.core":
-          "مكتب واحد هادئ يحمي علاقتك بعملائك بينما يقوم الذكاء الاصطناعي بالعمل الثقيل في الخلفية.",
-        "whyDesk.card1.label": "نوع العميل 01",
-        "whyDesk.card1.title": "المتقاعدون والمحاربون القدامى",
-        "whyDesk.card2.label": "نوع العميل 02",
-        "whyDesk.card2.title": "أصحاب الأعمال الصغيرة",
-        "whyDesk.card3.label": "نوع العميل 03",
-        "whyDesk.card3.title": "المستشارون والخبراء",
-        "whyDesk.inline":
-          "إذا كان عملاؤك يشبهون هذه الفئات الثلاث، فلديك قائمة دافئة جاهزة لهذا المكتب.",
-        "whyDesk.inline.link": "افتح سوق المهام واكتب أول مهمة نموذجية لهم.",
-
-        "start.title": "البدء سهل",
-        "start.sub":
-          "عملاؤك لا يحتاجون إلى حسابات أو لوحات تحكم جديدة. يمكنك البدء بمهمة واحدة هادئة والتوسع لاحقًا.",
-
-        "how.title": "كيف يعمل مكتب Aurum",
-        "how.sub":
-          "تخيّله كمكتب صغير بين العميل والمستقل. أنت تنسق العلاقة، والذكاء الاصطناعي والبشر ينفذون العمل.",
-
-        "who.title": "لمن صُمم هذا المكتب؟",
-        "who.sub":
-          "المكتب مقصود أن يكون ضيقًا وخاصًا، مخصص لمن يفضلون المساعدة الهادئة والبعيدة عن الضجيج.",
-
-        "usecases.title": "حالات استخدام نموذجية",
-
-        "clients.title": "قصص عملاء ونتائج هادئة",
-        "clients.sub":
-          "تم إخفاء الأسماء والتفاصيل قليلاً، لكن الأنماط حقيقية: محترفون أكبر سنًا، تواصل هادئ، وثقة طويلة الأمد.",
-        "clients.avatars.title": "مكتب مبني حول عملاء حقيقيين أكبر سنًا:",
-
-        "samples.title": "نماذج من الأعمال",
-        "samples.sub":
-          "تحولات نموذجية — أنت تتحكم في النبرة النهائية، والمكتب يضمن وضوح الهيكل وجاهزية النص للإرسال.",
-
-        "about.title": "عن المكتب ومن يديره",
-        "about.sub":
-          "Aurum ليس منصة جماهيرية، بل مكتب صغير ومنتقى للمحترفين الأكبر سنًا الذين يفضّلون الخصوصية.",
-
-        "privacy.title": "الخصوصية والأمان والحدود الهادئة",
-        "privacy.sub":
-          "العملاء غالبًا يشاركون قصصًا شخصية وحساسة، والمكتب مصمم لحماية هذه التفاصيل.",
-
         "pricing.title.page": "نظرة عامة على الأسعار ونموذج الرسوم",
         "pricing.sub.page":
           "يرى العميل مبلغًا واحدًا واضحًا، ويرى المنفذ صافي ما يستلمه، ورسوم المكتب هي الفرق الهادئ بينهما.",
-
-        "notDo.title": "ما الذي لا يفعله هذا المكتب",
-        "notDo.sub":
-          "حدود واضحة تمنح العملاء الأكبر سنًا شعورًا بالأمان. هذا مكتب مهني هادئ، لا آلة ضجيج.",
-
-        "why.title": "لماذا مكتب خاص وليس منصة كبيرة؟",
-        "why.sub":
-          "المنصات العامة مليئة بالضوضاء والعطاءات والجودة المتفاوتة. Aurum مكتب صغير وخاص عن قصد.",
-
-        "chatgpt.title": "لماذا لا نترك العميل يستخدم ChatGPT فقط؟",
-        "chatgpt.sub":
-          "ChatGPT قوي، لكن العملاء الأكبر سنًا نادرًا ما يحبون التعامل مع واجهة خام. المكتب يجلس في الأمام ويستخدم الذكاء الاصطناعي في الخلفية.",
 
         "faq.title": "أسئلة شائعة",
 
@@ -2435,7 +2331,6 @@
         "nav.about": "À propos",
         "nav.pricing": "Tarifs",
         "nav.contact": "Contact",
-
         "hero.title.part1": "Un bureau de tâches ",
         "hero.title.part2": "IA discret",
         "hero.title.part3": "pour les professionnels seniors en Europe & aux États-Unis",
@@ -2454,79 +2349,15 @@
         "hero.snapshot.col.task": "Tâche",
         "hero.snapshot.col.budget": "Budget",
 
-        "cases.title": "Quelques cas récents",
-        "cases.sub":
-          "Des situations inspirées de clients seniors en Europe et aux États-Unis — sans noms pour préserver la confidentialité.",
-        "cases.table.head": "Tâche",
-
         "trust.main":
           "Conçu pour un travail calme, sans drame, avec des professionnels plus âgés — loin du bruit des plateformes de masse.",
         "trust.badge1": "Retraités, dirigeants, propriétaires de PME",
         "trust.badge2": "Messages, contenus, scripts de suivi",
         "trust.badge3": "Règlement via Stripe",
 
-        "whyDesk.title": "Pourquoi un bureau — et pas seulement une application",
-        "whyDesk.sub":
-          "La plupart des clients seniors ne veulent pas apprendre de nouveaux outils. Ils veulent un bureau humain qui transforme leurs histoires en lettres, contenus et scripts finis.",
-        "whyDesk.core":
-          "Un bureau discret qui protège vos relations clients pendant que l’IA fait le travail lourd en coulisse.",
-        "whyDesk.card1.label": "Profil 01",
-        "whyDesk.card1.title": "Retraités & anciens militaires",
-        "whyDesk.card2.label": "Profil 02",
-        "whyDesk.card2.title": "Dirigeants de petites entreprises",
-        "whyDesk.card3.label": "Profil 03",
-        "whyDesk.card3.title": "Conseillers & consultants",
-        "whyDesk.inline":
-          "Si vos contacts ressemblent à l’un de ces profils, vous avez déjà une base clients chaude pour ce bureau.",
-        "whyDesk.inline.link":
-          "Ouvrez la place de tâches et esquissez leur première demande.",
-
-        "start.title": "Démarrer est simple",
-        "start.sub":
-          "Vos clients n’ont pas besoin de comptes ni de tableaux de bord. Vous commencez par une tâche discrète, puis vous développez.",
-
-        "how.title": "Comment fonctionne le bureau Aurum",
-        "how.sub":
-          "Pensez-le comme un petit bureau entre vos clients et vos freelances. Vous coordonnez la relation, l’IA et les humains font le travail.",
-
-        "who.title": "Pour qui ce bureau est-il construit ?",
-        "who.sub":
-          "Aurum est volontairement étroit : pas pour tout le monde, mais pour ceux qui préfèrent une aide privée et sans bruit.",
-
-        "usecases.title": "Cas d’usage typiques",
-
-        "clients.title": "Histoires clients & résultats discrets",
-        "clients.sub":
-          "Les noms et détails sont légèrement anonymisés, mais les situations sont réelles : professionnels seniors, communication calme, confiance long terme.",
-        "clients.avatars.title": "Un bureau construit autour de vrais clients seniors :",
-
-        "samples.title": "Aperçus de travaux",
-        "samples.sub":
-          "Transformations typiques — vous gardez la main sur le ton final, le bureau assure la structure et la clarté.",
-
-        "about.title": "À propos du bureau & de sa responsable",
-        "about.sub":
-          "Aurum n’est pas une plateforme de masse, mais un petit bureau sélectionné pour les professionnels plus âgés qui apprécient la discrétion.",
-
-        "privacy.title": "Confidentialité, sécurité & limites claires",
-        "privacy.sub":
-          "Les clients partagent souvent des histoires personnelles. Le bureau est conçu pour les protéger et les traiter avec respect.",
-
         "pricing.title.page": "Vue d’ensemble des tarifs & modèle de frais",
         "pricing.sub.page":
           "Le client voit un montant clair, le contributeur voit son net. Vos frais de bureau sont l’écart discret entre les deux.",
-
-        "notDo.title": "Ce que le bureau ne fait pas",
-        "notDo.sub":
-          "Des limites claires rassurent les clients seniors. Il s’agit d’un bureau professionnel calme, pas d’une machine à hype.",
-
-        "why.title": "Pourquoi un bureau privé plutôt qu’une grande plateforme ?",
-        "why.sub":
-          "Les plateformes publiques sont bruyantes et inégales. Aurum reste volontairement petit et privé.",
-
-        "chatgpt.title": "Pourquoi ne pas laisser le client utiliser ChatGPT ?",
-        "chatgpt.sub":
-          "ChatGPT est puissant, mais les clients seniors n’aiment pas toujours parler à un modèle brut. Le bureau se place devant et utilise l’IA en coulisse.",
 
         "faq.title": "Questions fréquentes",
 
@@ -2543,7 +2374,6 @@
         "nav.about": "Über uns",
         "nav.pricing": "Preise",
         "nav.contact": "Kontakt",
-
         "hero.title.part1": "Ein ruhiger ",
         "hero.title.part2": "KI-Aufgaben-Desk",
         "hero.title.part3": "für ältere Fachleute in Europa & den USA",
@@ -2562,79 +2392,15 @@
         "hero.snapshot.col.task": "Aufgabe",
         "hero.snapshot.col.budget": "Budget",
 
-        "cases.title": "Aktuelle ruhige Fälle",
-        "cases.sub":
-          "Typische Muster von älteren Kunden aus EU & USA — ohne Namen, um die Privatsphäre zu schützen.",
-        "cases.table.head": "Aufgabe",
-
         "trust.main":
           "Für ruhige, stressarme Zusammenarbeit mit älteren Fachleuten — nicht für laute Massenmärkte.",
         "trust.badge1": "Rentner, Führungskräfte, Inhaber kleiner Unternehmen",
         "trust.badge2": "Texte, Nachrichten, Follow-up-Flows",
         "trust.badge3": "Abwicklung über Stripe",
 
-        "whyDesk.title": "Warum ein Desk – und nicht nur ein weiteres Tool",
-        "whyDesk.sub":
-          "Die meisten älteren Kunden wollen keine neuen Tools lernen. Sie wünschen sich einen ruhigen Desk, der ihre Geschichten in fertige Briefe, Inhalte und Skripte übersetzt.",
-        "whyDesk.core":
-          "Ein ruhiger Desk, der Ihre Kundenbeziehungen schützt, während die KI im Hintergrund die schwere Arbeit übernimmt.",
-        "whyDesk.card1.label": "Kundentyp 01",
-        "whyDesk.card1.title": "Rentner & Veteranen",
-        "whyDesk.card2.label": "Kundentyp 02",
-        "whyDesk.card2.title": "Inhaber kleiner Unternehmen",
-        "whyDesk.card3.label": "Kundentyp 03",
-        "whyDesk.card3.title": "Berater & Consultants",
-        "whyDesk.inline":
-          "Wenn Ihre Kontakte in diese Gruppen fallen, haben Sie bereits eine warme Kundenliste für diesen Desk.",
-        "whyDesk.inline.link":
-          "Öffnen Sie den Aufgabenmarkt und entwerfen Sie eine erste Beispielaufgabe.",
-
-        "start.title": "Der Einstieg ist einfach",
-        "start.sub":
-          "Ihre Kunden brauchen keine neuen Accounts oder Dashboards. Beginnen Sie mit einer einzigen ruhigen Aufgabe und wachsen Sie von dort aus.",
-
-        "how.title": "So arbeitet der Aurum Task Desk",
-        "how.sub":
-          "Stellen Sie sich ein kleines Büro zwischen Kunden und Freiberuflern vor. Sie koordinieren die Beziehung, KI und Menschen liefern die Arbeit.",
-
-        "who.title": "Für wen ist dieser Desk gemacht?",
-        "who.sub":
-          "Der Aurum Desk ist bewusst schmal gehalten – nicht für alle, sondern für Menschen, die diskrete, ruhige Unterstützung bevorzugen.",
-
-        "usecases.title": "Typische Anwendungsfälle",
-
-        "clients.title": "Kundengeschichten & leise Ergebnisse",
-        "clients.sub":
-          "Namen und Details sind leicht anonymisiert, aber die Muster sind real: ältere Profis, ruhige Kommunikation, langfristiges Vertrauen.",
-        "clients.avatars.title": "Ein Desk rund um echte Kunden 50+:",
-
-        "samples.title": "Beispiele aus der Arbeit",
-        "samples.sub":
-          "Typische Transformationen — Sie bestimmen den finalen Ton, der Desk sorgt für Struktur und Klarheit.",
-
-        "about.title": "Über den Desk & die Desk-Leitung",
-        "about.sub":
-          "Aurum ist keine Massenplattform, sondern ein kleiner, kuratierter Desk für ältere Fachleute, die Diskretion schätzen.",
-
-        "privacy.title": "Datenschutz, Sicherheit & klare Grenzen",
-        "privacy.sub":
-          "Kunden teilen oft sehr persönliche Geschichten. Der Desk ist so aufgebaut, dass diese geschützt und respektvoll behandelt werden.",
-
         "pricing.title.page": "Preisübersicht & Desk-Gebühr-Modell",
         "pricing.sub.page":
           "Der Kunde sieht einen klaren Betrag, der Beitragende seinen Nettobetrag. Ihre Desk-Gebühr ist die stille Spanne dazwischen.",
-
-        "notDo.title": "Was dieser Desk nicht tut",
-        "notDo.sub":
-          "Klare Grenzen geben älteren Kunden Sicherheit. Dies ist ein ruhiger, professioneller Desk – kein Hype-Apparat.",
-
-        "why.title": "Warum ein privater Desk statt einer großen Plattform?",
-        "why.sub":
-          "Öffentliche Plattformen sind laut und ungleich. Aurum bleibt bewusst klein und privat.",
-
-        "chatgpt.title": "Warum nicht einfach ChatGPT nutzen?",
-        "chatgpt.sub":
-          "ChatGPT ist mächtig, aber viele ältere Kunden möchten nicht direkt mit einem Modell sprechen. Der Desk steht vorne, die KI arbeitet im Hintergrund.",
 
         "faq.title": "Häufige Fragen",
 
@@ -2648,7 +2414,10 @@
 
     function applyLanguage(lang) {
       const dict = I18N[lang] || I18N.en;
-      document.documentElement.setAttribute("lang", lang === "zh" ? "zh-CN" : lang);
+      document.documentElement.setAttribute(
+        "lang",
+        lang === "zh" ? "zh-CN" : lang
+      );
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const key = el.getAttribute("data-i18n");
         if (dict[key]) {
@@ -2695,7 +2464,8 @@
       if (!area) return;
       const user = getAurumUser();
       if (!user) {
-        area.innerHTML = '<a href="auth.html" class="nav-signin-link">Sign in</a>';
+        area.innerHTML =
+          '<a href="auth.html" class="nav-signin-link">Sign in</a>';
       } else {
         const displayName = user.name || user.email || user.phone || "Member";
         area.innerHTML = `
@@ -2707,9 +2477,42 @@
       }
     }
 
+    // FAQ 手风琴
+    function initFaqAccordion() {
+      const items = document.querySelectorAll(".faq-item");
+      items.forEach((item) => {
+        const btn = item.querySelector(".faq-question");
+        btn.addEventListener("click", () => {
+          const isActive = item.classList.contains("active");
+          items.forEach((i) => i.classList.remove("active"));
+          if (!isActive) {
+            item.classList.add("active");
+          }
+        });
+      });
+    }
+
+    // 返回顶部按钮
+    function initBackToTop() {
+      const btn = document.getElementById("backToTop");
+      if (!btn) return;
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+          btn.classList.add("visible");
+        } else {
+          btn.classList.remove("visible");
+        }
+      });
+      btn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       initLanguage();
       renderNavUserArea();
+      initFaqAccordion();
+      initBackToTop();
     });
   </script>
 </body>
