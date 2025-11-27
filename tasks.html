@@ -1143,9 +1143,10 @@
     if (footerText && dict.footerText) footerText.textContent = dict.footerText;
   }
 
-  // === 下面开始是你原来的逻辑（AI 调用 / 计数 / 登录），保持不变 ===
+  // === 下面开始是逻辑部分 ===
 
-  const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
+  // 用你 Worker 的自定义域名调用 AI（走 /api/generate）
+  const WORKER_API_URL = "https://aurumdesks.com/api/generate";
 
   const USAGE_LIMIT = 5;
   const USAGE_KEY = "aurum_desk_preview_count";
@@ -1153,9 +1154,6 @@
   const nameOverlay = document.getElementById("nameOverlay");
   const nameInput = document.getElementById("nameInput");
   const saveNameBtn = document.getElementById("saveNameBtn");
-
-  const planPill = document.getElementById("planPill");
-  const usagePill = document.getElementById("usagePill");
 
   const usageCountText = document.getElementById("usageCountText");
   const usageBar = document.getElementById("usageBar");
@@ -1217,10 +1215,11 @@
     });
   }
 
+  // ========= 生成预览：改成调用 Worker 的 /api/generate，发送结构化字段 =========
   generateBtn.addEventListener("click", async () => {
-    const taskType = taskTypeEl.value;
-    const tone = toneEl.value;
-    const language = languageEl.value;
+    const taskTypeValue = taskTypeEl.value;
+    const toneValue = toneEl.value;
+    const languageValue = languageEl.value;
     const audience = audienceEl.value.trim();
     const details = detailsEl.value.trim();
     const name = localStorage.getItem("aurum_desk_name") || "";
@@ -1239,6 +1238,14 @@
       );
       return;
     }
+
+    // 用下拉框的文字当作描述，发给 Worker 会更自然
+    const taskTypeLabel =
+      taskTypeEl.options[taskTypeEl.selectedIndex]?.textContent || taskTypeValue;
+    const toneLabel =
+      toneEl.options[toneEl.selectedIndex]?.textContent || toneValue;
+    const languageLabel =
+      languageEl.options[languageEl.selectedIndex]?.textContent || languageValue;
 
     generateBtn.disabled = true;
     generateBtn.textContent =
@@ -1264,29 +1271,21 @@
     resultBox.innerHTML = "";
 
     try {
-      let prompt =
-        "You are Aurum Task Desk AI. You support older US and EU men (30+), " +
-        "including veterans, truck drivers, engineers and business owners, with calm, clear, respectful writing.\n\n";
-
-      if (name) prompt += "Client first name: " + name + ".\n";
-      prompt += "Task type: " + taskType + ".\n";
-      prompt += "Tone: " + tone + ".\n";
-      prompt +=
-        "Language: " +
-        language +
-        " (if bilingual, answer in English first then Chinese).\n";
-      if (audience) prompt += "Audience: " + audience + ".\n";
-      prompt += "Details: " + details + ".\n\n";
-
-      prompt +=
-        "Write a complete draft that the client can copy and send directly. " +
-        "Avoid overly fancy language. Sound mature, respectful, and steady. " +
-        "If language = Chinese, reply in Chinese. If bilingual, provide English first, then Chinese.\n";
+      // 把结构化信息发给 Worker，Worker 自己拼 prompt 调 Cloudflare AI
+      const payload = {
+        taskType: taskTypeLabel,
+        tone: toneLabel,
+        language: languageLabel,
+        recipient: audience,
+        details,
+        // 可选：把用户名字一起传过去，Worker 里愿意用就用，不用也没关系
+        clientName: name
+      };
 
       const res = await fetch(WORKER_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt })
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json();
@@ -1296,7 +1295,10 @@
         throw new Error(msg);
       }
 
-      const full = data.text || "No content returned from Aurum Desk AI.";
+      // 后端返回 { ok:true, draft / preview / content }
+      const full =
+        (data.draft || data.preview || data.content || "").trim() ||
+        "No content returned from Aurum Desk AI.";
       currentDraft = full;
 
       const current = getUsageCount();
