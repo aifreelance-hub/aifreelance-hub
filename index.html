@@ -458,93 +458,6 @@
       min-height: 260px;
     }
 
-    .case-slider {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      min-height: 260px;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top, #020617, #020617);
-    }
-
-    .case-slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transform: scale(1.01);
-      transition: opacity 0.45s ease-out, transform 0.6s ease-out;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .case-slide.active {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .case-image {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      filter: saturate(1.02) contrast(1.02);
-    }
-
-    .case-info {
-      position: relative;
-      margin: 0 10px 10px;
-      border-radius: 14px;
-      padding: 8px 10px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      backdrop-filter: blur(10px);
-      max-width: 80%;
-      z-index: 2;
-    }
-
-    .case-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .case-text {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-
-    .case-dots {
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      display: flex;
-      gap: 6px;
-      z-index: 3;
-    }
-
-    .case-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      background: rgba(15, 23, 42, 0.9);
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .case-dot.active {
-      border-color: rgba(251, 191, 36, 0.9);
-      background: #fbbf24;
-      box-shadow:
-        0 0 10px rgba(251, 191, 36, 0.8),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
-    }
-
-
-
     .hero-avatars::before {
       content: "";
       position: absolute;
@@ -632,6 +545,38 @@
       border-radius: 999px;
       background: #22c55e;
       box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+
+    .case-list {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.78rem;
+    }
+    .case-item {
+      border-radius: 14px;
+      padding: 9px 10px;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.55);
+    }
+    .case-tag {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .case-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .case-desc {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      line-height: 1.5;
     }
 
     /* Sections below hero */
@@ -1054,39 +999,28 @@
               </div>
             </div>
 
-                        <aside class="hero-avatars" aria-label="Professional examples">
-              <div class="case-slider">
-                <div class="case-slide active" data-index="0">
-                  <div class="case-image" style="background-image:url('img/aurum-case-1.jpg');"></div>
-                  <div class="case-info">
-                    <div class="case-title">Serious letter scenario</div>
-                    <div class="case-text">
-                      For contract drafts, legal-style notices, and professional correspondence. Desk produces structured, ready-to-submit letters.
-                    </div>
+                        <aside class="hero-avatars" aria-label="Case examples">
+              <div class="case-list">
+                <div class="case-item">
+                  <div class="case-tag">CASE 1 · Serious letter</div>
+                  <div class="case-title">Serious letter scenario</div>
+                  <div class="case-desc">
+                    For contract drafts, legal-style notices, and professional correspondence. Desk produces structured, ready-to-submit letters.
                   </div>
                 </div>
-                <div class="case-slide" data-index="1">
-                  <div class="case-image" style="background-image:url('img/aurum-case-2.jpg');"></div>
-                  <div class="case-info">
-                    <div class="case-title">Claim & escalation scenario</div>
-                    <div class="case-text">
-                      For airline refund claims, insurance disputes, and escalation letters to companies.
-                    </div>
+                <div class="case-item">
+                  <div class="case-tag">CASE 2 · Claims & escalation</div>
+                  <div class="case-title">Claim & escalation scenario</div>
+                  <div class="case-desc">
+                    For airline refund claims, insurance disputes, and escalation letters to companies.
                   </div>
                 </div>
-                <div class="case-slide" data-index="2">
-                  <div class="case-image" style="background-image:url('img/aurum-case-3.jpg');"></div>
-                  <div class="case-info">
-                    <div class="case-title">Immigration & crisis scenario</div>
-                    <div class="case-text">
-                      For visa RFE responses, refusal explanations, and family crisis letters.
-                    </div>
+                <div class="case-item">
+                  <div class="case-tag">CASE 3 · Immigration & crisis</div>
+                  <div class="case-title">Immigration & crisis scenario</div>
+                  <div class="case-desc">
+                    For visa RFE responses, refusal explanations, and family crisis letters.
                   </div>
-                </div>
-                <div class="case-dots">
-                  <button class="case-dot active" data-target="0" aria-label="Serious letter scenario"></button>
-                  <button class="case-dot" data-target="1" aria-label="Claim & escalation scenario"></button>
-                  <button class="case-dot" data-target="2" aria-label="Immigration & crisis scenario"></button>
                 </div>
               </div>
             </aside>
@@ -1429,36 +1363,8 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-        // Case slider — 3 professional scenarios
-    const caseSlides = document.querySelectorAll(".case-slide");
-    const caseDots = document.querySelectorAll(".case-dot");
-    let caseIndex = 0;
-
-    function showCaseSlide(index) {
-      caseSlides.forEach((slide, i) => {
-        slide.classList.toggle("active", i === index);
-      });
-      caseDots.forEach((dot, i) => {
-        dot.classList.toggle("active", i === index);
-      });
-      caseIndex = index;
-    }
-
-    caseDots.forEach((dot) => {
-      dot.addEventListener("click", () => {
-        const target = Number(dot.getAttribute("data-target")) || 0;
-        showCaseSlide(target);
-      });
-    });
-
-    if (caseSlides.length > 1) {
-      setInterval(() => {
-        const next = (caseIndex + 1) % caseSlides.length;
-        showCaseSlide(next);
-      }, 6000);
-    }
-
-// Simple i18n
+    // Avatar slider (simple auto-rotate)
+    // Simple i18n
     const translations = {
       zh: {
         brandTitle: "Aurum Task Desk",
