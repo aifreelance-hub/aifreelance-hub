@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Task Desk — Task Scenarios</title>
+  <title>Aurum Task Desk — Task Desk & AI Preview</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.png" />
   <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Google tag (gtag.js) — 和首页一样保留 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-NEY7RNB5S');
+  </script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -12,1001 +25,1209 @@
       padding: 0;
     }
     :root {
-      --bg: #020617;
-      --bg-elevated: #020617;
-      --bg-card: rgba(15, 23, 42, 0.98);
-      --border-subtle: rgba(148, 163, 184, 0.45);
+      --bg-deep: #020617;
+      --bg-card: #020617;
+      --bg-card-soft: #020617;
+      --border-subtle: rgba(148, 163, 184, 0.35);
       --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
+      --text-soft: #9ca3af;
       --gold: #fbbf24;
+      --gold-soft: rgba(251, 191, 36, 0.16);
+      --accent-blue: #38bdf8;
+      --shadow-strong: 0 32px 120px rgba(0,0,0,0.9);
+      --radius-xl: 24px;
+      --radius-lg: 16px;
+      --radius-pill: 999px;
+      --blur-strong: 40px;
     }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #020617 0%, #000 55%, #020617 100%);
-      color: var(--text-main);
       min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px 48px;
     }
-    .page {
+    .page-shell {
+      width: 100%;
       max-width: 1120px;
       margin: 0 auto;
-      padding: 18px 16px 32px;
     }
-    header {
+
+    /* 顶部导航 */
+    .top-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
-    .brand {
-      display: inline-flex;
+    .brand-block {
+      display: flex;
       align-items: center;
       gap: 10px;
     }
-    .brand-mark {
+    .brand-avatar {
       width: 40px;
       height: 40px;
       border-radius: 999px;
-      padding: 2px;
-      background: conic-gradient(from 160deg, #fbbf24, #38bdf8, #6366f1, #fbbf24);
+      background: conic-gradient(
+        from 180deg,
+        #fbbf24,
+        #38bdf8,
+        #4f46e5,
+        #fbbf24
+      );
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.7);
     }
-    .brand-mark-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      background: radial-gradient(circle at 30% 0%, #0f172a, #020617 60%, #020617 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      font-size: 0.7rem;
-    }
-    .brand-text-title {
-      font-size: 0.98rem;
-      font-weight: 600;
-    }
-    .brand-text-sub {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-    .nav-links {
-      display: inline-flex;
-      gap: 10px;
-      font-size: 0.8rem;
-    }
-    .nav-link {
-      color: var(--text-muted);
-      text-decoration: none;
-      padding: 4px 8px;
+    .brand-avatar-inner {
+      width: 32px;
+      height: 32px;
       border-radius: 999px;
-      border: 1px solid transparent;
+      background: radial-gradient(circle at 30% 0%, #1f2937 0%, #020617 55%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 600;
+      color: #e5e7eb;
     }
-    .nav-link:hover {
-      border-color: rgba(148, 163, 184, 0.5);
+    .brand-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
+    .brand-name {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 13px;
+    }
+    .nav-links a {
+      color: #e5e7eb;
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+    .nav-links a:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+    .nav-links span {
+      color: var(--text-soft);
+      font-size: 12px;
+    }
+
     .lang-toggle {
       display: inline-flex;
-      padding: 2px;
+      align-items: center;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 2px;
+      background: radial-gradient(circle at top left,#111827,#020617);
     }
     .lang-btn {
       border: none;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 0.78rem;
+      outline: none;
       padding: 4px 10px;
+      font-size: 11px;
       border-radius: 999px;
+      background: transparent;
+      color: var(--text-soft);
       cursor: pointer;
+      transition: all 0.18s ease;
     }
     .lang-btn.active {
-      background: #facc15;
-      color: #020617;
-      font-weight: 600;
+      background: rgba(15, 23, 42, 0.9);
+      color: #f9fafb;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
     }
-    .login-btn {
+
+    .primary-btn {
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(120deg,#fbbf24,#f97316);
+      color: #111827;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 13px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      font-size: 0.78rem;
-      text-decoration: none;
-      color: var(--text-main);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
+      cursor: pointer;
+      box-shadow: 0 12px 45px rgba(15,23,42,0.9);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
     }
-    .login-btn .icon {
-      font-size: 0.9rem;
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 70px rgba(15,23,42,1);
+      filter: brightness(1.03);
+    }
+    .primary-btn span.icon {
+      font-size: 14px;
     }
 
-    .desk-hero {
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 1));
-      padding: 18px 18px 16px;
-      margin-bottom: 18px;
+    /* 主体布局 */
+    .desk-main-card {
+      margin-top: 6px;
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.06) 0%, transparent 55%),
+        rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(15, 23, 42, 0.95);
+      box-shadow: var(--shadow-strong);
+      padding: 20px 22px 22px;
+      backdrop-filter: blur(var(--blur-strong));
     }
-    .desk-hero-label {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      margin-bottom: 6px;
+
+    .flow-head {
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      padding: 16px 16px 14px;
+      background:
+        radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.96));
+      margin-bottom: 16px;
     }
-    .desk-hero-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .desk-hero-sub {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      max-width: 620px;
-      margin-bottom: 12px;
-    }
-    .desk-hero-steps {
+    .flow-head-title-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 8px;
     }
-    .desk-hero-step {
-      flex: 1 1 160px;
-      border-radius: 14px;
-      padding: 8px 10px;
-      border: 1px dashed rgba(148, 163, 184, 0.55);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
+    .flow-pill {
+      font-size: 11px;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
+    .flow-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0%, #22c55e, #15803d);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.16);
+    }
+    .flow-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .flow-title {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .flow-subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 620px;
+    }
+    .flow-chips {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .flow-chip {
+      border-radius: 999px;
+      padding: 8px 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      color: var(--text-soft);
+      background: radial-gradient(circle at top,#020617,#020617);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .flow-chip span.label {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+    .flow-chip-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-soft);
+    }
+
+    /* 下半部分布局 */
     .desk-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr);
+      grid-template-columns: minmax(0, 370px) minmax(0, 1fr);
       gap: 16px;
+      align-items: stretch;
     }
-    .desk-list-card,
-    .desk-detail-card {
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
-      padding: 14px 14px 16px;
+
+    .service-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background:
+        radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+      padding: 14px 14px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    .desk-list-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 10px;
+    .service-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
     }
-    .desk-list {
+    .service-card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-soft);
+    }
+    .service-card-mini {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .service-list {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      font-size: 0.8rem;
     }
-    .desk-pill {
-      border-radius: 16px;
-      padding: 8px 11px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,1));
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      cursor: pointer;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.18s ease;
-    }
-    .desk-pill:hover {
-      transform: translateY(-1px);
-      border-color: rgba(251, 191, 36, 0.7);
-      box-shadow: 0 12px 30px rgba(8, 47, 73, 0.7);
-    }
-    .desk-pill-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .desk-pill-icon {
-      width: 22px;
-      height: 22px;
+    .service-item {
+      position: relative;
       border-radius: 999px;
+      padding: 10px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background:
+        radial-gradient(circle at top left, rgba(15,23,42,0.95), rgba(15,23,42,0.98));
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color 0.14s ease, box-shadow 0.16s ease,
+                  transform 0.14s ease, background 0.16s ease;
+    }
+    .service-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background: radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.2), transparent 60%);
+      transition: opacity 0.18s ease;
+      pointer-events: none;
+    }
+    .service-item:hover::before {
+      opacity: 1;
+    }
+    .service-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.9);
+    }
+    .service-item.active {
+      border-color: var(--gold);
+      box-shadow: 0 20px 70px rgba(15, 23, 42, 1);
+      background:
+        linear-gradient(120deg, rgba(251, 191, 36, 0.08), rgba(15, 23, 42, 0.98));
+    }
+
+    .service-item-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+    .service-icon-wrap {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.9rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: radial-gradient(circle at 30% 0%, #020617,#020617);
+      box-shadow: 0 7px 20px rgba(15,23,42,0.9);
+      flex-shrink: 0;
     }
-    .desk-pill-title {
-      font-weight: 700;
-      font-size: 1rem;
-      color: #ffffff !important;
-      letter-spacing: 0.2px;
+    .service-icon-inner {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: radial-gradient(circle at 30% 0%, #0f172a,#020617);
     }
-    .desk-pill-price {
-      font-size: 0.78rem;
-      color: var(--gold);
+    .service-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .service-title {
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .service-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .service-price {
+      font-size: 12px;
       font-weight: 600;
-    }
-    .desk-pill.active {
-      border-color: rgba(251, 191, 36, 0.85);
-      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.5), 0 18px 40px rgba(8, 47, 73, 0.9);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 1), rgba(15, 23, 42, 0.98));
+      color: var(--gold);
+      white-space: nowrap;
+      margin-left: 8px;
     }
 
-    .desk-detail-label {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-    .desk-detail-title {
-      font-size: 0.98rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .desk-detail-desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-    .desk-detail-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    /* 右侧 AI 面板 */
+    .ai-panel {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 55%),
+        radial-gradient(circle at bottom left, rgba(251, 191, 36, 0.12), transparent 60%),
+        rgba(15, 23, 42, 0.96);
+      padding: 14px 14px 16px;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
-      font-size: 0.78rem;
+      position: relative;
+      overflow: hidden;
     }
-    .desk-detail-block {
-      border-radius: 16px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      padding: 10px 10px 9px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
+    .ai-panel::after {
+      content: "AI DESK";
+      position: absolute;
+      right: -20px;
+      bottom: -10px;
+      font-size: 40px;
+      letter-spacing: 0.15em;
+      color: rgba(15, 23, 42, 0.8);
+      font-weight: 700;
+      pointer-events: none;
     }
-    .desk-detail-block-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .desk-detail-block ul {
-      padding-left: 18px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    .desk-detail-footer {
-      margin-top: 10px;
+    .ai-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      flex-wrap: wrap;
-      font-size: 0.78rem;
     }
-    .desk-footer-note {
-      color: var(--text-muted);
+    .ai-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
-    .desk-footer-btn {
-      padding: 9px 16px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      background: linear-gradient(135deg, #fbbf24, #eab308);
-      color: #020617;
-      font-size: 0.8rem;
+    .ai-title {
+      font-size: 14px;
       font-weight: 600;
-      text-decoration: none;
-      display: inline-flex;
+      letter-spacing: 0.03em;
+      display: flex;
       align-items: center;
       gap: 6px;
     }
-
-    
-    .desk-detail-card {
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,1));
-      box-shadow: 0 26px 60px rgba(8, 47, 73, 0.95);
-      padding: 18px 20px 16px;
-      position: relative;
-      overflow: hidden;
+    .ai-title-pill {
+      font-size: 10px;
+      padding: 1px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--text-soft);
     }
-    .desk-detail-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at 0% 0%, rgba(250, 204, 21, 0.16), transparent 55%);
+    .ai-subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 420px;
+    }
+    .ai-hint-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .ai-hint-pill {
+      font-size: 10px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      padding: 2px 8px;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .ai-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 10px;
+      margin-top: 4px;
+    }
+    .ai-form-full {
+      grid-column: 1 / -1;
+    }
+    .ai-label {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .ai-label span.badge {
+      font-size: 9px;
+      border-radius: 999px;
+      padding: 0 6px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+    .ai-input,
+    .ai-select,
+    .ai-textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 12px;
+      padding: 6px 8px;
+      outline: none;
+      resize: vertical;
+      min-height: 0;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+    }
+    .ai-input:focus,
+    .ai-select:focus,
+    .ai-textarea:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
+      background: rgba(15, 23, 42, 0.96);
+    }
+    .ai-select {
+      padding-right: 22px;
+    }
+    .ai-textarea {
+      min-height: 80px;
+      line-height: 1.4;
+    }
+
+    .ai-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .ai-left-buttons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ai-secondary-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      padding: 6px 11px;
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+    .ai-secondary-btn:hover {
+      background: rgba(15, 23, 42, 1);
+      box-shadow: 0 10px 36px rgba(15, 23, 42, 0.9);
+      transform: translateY(-0.5px);
+    }
+    .ai-generate-btn {
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(120deg,#22c55e,#16a34a);
+      color: #022c22;
+      padding: 7px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 16px 55px rgba(6, 95, 70, 0.7);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+      white-space: nowrap;
+    }
+    .ai-generate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 70px rgba(6, 95, 70, 0.9);
+      filter: brightness(1.02);
+    }
+    .ai-generate-btn[disabled] {
       opacity: 0.7;
-      pointer-events: none;
+      cursor: default;
+      transform: none;
+      box-shadow: 0 12px 32px rgba(6, 95, 70, 0.5);
     }
-    .desk-detail-inner {
-      position: relative;
-      z-index: 1;
-      animation: fadeUpDesk 0.32s ease;
-    }
-    @keyframes fadeUpDesk {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    .ai-status {
+      font-size: 11px;
+      color: var(--text-soft);
     }
 
-@media (max-width: 900px) {
+    .ai-preview-box {
+      margin-top: 8px;
+      border-radius: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 8px 10px;
+      max-height: 180px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      color: #e5e7eb;
+    }
+    .ai-preview-placeholder {
+      color: rgba(148, 163, 184, 0.9);
+      font-size: 11px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 920px) {
       .desk-layout {
         grid-template-columns: minmax(0, 1fr);
       }
+      .ai-panel::after {
+        display: none;
+      }
     }
     @media (max-width: 640px) {
-      header {
+      body {
+        padding: 16px 8px 32px;
+      }
+      .desk-main-card {
+        padding: 14px 12px 16px;
+      }
+      .flow-chips {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .ai-form {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .ai-footer-row {
         flex-direction: column;
         align-items: flex-start;
       }
-      nav {
-        justify-content: space-between;
+      .ai-left-buttons {
         width: 100%;
-      }
-      .desk-detail-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-  
-    /* === Task Modal (AI) === */
-    .task-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 80;
-    }
-    .task-modal-backdrop.active {
-      display: flex;
-    }
-    .task-modal {
-      width: 92%;
-      max-width: 560px;
-      background: radial-gradient(circle at top left, #020617, #020617 55%, #020617 100%);
-      border-radius: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.9);
-      padding: 24px 22px 20px;
-      color: #e5e7eb;
-      position: relative;
-      overflow: hidden;
-    }
-    .task-modal::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at 0% 0%, rgba(250, 204, 21, 0.14), transparent 55%);
-      opacity: 0.8;
-      pointer-events: none;
-    }
-    .task-modal-inner {
-      position: relative;
-      z-index: 1;
-    }
-    .task-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .task-modal-title {
-      font-size: 1.05rem;
-      font-weight: 650;
-    }
-    .task-modal-tag {
-      font-size: 0.72rem;
-      padding: 4px 9px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.55);
-    }
-    .task-modal-close {
-      border: 0;
-      background: transparent;
-      color: #9ca3af;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .task-modal-label {
-      margin-top: 12px;
-      margin-bottom: 4px;
-      font-size: 0.8rem;
-      color: #cbd5f5;
-    }
-    .task-modal-input,
-    .task-modal-textarea {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.85);
-      color: #e5e7eb;
-      padding: 9px 11px;
-      font-size: 0.84rem;
-      outline: none;
-    }
-    .task-modal-textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-    .task-modal-input::placeholder,
-    .task-modal-textarea::placeholder {
-      color: #6b7280;
-    }
-    .task-modal-footer {
-      margin-top: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .task-modal-primary {
-      border-radius: 999px;
-      background: linear-gradient(90deg, #facc15, #f97316);
-      border: 0;
-      color: #111827;
-      font-weight: 700;
-      padding: 10px 16px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 0.9rem;
-    }
-    .task-modal-primary[disabled] {
-      opacity: 0.6;
-      cursor: wait;
-    }
-    .task-modal-note {
-      font-size: 0.72rem;
-      color: #9ca3af;
-    }
-    .task-modal-result {
-      margin-top: 14px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      max-height: 220px;
-      overflow: auto;
-      font-size: 0.8rem;
-      white-space: pre-wrap;
-    }
-    @media (max-width: 640px) {
-      .task-modal {
-        padding: 20px 16px 16px;
-        border-radius: 20px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
       }
     }
-</style>
+  </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <div class="brand">
-        <div class="brand-mark">
-          <div class="brand-mark-inner">AU</div>
+  <div class="page-shell">
+    <!-- 顶部导航 -->
+    <header class="top-nav">
+      <div class="brand-block">
+        <div class="brand-avatar">
+          <div class="brand-avatar-inner">AU</div>
         </div>
-        <div class="brand-text">
-          <div class="brand-text-title" data-i18n-key="brandTitle">Aurum Task Desk</div>
-          <div class="brand-text-sub" data-i18n-key="brandSub">Private AI Writing & Resolution Desk</div>
+        <div class="brand-text-block">
+          <div class="brand-name">Aurum Task Desk</div>
+          <div class="brand-sub" id="brandSubText">
+            Private AI Writing & Resolution Desk
+          </div>
         </div>
       </div>
-      <nav>
-        <div class="nav-links">
-          <a href="index.html" class="nav-link" data-i18n-key="navHome">Home</a>
-          <a href="index.html#services" class="nav-link" data-i18n-key="navServices">Services</a>
-          <a href="index.html#how-it-works" class="nav-link" data-i18n-key="navHow">Flow</a>
-          <a href="index.html#why-not" class="nav-link" data-i18n-key="navCompare">Why not ChatGPT</a>
-          <a href="index.html#pricing" class="nav-link" data-i18n-key="navPricing">Pricing</a>
+
+      <nav class="nav-links">
+        <a href="index.html" id="navHome">Home</a>
+        <a href="index.html#services" id="navServices">Services</a>
+        <a href="index.html#flow" id="navFlow">Flow</a>
+        <a href="index.html#why" id="navWhy">Why not ChatGPT</a>
+        <a href="pricing.html" id="navPricing">Pricing</a>
+        <span>|</span>
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
+          <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
         </div>
-        <div class="lang-toggle" aria-label="Language">
-          <button class="lang-btn active" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="zh">中</button>
-        </div>
-        <a href="auth.html" class="login-btn">
-          <span class="icon">⭑</span>
-          <span data-i18n-key="login">Login / My Desk</span>
-        </a>
+        <button class="primary-btn" onclick="window.location.href='auth.html'">
+          <span class="icon">★</span>
+          <span id="loginBtnText">Login / My Desk</span>
+        </button>
       </nav>
     </header>
 
-    <main>
-      <section class="desk-hero">
-        <div class="desk-hero-label" data-i18n-key="howLabel">Flow</div>
-        <div class="desk-hero-title" data-i18n-key="howTitle">Starting a task is intentionally simple</div>
-        <p class="desk-hero-sub" data-i18n-key="heroSub">
-          This page lets you pick one serious scenario and open a focused task desk. You can always change scenario later — nothing is submitted until you confirm inside your Desk.
-        </p>
-        <div class="desk-hero-steps">
-          <div class="desk-hero-step" data-i18n-key="step1">
-            <strong>Share what happened.</strong> Upload screenshots, letters, or describe the situation in your own words. No need to be “perfect”.
+    <!-- 主体卡片 -->
+    <main class="desk-main-card">
+      <!-- Flow 头部说明 -->
+      <section class="flow-head">
+        <div class="flow-head-title-row">
+          <div class="flow-title-block">
+            <div class="flow-pill">
+              <span class="flow-pill-dot"></span>
+              <span id="flowPillText">Flow</span>
+            </div>
+            <div class="flow-title" id="flowTitle">
+              Starting a task is intentionally simple
+            </div>
+            <p class="flow-subtitle" id="flowSubtitle">
+              This page lets you pick one serious scenario and open a focused task desk.
+              You can always change scenario later — nothing is submitted until you confirm inside your Desk.
+            </p>
           </div>
-          <div class="desk-hero-step" data-i18n-key="step2">
-            <strong>Clarify who and what.</strong> Tell us who you are writing to (lawyer, embassy, insurer, employer, airline) and your ideal outcome.
+        </div>
+        <div class="flow-chips">
+          <div class="flow-chip">
+            <span class="flow-chip-badge">Step 1</span>
+            <span class="label" id="flowChip1Label">Share what happened.</span>
+            <span id="flowChip1Text">
+              Upload screenshots, letters, or describe the situation in your own words.
+            </span>
           </div>
-          <div class="desk-hero-step" data-i18n-key="step3">
-            <strong>Receive a ready-to-submit letter.</strong> You review, add personal details if needed, and then send it on — email, portal or print.
+          <div class="flow-chip">
+            <span class="flow-chip-badge">Step 2</span>
+            <span class="label" id="flowChip2Label">Clarify who and what.</span>
+            <span id="flowChip2Text">
+              Tell us who you are writing to (lawyer, embassy, insurer, employer, airline) and your ideal outcome.
+            </span>
+          </div>
+          <div class="flow-chip">
+            <span class="flow-chip-badge">Step 3</span>
+            <span class="label" id="flowChip3Label">Receive a ready-to-submit letter.</span>
+            <span id="flowChip3Text">
+              You review, add personal details if needed, and then send it on — email, portal or print.
+            </span>
           </div>
         </div>
       </section>
 
+      <!-- 下半部分：左边服务 + 右边 AI 窗口 -->
       <section class="desk-layout">
-        <div class="desk-list-card">
-          <div class="desk-list-title" data-i18n-key="servicesLabel">5 core services</div>
-          <div class="desk-list">
-            <button class="desk-pill" data-desk="legal">
-              <div class="desk-pill-left">
-                <div class="desk-pill-icon">§</div>
-                <div class="desk-pill-title" data-i18n-key="svc1Title">Legal letters & contract drafts</div>
+        <!-- 左侧服务列表 -->
+        <aside class="service-card">
+          <div class="service-card-header">
+            <div class="service-card-title" id="serviceCardTitle">
+              5 core services
+            </div>
+            <div class="service-card-mini" id="serviceCardMini">
+              Pick one scenario to open a desk
+            </div>
+          </div>
+
+          <div class="service-list" id="serviceList">
+            <button
+              type="button"
+              class="service-item active"
+              data-task="Legal letters & contract drafts">
+              <div class="service-item-main">
+                <div class="service-icon-wrap">
+                  <div class="service-icon-inner"></div>
+                </div>
+                <div class="service-text-block">
+                  <div class="service-title" id="svc1Title">
+                    Legal letters & contract drafts
+                  </div>
+                  <div class="service-sub" id="svc1Sub">
+                    Disputes, refunds, landlord, employer, vendor, partner…
+                  </div>
+                </div>
               </div>
-              <div class="desk-pill-price" data-i18n-key="svc1Price">USD 29.9</div>
+              <div class="service-price">USD 29.9</div>
             </button>
-            <button class="desk-pill" data-desk="claims">
-              <div class="desk-pill-left">
-                <div class="desk-pill-icon">✈</div>
-                <div class="desk-pill-title" data-i18n-key="svc3Title">Insurance & airline claim letters</div>
+
+            <button
+              type="button"
+              class="service-item"
+              data-task="Insurance & airline claim letters">
+              <div class="service-item-main">
+                <div class="service-icon-wrap">
+                  <div class="service-icon-inner"></div>
+                </div>
+                <div class="service-text-block">
+                  <div class="service-title" id="svc2Title">
+                    Insurance & airline claim letters
+                  </div>
+                  <div class="service-sub" id="svc2Sub">
+                    Travel disruption, baggage loss, medical & policy claims.
+                  </div>
+                </div>
               </div>
-              <div class="desk-pill-price" data-i18n-key="svc3Price">USD 24.9</div>
+              <div class="service-price">USD 24.9</div>
             </button>
-            <button class="desk-pill" data-desk="immigration">
-              <div class="desk-pill-left">
-                <div class="desk-pill-icon">✉</div>
-                <div class="desk-pill-title" data-i18n-key="svc2Title">Immigration letters & RFE explanations</div>
+
+            <button
+              type="button"
+              class="service-item"
+              data-task="Immigration letters & RFE explanations">
+              <div class="service-item-main">
+                <div class="service-icon-wrap">
+                  <div class="service-icon-inner"></div>
+                </div>
+                <div class="service-text-block">
+                  <div class="service-title" id="svc3Title">
+                    Immigration letters & RFE explanations
+                  </div>
+                  <div class="service-sub" id="svc3Sub">
+                    Embassy, USCIS, appeal notes, employer support letters.
+                  </div>
+                </div>
               </div>
-              <div class="desk-pill-price" data-i18n-key="svc2Price">USD 39.9</div>
+              <div class="service-price">USD 39.9</div>
             </button>
-            <button class="desk-pill" data-desk="family">
-              <div class="desk-pill-left">
-                <div class="desk-pill-icon">❤</div>
-                <div class="desk-pill-title" data-i18n-key="svc4Title">Family & emotional crisis letters</div>
+
+            <button
+              type="button"
+              class="service-item"
+              data-task="Family & emotional crisis letters">
+              <div class="service-item-main">
+                <div class="service-icon-wrap">
+                  <div class="service-icon-inner"></div>
+                </div>
+                <div class="service-text-block">
+                  <div class="service-title" id="svc4Title">
+                    Family & emotional crisis letters
+                  </div>
+                  <div class="service-sub" id="svc4Sub">
+                    Calm letters to partners, children, parents & relatives.
+                  </div>
+                </div>
               </div>
-              <div class="desk-pill-price" data-i18n-key="svc4Price">USD 19.9</div>
+              <div class="service-price">USD 19.9</div>
             </button>
-            <button class="desk-pill" data-desk="complaint">
-              <div class="desk-pill-left">
-                <div class="desk-pill-icon">⚠</div>
-                <div class="desk-pill-title" data-i18n-key="svc5Title">Complaint & escalation services</div>
+
+            <button
+              type="button"
+              class="service-item"
+              data-task="Complaint & escalation services">
+              <div class="service-item-main">
+                <div class="service-icon-wrap">
+                  <div class="service-icon-inner"></div>
+                </div>
+                <div class="service-text-block">
+                  <div class="service-title" id="svc5Title">
+                    Complaint & escalation services
+                  </div>
+                  <div class="service-sub" id="svc5Sub">
+                    Escalate politely to managers, ombudsman, regulator.
+                  </div>
+                </div>
               </div>
-              <div class="desk-pill-price" data-i18n-key="svc5Price">USD 29.9</div>
+              <div class="service-price">USD 29.9</div>
             </button>
           </div>
-        </div>
+        </aside>
 
-        <div class="desk-detail-card" id="desk-detail">
-          <!-- Detail content injected by JS -->
-        </div>
+        <!-- 右侧 AI 预览窗口 -->
+        <section class="ai-panel">
+          <div class="ai-header-row">
+            <div class="ai-title-block">
+              <div class="ai-title" id="aiTitle">
+                AI preview window
+                <span class="ai-title-pill" id="aiTitlePill">
+                  Cloudflare AI · 30% preview only
+                </span>
+              </div>
+              <p class="ai-subtitle" id="aiSubtitle">
+                Let Aurum’s AI desk draft a 30% preview of your letter.
+                Nothing is sent or stored. You stay fully anonymous at this step.
+              </p>
+            </div>
+          </div>
+
+          <div class="ai-hint-row">
+            <div class="ai-hint-pill" id="aiHint1">
+              ✓ No login required for preview
+            </div>
+            <div class="ai-hint-pill" id="aiHint2">
+              ✓ Region-free (Cloudflare AI)
+            </div>
+            <div class="ai-hint-pill" id="aiHint3">
+              ✓ You can still change everything later
+            </div>
+          </div>
+
+          <div class="ai-form">
+            <div>
+              <div class="ai-label">
+                <span id="lblTaskType">Task type</span>
+                <span class="badge" id="lblTaskTypeBadge">Auto from left</span>
+              </div>
+              <input
+                id="taskTypeInput"
+                class="ai-input"
+                type="text"
+                value="Legal letters & contract drafts"
+              />
+            </div>
+
+            <div>
+              <div class="ai-label">
+                <span id="lblLanguage">Language</span>
+              </div>
+              <select id="languageSelect" class="ai-select">
+                <option value="English">English</option>
+                <option value="中文">中文</option>
+              </select>
+            </div>
+
+            <div>
+              <div class="ai-label">
+                <span id="lblTone">Tone</span>
+              </div>
+              <select id="toneSelect" class="ai-select">
+                <option value="calm, respectful">Calm, respectful</option>
+                <option value="firm, polite">Firm, polite</option>
+                <option value="urgent but respectful">Urgent but respectful</option>
+              </select>
+            </div>
+
+            <div>
+              <div class="ai-label">
+                <span id="lblRecipient">Recipient (optional)</span>
+              </div>
+              <input
+                id="recipientInput"
+                class="ai-input"
+                type="text"
+                placeholder="e.g. airline, landlord, lawyer, embassy"
+              />
+            </div>
+
+            <div class="ai-form-full">
+              <div class="ai-label">
+                <span id="lblDetails">What happened? (you can be brief)</span>
+              </div>
+              <textarea
+                id="detailsTextarea"
+                class="ai-textarea"
+                placeholder="Describe the situation in your own words. You can keep it short, we will expand it for you."
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="ai-footer-row">
+            <div class="ai-left-buttons">
+              <button type="button" class="ai-secondary-btn" id="btnClear">
+                <span>Reset</span>
+              </button>
+              <button type="button" class="ai-secondary-btn" id="btnPasteExample">
+                <span id="btnPasteExampleText">Paste an example case</span>
+              </button>
+            </div>
+            <div class="ai-left-buttons">
+              <button type="button" class="ai-generate-btn" id="aiGenerateBtn">
+                <span id="aiGenerateBtnText">AI preview draft</span>
+              </button>
+              <div class="ai-status" id="aiStatus">
+                <span id="aiStatusText">
+                  AI will generate ~30% of the letter as a preview only.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ai-preview-box" id="aiPreviewBox">
+            <div class="ai-preview-placeholder" id="aiPreviewPlaceholder">
+              Your 30% AI preview will appear here. It is not saved, not sent
+              to any company or person. When you are happy with the direction,
+              you can open a full Desk and continue privately.
+            </div>
+          </div>
+        </section>
       </section>
     </main>
   </div>
 
   <script>
-    const deskConfigs = {
-      legal: {
-        label: "CASE · Legal letters & contract drafts",
-        desc: "For contract wording, legal-style notices, dispute letters and formal correspondence.",
-        prepTitle: "You prepare",
-        prepList: [
-          "Existing contracts, clauses or previous emails (screenshots are fine).",
-          "Any deadlines, dates, or amounts involved.",
-          "What you want the other side to do or confirm."
-        ],
-        getTitle: "You receive",
-        getList: [
-          "1 structured English letter or email draft in legal-style tone.",
-          "Clear structure that you can paste into email, Word or PDF.",
-          "Optional short summary you can reuse in calls or meetings."
-        ]
-      },
-      claims: {
-        label: "CASE · Insurance & airline claims",
-        desc: "For flight delay / cancellation refunds, lost luggage, damage claims and rejected payouts.",
-        prepTitle: "You prepare",
-        prepList: [
-          "Booking confirmations, tickets, claim numbers and prior responses.",
-          "Timeline of what happened and what you already tried.",
-          "What you would consider a fair outcome (refund, voucher, upgrade, etc.)."
-        ],
-        getTitle: "You receive",
-        getList: [
-          "1 clear English claim or escalation letter, tuned for insurers or airlines.",
-          "Bullet-point summary if you also need to call the hotline.",
-          "Optional shorter follow-up template if they ignore you."
-        ]
-      },
-      immigration: {
-        label: "CASE · Immigration / RFE / refusal",
-        desc: "For RFE responses, refusal explanations, background statements and status inquiries.",
-        prepTitle: "You prepare",
-        prepList: [
-          "Official letters (RFE, refusal, request for evidence) and any case notes.",
-          "Key dates, visas involved, and your current status.",
-          "What you want the officer to understand or reconsider."
-        ],
-        getTitle: "You receive",
-        getList: [
-          "1 structured English letter matching immigration-style communication.",
-          "Sections that answer each officer question in a calm, factual tone.",
-          "Optional personal cover note if you need to explain complex history."
-        ]
-      },
-      family: {
-        label: "CASE · Family & emotional crisis",
-        desc: "For serious relationship conflicts, family disputes or boundary-setting conversations.",
-        prepTitle: "You prepare",
-        prepList: [
-          "Short timeline of what happened and who is involved.",
-          "Your boundaries — what is acceptable, what is not.",
-          "What outcome you hope for (apology, space, new agreement, etc.)."
-        ],
-        getTitle: "You receive",
-        getList: [
-          "1 calm, respectful English letter reflecting your position.",
-          "Phrasing that reduces drama but keeps your bottom line clear.",
-          "Optional shorter message version for chat / messaging apps."
-        ]
-      },
-      complaint: {
-        label: "CASE · Complaint & escalation",
-        desc: "For escalation letters to banks, employers, platforms and regulators.",
-        prepTitle: "You prepare",
-        prepList: [
-          "Account numbers, references and prior complaint IDs.",
-          "Chronology of the issue and any broken promises.",
-          "What resolution you consider fair and realistic."
-        ],
-        getTitle: "You receive",
-        getList: [
-          "1 escalation letter with clear structure and timeline of events.",
-          "Optional shorter version you can send to multiple departments.",
-          "Phrases that stay professional but hard to ignore."
-        ]
-      }
-    };
+    // ========== 左侧服务可点击 ==========
+    const serviceItems = document.querySelectorAll(".service-item");
+    const taskTypeInput = document.getElementById("taskTypeInput");
 
-    function renderDeskDetail(key) {
-      const cfg = deskConfigs[key] || deskConfigs.legal;
-      const container = document.getElementById("desk-detail");
-      container.innerHTML = `
-        <div class="desk-detail-inner">
-          <div class="desk-detail-label">Selected scenario</div>
-          <div class="desk-detail-title">${cfg.label}</div>
-          <div class="desk-detail-desc">${cfg.desc}</div>
-          <div class="desk-detail-grid">
-          <div class="desk-detail-block">
-            <div class="desk-detail-block-title">${cfg.prepTitle}</div>
-            <ul>
-              ${cfg.prepList.map((item) => `<li>${item}</li>`).join("")}
-            </ul>
-          </div>
-          <div class="desk-detail-block">
-            <div class="desk-detail-block-title">${cfg.getTitle}</div>
-            <ul>
-              ${cfg.getList.map((item) => `<li>${item}</li>`).join("")}
-            </ul>
-          </div>
-          </div>
-          <div class="desk-detail-footer">
-            <div class="desk-footer-note" data-i18n-key="whoLabel">
-              Designed for 40+ users who prefer clear steps instead of prompts.
-            </div>
-            <button type="button" class="desk-footer-btn" onclick="startTask('${key}')">
-              <span data-i18n-key="startTask">Start this task</span>
-              <span>→</span>
-            </button>
-          </div>
-        </div>
-      `;
-
-    function startTask(key) {
-      try {
-        localStorage.setItem("aurum_selected_service", key);
-      } catch (_) {}
-      openTaskModal(key);
-    }
-
-    function openTaskModal(key) {
-      const backdrop = document.getElementById("taskModalBackdrop");
-      if (!backdrop) return;
-      const tagEl = document.getElementById("modalServiceTag");
-      if (tagEl) {
-        const cfg = deskConfigs[key];
-        tagEl.textContent = cfg ? cfg.label : "Selected service";
-      }
-      backdrop.classList.add("active");
-      // clear previous result
-      const res = document.getElementById("taskResult");
-      if (res) {
-        res.style.display = "none";
-        res.textContent = "";
-      }
-    }
-
-    function closeTaskModal() {
-      const backdrop = document.getElementById("taskModalBackdrop");
-      if (backdrop) backdrop.classList.remove("active");
-    }
-
-    async function submitTaskToAI() {
-      const btn = document.getElementById("taskGenerateBtn");
-      const desc = document.getElementById("task_description").value.trim();
-      const recipient = document.getElementById("task_recipient").value.trim();
-      const outcome = document.getElementById("task_outcome").value.trim();
-      const resultBox = document.getElementById("taskResult");
-
-      if (!desc) {
-        alert("Please describe what happened first.");
-        return;
-      }
-
-      try {
-        if (btn) btn.disabled = true;
-        if (resultBox) {
-          resultBox.style.display = "block";
-          resultBox.textContent = "Generating structured English letter…";
+    serviceItems.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        serviceItems.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const task = btn.getAttribute("data-task") || "";
+        if (task) {
+          taskTypeInput.value = task;
         }
-        const resp = await fetch("/task/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ description: desc, recipient, outcome })
-        });
-        const data = await resp.json();
-        if (resultBox) {
-          resultBox.style.display = "block";
-          resultBox.textContent = data.letter || JSON.stringify(data, null, 2);
-        }
-      } catch (e) {
-        if (resultBox) {
-          resultBox.style.display = "block";
-          resultBox.textContent = "Error generating letter. Please try again or contact support.";
-        }
-      } finally {
-        if (btn) btn.disabled = false;
-      }
-    }
-
-    function initDeskPills() {
-      const pills = Array.from(document.querySelectorAll(".desk-pill"));
-      function activate(key) {
-        pills.forEach((pill) => {
-          pill.classList.toggle("active", pill.dataset.desk === key);
-        });
-        renderDeskDetail(key);
-      }
-
-      pills.forEach((pill) => {
-        pill.addEventListener("click", () => activate(pill.dataset.desk));
       });
+    });
 
-      let initial = "legal";
-      if (location.hash) {
-        const h = location.hash.replace("#", "");
-        if (deskConfigs[h]) initial = h;
+    // ========== AI 生成预览 ==========
+    const aiGenerateBtn = document.getElementById("aiGenerateBtn");
+    const aiStatus = document.getElementById("aiStatus");
+    const aiStatusText = document.getElementById("aiStatusText");
+    const aiPreviewBox = document.getElementById("aiPreviewBox");
+    const aiPreviewPlaceholder = document.getElementById("aiPreviewPlaceholder");
+    const toneSelect = document.getElementById("toneSelect");
+    const languageSelect = document.getElementById("languageSelect");
+    const recipientInput = document.getElementById("recipientInput");
+    const detailsTextarea = document.getElementById("detailsTextarea");
+
+    async function callAIPreview() {
+      const taskType = (taskTypeInput.value || "").trim() || "写作任务";
+      const tone = (toneSelect.value || "calm, respectful").toString();
+      const language = (languageSelect.value || "English").toString();
+      const recipient = (recipientInput.value || "").toString();
+      const details = (detailsTextarea.value || "").toString();
+
+      aiGenerateBtn.disabled = true;
+      aiStatusText.textContent = language === "中文"
+        ? "AI 正在为你生成预览草稿…"
+        : "AI is generating a preview draft for you…";
+
+      try {
+        const res = await fetch("/ai/preview", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            taskType,
+            tone,
+            language,
+            recipient,
+            details
+          })
+        });
+
+        if (!res.ok) {
+          throw new Error("HTTP " + res.status);
+        }
+        const data = await res.json();
+
+        if (!data.ok || !data.preview) {
+          throw new Error(data.error || "Empty AI response");
+        }
+
+        aiPreviewPlaceholder.style.display = "none";
+        aiPreviewBox.textContent = data.preview;
+        aiStatusText.textContent = language === "中文"
+          ? "预览完成。你可以修改细节，再次生成，或稍后在正式任务中继续。"
+          : "Preview ready. You can adjust details, generate again, or continue later inside a full Desk.";
+      } catch (err) {
+        console.error(err);
+        aiStatusText.textContent = languageSelect.value === "中文"
+          ? "抱歉，AI 预览暂时失败，请稍后再试。"
+          : "Sorry, the AI preview failed for now. Please try again in a moment.";
+      } finally {
+        aiGenerateBtn.disabled = false;
       }
-      activate(initial);
     }
 
-    const translations = {
-      zh: {
-        brandTitle: "Aurum Task Desk",
-        brandSub: "您的私人 AI 写作与解决方案工作台",
-        navHome: "首页",
-        modalTitle: "开始一个任务",
-        modalWhatHappened: "发生了什么？",
-        modalRecipient: "写给谁？",
-        modalOutcome: "你希望得到什么结果？",
-        modalGenerate: "生成英文信件草稿",
-        modalNote: "我们只生成草稿，你可以在发送前再修改确认。",
+    aiGenerateBtn.addEventListener("click", () => {
+      callAIPreview();
+    });
 
+    // ========== 辅助按钮 ==========
+    document.getElementById("btnClear").addEventListener("click", () => {
+      recipientInput.value = "";
+      detailsTextarea.value = "";
+      aiPreviewBox.textContent = "";
+      aiPreviewPlaceholder.style.display = "block";
+      aiStatusText.textContent = languageSelect.value === "中文"
+        ? "AI 将生成约 30% 的预览草稿，不会保存也不会发送。"
+        : "AI will generate ~30% of the letter as a preview only.";
+    });
+
+    document.getElementById("btnPasteExample").addEventListener("click", () => {
+      if (detailsTextarea.value.trim()) return;
+      if (languageSelect.value === "中文") {
+        detailsTextarea.value =
+          "我在回国旅途中遇到航班大面积延误，导致我无法按时转机并错过后续行程，航空公司只提供了很少的餐食券，也没有给出明确的赔偿方案。";
+      } else {
+        detailsTextarea.value =
+          "During my return trip, my flight was heavily delayed which made me miss my connection and important meetings. The airline only gave a small meal voucher and has not offered a clear compensation plan.";
+      }
+    });
+
+    // ========== 简单中英文切换（只切这个页面的文案） ==========
+    const langButtons = document.querySelectorAll(".lang-btn");
+    const i18n = {
+      en: {
+        brandSub: "Private AI Writing & Resolution Desk",
+        navHome: "Home",
+        navServices: "Services",
+        navFlow: "Flow",
+        navWhy: "Why not ChatGPT",
+        navPricing: "Pricing",
+        loginBtn: "Login / My Desk",
+        flowPill: "Flow",
+        flowTitle: "Starting a task is intentionally simple",
+        flowSubtitle:
+          "This page lets you pick one serious scenario and open a focused task desk. You can always change scenario later — nothing is submitted until you confirm inside your Desk.",
+        chip1Label: "Share what happened.",
+        chip1Text:
+          "Upload screenshots, letters, or describe the situation in your own words.",
+        chip2Label: "Clarify who and what.",
+        chip2Text:
+          "Tell us who you are writing to and what outcome you hope for.",
+        chip3Label: "Receive a ready-to-submit letter.",
+        chip3Text:
+          "You review, add personal details if needed, and then send it on.",
+        serviceCardTitle: "5 core services",
+        serviceCardMini: "Pick one scenario to open a desk",
+        aiTitle: "AI preview window",
+        aiTitlePill: "Cloudflare AI · 30% preview only",
+        aiSubtitle:
+          "Let Aurum’s AI desk draft a 30% preview of your letter. Nothing is sent or stored.",
+        aiHint1: "✓ No login required for preview",
+        aiHint2: "✓ Region-free (Cloudflare AI)",
+        aiHint3: "✓ You can still change everything later",
+        lblTaskType: "Task type",
+        lblTaskTypeBadge: "Auto from left",
+        lblLanguage: "Language",
+        lblTone: "Tone",
+        lblRecipient: "Recipient (optional)",
+        lblDetails: "What happened? (you can be brief)",
+        btnExample: "Paste an example case",
+        btnPreview: "AI preview draft",
+        statusDefault:
+          "AI will generate ~30% of the letter as a preview only.",
+        previewPlaceholder:
+          "Your 30% AI preview will appear here. It is not saved, not sent to any company or person. When you are happy with the direction, you can open a full Desk and continue privately."
+      },
+      zh: {
+        brandSub: "安静而专业的 AI 写作与申诉任务台",
+        navHome: "首页",
         navServices: "服务",
-        navHow: "流程",
-        navCompare: "为什么不用 ChatGPT？",
-        navPricing: "定价",
-        login: "登录 / 我的 Desk",
-        pillLeft: "安静、严肃场景专用的写作工作台",
-        pillRight: "法律 / 移民 / 保险 / 投诉",
-        heroLine1: "面向严肃问题的私人 AI 写作桌",
-        heroLine2: "专为 40+ 欧美客户设计",
-        heroSub:
-          "针对法律文书、移民补件说明、保险与航空理赔、投诉升级以及家庭危机沟通，提供可以直接提交的英文信件，特别适合 40+ 不想和 AI 较劲的用户。",
-        trust1: "无需订阅，每个任务单独计费",
-        trust2: "语气与结构专为律师、HR、审核官而优化",
-        ctaPrimary: "开始一个任务",
-        ctaSecondary: "查看 5 大核心服务",
-        startTask: "开始这个任务",
-        chip1: "上传截图或简单描述事情经过",
-        chip2: "告诉我们写给谁、希望得到什么结果",
-        chip3: "收到结构完整、可以直接提交的英文信件",
-        whyLabel: "为什么需要这个 Desk？",
-        whyTitle: "为有真实麻烦的 40+ 欧美用户准备",
-        whyPill: "不是玩具型 AI",
-        why1Title: "只做严肃场景。",
-        why1Body:
-          "移民、法律风格、保险索赔、投诉升级、家庭危机沟通等，不做娱乐文案。",
-        why2Title: "直接提交用。",
-        why2Body:
-          "输出结构、语气、长度都围绕律师、HR、审核官和理赔人员来设计。",
-        why3Title: "40+ 友好。",
-        why3Body:
-          "不用折腾 prompt，只需回答清晰的问题，再由 Desk 帮你组织信件。",
-        why4Title: "没有订阅。",
-        why4Body:
-          "每封信按次计费，没有隐藏月费，不会悄悄自动扣款。",
-        pricingLabel: "定价概览",
-        pricingTitle: "5 大专门服务，清晰价格",
-        svc1Title: "法律文书 / 合同草稿",
-        svc1Desc: "合同条款撰写、违约通知、正式法律风格信件，适用于公司与个人。",
-        svc1Price: "USD 29.9",
-        svc1Cta: "进入服务 →",
-        svc2Title: "移民申请信 / RFE / 拒签解释",
-        svc2Desc:
-          "针对 RFE 回复、拒签解释、背景说明等签证与永居场景的英文信件。",
-        svc2Price: "USD 39.9",
-        svc2Cta: "进入服务 →",
-        svc3Title: "保险理赔 / 航空延误退款",
-        svc3Desc:
-          "航班延误 / 取消退款、行李损坏、拒赔后重新申诉等英文信件。",
-        svc3Price: "USD 24.9",
-        svc3Cta: "进入服务 →",
-        svc4Title: "家庭与情感危机信",
-        svc4Desc:
-          "在严重关系冲突时，用冷静、尊重的结构化英文信表达立场与底线。",
-        svc4Price: "USD 19.9",
-        svc4Cta: "进入服务 →",
-        svc5Title: "投诉升级服务",
-        svc5Desc:
-          "升级写给银行、航空公司、雇主或监管机构，让对方认真对待你的问题。",
-        svc5Price: "USD 29.9",
-        svc5Cta: "进入服务 →",
-        compareLabel: "为什么不用 ChatGPT？",
-        compareTitle: "通用 AI vs. 安静的专门写作桌",
-        compareLeftTitle: "通用型 AI 工具",
-        cmpL1:
-          "输出内容偏学术、冗长，很难直接用在法律、移民或理赔场景里。",
-        cmpL2:
-          "不了解移民官、理赔人员或 HR 实际审材料的习惯和关注点。",
-        cmpL3:
-          "需要不断试 prompt、调语气、反复修改，对 40+ 来说非常耗精力。",
-        cmpL4:
-          "文字容易带有明显的“AI 味道”，在部分机构中甚至会被直接否掉。",
-        compareRightTitle: "Aurum Task Desk",
-        cmpR1:
-          "结构、语气与长度以“审核者视角”设计，更贴近真实阅读习惯。",
-        cmpR2:
-          "只专注于法律风格、移民、保险、投诉与危机沟通，不做杂项内容。",
-        cmpR3:
-          "用问答方式收集信息，不需要你懂技术或写复杂指令。",
-        cmpR4:
-          "按封计费，从 19.9 美元起，无需订阅，无自动续费。",
-        howLabel: "流程",
-        howTitle: "开始一个任务，其实很简单",
-        step1:
-          "【1】说明发生了什么：上传截图、原信件，或用自己的话简单描述经过，无需“写得很完美”。",
-        step2:
-          "【2】说明写给谁、想要什么：是律师、使馆、保险公司、雇主还是航空公司？你希望对方做什么？",
-        step3:
-          "【3】收到可直接提交的英文信件：你可以再补充细节，然后通过邮箱、在线表格或纸质形式发送。",
-        whoLabel: "适合人群",
-        whoTitle: "三类典型的 Aurum Desk 用户",
-        persona1:
-          "在欧美生活、工作或读书的华人 / 国际人士，英语一般，但正在处理移民、保险或合规问题。",
-        persona2:
-          "40+ 职场人士、经理或小企业主，不想学习 AI 技巧，但需要严肃、好用的英文信件。",
-        persona3:
-          "已经收到拒信、负面回复，或被长期忽视的人：需要通过严肃、礼貌但清晰的信件重新“被看见”。",
-        privacyLabel: "保护与隐私",
-        privacyTitle: "安静为先 —— 你的遭遇不是“素材”",
-        pri1:
-          "不会把你的信件当作“训练数据”或营销内容来使用，你的经历不是平台用来讲故事的素材。",
-        pri2:
-          "如有需要，你可以在上传前打码护照号、案件号等敏感信息，仅保留必要内容。",
-        pri3:
-          "在事情解决之后，你可以请求删除相关任务记录，不继续保留。",
-        pri4:
-          "Desk 采用简单、可审计的后台逻辑，而不是复杂难懂、到处串联广告的巨型平台。",
-        footerCopy: "为严肃问题而生的安静写作工作台。",
-        footerPricing: "定价",
-        footerServices: "服务",
-        footerDesk: "我的 Desk",
-        footerPrivacy: "隐私政策",
-        footerTerms: "使用条款"
+        navFlow: "流程",
+        navWhy: "为什么不用 ChatGPT 直接自己写",
+        navPricing: "价格",
+        loginBtn: "登录 / 我的任务台",
+        flowPill: "流程",
+        flowTitle: "开始一个任务，刻意被设计得很简单",
+        flowSubtitle:
+          "在这里，你只需先选一个最重要的场景，打开一个专注的任务台。后面随时可以调整场景，只有在你确认后才会正式提交。",
+        chip1Label: "先说清楚发生了什么。",
+        chip1Text:
+          "可以上传截图、信件，或者用你自己的话简单描述情况，不需要完美。",
+        chip2Label: "再说明对象和诉求。",
+        chip2Text:
+          "告诉我们你要写给谁（律师、领馆、保险公司、雇主、航空公司等）以及理想结果。",
+        chip3Label: "拿到一封可以直接递交的信。",
+        chip3Text:
+          "你可以再补充个人信息、删改语气，确认后再通过邮箱、系统或打印寄出。",
+        serviceCardTitle: "5 个核心服务场景",
+        serviceCardMini: "先选一个场景打开任务台",
+        aiTitle: "AI 预览小窗口",
+        aiTitlePill: "Cloudflare AI · 只生成约 30% 草稿",
+        aiSubtitle:
+          "先让 Aurum 的 AI 帮你起一段 30% 左右的预览草稿。此步骤不会保存、也不会发送给任何机构。",
+        aiHint1: "✓ 无需登录即可预览",
+        aiHint2: "✓ 无地区限制（Cloudflare AI）",
+        aiHint3: "✓ 后面可以随时全部修改",
+        lblTaskType: "任务类型",
+        lblTaskTypeBadge: "从左侧自动带入",
+        lblLanguage: "写作语言",
+        lblTone: "语气",
+        lblRecipient: "收件方（可选）",
+        lblDetails: "简单讲讲发生了什么",
+        btnExample: "粘贴一个示例案例",
+        btnPreview: "AI 生成预览",
+        statusDefault:
+          "AI 将生成约 30% 的预览草稿，不会保存也不会发送。",
+        previewPlaceholder:
+          "AI 生成的 30% 预览内容会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以打开完整任务台，在更私密的环境中继续完善。"
       }
     };
 
-    const langButtons = document.querySelectorAll(".lang-btn");
-    const i18nElements = document.querySelectorAll("[data-i18n-key]");
+    function applyLang(lang) {
+      const t = i18n[lang] || i18n.en;
+      document.getElementById("brandSubText").textContent = t.brandSub;
+      document.getElementById("navHome").textContent = t.navHome;
+      document.getElementById("navServices").textContent = t.navServices;
+      document.getElementById("navFlow").textContent = t.navFlow;
+      document.getElementById("navWhy").textContent = t.navWhy;
+      document.getElementById("navPricing").textContent = t.navPricing;
+      document.getElementById("loginBtnText").textContent = t.loginBtn;
 
-    function setLanguage(lang) {
-      langButtons.forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.lang === lang);
+      document.getElementById("flowPillText").textContent = t.flowPill;
+      document.getElementById("flowTitle").textContent = t.flowTitle;
+      document.getElementById("flowSubtitle").textContent = t.flowSubtitle;
+      document.getElementById("flowChip1Label").textContent = t.chip1Label;
+      document.getElementById("flowChip1Text").textContent = t.chip1Text;
+      document.getElementById("flowChip2Label").textContent = t.chip2Label;
+      document.getElementById("flowChip2Text").textContent = t.chip2Text;
+      document.getElementById("flowChip3Label").textContent = t.chip3Label;
+      document.getElementById("flowChip3Text").textContent = t.chip3Text;
+
+      document.getElementById("serviceCardTitle").textContent =
+        t.serviceCardTitle;
+      document.getElementById("serviceCardMini").textContent =
+        t.serviceCardMini;
+
+      document.getElementById("aiTitle").firstChild.textContent =
+        t.aiTitle + " ";
+      document.getElementById("aiTitlePill").textContent = t.aiTitlePill;
+      document.getElementById("aiSubtitle").textContent = t.aiSubtitle;
+      document.getElementById("aiHint1").textContent = t.aiHint1;
+      document.getElementById("aiHint2").textContent = t.aiHint2;
+      document.getElementById("aiHint3").textContent = t.aiHint3;
+
+      document.getElementById("lblTaskType").textContent = t.lblTaskType;
+      document.getElementById("lblTaskTypeBadge").textContent =
+        t.lblTaskTypeBadge;
+      document.getElementById("lblLanguage").textContent = t.lblLanguage;
+      document.getElementById("lblTone").textContent = t.lblTone;
+      document.getElementById("lblRecipient").textContent = t.lblRecipient;
+      document.getElementById("lblDetails").textContent = t.lblDetails;
+      document.getElementById("btnPasteExampleText").textContent =
+        t.btnExample;
+      document.getElementById("aiGenerateBtnText").textContent =
+        t.btnPreview;
+      document.getElementById("aiStatusText").textContent = t.statusDefault;
+      document.getElementById("aiPreviewPlaceholder").textContent =
+        t.previewPlaceholder;
+
+      langButtons.forEach((b) => {
+        b.classList.toggle("active", b.dataset.lang === lang);
       });
 
       if (lang === "zh") {
-        i18nElements.forEach((el) => {
-          const key = el.getAttribute("data-i18n-key");
-          if (translations.zh[key]) {
-            el.textContent = translations.zh[key];
-          }
-        });
-        document.documentElement.lang = "zh-CN";
+        languageSelect.value = "中文";
       } else {
-        // Reset to default EN text (stored in HTML)
-        window.location.reload(); // simplest way to ensure all original EN text comes back clean
+        languageSelect.value = "English";
       }
 
-      try {
-        localStorage.setItem("aurum_lang", lang);
-      } catch (_) {}
+      localStorage.setItem("aurum_lang", lang);
     }
 
     langButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        const lang = btn.dataset.lang;
-        if (!btn.classList.contains("active")) {
-          setLanguage(lang);
-        }
+        const lang = btn.dataset.lang || "en";
+        applyLang(lang);
       });
     });
 
-    // Load saved language
-    try {
+    // 初始语言
+    (function initLang() {
       const saved = localStorage.getItem("aurum_lang");
-      if (saved === "zh") {
-        setLanguage("zh");
+      if (saved === "zh" || saved === "en") {
+        applyLang(saved);
+      } else {
+        applyLang("en");
       }
-    } catch (_) {}
-  
-
-    document.addEventListener("DOMContentLoaded", function () {
-      initDeskPills();
-      // default language from storage handled in translations block (setLanguage)
-      // ensure EN active by default
-      if (!localStorage.getItem("aurum_lang")) {
-        setLanguage("en");
-      }
-    });
+    })();
   </script>
-
-  <!-- AI Task Modal -->
-  <div class="task-modal-backdrop" id="taskModalBackdrop">
-    <div class="task-modal">
-      <div class="task-modal-inner">
-        <div class="task-modal-header">
-          <div>
-            <div class="task-modal-title" data-i18n-key="modalTitle">Start your task</div>
-            <div class="task-modal-tag" id="modalServiceTag">Selected service</div>
-          </div>
-          <button class="task-modal-close" type="button" onclick="closeTaskModal()">✕</button>
-        </div>
-
-        <div class="task-modal-label" data-i18n-key="modalWhatHappened">What happened?</div>
-        <textarea id="task_description" class="task-modal-textarea" placeholder="Describe the situation in your own words. Screenshots are fine."></textarea>
-
-        <div class="task-modal-label" data-i18n-key="modalRecipient">Who are you writing to?</div>
-        <input id="task_recipient" class="task-modal-input" placeholder="Embassy, insurer, airline, employer…">
-
-        <div class="task-modal-label" data-i18n-key="modalOutcome">Your ideal outcome</div>
-        <input id="task_outcome" class="task-modal-input" placeholder="Refund, approval, explanation…">
-
-        <div class="task-modal-footer">
-          <button class="task-modal-primary" id="taskGenerateBtn" type="button" onclick="submitTaskToAI()">
-            <span data-i18n-key="modalGenerate">Generate my English letter</span>
-          </button>
-          <div class="task-modal-note" data-i18n-key="modalNote">
-            We only generate a draft. You can review and adjust before sending.
-          </div>
-          <div class="task-modal-result" id="taskResult" style="display:none;"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
