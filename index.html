@@ -252,11 +252,10 @@
     }
 
     .nav-user-area {
-      display: inline-flex;
+      display: none;
       align-items: center;
       gap: 8px;
       margin-left: 4px;
-      display: none;
     }
 
     .nav-hi {
@@ -419,16 +418,41 @@
       transform: translateY(-0.5px);
     }
 
+    /* 右侧：头像 + 浮动卡片 */
+
     .hero-slide-right {
       position: relative;
       border-radius: 22px;
-      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.4), transparent 55%),
-                  radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.33), transparent 65%),
-                  linear-gradient(135deg, #f97316, #0ea5e9);
       overflow: hidden;
       box-shadow: var(--shadow-soft);
       transform-origin: center;
+      background: #020617;
       animation: floatCard 8s ease-in-out infinite alternate;
+    }
+
+    .hero-people-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05);
+    }
+
+    .hero-card-inner {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 14px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      padding: 10px 12px 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--text-main);
+      backdrop-filter: blur(10px);
     }
 
     @keyframes floatCard {
@@ -436,28 +460,15 @@
       100% { transform: translateY(-4px) rotate(1.4deg); }
     }
 
-    .hero-card-inner {
-      position: absolute;
-      inset: 18px;
-      border-radius: 18px;
-      background: rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(15, 23, 42, 0.96);
-      padding: 16px 16px 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      color: var(--text-main);
-    }
-
     .hero-card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
 
     .hero-card-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
     }
 
@@ -471,11 +482,11 @@
     }
 
     .hero-card-body {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
-      line-height: 1.6;
-      margin-bottom: 10px;
-      max-height: 80px;
+      line-height: 1.5;
+      margin-bottom: 6px;
+      max-height: 58px;
       overflow: hidden;
     }
 
@@ -485,6 +496,7 @@
       align-items: center;
       font-size: 11px;
       color: var(--text-muted);
+      gap: 6px;
     }
 
     .hero-card-price {
@@ -497,6 +509,7 @@
       border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.7);
       background: rgba(15, 23, 42, 0.97);
+      white-space: nowrap;
     }
 
     .hero-slider-controls {
@@ -509,12 +522,14 @@
       align-items: center;
       font-size: 12px;
       color: var(--text-muted);
+      pointer-events: none;
     }
 
     .hero-slider-dots {
       display: inline-flex;
       gap: 6px;
       align-items: center;
+      pointer-events: auto;
     }
 
     .hero-dot {
@@ -536,6 +551,7 @@
     .hero-slider-arrows {
       display: inline-flex;
       gap: 6px;
+      pointer-events: auto;
     }
 
     .hero-arrow {
@@ -1164,7 +1180,7 @@
             <button class="lang-btn" data-lang="zh">中文</button>
           </div>
           <a href="auth.html" class="nav-signin-link" data-i18n="nav.signin">Sign in</a>
-          <div class="nav-user-area" style="display:none;">
+          <div class="nav-user-area">
             <span class="nav-hi"></span>
             <button class="nav-logout-btn" type="button" data-i18n="nav.logout">Logout</button>
           </div>
@@ -1204,6 +1220,7 @@
                 </div>
               </div>
               <div class="hero-slide-right">
+                <img src="hero-people.jpg" alt="Aurum Task Desk professionals" class="hero-people-img" />
                 <div class="hero-card-inner">
                   <div class="hero-card-header">
                     <div class="hero-card-title" data-i18n="hero.legal.card.title">
@@ -1253,6 +1270,7 @@
                 </div>
               </div>
               <div class="hero-slide-right">
+                <img src="hero-people.jpg" alt="Aurum Task Desk professionals" class="hero-people-img" />
                 <div class="hero-card-inner">
                   <div class="hero-card-header">
                     <div class="hero-card-title" data-i18n="hero.imm.card.title">
@@ -1302,6 +1320,7 @@
                 </div>
               </div>
               <div class="hero-slide-right">
+                <img src="hero-people.jpg" alt="Aurum Task Desk professionals" class="hero-people-img" />
                 <div class="hero-card-inner">
                   <div class="hero-card-header">
                     <div class="hero-card-title" data-i18n="hero.claims.card.title">
@@ -1351,6 +1370,7 @@
                 </div>
               </div>
               <div class="hero-slide-right">
+                <img src="hero-people.jpg" alt="Aurum Task Desk professionals" class="hero-people-img" />
                 <div class="hero-card-inner">
                   <div class="hero-card-header">
                     <div class="hero-card-title" data-i18n="hero.crisis.card.title">
@@ -1400,6 +1420,7 @@
                 </div>
               </div>
               <div class="hero-slide-right">
+                <img src="hero-people.jpg" alt="Aurum Task Desk professionals" class="hero-people-img" />
                 <div class="hero-card-inner">
                   <div class="hero-card-header">
                     <div class="hero-card-title" data-i18n="hero.esc.card.title">
@@ -1867,7 +1888,7 @@
       },
 
       zh: {
-        "logo.sub": "为严肃事务服务的安静写作桌",
+        "logo.sub": "为严肃事务服务的安静 AI 写作桌",
 
         "nav.tasks": "任务大厅",
         "nav.pricing": "定价",
@@ -1879,7 +1900,7 @@
         "hero.legal.tagline": "线路 01 · 法律文书 / 合同草稿",
         "hero.legal.title": "不用请整家律所，也能写出像样的法律风格文件。",
         "hero.legal.text":
-          "合同终止、合作协议、立场函、Demand Letter 和各类制度文书——语气冷静、措辞严谨，可以拿给专业人士看。",
+          "合同终止、合作协议、律师函、立场说明和各类制度文书——语气冷静、措辞严谨，可以拿给专业人士看。",
         "hero.legal.meta":
           "典型客单：每份 <strong>99–299 美元</strong> · 客户只需在任务桌上给出简单描述即可开始。",
         "hero.legal.card.title": "合同终止函草稿",
@@ -1890,7 +1911,7 @@
         "hero.imm.tagline": "线路 02 · 移民 & 签证说明信",
         "hero.imm.title": "把复杂的移民故事，整理成结构清晰的说明信。",
         "hero.imm.text":
-          "递交给移民官和使馆的解释信、关系证明和复议陈述，用冷静、正式的语气，让对方几分钟内看懂你的情况。",
+          "用于递交给移民官和使馆的解释信、关系证明和复议陈述，让对方在几分钟内看懂你的情况。",
         "hero.imm.meta":
           "典型客单：<strong>49–149 美元</strong> · 情绪价值和经济价值都高，需求多年稳定。",
         "hero.imm.card.title": "长期定居与家庭关系支持信",
@@ -1901,47 +1922,48 @@
         "hero.claims.tagline": "线路 03 · 保险理赔 / 航空索赔",
         "hero.claims.title": "延误或损失之后，用一封冷静的索赔信把问题说清楚。",
         "hero.claims.text":
-          "航班延误、行李丢失、医疗费用、财产损失——把时间线、金额、凭证按专业格式排好，让公司更容易受理。",
+          "航班延误、行李遗失、医疗账单、财产损失——任务桌帮你把时间线、金额和证据整理成一套，方便公司处理。",
         "hero.claims.meta":
-          "典型客单：<strong>39–129 美元</strong> · 一旦拿到赔偿，价值非常直观。",
-        "hero.claims.card.title": "航班延误赔偿申请信",
+          "典型客单：<strong>39–129 美元</strong> · 一旦拿到赔偿，很容易向客户说明价值。",
+        "hero.claims.card.title": "长时间延误赔偿申请",
         "hero.claims.card.body":
-          "“请帮我写一封索赔信，针对 15 小时延误，列出机票信息、消费凭证，并按照相关规则提出合理赔偿请求。”",
+          "“请帮我写一封航班延误索赔信，说明 15 小时延误、机票信息、票据，并提出合理的赔偿要求。”",
         "hero.claims.card.price": "常见客单 ~69 美元",
 
         "hero.crisis.tagline": "线路 04 · 家庭 & 情绪危机长信",
-        "hero.crisis.title": "把关于金钱、照护和边界的难话，用冷静的文字说清楚。",
+        "hero.crisis.title": "把关于金钱、照顾和边界的难话，用不吵架的方式说清楚。",
         "hero.crisis.text":
-          "写给成年子女、伴侣或父母的长信，谈继承、金钱支持和底线，不吵架，也不逃避。",
+          "给成年子女、伴侣或父母的长信，谈遗产、资助和底线，语气冷静但清楚，让对方听得进去。",
         "hero.crisis.meta":
-          "典型客单：<strong>29–149 美元</strong> · 同一家庭往往会多次复购。",
-        "hero.crisis.card.title": "写给成年的子女：关于钱与底线",
+          "典型客单：<strong>29–149 美元</strong> · 同一家人往往会多次回头下单。",
+        "hero.crisis.card.title": "写给成年子女的金钱边界信",
         "hero.crisis.card.body":
-          "“请帮我解释，为什么我会减少经济支持，将来遗产会如何安排，以及我还能在哪些方面继续支持他。”",
+          "“请帮我解释为什么以后会减少经济支持，遗产会如何安排，以及我还能在哪些方面提供帮助。”",
         "hero.crisis.card.price": "常见客单 ~79 美元",
 
         "hero.esc.tagline": "线路 05 · 升级投诉 / 正式申诉",
         "hero.esc.title": "当前台客服不再理你，用纸面、冷静地升级沟通。",
         "hero.esc.text":
-          "写给高层管理者、监管机构、申诉专员的投诉信，把事实、责任和下一步要求按专业格式摆清楚。",
+          "写给主管、监管机构、申诉专员或高管的升级信，把事实、证据和下一步要求清楚列出，而不是情绪宣泄。",
         "hero.esc.meta":
-          "典型客单：<strong>29–99 美元</strong> · 面向大众的刚需服务，很适合打包出售。",
-        "hero.esc.card.title": "向银行高管的升级投诉信",
+          "典型客单：<strong>29–99 美元</strong> · 面向大众的刚需服务，极易打包成产品。",
+        "hero.esc.card.title": "向银行主管升级投诉信",
         "hero.esc.card.body":
-          "“请写一封升级投诉信，发给高级经理，说明账户多次出错的情况，请求开展全面复核并给予书面答复。”",
+          "“请帮我写一封给银行高管的升级投诉信，说明账户多次出错，要求全面核查并给出书面回复。”",
         "hero.esc.card.price": "常见客单 ~59 美元",
 
         "hero.card.tag.hot": "高客单",
         "hero.card.tag.stable": "需求稳定",
-        "hero.card.tag.value": "价值清晰",
-        "hero.card.tag.repeat": "复购率高",
+        "hero.card.tag.value": "价值直观",
+        "hero.card.tag.repeat": "高复购",
         "hero.card.tag.mass": "大众刚需",
-        "hero.card.pill": "2–3 句话 → 完整长信",
+        "hero.card.pill": "只需几句清楚描述 → 完整长信",
 
         "hero.headline":
-          "一个真正安静的 AI 写作桌，用来写你<span>敢发出去的严肃长信</span>。",
+          "一个真正安静的 AI 写作桌，用来写你<b>敢发出去的严肃长信</b>。",
         "hero.subline":
-          "Aurum 不是一个随便聊天的对话框，而是为欧美中老年专业人士准备的「私人写作 & 解决问题任务桌」，专门处理影响金钱、名誉和家庭关系的严肃场景。",
+          "Aurum 不是一个随便聊天的对话框，而是为欧美中老年专业人士准备的“私人写作桌”，解决法律、名誉和家庭关系的真实问题。",
+
         "hero.badge1": "无订阅 · 每次任务从 19.9 美元起",
         "hero.badge2": "法律风格草稿",
         "hero.badge3": "移民说明 & 各类理赔",
@@ -1949,270 +1971,247 @@
 
         "hero.steps.title": "任务桌如何运作",
         "hero.steps.1":
-          "<strong>先选一条线路</strong> —— 法律草稿、移民说明、理赔、家庭危机或升级投诉。",
+          "<strong>先选一条业务线</strong> —— 法律文书、移民说明、理赔、家庭危机或升级投诉。",
         "hero.steps.2":
-          "<strong>把你的混乱素材丢进来</strong> —— 截图、聊天记录、要点、旧邮件，能说明情况即可。",
+          "<strong>把你的乱七八糟资料丢进来</strong> —— 截图、要点、旧邮件，只要能说明情况即可。",
         "hero.steps.3":
-          "<strong>收到一封冷静、成稿的长信</strong> —— 结构清晰，适合给真正的专业人士看。",
+          "<strong>收回一封可以直接发送的长信</strong> —— 结构、时间线、金额都帮你整理好。",
 
         "hero.cta.main": "打开我的任务桌，发起一个任务",
         "hero.cta.pricing": "查看定价与示例",
         "hero.note":
-          "无需订阅，大部分任务从 <strong>19.9 美元</strong> 起步，按复杂度调整费用。任务桌不用于约会、群发骚扰或大规模冷启动营销。",
+          "无需订阅。大部分任务从 <strong>19.9 美元</strong> 起，根据复杂度逐步计费。任务桌不用于约会、垃圾信息或大规模冷开发。",
 
         "hero.btn.startLegal": "发起法律文书任务",
-        "hero.btn.startImm": "发起移民说明任务",
-        "hero.btn.startClaims": "发起理赔 / 索赔任务",
+        "hero.btn.startImm": "发起移民说明信任务",
+        "hero.btn.startClaims": "发起理赔 / 索赔信任务",
         "hero.btn.startCrisis": "发起家庭危机长信任务",
-        "hero.btn.startEsc": "发起升级投诉任务",
-        "hero.btn.example": "查看示例任务简要",
+        "hero.btn.startEsc": "发起升级投诉信任务",
+        "hero.btn.example": "查看示例简要说明",
 
         "tiles.title": "这张任务桌上最值钱的几条业务线",
         "tiles.hint": "点击任意卡片，会在对应线路上打开你的任务桌。",
         "tiles.legal.label": "法律文书草稿",
-        "tiles.legal.sub": "合同 & 各类正式函件",
+        "tiles.legal.sub": "合同 & 正式函件",
         "tiles.imm.label": "移民说明信",
-        "tiles.imm.sub": "签证、解释信 & 复议",
-        "tiles.claims.label": "理赔 / 索赔",
-        "tiles.claims.sub": "保险、航空 & 其他索赔",
+        "tiles.imm.sub": "签证、解释与复议",
+        "tiles.claims.label": "理赔 / 索赔信",
+        "tiles.claims.sub": "保险 & 航空索赔",
         "tiles.crisis.label": "家庭危机长信",
-        "tiles.crisis.sub": "写给家人的难开口长信",
+        "tiles.crisis.sub": "写给家人的难说之话",
         "tiles.esc.label": "升级投诉",
-        "tiles.esc.sub": "向更高层、监管方发声",
+        "tiles.esc.sub": "冷静版正式投诉信",
 
         "compare.title": "为什么不直接打开一个 ChatGPT 窗口？",
         "compare.sub":
-          "ChatGPT 很强，但它是为“所有人聊天”训练的。这张任务桌只为一类人服务：有收入、有家庭、需要为钱、身份和关系写严肃长信的成年人。",
-        "compare.pill1": "不是玩具 · 为成年人设计",
-        "compare.pill2": "无订阅 · 按任务付费",
-        "compare.pill3": "法律式结构与措辞",
-        "compare.pill4": "安静任务桌 · 不是无尽闲聊",
+          "ChatGPT 很强，但它是为所有人聊天而训练的。这张任务桌只为一类人服务：中老年专业人士，他们的信件关系到金钱、名誉和家庭关系。",
+        "compare.pill1": "不是玩具 · 面向成年人",
+        "compare.pill2": "无订阅 · 按次付费",
+        "compare.pill3": "法律风格结构",
+        "compare.pill4": "安静的写作桌 · 而不是无尽对话",
 
         "compare.chatgpt.label": "只是一个 ChatGPT 聊天框",
-        "compare.chatgpt.title": "多一个标签页 · 少一个结果",
-        "compare.chatgpt.li1": "•<span>来回对话很多，却很容易偏题、跑偏。</span>",
-        "compare.chatgpt.li2": "•<span>语气可能太轻松、太网络化，不像正式长信。</span>",
-        "compare.chatgpt.li3": "•<span>最后还是要你自己判断：这封信能不能真的发出去。</span>",
-        "compare.chatgpt.li4": "•<span>并没有专门为中老年专业人士和真实纠纷场景做调整。</span>",
+        "compare.chatgpt.title": "又一个网页标签 · 没有结构",
+        "compare.chatgpt.li1": "•<span>需要来回聊很久，很容易忘记自己到底要什么。</span>",
+        "compare.chatgpt.li2": "•<span>语气可能太友好、太软，甚至有点“网络聊天感”。</span>",
+        "compare.chatgpt.li3": "•<span>最后还是你自己决定：这封信算不算“够正式”。</span>",
+        "compare.chatgpt.li4": "•<span>没有专门针对中老年专业人士和现实纠纷场景。</span>",
 
         "compare.aurum.label": "Aurum Task Desk 任务桌",
-        "compare.aurum.title": "一张真正帮你“写完”的私人写作桌",
-        "compare.aurum.li1": "•<span>从你支离破碎的故事出发，交付一封可以直接发出的长信。</span>",
-        "compare.aurum.li2": "•<span>时间线、金额、证据一次整理好，结构接近律师和专业人士的风格。</span>",
-        "compare.aurum.li3": "•<span>重点聚焦合同、移民、理赔、家庭危机等高价值场景。</span>",
-        "compare.aurum.li4": "•<span>更像一间私人的“写作办公室”，而不是公共 AI 游乐场。</span>",
+        "compare.aurum.title": "一张真正替你“写完”的写作桌",
+        "compare.aurum.li1": "•<span>从你凌乱的讲述开始，以一封可以直接发送的长信结束。</span>",
+        "compare.aurum.li2": "•<span>时间线、金额、证据都帮你排好，专业人士一眼能看懂。</span>",
+        "compare.aurum.li3": "•<span>重点聚焦合同、移民、理赔和家庭危机这些高价值场景。</span>",
+        "compare.aurum.li4": "•<span>更像一间私人写作办公室，而不是公共 AI 游乐场。</span>",
         "compare.aurum.cta": "在法律线路上打开我的任务桌 →",
 
         "persona.title": "谁在使用这张任务桌",
-        "persona.hint": "点击任意人物卡片，可以在类似场景下发起你的任务。",
+        "persona.hint": "点击任意卡片，在你的任务桌上发起类似任务。",
 
         "persona.1.name": "退休工程师 · 62 岁",
-        "persona.1.role": "转机错过 & 行李丢失 · 航空索赔",
+        "persona.1.role": "转机失败 & 行李遗失 · 航空索赔",
         "persona.1.quote":
-          "“我能把事情讲明白，但不会写正式的索赔信。任务桌把我的碎片信息变成了我敢发给航空公司的长信。”",
-        "persona.1.tag1": "保险 / 航空索赔",
-        "persona.1.tag2": "金额、票据一目了然",
+          "“我能讲清楚发生了什么，但不会写一封正式的索赔信。任务桌把我的笔记整理成一封我敢发给航空公司的信。”",
+        "persona.1.tag1": "保险 / 航空理赔",
+        "persona.1.tag2": "金额和票据清晰",
 
-        "persona.2.name": "企业中层管理者 · 55 岁",
+        "persona.2.name": "部门高级经理 · 55 岁",
         "persona.2.role": "成年子女 & 遗产安排 · 家庭危机长信",
         "persona.2.quote":
-          "“我需要说：不再借钱，但还要维持关系。任务桌帮我找到‘坚定但不残酷’的说法。”",
+          "“我必须说‘不能再借钱了’，但又不想把关系搞坏。任务桌帮我找到既坚定又不过分伤人的表达。”",
         "persona.2.tag1": "家庭边界",
         "persona.2.tag2": "高情绪价值",
 
-        "persona.3.name": "小企业主 · 48 岁",
-        "persona.3.role": "合同终止 & 新条款 · 法律风格函件",
+        "persona.3.name": "小企业老板 · 48 岁",
+        "persona.3.role": "终止旧合同 & 提出新条款 · 法律风格函件",
         "persona.3.quote":
-          "“我不想打架，只想把条款说清楚。任务桌帮我结束旧合同，并用平实但精准的英文提出新合作条件。”",
-        "persona.3.tag1": "法律风格文书",
-        "persona.3.tag2": "高客单场景",
+          "“我不想吵架，只想把条款说清楚。任务桌帮我写好终止函，同时给出一套公平的新方案。”",
+        "persona.3.tag1": "法律风格文件",
+        "persona.3.tag2": "高客单费用",
 
-        "persona.btn.claims": "发起类似的索赔任务 →",
-        "persona.btn.crisis": "发起类似的家庭长信任务 →",
-        "persona.btn.legal": "发起类似的法律函件任务 →",
+        "persona.btn.claims": "发起类似索赔任务 →",
+        "persona.btn.crisis": "发起类似家庭长信任务 →",
+        "persona.btn.legal": "发起类似法律文书任务 →",
 
         "footer.left":
-          "Aurum Task Desk · 为严肃成年人准备的私人写作 & 解决问题任务桌。",
+          "Aurum Task Desk · 为严肃成年人服务的私人 AI 写作与解决方案任务桌。",
         "footer.privacy": "隐私政策",
         "footer.terms": "使用条款",
         "footer.desk": "打开我的任务桌"
       }
     };
 
-    // ===== 语言切换 & 文案渲染 =====
+    // ===== 应用多语言 =====
     function applyTranslations(lang) {
       const dict = translations[lang] || translations.en;
       document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
-
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const key = el.getAttribute("data-i18n");
-        const text = dict[key];
-        if (text !== undefined) {
-          el.innerHTML = text;
-        }
+        const val = dict[key];
+        if (!val) return;
+        el.innerHTML = val;
       });
 
-      // 更新语言按钮状态
+      // 按钮激活状态
       document.querySelectorAll(".lang-btn").forEach((btn) => {
-        btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+        btn.classList.toggle("active", btn.dataset.lang === lang);
       });
 
       localStorage.setItem("aurum_lang", lang);
     }
 
-    // ===== Hero 轮播（自动+手动） =====
+    // ===== 简单登录状态（基于 localStorage） =====
+    function refreshAuthUI() {
+      const sign = document.querySelector(".nav-signin-link");
+      const userArea = document.querySelector(".nav-user-area");
+      const hi = document.querySelector(".nav-hi");
+
+      let email = "";
+      const raw = localStorage.getItem("aurum_user");
+      if (raw) {
+        try {
+          const obj = JSON.parse(raw);
+          email = obj.email || obj.user_email || "";
+        } catch (e) {}
+      }
+
+      if (email) {
+        sign.style.display = "none";
+        userArea.style.display = "inline-flex";
+        hi.textContent = "Hi, " + email;
+      } else {
+        sign.style.display = "";
+        userArea.style.display = "none";
+        hi.textContent = "";
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem("aurum_user");
+      // 如果你有后端登出接口，可以在这里 fetch 一下
+      refreshAuthUI();
+    }
+
+    // ===== 轮播逻辑 =====
     function initHeroSlider() {
       const slides = Array.from(document.querySelectorAll(".hero-slide"));
       const dots = Array.from(document.querySelectorAll(".hero-dot"));
       const prev = document.getElementById("hero-prev");
       const next = document.getElementById("hero-next");
-      let current = 0;
+
+      let index = 0;
       let timer = null;
 
-      function showSlide(index) {
-        current = (index + slides.length) % slides.length;
-        slides.forEach((s, i) => {
-          s.classList.toggle("active", i === current);
+      function show(i) {
+        index = (i + slides.length) % slides.length;
+        slides.forEach((s, idx) => {
+          s.classList.toggle("active", idx === index);
         });
-        dots.forEach((d, i) => {
-          d.classList.toggle("active", i === current);
+        dots.forEach((d, idx) => {
+          d.classList.toggle("active", idx === index);
         });
       }
 
-      function autoPlay() {
+      function auto() {
         clearInterval(timer);
         timer = setInterval(() => {
-          showSlide(current + 1);
-        }, 7000);
+          show(index + 1);
+        }, 8000);
       }
 
       dots.forEach((dot, idx) => {
         dot.addEventListener("click", () => {
-          showSlide(idx);
-          autoPlay();
+          show(idx);
+          auto();
         });
       });
 
-      if (prev && next) {
-        prev.addEventListener("click", () => {
-          showSlide(current - 1);
-          autoPlay();
-        });
-        next.addEventListener("click", () => {
-          showSlide(current + 1);
-          autoPlay();
-        });
-      }
-
-      showSlide(0);
-      autoPlay();
-    }
-
-    // ===== 业务线跳转：desk.html?line=xxx&mode=xxx =====
-    function openDeskWithLine(line, mode) {
-      let url = new URL("desk.html", window.location.href);
-      if (line) url.searchParams.set("line", line);
-      if (mode) url.searchParams.set("mode", mode);
-      window.location.href = url.toString();
-    }
-
-    function bindLineClicks() {
-      // 主 CTA / compare / persona / tiles
-      document.querySelectorAll("[data-line]").forEach((el) => {
-        el.addEventListener("click", () => {
-          const line = el.getAttribute("data-line");
-          if (!line) return;
-          openDeskWithLine(line);
-        });
+      prev.addEventListener("click", () => {
+        show(index - 1);
+        auto();
       });
 
-      // “Start … task” 按钮（更明确带 mode）
+      next.addEventListener("click", () => {
+        show(index + 1);
+        auto();
+      });
+
+      show(0);
+      auto();
+    }
+
+    // ===== 打开 desk.html 时携带线路参数 =====
+    function openDesk(line, extra = "") {
+      const params = new URLSearchParams();
+      if (line) params.set("line", line);
+      if (extra) params.set("mode", extra);
+      const qs = params.toString();
+      window.location.href = "desk.html" + (qs ? "?" + qs : "");
+    }
+
+    function wireLineButtons() {
       document.querySelectorAll("[data-line-start]").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const line = btn.getAttribute("data-line-start");
-          openDeskWithLine(line, "start");
+        btn.addEventListener("click", () => {
+          openDesk(btn.dataset.lineStart);
         });
       });
 
-      // “See example brief” 按钮
       document.querySelectorAll("[data-line-example]").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const line = btn.getAttribute("data-line-example");
-          openDeskWithLine(line, "example");
+        btn.addEventListener("click", () => {
+          openDesk(btn.dataset.lineExample, "example");
         });
+      });
+
+      document.querySelectorAll(".hero-main-cta, .compare-cta, .persona-btn, .tile-item").forEach((el) => {
+        const line = el.dataset.line;
+        if (!line) return;
+        el.addEventListener("click", () => openDesk(line));
       });
     }
 
-    // ===== 登录状态：切换 “Sign in” / “Hi, … + Logout” =====
-    async function refreshUserUI() {
-      const signInLink = document.querySelector(".nav-signin-link");
-      const userArea = document.querySelector(".nav-user-area");
-      const hiSpan = document.querySelector(".nav-hi");
-      const logoutBtn = document.querySelector(".nav-logout-btn");
-
-      async function setLoggedOut() {
-        if (signInLink) signInLink.style.display = "inline";
-        if (userArea) userArea.style.display = "none";
-      }
-
-      try {
-        const res = await fetch("/auth/me", {
-          method: "GET",
-          credentials: "include"
-        });
-        if (!res.ok) {
-          await setLoggedOut();
-          return;
-        }
-        const data = await res.json();
-        const email = data && (data.email || data.user_email || data.user);
-        if (email) {
-          if (signInLink) signInLink.style.display = "none";
-          if (userArea) userArea.style.display = "inline-flex";
-          if (hiSpan) hiSpan.textContent = "Hi, " + email;
-        } else {
-          await setLoggedOut();
-        }
-      } catch (err) {
-        await setLoggedOut();
-      }
-
-      if (logoutBtn) {
-        logoutBtn.addEventListener("click", async () => {
-          try {
-            await fetch("/auth/logout", {
-              method: "POST",
-              credentials: "include"
-            });
-          } catch (e) {}
-          window.location.reload();
-        });
-      }
-    }
-
-    // ===== 初始化 =====
+    // ===== 事件绑定 =====
     document.addEventListener("DOMContentLoaded", () => {
       // 语言
-      const savedLang = localStorage.getItem("aurum_lang") || "en";
+      const savedLang = localStorage.getItem("aurum_lang") || "zh";
       applyTranslations(savedLang);
 
       document.querySelectorAll(".lang-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const lang = btn.getAttribute("data-lang") || "en";
+          const lang = btn.dataset.lang;
           applyTranslations(lang);
         });
       });
+
+      // 登录显示
+      refreshAuthUI();
+      const logoutBtn = document.querySelector(".nav-logout-btn");
+      if (logoutBtn) logoutBtn.addEventListener("click", logout);
 
       // 轮播
       initHeroSlider();
 
       // desk 跳转
-      bindLineClicks();
-
-      // 登录状态
-      refreshUserUI();
+      wireLineButtons();
     });
   </script>
 </body>
