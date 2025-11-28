@@ -1019,18 +1019,19 @@
 
       try {
         const res = await fetch("/api/generate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            taskType,
-            tone,
-            language,
-            recipient,
-            details
-          })
-        });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    taskType,
+    tone,
+    language,
+    recipient,
+    details
+  })
+});
+
 
         if (!res.ok) {
           throw new Error("HTTP " + res.status);
