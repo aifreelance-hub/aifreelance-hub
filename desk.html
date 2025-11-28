@@ -374,46 +374,33 @@
       background: radial-gradient(circle at 30% 0%, #0f172a,#020617);
     }
     .service-text-block {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-/* 主标题：变成很亮的字 */
-.service-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #e5e7eb;           /* 新增这一行 */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* 副标题：稍微浅一点，但仍然清晰可见 */
-.service-sub {
-  font-size: 11px;
-  color: rgba(148, 163, 184, 0.95);  /* 比之前更亮一点 */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* 选中状态再稍微提高对比度 */
-.service-item.active .service-title {
-  color: #f9fafb;
-}
-.service-item.active .service-sub {
-  color: rgba(209, 213, 219, 0.95);
-}
-
-    .service-sub {
-      font-size: 11px;
-      color: #d5e1ff;        /* 调亮，方便看清 */
-      opacity: 0.96;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    /* 主标题变亮 */
+    .service-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e5e7eb;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+    /* 副标题也变亮 */
+    .service-sub {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.95);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .service-item.active .service-title {
+      color: #f9fafb;
+    }
+    .service-item.active .service-sub {
+      color: rgba(209, 213, 219, 0.95);
     }
     .service-price {
       font-size: 12px;
@@ -424,7 +411,7 @@
     }
 
     /* 右侧预览面板 */
-    .preview-panel {
+    .ai-panel {
       border-radius: var(--radius-lg);
       border: 1px solid rgba(148, 163, 184, 0.4);
       background:
@@ -438,7 +425,7 @@
       position: relative;
       overflow: hidden;
     }
-    .preview-panel::after {
+    .ai-panel::after {
       content: "DESK";
       position: absolute;
       right: -20px;
@@ -449,18 +436,18 @@
       font-weight: 700;
       pointer-events: none;
     }
-    .preview-header-row {
+    .ai-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
     }
-    .preview-title-block {
+    .ai-title-block {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
-    .preview-title {
+    .ai-title {
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.03em;
@@ -468,7 +455,7 @@
       align-items: center;
       gap: 6px;
     }
-    .preview-title-pill {
+    .ai-title-pill {
       font-size: 10px;
       padding: 1px 7px;
       border-radius: 999px;
@@ -476,18 +463,18 @@
       border: 1px solid rgba(148, 163, 184, 0.7);
       color: var(--text-soft);
     }
-    .preview-subtitle {
+    .ai-subtitle {
       font-size: 12px;
       color: var(--text-soft);
       max-width: 420px;
     }
-    .preview-hint-row {
+    .ai-hint-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-bottom: 4px;
     }
-    .preview-hint-pill {
+    .ai-hint-pill {
       font-size: 10px;
       border-radius: 999px;
       border: 1px dashed rgba(148, 163, 184, 0.5);
@@ -496,16 +483,16 @@
       background: rgba(15, 23, 42, 0.9);
     }
 
-    .preview-form {
+    .ai-form {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px 10px;
       margin-top: 4px;
     }
-    .preview-form-full {
+    .ai-form-full {
       grid-column: 1 / -1;
     }
-    .preview-label {
+    .ai-label {
       font-size: 11px;
       color: var(--text-soft);
       margin-bottom: 3px;
@@ -513,15 +500,15 @@
       align-items: center;
       gap: 5px;
     }
-    .preview-label span.badge {
+    .ai-label span.badge {
       font-size: 9px;
       border-radius: 999px;
       padding: 0 6px;
       border: 1px solid rgba(148, 163, 184, 0.7);
     }
-    .preview-input,
-    .preview-select,
-    .preview-textarea {
+    .ai-input,
+    .ai-select,
+    .ai-textarea {
       width: 100%;
       border-radius: 10px;
       border: 1px solid rgba(148, 163, 184, 0.7);
@@ -534,34 +521,34 @@
       min-height: 0;
       transition: border-color 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
     }
-    .preview-input:focus,
-    .preview-select:focus,
-    .preview-textarea:focus {
+    .ai-input:focus,
+    .ai-select:focus,
+    .ai-textarea:focus {
       border-color: var(--accent-blue);
       box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
       background: rgba(15, 23, 42, 0.96);
     }
-    .preview-select {
+    .ai-select {
       padding-right: 22px;
     }
-    .preview-textarea {
+    .ai-textarea {
       min-height: 80px;
       line-height: 1.4;
     }
 
-    .preview-footer-row {
+    .ai-footer-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
       margin-top: 4px;
     }
-    .preview-left-buttons {
+    .ai-left-buttons {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .preview-secondary-btn {
+    .ai-secondary-btn {
       border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.7);
       background: rgba(15, 23, 42, 0.9);
@@ -574,12 +561,12 @@
       cursor: pointer;
       transition: all 0.14s ease;
     }
-    .preview-secondary-btn:hover {
+    .ai-secondary-btn:hover {
       background: rgba(15, 23, 42, 1);
       box-shadow: 0 10px 36px rgba(15, 23, 42, 0.9);
       transform: translateY(-0.5px);
     }
-    .preview-generate-btn {
+    .ai-generate-btn {
       border-radius: 999px;
       border: none;
       background: linear-gradient(120deg,#22c55e,#16a34a);
@@ -595,23 +582,23 @@
       transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
       white-space: nowrap;
     }
-    .preview-generate-btn:hover {
+    .ai-generate-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 22px 70px rgba(6, 95, 70, 0.9);
       filter: brightness(1.02);
     }
-    .preview-generate-btn[disabled] {
+    .ai-generate-btn[disabled] {
       opacity: 0.7;
       cursor: default;
       transform: none;
       box-shadow: 0 12px 32px rgba(6, 95, 70, 0.5);
     }
-    .preview-status {
+    .ai-status {
       font-size: 11px;
       color: var(--text-soft);
     }
 
-    .preview-box {
+    .ai-preview-box {
       margin-top: 8px;
       border-radius: 12px;
       border: 1px dashed rgba(148, 163, 184, 0.7);
@@ -624,7 +611,7 @@
       white-space: pre-wrap;
       color: #e5e7eb;
     }
-    .preview-placeholder {
+    .ai-preview-placeholder {
       color: rgba(148, 163, 184, 0.9);
       font-size: 11px;
     }
@@ -634,7 +621,7 @@
       .desk-layout {
         grid-template-columns: minmax(0, 1fr);
       }
-      .preview-panel::after {
+      .ai-panel::after {
         display: none;
       }
     }
@@ -648,14 +635,14 @@
       .flow-chips {
         grid-template-columns: minmax(0, 1fr);
       }
-      .preview-form {
+      .ai-form {
         grid-template-columns: minmax(0, 1fr);
       }
-      .preview-footer-row {
+      .ai-footer-row {
         flex-direction: column;
         align-items: flex-start;
       }
-      .preview-left-buttons {
+      .ai-left-buttons {
         width: 100%;
         justify-content: flex-start;
         flex-wrap: wrap;
@@ -728,7 +715,7 @@
             <span class="flow-chip-badge">Step 2</span>
             <span class="label" id="flowChip2Label">Clarify who and what.</span>
             <span id="flowChip2Text">
-              Tell us who you are writing to (lawyer, embassy, insurer, employer, airline) and your ideal outcome.
+              Tell us who you are writing to and what outcome you hope for.
             </span>
           </div>
           <div class="flow-chip">
@@ -857,64 +844,64 @@
           </div>
         </aside>
 
-        <!-- 右侧预览窗口 -->
-        <section class="preview-panel">
-          <div class="preview-header-row">
-            <div class="preview-title-block">
-              <div class="preview-title" id="previewTitle">
-                Preview draft window
-                <span class="preview-title-pill" id="previewTitlePill">
-                  Private preview · about 30% content
+        <!-- 右侧 30% 预览窗口 -->
+        <section class="ai-panel">
+          <div class="ai-header-row">
+            <div class="ai-title-block">
+              <div class="ai-title" id="aiTitle">
+                Preview window
+                <span class="ai-title-pill" id="aiTitlePill">
+                  About 30% preview only
                 </span>
               </div>
-              <p class="preview-subtitle" id="previewSubtitle">
-                This is a quiet preview box. You can sketch 30% of the draft here,
-                adjust wording, and only submit formally later inside your own Desk.
+              <p class="ai-subtitle" id="aiSubtitle">
+                Let the desk draft about 30% of your letter as a preview.
+                Nothing is stored or sent. You stay anonymous at this step.
               </p>
             </div>
           </div>
 
-          <div class="preview-hint-row">
-            <div class="preview-hint-pill" id="previewHint1">
+          <div class="ai-hint-row">
+            <div class="ai-hint-pill" id="aiHint1">
               ✓ No login required for preview
             </div>
-            <div class="preview-hint-pill" id="previewHint2">
-              ✓ Nothing is sent until you confirm
+            <div class="ai-hint-pill" id="aiHint2">
+              ✓ Region-free
             </div>
-            <div class="preview-hint-pill" id="previewHint3">
+            <div class="ai-hint-pill" id="aiHint3">
               ✓ You can still change everything later
             </div>
           </div>
 
-          <div class="preview-form">
+          <div class="ai-form">
             <div>
-              <div class="preview-label">
+              <div class="ai-label">
                 <span id="lblTaskType">Task type</span>
                 <span class="badge" id="lblTaskTypeBadge">Auto from left</span>
               </div>
               <input
                 id="taskTypeInput"
-                class="preview-input"
+                class="ai-input"
                 type="text"
                 value="Legal letters & contract drafts"
               />
             </div>
 
             <div>
-              <div class="preview-label">
+              <div class="ai-label">
                 <span id="lblLanguage">Language</span>
               </div>
-              <select id="languageSelect" class="preview-select">
+              <select id="languageSelect" class="ai-select">
                 <option value="English">English</option>
                 <option value="中文">中文</option>
               </select>
             </div>
 
             <div>
-              <div class="preview-label">
+              <div class="ai-label">
                 <span id="lblTone">Tone</span>
               </div>
-              <select id="toneSelect" class="preview-select">
+              <select id="toneSelect" class="ai-select">
                 <option value="calm, respectful">Calm, respectful</option>
                 <option value="firm, polite">Firm, polite</option>
                 <option value="urgent but respectful">Urgent but respectful</option>
@@ -922,57 +909,56 @@
             </div>
 
             <div>
-              <div class="preview-label">
+              <div class="ai-label">
                 <span id="lblRecipient">Recipient (optional)</span>
               </div>
               <input
                 id="recipientInput"
-                class="preview-input"
+                class="ai-input"
                 type="text"
                 placeholder="e.g. airline, landlord, lawyer, embassy"
               />
             </div>
 
-            <div class="preview-form-full">
-              <div class="preview-label">
+            <div class="ai-form-full">
+              <div class="ai-label">
                 <span id="lblDetails">What happened? (you can be brief)</span>
               </div>
               <textarea
                 id="detailsTextarea"
-                class="preview-textarea"
-                placeholder="Describe the situation in your own words. You can keep it short, we will expand it for you."
+                class="ai-textarea"
+                placeholder="Describe the situation in your own words. You can keep it short, the desk will expand and structure it for you."
               ></textarea>
             </div>
           </div>
 
-          <div class="preview-footer-row">
-            <div class="preview-left-buttons">
-              <button type="button" class="preview-secondary-btn" id="btnClear">
+          <div class="ai-footer-row">
+            <div class="ai-left-buttons">
+              <button type="button" class="ai-secondary-btn" id="btnClear">
                 <span>Reset</span>
               </button>
-              <button type="button" class="preview-secondary-btn" id="btnPasteExample">
+              <button type="button" class="ai-secondary-btn" id="btnPasteExample">
                 <span id="btnPasteExampleText">Paste an example case</span>
               </button>
             </div>
-            <div class="preview-left-buttons">
-              <button type="button" class="preview-generate-btn" id="previewGenerateBtn">
-                <span id="previewGenerateBtnText">Generate preview draft</span>
+            <div class="ai-left-buttons">
+              <button type="button" class="ai-generate-btn" id="aiGenerateBtn">
+                <span id="aiGenerateBtnText">Preview draft</span>
               </button>
-              <div class="preview-status" id="previewStatus">
-                <span id="previewStatusText">
-                  The system will generate about 30% of a draft as a private preview only.
+              <div class="ai-status" id="aiStatus">
+                <span id="aiStatusText">
+                  The system will generate about 30% of the letter as a preview only.
                 </span>
               </div>
             </div>
           </div>
 
-          <div class="preview-box" id="previewBox">
-            <div class="preview-placeholder" id="previewPlaceholder">
-              Your preview draft will appear here. It is not saved, not sent
-              to any company or person. When you are happy with the direction,
-              you can open a full Desk and continue privately.
+          <div class="ai-preview-box" id="aiPreviewBox">
+            <div class="ai-preview-placeholder" id="aiPreviewPlaceholder">
+              Your 30% preview will appear here. It is not saved and not sent to any
+              company or person. When you are happy with the direction, you can open a
+              full Desk and continue privately.
             </div>
-            <div id="previewContent" style="display:none;"></div>
           </div>
         </section>
       </section>
@@ -995,101 +981,97 @@
       });
     });
 
-    // ========== 预览生成 ==========
-    const previewGenerateBtn = document.getElementById("previewGenerateBtn");
-    const previewStatusText = document.getElementById("previewStatusText");
-    const previewPlaceholder = document.getElementById("previewPlaceholder");
-    const previewContent = document.getElementById("previewContent");
+    // ========== 预览草稿生成 ==========
+    const aiGenerateBtn = document.getElementById("aiGenerateBtn");
+    const aiStatusText = document.getElementById("aiStatusText");
+    const aiPreviewBox = document.getElementById("aiPreviewBox");
+    const aiPreviewPlaceholder = document.getElementById("aiPreviewPlaceholder");
     const toneSelect = document.getElementById("toneSelect");
     const languageSelect = document.getElementById("languageSelect");
     const recipientInput = document.getElementById("recipientInput");
     const detailsTextarea = document.getElementById("detailsTextarea");
 
     async function callAIPreview() {
-  const taskType = (taskTypeInput.value || "").trim() || "写作任务";
-  const tone = (toneSelect.value || "calm, respectful").toString();
-  const language = (languageSelect.value || "English").toString();
-  const recipient = (recipientInput.value || "").toString();
-  const details = (detailsTextarea.value || "").toString();
+      const taskType = (taskTypeInput.value || "").trim() || "写作任务";
+      const tone = (toneSelect.value || "calm, respectful").toString();
+      const language = (languageSelect.value || "English").toString();
+      const recipient = (recipientInput.value || "").toString();
+      const details = (detailsTextarea.value || "").toString();
 
-  aiGenerateBtn.disabled = true;
-  aiStatusText.textContent =
-    language === "中文"
-      ? "预览草稿正在生成中，请稍候…"
-      : "Preview draft is being generated…";
+      aiGenerateBtn.disabled = true;
+      aiStatusText.textContent =
+        language === "中文"
+          ? "预览草稿正在生成中，请稍候…"
+          : "Preview draft is being generated…";
 
-  try {
-    const res = await fetch("/api/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        taskType,
-        tone,
-        language,
-        recipient,
-        details
-      })
+      try {
+        const res = await fetch("/api/generate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            taskType,
+            tone,
+            language,
+            recipient,
+            details
+          })
+        });
+
+        let data = null;
+        try {
+          data = await res.json();
+        } catch (e) {
+          console.error("Response is not JSON:", e);
+        }
+
+        if (!res.ok) {
+          const msg =
+            (data && (data.error || data.message)) ||
+            ("HTTP " + res.status + " " + res.statusText);
+          throw new Error(msg);
+        }
+
+        if (!data || !data.ok || !data.preview) {
+          const msg =
+            (data && (data.error || data.message)) || "Empty preview response";
+          throw new Error(msg);
+        }
+
+        aiPreviewPlaceholder.style.display = "none";
+        aiPreviewBox.textContent = data.preview;
+
+        aiStatusText.textContent =
+          language === "中文"
+            ? "预览已生成。你可以修改内容，再次生成，或者稍后在正式任务台里继续。"
+            : "Preview ready. You can adjust details, generate again, or continue later inside a full Desk.";
+      } catch (err) {
+        console.error("Preview error:", err);
+        const msg = err && err.message ? err.message : String(err);
+        aiStatusText.textContent =
+          languageSelect.value === "中文"
+            ? "预览失败：" + msg
+            : "Preview failed: " + msg;
+      } finally {
+        aiGenerateBtn.disabled = false;
+      }
+    }
+
+    aiGenerateBtn.addEventListener("click", () => {
+      callAIPreview();
     });
 
-    let data = null;
-    try {
-      data = await res.json();
-    } catch (e) {
-      // 如果后端没返回 JSON，也不要直接崩
-      console.error("Response is not JSON:", e);
-    }
-
-    // HTTP 本身报错
-    if (!res.ok) {
-      const msg =
-        (data && (data.error || data.message)) ||
-        ("HTTP " + res.status + " " + res.statusText);
-      throw new Error(msg);
-    }
-
-    // HTTP 正常但 data 结构不对 / AI 出错
-    if (!data || !data.ok || !data.preview) {
-      const msg =
-        (data && (data.error || data.message)) || "Empty AI response";
-      throw new Error(msg);
-    }
-
-    // 一切 OK，显示预览
-    aiPreviewPlaceholder.style.display = "none";
-    aiPreviewBox.textContent = data.preview;
-    aiStatusText.textContent =
-      language === "中文"
-        ? "预览已生成。你可以修改内容，再次生成，或者稍后在正式任务台里继续。"
-        : "Preview ready. You can adjust details, generate again, or continue later inside a full Desk.";
-  } catch (err) {
-    console.error("Preview error:", err);
-    const msg = err && err.message ? err.message : String(err);
-    aiStatusText.textContent =
-      languageSelect.value === "中文"
-        ? "预览失败：" + msg
-        : "Preview failed: " + msg;
-  } finally {
-    aiGenerateBtn.disabled = false;
-  }
-}
-
-
-    previewGenerateBtn.addEventListener("click", () => {
-      callPreview();
-    });
-
-    // ========== 辅助按钮 ==========
+    // ========== Reset & 示例按钮 ==========
     document.getElementById("btnClear").addEventListener("click", () => {
       recipientInput.value = "";
       detailsTextarea.value = "";
-      previewContent.textContent = "";
-      previewContent.style.display = "none";
-      previewPlaceholder.style.display = "block";
-      previewStatusText.textContent = languageSelect.value === "中文"
-        ? "系统会生成约 30% 的预览草稿，不会保存也不会发送。"
-        : "The system will generate about 30% of a draft as a private preview only.";
+      aiPreviewBox.textContent = "";
+      aiPreviewPlaceholder.style.display = "block";
+      aiStatusText.textContent =
+        languageSelect.value === "中文"
+          ? "系统会生成约 30% 的预览草稿，不会保存也不会发送。"
+          : "The system will generate about 30% of the letter as a preview only.";
     });
 
     document.getElementById("btnPasteExample").addEventListener("click", () => {
@@ -1129,13 +1111,13 @@
           "You review, add personal details if needed, and then send it on.",
         serviceCardTitle: "5 core services",
         serviceCardMini: "Pick one scenario to open a desk",
-        previewTitle: "Preview draft window",
-        previewTitlePill: "Private preview · about 30% content",
-        previewSubtitle:
-          "This is a quiet preview box. You can sketch 30% of the draft here, adjust wording, and only submit formally later inside your own Desk.",
-        previewHint1: "✓ No login required for preview",
-        previewHint2: "✓ Nothing is sent until you confirm",
-        previewHint3: "✓ You can still change everything later",
+        aiTitle: "Preview window",
+        aiTitlePill: "About 30% preview only",
+        aiSubtitle:
+          "Let the desk draft about 30% of your letter as a preview. Nothing is stored or sent.",
+        aiHint1: "✓ No login required for preview",
+        aiHint2: "✓ Region-free",
+        aiHint3: "✓ You can still change everything later",
         lblTaskType: "Task type",
         lblTaskTypeBadge: "Auto from left",
         lblLanguage: "Language",
@@ -1143,11 +1125,11 @@
         lblRecipient: "Recipient (optional)",
         lblDetails: "What happened? (you can be brief)",
         btnExample: "Paste an example case",
-        btnPreview: "Generate preview draft",
+        btnPreview: "Preview draft",
         statusDefault:
-          "The system will generate about 30% of a draft as a private preview only.",
+          "The system will generate about 30% of the letter as a preview only.",
         previewPlaceholder:
-          "Your preview draft will appear here. It is not saved, not sent to any company or person. When you are happy with the direction, you can open a full Desk and continue privately."
+          "Your 30% preview will appear here. It is not saved and not sent to any company or person. When you are happy with the direction, you can open a full Desk and continue privately."
       },
       zh: {
         brandSub: "安静而专业的写作与申诉任务台",
@@ -1172,13 +1154,13 @@
           "你可以再补充个人信息、删改语气，确认后再通过邮箱、系统或打印寄出。",
         serviceCardTitle: "5 个核心服务场景",
         serviceCardMini: "先选一个场景打开任务台",
-        previewTitle: "预览草稿小窗口",
-        previewTitlePill: "仅生成约 30% 预览内容",
-        previewSubtitle:
-          "这是一个安静的小预览框，你可以先起草大约 30% 的内容，调整语气和结构，真正提交会在你自己的任务台里完成。",
-        previewHint1: "✓ 无需登录即可预览",
-        previewHint2: "✓ 未确认前不会正式递交",
-        previewHint3: "✓ 后面可以随时全部修改",
+        aiTitle: "预览草稿小窗口",
+        aiTitlePill: "仅生成约 30% 预览内容",
+        aiSubtitle:
+          "先生成一小段预览草稿，帮助你确认语气和结构，真正提交会在自己的任务台里完成。",
+        aiHint1: "✓ 无需登录即可预览",
+        aiHint2: "✓ 无地区限制",
+        aiHint3: "✓ 后面可以随时全部修改",
         lblTaskType: "任务类型",
         lblTaskTypeBadge: "从左侧自动带入",
         lblLanguage: "写作语言",
@@ -1190,7 +1172,7 @@
         statusDefault:
           "系统会生成约 30% 的预览草稿，不会保存也不会发送。",
         previewPlaceholder:
-          "预览草稿会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以在完整任务台中，在更私密的环境继续完善。"
+          "生成的 30% 预览内容会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以在完整任务台中，在更私密的环境里继续完善。"
       }
     };
 
@@ -1219,13 +1201,13 @@
       document.getElementById("serviceCardMini").textContent =
         t.serviceCardMini;
 
-      document.getElementById("previewTitle").firstChild.textContent =
-        t.previewTitle + " ";
-      document.getElementById("previewTitlePill").textContent = t.previewTitlePill;
-      document.getElementById("previewSubtitle").textContent = t.previewSubtitle;
-      document.getElementById("previewHint1").textContent = t.previewHint1;
-      document.getElementById("previewHint2").textContent = t.previewHint2;
-      document.getElementById("previewHint3").textContent = t.previewHint3;
+      document.getElementById("aiTitle").firstChild.textContent =
+        t.aiTitle + " ";
+      document.getElementById("aiTitlePill").textContent = t.aiTitlePill;
+      document.getElementById("aiSubtitle").textContent = t.aiSubtitle;
+      document.getElementById("aiHint1").textContent = t.aiHint1;
+      document.getElementById("aiHint2").textContent = t.aiHint2;
+      document.getElementById("aiHint3").textContent = t.aiHint3;
 
       document.getElementById("lblTaskType").textContent = t.lblTaskType;
       document.getElementById("lblTaskTypeBadge").textContent =
@@ -1236,10 +1218,10 @@
       document.getElementById("lblDetails").textContent = t.lblDetails;
       document.getElementById("btnPasteExampleText").textContent =
         t.btnExample;
-      document.getElementById("previewGenerateBtnText").textContent =
+      document.getElementById("aiGenerateBtnText").textContent =
         t.btnPreview;
-      document.getElementById("previewStatusText").textContent = t.statusDefault;
-      document.getElementById("previewPlaceholder").textContent =
+      document.getElementById("aiStatusText").textContent = t.statusDefault;
+      document.getElementById("aiPreviewPlaceholder").textContent =
         t.previewPlaceholder;
 
       langButtons.forEach((b) => {
@@ -1262,7 +1244,6 @@
       });
     });
 
-    // 初始语言
     (function initLang() {
       const saved = localStorage.getItem("aurum_lang");
       if (saved === "zh" || saved === "en") {
