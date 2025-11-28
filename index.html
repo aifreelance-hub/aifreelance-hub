@@ -642,6 +642,37 @@
       margin-top: 6px;
       font-size: 0.78rem;
     }
+    .why-compare {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.4);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px;
+      font-size: 0.76rem;
+    }
+    .why-compare-col {
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 10px 11px;
+    }
+    .why-compare-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .why-compare-list {
+      list-style: disc;
+      padding-left: 18px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    @media (max-width: 880px) {
+      .why-compare {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
 
     .reason-item {
       display: flex;
@@ -1076,9 +1107,25 @@
                     </span>
                   </div>
                 </div>
+              
+              <div class="why-compare">
+                <div class="why-compare-col">
+                  <div class="why-compare-title">If you only use ChatGPT chat…</div>
+                  <ul class="why-compare-list">
+                    <li>Need to design your own prompts and structure.</li>
+                    <li>Output tone may be too casual or “AI-ish”.</li>
+                    <li>No one checks if it fits legal, HR or claim style.</li>
+                  </ul>
+                </div>
+                <div class="why-compare-col">
+                  <div class="why-compare-title">With Aurum Task Desk…</div>
+                  <ul class="why-compare-list">
+                    <li>We turn your notes into structured letters.</li>
+                    <li>Tone and length tuned for officers, HR and insurers.</li>
+                    <li>Clear English that 40+ professionals are comfortable sending.</li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
 
           <div class="card" id="pricing">
             <div class="card-inner">
