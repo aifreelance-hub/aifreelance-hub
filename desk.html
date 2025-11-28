@@ -353,7 +353,140 @@
         grid-template-columns: minmax(0, 1fr);
       }
     }
-  </style>
+  
+    /* === Task Modal (AI) === */
+    .task-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 80;
+    }
+    .task-modal-backdrop.active {
+      display: flex;
+    }
+    .task-modal {
+      width: 92%;
+      max-width: 560px;
+      background: radial-gradient(circle at top left, #020617, #020617 55%, #020617 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.9);
+      padding: 24px 22px 20px;
+      color: #e5e7eb;
+      position: relative;
+      overflow: hidden;
+    }
+    .task-modal::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0% 0%, rgba(250, 204, 21, 0.14), transparent 55%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    .task-modal-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .task-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .task-modal-title {
+      font-size: 1.05rem;
+      font-weight: 650;
+    }
+    .task-modal-tag {
+      font-size: 0.72rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+    }
+    .task-modal-close {
+      border: 0;
+      background: transparent;
+      color: #9ca3af;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .task-modal-label {
+      margin-top: 12px;
+      margin-bottom: 4px;
+      font-size: 0.8rem;
+      color: #cbd5f5;
+    }
+    .task-modal-input,
+    .task-modal-textarea {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.85);
+      color: #e5e7eb;
+      padding: 9px 11px;
+      font-size: 0.84rem;
+      outline: none;
+    }
+    .task-modal-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .task-modal-input::placeholder,
+    .task-modal-textarea::placeholder {
+      color: #6b7280;
+    }
+    .task-modal-footer {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .task-modal-primary {
+      border-radius: 999px;
+      background: linear-gradient(90deg, #facc15, #f97316);
+      border: 0;
+      color: #111827;
+      font-weight: 700;
+      padding: 10px 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+    .task-modal-primary[disabled] {
+      opacity: 0.6;
+      cursor: wait;
+    }
+    .task-modal-note {
+      font-size: 0.72rem;
+      color: #9ca3af;
+    }
+    .task-modal-result {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      max-height: 220px;
+      overflow: auto;
+      font-size: 0.8rem;
+      white-space: pre-wrap;
+    }
+    @media (max-width: 640px) {
+      .task-modal {
+        padding: 20px 16px 16px;
+        border-radius: 20px;
+      }
+    }
+</style>
 </head>
 <body>
   <div class="page">
@@ -577,9 +710,67 @@
       try {
         localStorage.setItem("aurum_selected_service", key);
       } catch (_) {}
-      window.location.href = "auth.html";
+      openTaskModal(key);
     }
 
+    function openTaskModal(key) {
+      const backdrop = document.getElementById("taskModalBackdrop");
+      if (!backdrop) return;
+      const tagEl = document.getElementById("modalServiceTag");
+      if (tagEl) {
+        const cfg = deskConfigs[key];
+        tagEl.textContent = cfg ? cfg.label : "Selected service";
+      }
+      backdrop.classList.add("active");
+      // clear previous result
+      const res = document.getElementById("taskResult");
+      if (res) {
+        res.style.display = "none";
+        res.textContent = "";
+      }
+    }
+
+    function closeTaskModal() {
+      const backdrop = document.getElementById("taskModalBackdrop");
+      if (backdrop) backdrop.classList.remove("active");
+    }
+
+    async function submitTaskToAI() {
+      const btn = document.getElementById("taskGenerateBtn");
+      const desc = document.getElementById("task_description").value.trim();
+      const recipient = document.getElementById("task_recipient").value.trim();
+      const outcome = document.getElementById("task_outcome").value.trim();
+      const resultBox = document.getElementById("taskResult");
+
+      if (!desc) {
+        alert("Please describe what happened first.");
+        return;
+      }
+
+      try {
+        if (btn) btn.disabled = true;
+        if (resultBox) {
+          resultBox.style.display = "block";
+          resultBox.textContent = "Generating structured English letter…";
+        }
+        const resp = await fetch("/task/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ description: desc, recipient, outcome })
+        });
+        const data = await resp.json();
+        if (resultBox) {
+          resultBox.style.display = "block";
+          resultBox.textContent = data.letter || JSON.stringify(data, null, 2);
+        }
+      } catch (e) {
+        if (resultBox) {
+          resultBox.style.display = "block";
+          resultBox.textContent = "Error generating letter. Please try again or contact support.";
+        }
+      } finally {
+        if (btn) btn.disabled = false;
+      }
     }
 
     function initDeskPills() {
@@ -607,6 +798,14 @@
       zh: {
         brandTitle: "Aurum Task Desk",
         brandSub: "您的私人 AI 写作与解决方案工作台",
+        navHome: "首页",
+        modalTitle: "开始一个任务",
+        modalWhatHappened: "发生了什么？",
+        modalRecipient: "写给谁？",
+        modalOutcome: "你希望得到什么结果？",
+        modalGenerate: "生成英文信件草稿",
+        modalNote: "我们只生成草稿，你可以在发送前再修改确认。",
+
         navServices: "服务",
         navHow: "流程",
         navCompare: "为什么不用 ChatGPT？",
@@ -775,5 +974,39 @@
       }
     });
   </script>
+
+  <!-- AI Task Modal -->
+  <div class="task-modal-backdrop" id="taskModalBackdrop">
+    <div class="task-modal">
+      <div class="task-modal-inner">
+        <div class="task-modal-header">
+          <div>
+            <div class="task-modal-title" data-i18n-key="modalTitle">Start your task</div>
+            <div class="task-modal-tag" id="modalServiceTag">Selected service</div>
+          </div>
+          <button class="task-modal-close" type="button" onclick="closeTaskModal()">✕</button>
+        </div>
+
+        <div class="task-modal-label" data-i18n-key="modalWhatHappened">What happened?</div>
+        <textarea id="task_description" class="task-modal-textarea" placeholder="Describe the situation in your own words. Screenshots are fine."></textarea>
+
+        <div class="task-modal-label" data-i18n-key="modalRecipient">Who are you writing to?</div>
+        <input id="task_recipient" class="task-modal-input" placeholder="Embassy, insurer, airline, employer…">
+
+        <div class="task-modal-label" data-i18n-key="modalOutcome">Your ideal outcome</div>
+        <input id="task_outcome" class="task-modal-input" placeholder="Refund, approval, explanation…">
+
+        <div class="task-modal-footer">
+          <button class="task-modal-primary" id="taskGenerateBtn" type="button" onclick="submitTaskToAI()">
+            <span data-i18n-key="modalGenerate">Generate my English letter</span>
+          </button>
+          <div class="task-modal-note" data-i18n-key="modalNote">
+            We only generate a draft. You can review and adjust before sending.
+          </div>
+          <div class="task-modal-result" id="taskResult" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
