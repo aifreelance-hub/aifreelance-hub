@@ -1,4 +1,4 @@
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -71,7 +71,10 @@ html = r'''<!DOCTYPE html>
       flex-direction: column;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .page-shell {
       min-height: 100vh;
@@ -91,7 +94,7 @@ html = r'''<!DOCTYPE html>
     .navbar {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 40;
       backdrop-filter: blur(18px);
       background: linear-gradient(
         to bottom,
@@ -279,6 +282,39 @@ html = r'''<!DOCTYPE html>
       transform: translateY(-0.5px);
     }
 
+    /* ===== GLOBAL SCROLL ANIMATIONS ===== */
+
+    .section-animate {
+      opacity: 0;
+      transform: translateY(18px);
+      transition:
+        opacity 0.65s ease-out,
+        transform 0.65s ease-out,
+        box-shadow 0.55s ease-out;
+    }
+
+    .section-animate.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-animate.in-view.section-elevate {
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.95);
+    }
+
+    .hero-banner {
+      animation: heroGlow 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroGlow {
+      0% {
+        box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
+      }
+      100% {
+        box-shadow: 0 32px 96px rgba(250, 204, 21, 0.35);
+      }
+    }
+
     /* ===== HERO SECTION ===== */
 
     .hero {
@@ -303,10 +339,10 @@ html = r'''<!DOCTYPE html>
       position: relative;
       border-radius: 30px;
       overflow: hidden;
-      background: radial-gradient(circle at 0% 0%, rgba(250, 204, 21, 0.32), transparent 55%),
-                  radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.35), transparent 60%),
-                  linear-gradient(135deg, #1f2937, #020617);
-      box-shadow: var(--shadow-soft);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(250, 204, 21, 0.32), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.35), transparent 60%),
+        linear-gradient(135deg, #1f2937, #020617);
       min-height: 260px;
     }
 
@@ -388,8 +424,12 @@ html = r'''<!DOCTYPE html>
       padding: 7px 16px;
       font-size: 13px;
       cursor: pointer;
-      transition: background 0.18s ease, color 0.18s ease,
-        transform 0.1s ease, box-shadow 0.2s ease, border-color 0.18s ease;
+      transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        transform 0.1s ease,
+        box-shadow 0.2s ease,
+        border-color 0.18s ease;
       white-space: nowrap;
     }
 
@@ -418,8 +458,6 @@ html = r'''<!DOCTYPE html>
       transform: translateY(-0.5px);
     }
 
-    /* 右侧：头像 + 浮动卡片 */
-
     .hero-slide-right {
       position: relative;
       border-radius: 22px;
@@ -427,6 +465,8 @@ html = r'''<!DOCTYPE html>
       box-shadow: var(--shadow-soft);
       transform-origin: center;
       background: #020617;
+      aspect-ratio: 4 / 3;
+      min-height: 260px;
       animation: floatCard 8s ease-in-out infinite alternate;
     }
 
@@ -572,156 +612,6 @@ html = r'''<!DOCTYPE html>
       transform: translateY(-1px);
     }
 
-    /* 右侧：概览 & 步骤 */
-
-    .hero-right-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .hero-headline {
-      font-size: 22px;
-      font-weight: 600;
-      line-height: 1.4;
-    }
-
-    .hero-headline span {
-      color: var(--accent);
-    }
-
-    .hero-subline {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      max-width: 420px;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .hero-badge {
-      padding: 3px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.75);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .hero-badge.gold {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(48, 37, 11, 0.98);
-    }
-
-    .hero-steps-card {
-      border-radius: 22px;
-      padding: 16px 16px 14px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .hero-steps-title {
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .hero-steps-row {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .hero-step {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .hero-step-index {
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      color: var(--accent);
-      flex-shrink: 0;
-      background: rgba(15, 23, 42, 0.96);
-    }
-
-    .hero-step strong {
-      color: var(--text-main);
-    }
-
-    .hero-cta-row {
-      margin-top: 12px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .hero-main-cta {
-      border-radius: 999px;
-      border: 1px solid transparent;
-      padding: 7px 16px;
-      font-size: 13px;
-      cursor: pointer;
-      background: linear-gradient(to right, #facc15, #f97316);
-      color: #111827;
-      font-weight: 600;
-      box-shadow: 0 12px 32px rgba(248, 250, 252, 0.25);
-      transition: transform 0.1s ease, box-shadow 0.18s ease;
-    }
-
-    .hero-main-cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(248, 250, 252, 0.32);
-    }
-
-    .hero-secondary-cta {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      padding: 7px 14px;
-      font-size: 12px;
-      cursor: pointer;
-      background: transparent;
-      color: var(--text-muted);
-      transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease, transform 0.1s ease;
-    }
-
-    .hero-secondary-cta:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(15, 23, 42, 0.97);
-      transform: translateY(-0.5px);
-    }
-
-    .hero-note {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 8px;
-    }
-
-    .hero-note strong {
-      color: var(--accent);
-    }
-
     /* ===== ICON TILES SECTION ===== */
 
     .tiles-section {
@@ -759,6 +649,7 @@ html = r'''<!DOCTYPE html>
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
+
     @media (max-width: 720px) {
       .tiles-row {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -772,7 +663,11 @@ html = r'''<!DOCTYPE html>
       background: rgba(15, 23, 42, 0.96);
       border: 1px solid rgba(148, 163, 184, 0.7);
       cursor: pointer;
-      transition: transform 0.14s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      transition:
+        transform 0.14s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
       box-shadow: var(--shadow-soft);
     }
 
@@ -806,7 +701,7 @@ html = r'''<!DOCTYPE html>
       color: var(--text-muted);
     }
 
-    /* ===== COMPARE SECTION (ChatGPT vs Aurum) ===== */
+    /* ===== COMPARE SECTION ===== */
 
     .compare-section {
       margin-top: 30px;
@@ -996,6 +891,7 @@ html = r'''<!DOCTYPE html>
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
+
     @media (max-width: 640px) {
       .persona-grid {
         grid-template-columns: minmax(0, 1fr);
@@ -1020,6 +916,7 @@ html = r'''<!DOCTYPE html>
     .persona-card:nth-child(2) {
       animation-delay: 2s;
     }
+
     .persona-card:nth-child(3) {
       animation-delay: 4s;
     }
@@ -1035,21 +932,24 @@ html = r'''<!DOCTYPE html>
       gap: 10px;
     }
 
+    /* 真实头像样式：放 JPG / PNG 即可 */
     .persona-avatar {
-      width: 36px;
-      height: 36px;
+      width: 44px;
+      height: 44px;
       border-radius: 999px;
-      background:
-        radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.95), transparent 55%),
-        conic-gradient(from 160deg, #facc15, #f97316, #22c55e, #0ea5e9, #facc15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      color: #020617;
+      overflow: hidden;
+      border: 1px solid rgba(248, 250, 252, 0.7);
       box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.85),
         0 10px 25px rgba(15, 23, 42, 0.95);
+      flex-shrink: 0;
+    }
+
+    .persona-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .persona-name {
@@ -1137,7 +1037,7 @@ html = r'''<!DOCTYPE html>
       color: var(--accent);
     }
 
-    /* ===== RESPONSIVE ===== */
+    /* ===== RESPONSIVE NAV ===== */
 
     @media (max-width: 768px) {
       .navbar-inner {
@@ -1190,509 +1090,413 @@ html = r'''<!DOCTYPE html>
 
     <!-- MAIN -->
     <main class="container">
-      <!-- HERO 区 -->
-      <section class="hero">
-        <div class="hero-layout">
-          <!-- 左：轮播 -->
-          <div class="hero-banner" id="hero-banner">
-            <!-- slide 1: 法律文书 -->
-            <div class="hero-slide active" data-line="legal">
-              <div class="hero-slide-left">
-                <div class="hero-tagline" data-i18n="hero.legal.tagline">
-                  Line 01 · Legal documents / contracts
-                </div>
-                <h2 class="hero-title" data-i18n="hero.legal.title">
-                  Draft legal-style contracts and serious letters without hiring a full law firm.
-                </h2>
-                <p class="hero-subtext" data-i18n="hero.legal.text">
-                  Termination notices, partnership agreements, demand letters and policy documents — written in calm, precise language that you can show to professionals.
-                </p>
-                <p class="hero-meta" data-i18n="hero.legal.meta">
-                  Typical ticket: <strong>99–299 USD</strong> per document · each task starts from a simple description on your desk.
-                </p>
-                <div class="hero-buttons">
-                  <button class="hero-btn-main" data-line-start="legal" data-i18n="hero.btn.startLegal">
-                    Start a legal draft task
-                  </button>
-                  <button class="hero-btn-sub" data-line-example="legal" data-i18n="hero.btn.example">
-                    See example legal brief
-                  </button>
-                </div>
+      <!-- HERO SECTION -->
+      <section class="hero section-animate section-elevate">
+        <div class="hero-layout hero-banner">
+          <!-- Slides -->
+          <div class="hero-slide active" data-slide="0">
+            <div class="hero-slide-left">
+              <div class="hero-tagline" data-i18n="hero.tagline1">
+                Private AI Desk for Serious Letters
               </div>
-              <div class="hero-slide-right">
-                <img src="hero-people.jpg" alt="Aurum Task Desk professionals" class="hero-people-img" />
-                <div class="hero-card-inner">
-                  <div class="hero-card-header">
-                    <div class="hero-card-title" data-i18n="hero.legal.card.title">
-                      Contract termination letter
-                    </div>
-                    <div class="hero-card-tag" data-i18n="hero.card.tag.hot">
-                      High fee
-                    </div>
-                  </div>
-                  <div class="hero-card-body" data-i18n="hero.legal.card.body">
-                    “Please prepare a firm but respectful letter ending our supply contract due to repeated delivery failures, while leaving space to cooperate again if they improve.”
-                  </div>
-                  <div class="hero-card-footer">
-                    <span class="hero-card-price" data-i18n="hero.legal.card.price">
-                      ~149 USD typical ticket
-                    </span>
-                    <span class="hero-card-pill" data-i18n="hero.card.pill">
-                      2–3 clear sentences → full letter
-                    </span>
-                  </div>
-                </div>
+              <h1 class="hero-title" data-i18n="hero.title1">
+                Contracts, immigration, insurance & crisis letters — done quietly for you.
+              </h1>
+              <p class="hero-subtext" data-i18n="hero.sub1">
+                For older US & EU professionals who do not want to fight with generic AI chat boxes.
+                You send a situation & goal, the desk drafts, polishes and escalates.
+              </p>
+              <div class="hero-meta" data-i18n="hero.meta1">
+                <strong>US$19.9</strong> per task · No subscription required · Human-reviewed AI desk
+              </div>
+              <div class="hero-buttons">
+                <button class="hero-btn-main" type="button" onclick="window.location.href='desk.html'">
+                  <span data-i18n="hero.ctaMain">Open my private desk</span>
+                </button>
+                <button class="hero-btn-sub" type="button" onclick="window.location.href='pricing.html'">
+                  <span data-i18n="hero.ctaSub">View pricing & examples</span>
+                </button>
               </div>
             </div>
 
-            <!-- slide 2: 移民 -->
-            <div class="hero-slide" data-line="immigration">
-              <div class="hero-slide-left">
-                <div class="hero-tagline" data-i18n="hero.imm.tagline">
-                  Line 02 · Immigration & visa letters
+            <div class="hero-slide-right">
+              <img src="assets/hero_legal.jpg" alt="Legal & contract desk" class="hero-people-img" />
+              <div class="hero-card-inner">
+                <div class="hero-card-header">
+                  <div class="hero-card-title" data-i18n="hero.card1.title">
+                    Contract & legal draft pack
+                  </div>
+                  <div class="hero-card-tag" data-i18n="hero.card.tag">Most profitable</div>
                 </div>
-                <h2 class="hero-title" data-i18n="hero.imm.title">
-                  Turn complicated immigration stories into clear, structured explanations.
-                </h2>
-                <p class="hero-subtext" data-i18n="hero.imm.text">
-                  Support letters, relationship proofs and appeal narratives written in calm language for officers and consulates to understand in minutes.
-                </p>
-                <p class="hero-meta" data-i18n="hero.imm.meta">
-                  Typical ticket: <strong>49–149 USD</strong> · high emotional and financial value, demand stays stable year after year.
-                </p>
-                <div class="hero-buttons">
-                  <button class="hero-btn-main" data-line-start="immigration" data-i18n="hero.btn.startImm">
-                    Start an immigration letter
-                  </button>
-                  <button class="hero-btn-sub" data-line-example="immigration" data-i18n="hero.btn.example">
-                    See example immigration brief
-                  </button>
+                <div class="hero-card-body" data-i18n="hero.card1.body">
+                  Engagement letters, service contracts, settlement drafts — written in clear,
+                  respectful language that senior managers actually read.
+                </div>
+                <div class="hero-card-footer">
+                  <span class="hero-card-price" data-i18n="hero.card1.price">From US$19.9 / task</span>
+                  <span class="hero-card-pill" data-i18n="hero.card1.pill">
+                    Common for small business owners
+                  </span>
                 </div>
               </div>
-              <div class="hero-slide-right">
-                <img src="hero-people.jpg" alt="Aurum Task Desk professionals" class="hero-people-img" />
-                <div class="hero-card-inner">
-                  <div class="hero-card-header">
-                    <div class="hero-card-title" data-i18n="hero.imm.card.title">
-                      Support letter for long-term move
-                    </div>
-                    <div class="hero-card-tag" data-i18n="hero.card.tag.stable">
-                      Stable demand
-                    </div>
-                  </div>
-                  <div class="hero-card-body" data-i18n="hero.imm.card.body">
-                    “Please write a support letter explaining my work history, savings and family situation, and why we plan to relocate permanently to Europe.”
-                  </div>
-                  <div class="hero-card-footer">
-                    <span class="hero-card-price" data-i18n="hero.imm.card.price">
-                      ~89 USD typical ticket
-                    </span>
-                    <span class="hero-card-pill" data-i18n="hero.card.pill">
-                      2–3 clear sentences → full letter
-                    </span>
-                  </div>
+              <div class="hero-slider-controls">
+                <div class="hero-slider-dots">
+                  <button class="hero-dot active" data-target="0"></button>
+                  <button class="hero-dot" data-target="1"></button>
+                  <button class="hero-dot" data-target="2"></button>
                 </div>
-              </div>
-            </div>
-
-            <!-- slide 3: 理赔 -->
-            <div class="hero-slide" data-line="claims">
-              <div class="hero-slide-left">
-                <div class="hero-tagline" data-i18n="hero.claims.tagline">
-                  Line 03 · Insurance & airline claims
+                <div class="hero-slider-arrows">
+                  <button class="hero-arrow" data-dir="prev" aria-label="Previous slide">‹</button>
+                  <button class="hero-arrow" data-dir="next" aria-label="Next slide">›</button>
                 </div>
-                <h2 class="hero-title" data-i18n="hero.claims.title">
-                  Turn chaos after delay or loss into one calm claim letter.
-                </h2>
-                <p class="hero-subtext" data-i18n="hero.claims.text">
-                  Flights, luggage, medical bills, property damage — the desk structures your dates, numbers and evidence so companies actually process it.
-                </p>
-                <p class="hero-meta" data-i18n="hero.claims.meta">
-                  Typical ticket: <strong>39–129 USD</strong> · easy to show value once compensation arrives.
-                </p>
-                <div class="hero-buttons">
-                  <button class="hero-btn-main" data-line-start="claims" data-i18n="hero.btn.startClaims">
-                    Start a claim letter
-                  </button>
-                  <button class="hero-btn-sub" data-line-example="claims" data-i18n="hero.btn.example">
-                    See example claim brief
-                  </button>
-                </div>
-              </div>
-              <div class="hero-slide-right">
-                <img src="hero-people.jpg" alt="Aurum Task Desk professionals" class="hero-people-img" />
-                <div class="hero-card-inner">
-                  <div class="hero-card-header">
-                    <div class="hero-card-title" data-i18n="hero.claims.card.title">
-                      Airline delay compensation
-                    </div>
-                    <div class="hero-card-tag" data-i18n="hero.card.tag.value">
-                      Clear value
-                    </div>
-                  </div>
-                  <div class="hero-card-body" data-i18n="hero.claims.card.body">
-                    “Please prepare a claim letter for a 15-hour delay, including ticket numbers, receipts and a reasonable compensation request under airline rules.”
-                  </div>
-                  <div class="hero-card-footer">
-                    <span class="hero-card-price" data-i18n="hero.claims.card.price">
-                      ~69 USD typical ticket
-                    </span>
-                    <span class="hero-card-pill" data-i18n="hero.card.pill">
-                      2–3 clear sentences → full letter
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- slide 4: 家庭危机 -->
-            <div class="hero-slide" data-line="crisis">
-              <div class="hero-slide-left">
-                <div class="hero-tagline" data-i18n="hero.crisis.tagline">
-                  Line 04 · Family & emotional crisis letters
-                </div>
-                <h2 class="hero-title" data-i18n="hero.crisis.title">
-                  Say hard things about money, care and boundaries — without shouting.
-                </h2>
-                <p class="hero-subtext" data-i18n="hero.crisis.text">
-                  Long letters to adult children, partners or parents about inheritance, support and limits, written in calm but firm language.
-                </p>
-                <p class="hero-meta" data-i18n="hero.crisis.meta">
-                  Typical ticket: <strong>29–149 USD</strong> · high repeat demand from the same households.
-                </p>
-                <div class="hero-buttons">
-                  <button class="hero-btn-main" data-line-start="crisis" data-i18n="hero.btn.startCrisis">
-                    Start a family crisis letter
-                  </button>
-                  <button class="hero-btn-sub" data-line-example="crisis" data-i18n="hero.btn.example">
-                    See example family brief
-                  </button>
-                </div>
-              </div>
-              <div class="hero-slide-right">
-                <img src="hero-people.jpg" alt="Aurum Task Desk professionals" class="hero-people-img" />
-                <div class="hero-card-inner">
-                  <div class="hero-card-header">
-                    <div class="hero-card-title" data-i18n="hero.crisis.card.title">
-                      Letter to adult child about money
-                    </div>
-                    <div class="hero-card-tag" data-i18n="hero.card.tag.repeat">
-                      High repeat
-                    </div>
-                  </div>
-                  <div class="hero-card-body" data-i18n="hero.crisis.card.body">
-                    “Please help me explain to my adult son why I will limit financial support, how inheritance will work, and what I can still do to help.”
-                  </div>
-                  <div class="hero-card-footer">
-                    <span class="hero-card-price" data-i18n="hero.crisis.card.price">
-                      ~79 USD typical ticket
-                    </span>
-                    <span class="hero-card-pill" data-i18n="hero.card.pill">
-                      2–3 clear sentences → full letter
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- slide 5: 升级投诉 -->
-            <div class="hero-slide" data-line="escalation">
-              <div class="hero-slide-left">
-                <div class="hero-tagline" data-i18n="hero.esc.tagline">
-                  Line 05 · Complaint escalation services
-                </div>
-                <h2 class="hero-title" data-i18n="hero.esc.title">
-                  When “customer support” stops listening, escalate quietly on paper.
-                </h2>
-                <p class="hero-subtext" data-i18n="hero.esc.text">
-                  Letters to senior managers, regulators, ombudsmen and executives that lay out facts and next steps without drama.
-                </p>
-                <p class="hero-meta" data-i18n="hero.esc.meta">
-                  Typical ticket: <strong>29–99 USD</strong> · mass-market need, very easy to package as a service.
-                </p>
-                <div class="hero-buttons">
-                  <button class="hero-btn-main" data-line-start="escalation" data-i18n="hero.btn.startEsc">
-                    Start an escalation letter
-                  </button>
-                  <button class="hero-btn-sub" data-line-example="escalation" data-i18n="hero.btn.example">
-                    See example escalation brief
-                  </button>
-                </div>
-              </div>
-              <div class="hero-slide-right">
-                <img src="hero-people.jpg" alt="Aurum Task Desk professionals" class="hero-people-img" />
-                <div class="hero-card-inner">
-                  <div class="hero-card-header">
-                    <div class="hero-card-title" data-i18n="hero.esc.card.title">
-                      Escalation to bank supervisor
-                    </div>
-                    <div class="hero-card-tag" data-i18n="hero.card.tag.mass">
-                      Mass need
-                    </div>
-                  </div>
-                  <div class="hero-card-body" data-i18n="hero.esc.card.body">
-                    “Please write an escalation letter to a senior manager about repeated mistakes on my account and ask for a full review and written response.”
-                  </div>
-                  <div class="hero-card-footer">
-                    <span class="hero-card-price" data-i18n="hero.esc.card.price">
-                      ~59 USD typical ticket
-                    </span>
-                    <span class="hero-card-pill" data-i18n="hero.card.pill">
-                      2–3 clear sentences → full letter
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Slider controls -->
-            <div class="hero-slider-controls">
-              <div class="hero-slider-dots">
-                <button class="hero-dot active" data-index="0" aria-label="Legal"></button>
-                <button class="hero-dot" data-index="1" aria-label="Immigration"></button>
-                <button class="hero-dot" data-index="2" aria-label="Claims"></button>
-                <button class="hero-dot" data-index="3" aria-label="Crisis"></button>
-                <button class="hero-dot" data-index="4" aria-label="Escalation"></button>
-              </div>
-              <div class="hero-slider-arrows">
-                <button class="hero-arrow" id="hero-prev" aria-label="Previous">‹</button>
-                <button class="hero-arrow" id="hero-next" aria-label="Next">›</button>
               </div>
             </div>
           </div>
 
-          <!-- 右：文字 + 步骤 + CTA -->
-          <div class="hero-right-panel">
-            <div>
-              <h1 class="hero-headline" data-i18n="hero.headline">
-                One quiet AI desk for <span>high-value, serious letters</span> you can really send.
-              </h1>
-              <p class="hero-subline" data-i18n="hero.subline">
-                Aurum is not a chatbot window. It is a private writing & resolution desk for older US & EU professionals who want strong, calm letters for real-world problems.
+          <div class="hero-slide" data-slide="1">
+            <div class="hero-slide-left">
+              <div class="hero-tagline" data-i18n="hero.tagline2">
+                Immigration & relocation letters
+              </div>
+              <h2 class="hero-title" data-i18n="hero.title2">
+                Immigration officers prefer calm, structured stories — not drama.
+              </h2>
+              <p class="hero-subtext" data-i18n="hero.sub2">
+                We help you present your work history, family reasons and ties to home in a way that
+                matches how officers review files: clean, logical, and easy to approve.
               </p>
-              <div class="hero-badges">
-                <span class="hero-badge gold" data-i18n="hero.badge1">No subscription · from 19.9 USD per task</span>
-                <span class="hero-badge" data-i18n="hero.badge2">Legal-style drafts</span>
-                <span class="hero-badge" data-i18n="hero.badge3">Immigration & claims</span>
-                <span class="hero-badge" data-i18n="hero.badge4">Family & escalation letters</span>
+              <div class="hero-meta" data-i18n="hero.meta2">
+                <strong>Stable demand</strong> · Visitor visa letters · Work & study explanations
+              </div>
+              <div class="hero-buttons">
+                <button class="hero-btn-main" type="button" onclick="window.location.href='services_immigration.html'">
+                  <span data-i18n="hero.ctaImm">See immigration letter desk</span>
+                </button>
+                <button class="hero-btn-sub" type="button" onclick="window.location.href='desk.html'">
+                  <span data-i18n="hero.ctaDesk">Describe my situation</span>
+                </button>
               </div>
             </div>
 
-            <div class="hero-steps-card">
-              <div class="hero-steps-title" data-i18n="hero.steps.title">
-                HOW THE DESK WORKS
-              </div>
-              <div class="hero-steps-row">
-                <div class="hero-step">
-                  <div class="hero-step-index">1</div>
-                  <div data-i18n="hero.steps.1">
-                    <strong>Pick a line</strong> — legal draft, immigration, claims, family crisis or escalation.
+            <div class="hero-slide-right">
+              <img src="assets/hero_immigration.jpg" alt="Immigration desk" class="hero-people-img" />
+              <div class="hero-card-inner">
+                <div class="hero-card-header">
+                  <div class="hero-card-title" data-i18n="hero.card2.title">
+                    Visitor visa & explanation letters
                   </div>
+                  <div class="hero-card-tag" data-i18n="hero.card.tagStable">Stable demand</div>
                 </div>
-                <div class="hero-step">
-                  <div class="hero-step-index">2</div>
-                  <div data-i18n="hero.steps.2">
-                    <strong>Drop your messy notes</strong> — screenshots, bullet points, old letters, anything that explains the situation.
-                  </div>
+                <div class="hero-card-body" data-i18n="hero.card2.body">
+                  Explain ties to home, income, and travel history without sounding desperate or fake.
                 </div>
-                <div class="hero-step">
-                  <div class="hero-step-index">3</div>
-                  <div data-i18n="hero.steps.3">
-                    <strong>Receive a calm, finished letter</strong> — structured for professionals, not for social media.
-                  </div>
+                <div class="hero-card-footer">
+                  <span class="hero-card-price" data-i18n="hero.card2.price">Often 2–3 tasks per case</span>
+                  <span class="hero-card-pill" data-i18n="hero.card2.pill">
+                    Used by families & professionals
+                  </span>
                 </div>
               </div>
-              <div class="hero-cta-row">
-                <button class="hero-main-cta" type="button" data-line="legal" data-i18n="hero.cta.main">
-                  Open my desk & start a task
-                </button>
-                <button class="hero-secondary-cta" type="button" onclick="window.location.href='pricing.html'" data-i18n="hero.cta.pricing">
-                  View pricing & examples
-                </button>
+              <div class="hero-slider-controls">
+                <div class="hero-slider-dots">
+                  <button class="hero-dot" data-target="0"></button>
+                  <button class="hero-dot active" data-target="1"></button>
+                  <button class="hero-dot" data-target="2"></button>
+                </div>
+                <div class="hero-slider-arrows">
+                  <button class="hero-arrow" data-dir="prev" aria-label="Previous slide">‹</button>
+                  <button class="hero-arrow" data-dir="next" aria-label="Next slide">›</button>
+                </div>
               </div>
-              <p class="hero-note" data-i18n="hero.note">
-                No subscription required. Most tasks start at <strong>USD 19.9</strong> and scale with complexity. The desk is not for dating, spam or mass cold outreach.
+            </div>
+          </div>
+
+          <div class="hero-slide" data-slide="2">
+            <div class="hero-slide-left">
+              <div class="hero-tagline" data-i18n="hero.tagline3">
+                Claims, crises & escalation letters
+              </div>
+              <h2 class="hero-title" data-i18n="hero.title3">
+                When flights are cancelled or families are in crisis, words must be precise.
+              </h2>
+              <p class="hero-subtext" data-i18n="hero.sub3">
+                The desk writes calm but firm letters for airlines, insurers, banks, schools and HR.
+                You keep emotions; we keep structure, evidence and escalation paths.
               </p>
+              <div class="hero-meta" data-i18n="hero.meta3">
+                <strong>High conversion</strong> · Insurance & airline claims · Complaint escalation
+              </div>
+              <div class="hero-buttons">
+                <button class="hero-btn-main" type="button" onclick="window.location.href='services_claims.html'">
+                  <span data-i18n="hero.ctaClaims">Check claims & escalation desk</span>
+                </button>
+                <button class="hero-btn-sub" type="button" onclick="window.location.href='desk.html'">
+                  <span data-i18n="hero.ctaDesk2">Start with my case</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="hero-slide-right">
+              <img src="assets/hero_claims.jpg" alt="Claims & crisis desk" class="hero-people-img" />
+              <div class="hero-card-inner">
+                <div class="hero-card-header">
+                  <div class="hero-card-title" data-i18n="hero.card3.title">
+                    Airline / insurance / HR escalation
+                  </div>
+                  <div class="hero-card-tag" data-i18n="hero.card.tagHigh">High success</div>
+                </div>
+                <div class="hero-card-body" data-i18n="hero.card3.body">
+                  Designed so case handlers can quickly see evidence, timeline and what solution you request.
+                </div>
+                <div class="hero-card-footer">
+                  <span class="hero-card-price" data-i18n="hero.card3.price">Often refunded in 1–2 replies</span>
+                  <span class="hero-card-pill" data-i18n="hero.card3.pill">
+                    Very strong for upgrades & refunds
+                  </span>
+                </div>
+              </div>
+              <div class="hero-slider-controls">
+                <div class="hero-slider-dots">
+                  <button class="hero-dot" data-target="0"></button>
+                  <button class="hero-dot" data-target="1"></button>
+                  <button class="hero-dot active" data-target="2"></button>
+                </div>
+                <div class="hero-slider-arrows">
+                  <button class="hero-arrow" data-dir="prev" aria-label="Previous slide">‹</button>
+                  <button class="hero-arrow" data-dir="next" aria-label="Next slide">›</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ICON TILES：5条业务 -->
-      <section class="tiles-section">
+      <!-- 5 MAIN SERVICE TILES -->
+      <section class="tiles-section section-animate">
         <div class="tiles-title-row">
-          <div class="tiles-title" data-i18n="tiles.title">
-            High-value lines on this desk
-          </div>
+          <div class="tiles-title" data-i18n="tiles.title">Five main service entrances</div>
           <div class="tiles-hint" data-i18n="tiles.hint">
-            Click any card to open the desk on that line.
+            Click a tile to open that dedicated page (full explanation & examples).
           </div>
         </div>
         <div class="tiles-row">
-          <div class="tile-item" data-line="legal">
+          <div class="tile-item" onclick="window.location.href='services_legal.html'">
             <div class="tile-icon">⚖️</div>
-            <div class="tile-label" data-i18n="tiles.legal.label">Legal drafts</div>
-            <div class="tile-sub" data-i18n="tiles.legal.sub">Contracts & formal letters</div>
+            <div class="tile-label" data-i18n="tiles.legal.title">Legal drafts & contracts</div>
+            <div class="tile-sub" data-i18n="tiles.legal.sub">
+              Most profitable · business & personal agreements
+            </div>
           </div>
-          <div class="tile-item" data-line="immigration">
-            <div class="tile-icon">🛂</div>
-            <div class="tile-label" data-i18n="tiles.imm.label">Immigration letters</div>
-            <div class="tile-sub" data-i18n="tiles.imm.sub">Visa, explanation & appeals</div>
+
+          <div class="tile-item" onclick="window.location.href='services_immigration.html'">
+            <div class="tile-icon">🌍</div>
+            <div class="tile-label" data-i18n="tiles.imm.title">Immigration & visa letters</div>
+            <div class="tile-sub" data-i18n="tiles.imm.sub">
+              Stable demand · visitor, work & family cases
+            </div>
           </div>
-          <div class="tile-item" data-line="claims">
+
+          <div class="tile-item" onclick="window.location.href='services_claims.html'">
             <div class="tile-icon">✈️</div>
-            <div class="tile-label" data-i18n="tiles.claims.label">Claims</div>
-            <div class="tile-sub" data-i18n="tiles.claims.sub">Insurance & airline claims</div>
+            <div class="tile-label" data-i18n="tiles.claim.title">Insurance / airline claims</div>
+            <div class="tile-sub" data-i18n="tiles.claim.sub">
+              High success rate · clear, evidence-based letters
+            </div>
           </div>
-          <div class="tile-item" data-line="crisis">
+
+          <div class="tile-item" onclick="window.location.href='services_family.html'">
             <div class="tile-icon">💬</div>
-            <div class="tile-label" data-i18n="tiles.crisis.label">Family crisis</div>
-            <div class="tile-sub" data-i18n="tiles.crisis.sub">Hard letters to loved ones</div>
+            <div class="tile-label" data-i18n="tiles.family.title">Family & emotional crisis letters</div>
+            <div class="tile-sub" data-i18n="tiles.family.sub">
+              High repeat rate · calm, respectful communication
+            </div>
           </div>
-          <div class="tile-item" data-line="escalation">
-            <div class="tile-icon">📣</div>
-            <div class="tile-label" data-i18n="tiles.esc.label">Escalation</div>
-            <div class="tile-sub" data-i18n="tiles.esc.sub">Calm complaint upgrades</div>
+
+          <div class="tile-item" onclick="window.location.href='services_escalation.html'">
+            <div class="tile-icon">📈</div>
+            <div class="tile-label" data-i18n="tiles.esc.title">Complaint escalation desk</div>
+            <div class="tile-sub" data-i18n="tiles.esc.sub">
+              Mass market · banks, platforms, HR & more
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ChatGPT 对比区 -->
-      <section class="compare-section">
+      <!-- CHATGPT VS AURUMDESK COMPARE SECTION -->
+      <section class="compare-section section-animate">
         <div>
           <h2 class="compare-left-title" data-i18n="compare.title">
-            Why not just open a ChatGPT window?
+            Why not just use a generic AI chat box?
           </h2>
           <p class="compare-left-sub" data-i18n="compare.sub">
-            ChatGPT is powerful, but it was trained to chat with everyone. This desk is tuned for older professionals who need one thing: strong, calm letters for situations that affect money, status and family.
+            ChatGPT is powerful, but for serious letters it often produces vague, over-polite or
+            copy-paste style text. AurumDesk is tuned for older professionals, with strict formats
+            for contracts, immigration, claims and high-risk communication.
           </p>
           <div class="compare-pill-row">
-            <span class="compare-pill gold" data-i18n="compare.pill1">Not a toy · built for adults</span>
-            <span class="compare-pill" data-i18n="compare.pill2">No subscription · pay per task</span>
-            <span class="compare-pill" data-i18n="compare.pill3">Legal-style structure</span>
-            <span class="compare-pill" data-i18n="compare.pill4">Quiet desk, not endless chat</span>
+            <div class="compare-pill gold" data-i18n="compare.pill1">
+              Built for 40+ professionals & business owners
+            </div>
+            <div class="compare-pill" data-i18n="compare.pill2">
+              One quiet desk — not another noisy “AI app”
+            </div>
+            <div class="compare-pill" data-i18n="compare.pill3">
+              Focus: legal-adjacent, claims & crisis writing
+            </div>
           </div>
         </div>
+
         <div class="compare-right-grid">
           <div class="compare-card worse">
-            <div class="compare-label bad" data-i18n="compare.chatgpt.label">Just ChatGPT chat</div>
-            <div class="compare-title" data-i18n="compare.chatgpt.title">One more tab · no structure</div>
+            <div class="compare-label bad" data-i18n="compare.badLabel">
+              Generic AI chat
+            </div>
+            <div class="compare-title" data-i18n="compare.badTitle">
+              Fast but shallow, no responsibility
+            </div>
             <ul class="compare-list">
-              <li data-i18n="compare.chatgpt.li1">
-                <span>•</span><span>Long back-and-forth conversations, easy to lose the main point.</span>
+              <li>
+                <span>•</span>
+                <span data-i18n="compare.bad1">
+                  Writes long, fluffy text that sounds impressive but does not match how officers,
+                  lawyers or insurers read documents.
+                </span>
               </li>
-              <li data-i18n="compare.chatgpt.li2">
-                <span>•</span><span>Responses can be too friendly, too soft, or too “internet”.</span>
+              <li>
+                <span>•</span>
+                <span data-i18n="compare.bad2">
+                  No understanding of risk — can suggest aggressive tone that makes situations worse.
+                </span>
               </li>
-              <li data-i18n="compare.chatgpt.li3">
-                <span>•</span><span>You still have to decide what counts as a “good letter”.</span>
-              </li>
-              <li data-i18n="compare.chatgpt.li4">
-                <span>•</span><span>Not focused on older professionals or real-world disputes.</span>
+              <li>
+                <span>•</span>
+                <span data-i18n="compare.bad3">
+                  You must design structure, headings, timelines and evidence yourself.
+                </span>
               </li>
             </ul>
           </div>
 
-          <div class="compare-card better" data-line="legal">
-            <div class="compare-label good" data-i18n="compare.aurum.label">Aurum Task Desk</div>
-            <div class="compare-title" data-i18n="compare.aurum.title">A quiet desk that finishes the letter</div>
+          <div class="compare-card better">
+            <div class="compare-label good" data-i18n="compare.goodLabel">
+              Aurum Task Desk
+            </div>
+            <div class="compare-title" data-i18n="compare.goodTitle">
+              Slow, careful desk that speaks “officer language”
+            </div>
             <ul class="compare-list">
-              <li data-i18n="compare.aurum.li1">
-                <span>•</span><span>Start with your messy story, end with a clean, send-ready letter.</span>
+              <li>
+                <span>★</span>
+                <span data-i18n="compare.good1">
+                  Templates tuned for legal-adjacent work, immigration, claims and high-risk HR cases.
+                </span>
               </li>
-              <li data-i18n="compare.aurum.li2">
-                <span>•</span><span>Legal-style structure, dates and numbers aligned in one place.</span>
+              <li>
+                <span>★</span>
+                <span data-i18n="compare.good2">
+                  Calmer, more respectful tone — designed for older readers and decision makers.
+                </span>
               </li>
-              <li data-i18n="compare.aurum.li3">
-                <span>•</span><span>Special focus on contracts, immigration, claims and family crises.</span>
-              </li>
-              <li data-i18n="compare.aurum.li4">
-                <span>•</span><span>Built to feel like a private “writing office”, not a public AI playground.</span>
+              <li>
+                <span>★</span>
+                <span data-i18n="compare.good3">
+                  Each task follows a structure: facts → timeline → risk → clear request.
+                </span>
               </li>
             </ul>
-            <button class="compare-cta" type="button" data-line="legal" data-i18n="compare.aurum.cta">
-              Open my desk on the legal line →
+            <button class="compare-cta" type="button" onclick="window.location.href='desk.html'">
+              <span data-i18n="compare.btn">Open desk and try one task</span>
             </button>
           </div>
         </div>
       </section>
 
-      <!-- 专业人士头像区 -->
-      <section class="persona-section">
+      <!-- PERSONA / REAL CLIENT STYLE AVATARS -->
+      <section class="persona-section section-animate">
         <div class="persona-title-row">
           <div class="persona-title" data-i18n="persona.title">
-            WHO IS USING THIS DESK
+            Who quietly uses this desk?
           </div>
           <div class="persona-hint" data-i18n="persona.hint">
-            Click any card to start a similar task on your own desk.
+            Real-style avatars · 40+ managers, engineers, logistics owners, retired officers.
           </div>
         </div>
+
         <div class="persona-grid">
-          <div class="persona-card" data-line="claims">
+          <article class="persona-card">
             <div class="persona-header">
-              <div class="persona-avatar">E</div>
+              <div class="persona-avatar">
+                <img src="assets/avatars/owner1.jpg" alt="Client avatar 1" />
+              </div>
               <div>
-                <div class="persona-name" data-i18n="persona.1.name">Retired engineer · 62</div>
-                <div class="persona-role" data-i18n="persona.1.role">
-                  Missed connection & luggage loss · airline claim
+                <div class="persona-name" data-i18n="persona.p1.name">Martin, 58</div>
+                <div class="persona-role" data-i18n="persona.p1.role">
+                  Trucking & logistics owner · US Midwest
                 </div>
               </div>
             </div>
-            <div class="persona-quote" data-i18n="persona.1.quote">
-              “I can describe what happened, but I don’t know how to write a serious claim letter. The desk turned my notes into something I’m not embarrassed to send to the airline.”
-            </div>
+            <p class="persona-quote" data-i18n="persona.p1.quote">
+              “I hate long emails. The desk turns my voice messages into short, firm letters that
+              airlines, insurers and customers actually respond to.”
+            </p>
             <div class="persona-tag-row">
-              <span class="persona-tag" data-i18n="persona.1.tag1">Insurance / airline claims</span>
-              <span class="persona-tag" data-i18n="persona.1.tag2">Clear numbers & receipts</span>
+              <span class="persona-tag" data-i18n="persona.p1.tag1">Insurance & airline claims</span>
+              <span class="persona-tag" data-i18n="persona.p1.tag2">Driver HR issues</span>
             </div>
-            <button class="persona-btn" type="button" data-line="claims" data-i18n="persona.btn.claims">
-              Start a claim like this →
+            <button class="persona-btn" type="button" onclick="window.location.href='services_claims.html'">
+              <span data-i18n="persona.p1.btn">See similar claim letters</span>
             </button>
-          </div>
+          </article>
 
-          <div class="persona-card" data-line="crisis">
+          <article class="persona-card">
             <div class="persona-header">
-              <div class="persona-avatar">M</div>
+              <div class="persona-avatar">
+                <img src="assets/avatars/engineer1.jpg" alt="Client avatar 2" />
+              </div>
               <div>
-                <div class="persona-name" data-i18n="persona.2.name">Senior manager · 55</div>
-                <div class="persona-role" data-i18n="persona.2.role">
-                  Adult children & inheritance · family crisis letter
+                <div class="persona-name" data-i18n="persona.p2.name">Elena, 46</div>
+                <div class="persona-role" data-i18n="persona.p2.role">
+                  Senior engineer · moving between EU countries
                 </div>
               </div>
             </div>
-            <div class="persona-quote" data-i18n="persona.2.quote">
-              “I needed to say no more loans, but still keep the relationship. The desk helped me find words that were firm but not cruel.”
-            </div>
+            <p class="persona-quote" data-i18n="persona.p2.quote">
+              “For immigration I needed letters that sound professional, not emotional. The desk knew
+              exactly what officers look for.”
+            </p>
             <div class="persona-tag-row">
-              <span class="persona-tag" data-i18n="persona.2.tag1">Family boundaries</span>
-              <span class="persona-tag" data-i18n="persona.2.tag2">High emotional value</span>
+              <span class="persona-tag" data-i18n="persona.p2.tag1">Immigration explanations</span>
+              <span class="persona-tag" data-i18n="persona.p2.tag2">Contract clarifications</span>
             </div>
-            <button class="persona-btn" type="button" data-line="crisis" data-i18n="persona.btn.crisis">
-              Start a family letter like this →
+            <button class="persona-btn" type="button" onclick="window.location.href='services_immigration.html'">
+              <span data-i18n="persona.p2.btn">View immigration examples</span>
             </button>
-          </div>
+          </article>
 
-          <div class="persona-card" data-line="legal">
+          <article class="persona-card">
             <div class="persona-header">
-              <div class="persona-avatar">B</div>
+              <div class="persona-avatar">
+                <img src="assets/avatars/hr1.jpg" alt="Client avatar 3" />
+              </div>
               <div>
-                <div class="persona-name" data-i18n="persona.3.name">Small business owner · 48</div>
-                <div class="persona-role" data-i18n="persona.3.role">
-                  Contract termination & new terms · legal-style letter
+                <div class="persona-name" data-i18n="persona.p3.name">Sandra, 52</div>
+                <div class="persona-role" data-i18n="persona.p3.role">
+                  HR & compliance manager · manufacturing
                 </div>
               </div>
             </div>
-            <div class="persona-quote" data-i18n="persona.3.quote">
-              “I don’t want to fight, I just want clear terms. The desk helped me end one contract and propose a fair new one in plain but precise English.”
-            </div>
+            <p class="persona-quote" data-i18n="persona.p3.quote">
+              “I use AurumDesk for sensitive HR letters — warnings, restructures, investigations.
+              It keeps everything calm and legally safe.”
+            </p>
             <div class="persona-tag-row">
-              <span class="persona-tag" data-i18n="persona.3.tag1">Legal-style documents</span>
-              <span class="persona-tag" data-i18n="persona.3.tag2">High ticket fees</span>
+              <span class="persona-tag" data-i18n="persona.p3.tag1">HR & compliance drafts</span>
+              <span class="persona-tag" data-i18n="persona.p3.tag2">Investigation summaries</span>
             </div>
-            <button class="persona-btn" type="button" data-line="legal" data-i18n="persona.btn.legal">
-              Start a legal letter like this →
+            <button class="persona-btn" type="button" onclick="window.location.href='services_legal.html'">
+              <span data-i18n="persona.p3.btn">See HR & contract packs</span>
             </button>
-          </div>
+          </article>
         </div>
       </section>
     </main>
@@ -1700,371 +1504,327 @@ html = r'''<!DOCTYPE html>
     <!-- FOOTER -->
     <footer>
       <div class="footer-inner">
-        <div data-i18n="footer.left">
-          Aurum Task Desk · Private AI writing & resolution desk for serious adults.
+        <div data-i18n="footer.copy">
+          © Aurum Task Desk. Quiet AI writing & escalation desk for older professionals.
         </div>
         <div class="footer-links">
+          <a href="legal.html" data-i18n="footer.legal">Legal & disclaimer</a>
           <a href="privacy.html" data-i18n="footer.privacy">Privacy</a>
-          <a href="terms.html" data-i18n="footer.terms">Terms</a>
-          <a href="desk.html" data-i18n="footer.desk">Open your desk</a>
+          <a href="terms.html" data-i18n="footer.terms">Terms of use</a>
         </div>
       </div>
     </footer>
   </div>
-
   <script>
-    // ===== 多语言文本：EN & 中文 =====
+    // =========================
+    // 多语言字典（中英文）
+    // =========================
     const translations = {
       en: {
-        "logo.sub": "Quiet AI writing desk for serious letters",
-
+        // 顶部导航（这里的 key 要和你第 1 段 nav 里的 data-i18n 对上）
+        "nav.brand": "Aurum Task Desk",
+        "nav.sub": "Private AI desk for serious letters",
         "nav.tasks": "Task Hall",
         "nav.pricing": "Pricing",
         "nav.desk": "Your Desk",
-        "nav.langLabel": "LANG",
         "nav.signin": "Sign in",
-        "nav.logout": "Logout",
+        "nav.langLabel": "LANG",
 
-        "hero.legal.tagline": "Line 01 · Legal documents / contracts",
-        "hero.legal.title": "Draft legal-style contracts and serious letters without hiring a full law firm.",
-        "hero.legal.text":
-          "Termination notices, partnership agreements, demand letters and policy documents — written in calm, precise language that you can show to professionals.",
-        "hero.legal.meta":
-          "Typical ticket: <strong>99–299 USD</strong> per document · each task starts from a simple description on your desk.",
-        "hero.legal.card.title": "Contract termination letter",
-        "hero.legal.card.body":
-          "“Please prepare a firm but respectful letter ending our supply contract due to repeated delivery failures, while leaving space to cooperate again if they improve.”",
-        "hero.legal.card.price": "~149 USD typical ticket",
+        // Hero slides
+        "hero.tagline1": "Private AI Desk for Serious Letters",
+        "hero.title1":
+          "Contracts, immigration, insurance & crisis letters — done quietly for you.",
+        "hero.sub1":
+          "For older US & EU professionals who do not want to fight with generic AI chat boxes. You send a situation & goal, the desk drafts, polishes and escalates.",
+        "hero.meta1":
+          "<strong>US$19.9</strong> per task · No subscription required · Human-reviewed AI desk",
+        "hero.ctaMain": "Open my private desk",
+        "hero.ctaSub": "View pricing & examples",
 
-        "hero.imm.tagline": "Line 02 · Immigration & visa letters",
-        "hero.imm.title": "Turn complicated immigration stories into clear, structured explanations.",
-        "hero.imm.text":
-          "Support letters, relationship proofs and appeal narratives written in calm language for officers and consulates to understand in minutes.",
-        "hero.imm.meta":
-          "Typical ticket: <strong>49–149 USD</strong> · high emotional and financial value, demand stays stable year after year.",
-        "hero.imm.card.title": "Support letter for long-term move",
-        "hero.imm.card.body":
-          "“Please write a support letter explaining my work history, savings and family situation, and why we plan to relocate permanently to Europe.”",
-        "hero.imm.card.price": "~89 USD typical ticket",
+        "hero.card1.title": "Contract & legal draft pack",
+        "hero.card.tag": "Most profitable",
+        "hero.card1.body":
+          "Engagement letters, service contracts, settlement drafts — written in clear, respectful language that senior managers actually read.",
+        "hero.card1.price": "From US$19.9 / task",
+        "hero.card1.pill": "Common for small business owners",
 
-        "hero.claims.tagline": "Line 03 · Insurance & airline claims",
-        "hero.claims.title": "Turn chaos after delay or loss into one calm claim letter.",
-        "hero.claims.text":
-          "Flights, luggage, medical bills, property damage — the desk structures your dates, numbers and evidence so companies actually process it.",
-        "hero.claims.meta":
-          "Typical ticket: <strong>39–129 USD</strong> · easy to show value once compensation arrives.",
-        "hero.claims.card.title": "Airline delay compensation",
-        "hero.claims.card.body":
-          "“Please prepare a claim letter for a 15-hour delay, including ticket numbers, receipts and a reasonable compensation request under airline rules.”",
-        "hero.claims.card.price": "~69 USD typical ticket",
+        "hero.tagline2": "Immigration & relocation letters",
+        "hero.title2":
+          "Immigration officers prefer calm, structured stories — not drama.",
+        "hero.sub2":
+          "We help you present your work history, family reasons and ties to home in a way that matches how officers review files: clean, logical, and easy to approve.",
+        "hero.meta2":
+          "<strong>Stable demand</strong> · Visitor visa letters · Work & study explanations",
+        "hero.ctaImm": "See immigration letter desk",
+        "hero.ctaDesk": "Describe my situation",
 
-        "hero.crisis.tagline": "Line 04 · Family & emotional crisis letters",
-        "hero.crisis.title": "Say hard things about money, care and boundaries — without shouting.",
-        "hero.crisis.text":
-          "Long letters to adult children, partners or parents about inheritance, support and limits, written in calm but firm language.",
-        "hero.crisis.meta":
-          "Typical ticket: <strong>29–149 USD</strong> · high repeat demand from the same households.",
-        "hero.crisis.card.title": "Letter to adult child about money",
-        "hero.crisis.card.body":
-          "“Please help me explain to my adult son why I will limit financial support, how inheritance will work, and what I can still do to help.”",
-        "hero.crisis.card.price": "~79 USD typical ticket",
+        "hero.card2.title": "Visitor visa & explanation letters",
+        "hero.card.tagStable": "Stable demand",
+        "hero.card2.body":
+          "Explain ties to home, income, and travel history without sounding desperate or fake.",
+        "hero.card2.price": "Often 2–3 tasks per case",
+        "hero.card2.pill": "Used by families & professionals",
 
-        "hero.esc.tagline": "Line 05 · Complaint escalation services",
-        "hero.esc.title": "When “customer support” stops listening, escalate quietly on paper.",
-        "hero.esc.text":
-          "Letters to senior managers, regulators, ombudsmen and executives that lay out facts and next steps without drama.",
-        "hero.esc.meta":
-          "Typical ticket: <strong>29–99 USD</strong> · mass-market need, very easy to package as a service.",
-        "hero.esc.card.title": "Escalation to bank supervisor",
-        "hero.esc.card.body":
-          "“Please write an escalation letter to a senior manager about repeated mistakes on my account and ask for a full review and written response.”",
-        "hero.esc.card.price": "~59 USD typical ticket",
+        "hero.tagline3": "Claims, crises & escalation letters",
+        "hero.title3":
+          "When flights are cancelled or families are in crisis, words must be precise.",
+        "hero.sub3":
+          "The desk writes calm but firm letters for airlines, insurers, banks, schools and HR. You keep emotions; we keep structure, evidence and escalation paths.",
+        "hero.meta3":
+          "<strong>High conversion</strong> · Insurance & airline claims · Complaint escalation",
+        "hero.ctaClaims": "Check claims & escalation desk",
+        "hero.ctaDesk2": "Start with my case",
 
-        "hero.card.tag.hot": "High fee",
-        "hero.card.tag.stable": "Stable demand",
-        "hero.card.tag.value": "Clear value",
-        "hero.card.tag.repeat": "High repeat",
-        "hero.card.tag.mass": "Mass need",
-        "hero.card.pill": "2–3 clear sentences → full letter",
+        "hero.card3.title": "Airline / insurance / HR escalation",
+        "hero.card.tagHigh": "High success",
+        "hero.card3.body":
+          "Designed so case handlers can quickly see evidence, timeline and what solution you request.",
+        "hero.card3.price": "Often refunded in 1–2 replies",
+        "hero.card3.pill": "Very strong for upgrades & refunds",
 
-        "hero.headline":
-          "One quiet AI desk for <span>high-value, serious letters</span> you can really send.",
-        "hero.subline":
-          "Aurum is not a chatbot window. It is a private writing & resolution desk for older US & EU professionals who want strong, calm letters for real-world problems.",
-        "hero.badge1": "No subscription · from 19.9 USD per task",
-        "hero.badge2": "Legal-style drafts",
-        "hero.badge3": "Immigration & claims",
-        "hero.badge4": "Family & escalation letters",
+        // Five main service tiles
+        "tiles.title": "Five main service entrances",
+        "tiles.hint":
+          "Click a tile to open that dedicated page (full explanation & examples).",
+        "tiles.legal.title": "Legal drafts & contracts",
+        "tiles.legal.sub": "Most profitable · business & personal agreements",
+        "tiles.imm.title": "Immigration & visa letters",
+        "tiles.imm.sub":
+          "Stable demand · visitor, work & family cases",
+        "tiles.claim.title": "Insurance / airline claims",
+        "tiles.claim.sub":
+          "High success rate · clear, evidence-based letters",
+        "tiles.family.title": "Family & emotional crisis letters",
+        "tiles.family.sub":
+          "High repeat rate · calm, respectful communication",
+        "tiles.esc.title": "Complaint escalation desk",
+        "tiles.esc.sub":
+          "Mass market · banks, platforms, HR & more",
 
-        "hero.steps.title": "HOW THE DESK WORKS",
-        "hero.steps.1":
-          "<strong>Pick a line</strong> — legal draft, immigration, claims, family crisis or escalation.",
-        "hero.steps.2":
-          "<strong>Drop your messy notes</strong> — screenshots, bullet points, old letters, anything that explains the situation.",
-        "hero.steps.3":
-          "<strong>Receive a calm, finished letter</strong> — structured for professionals, not for social media.",
-
-        "hero.cta.main": "Open my desk & start a task",
-        "hero.cta.pricing": "View pricing & examples",
-        "hero.note":
-          "No subscription required. Most tasks start at <strong>USD 19.9</strong> and scale with complexity. The desk is not for dating, spam or mass cold outreach.",
-
-        "hero.btn.startLegal": "Start a legal draft task",
-        "hero.btn.startImm": "Start an immigration letter",
-        "hero.btn.startClaims": "Start a claim letter",
-        "hero.btn.startCrisis": "Start a family crisis letter",
-        "hero.btn.startEsc": "Start an escalation letter",
-        "hero.btn.example": "See example brief",
-
-        "tiles.title": "High-value lines on this desk",
-        "tiles.hint": "Click any card to open the desk on that line.",
-        "tiles.legal.label": "Legal drafts",
-        "tiles.legal.sub": "Contracts & formal letters",
-        "tiles.imm.label": "Immigration letters",
-        "tiles.imm.sub": "Visa, explanation & appeals",
-        "tiles.claims.label": "Claims",
-        "tiles.claims.sub": "Insurance & airline claims",
-        "tiles.crisis.label": "Family crisis",
-        "tiles.crisis.sub": "Hard letters to loved ones",
-        "tiles.esc.label": "Escalation",
-        "tiles.esc.sub": "Calm complaint upgrades",
-
-        "compare.title": "Why not just open a ChatGPT window?",
+        // ChatGPT compare
+        "compare.title": "Why not just use a generic AI chat box?",
         "compare.sub":
-          "ChatGPT is powerful, but it was trained to chat with everyone. This desk is tuned for older professionals who need one thing: strong, calm letters for situations that affect money, status and family.",
-        "compare.pill1": "Not a toy · built for adults",
-        "compare.pill2": "No subscription · pay per task",
-        "compare.pill3": "Legal-style structure",
-        "compare.pill4": "Quiet desk, not endless chat",
+          "ChatGPT is powerful, but for serious letters it often produces vague, over-polite or copy-paste style text. AurumDesk is tuned for older professionals, with strict formats for contracts, immigration, claims and high-risk communication.",
+        "compare.pill1":
+          "Built for 40+ professionals & business owners",
+        "compare.pill2":
+          "One quiet desk — not another noisy “AI app”",
+        "compare.pill3":
+          "Focus: legal-adjacent, claims & crisis writing",
 
-        "compare.chatgpt.label": "Just ChatGPT chat",
-        "compare.chatgpt.title": "One more tab · no structure",
-        "compare.chatgpt.li1": "•<span>Long back-and-forth conversations, easy to lose the main point.</span>",
-        "compare.chatgpt.li2": "•<span>Responses can be too friendly, too soft, or too “internet”.</span>",
-        "compare.chatgpt.li3": "•<span>You still have to decide what counts as a “good letter”.</span>",
-        "compare.chatgpt.li4": "•<span>Not focused on older professionals or real-world disputes.</span>",
+        "compare.badLabel": "Generic AI chat",
+        "compare.badTitle": "Fast but shallow, no responsibility",
+        "compare.bad1":
+          "Writes long, fluffy text that sounds impressive but does not match how officers, lawyers or insurers read documents.",
+        "compare.bad2":
+          "No understanding of risk — can suggest aggressive tone that makes situations worse.",
+        "compare.bad3":
+          "You must design structure, headings, timelines and evidence yourself.",
 
-        "compare.aurum.label": "Aurum Task Desk",
-        "compare.aurum.title": "A quiet desk that finishes the letter",
-        "compare.aurum.li1": "•<span>Start with your messy story, end with a clean, send-ready letter.</span>",
-        "compare.aurum.li2": "•<span>Legal-style structure, dates and numbers aligned in one place.</span>",
-        "compare.aurum.li3": "•<span>Special focus on contracts, immigration, claims and family crises.</span>",
-        "compare.aurum.li4": "•<span>Built to feel like a private “writing office”, not a public AI playground.</span>",
-        "compare.aurum.cta": "Open my desk on the legal line →",
+        "compare.goodLabel": "Aurum Task Desk",
+        "compare.goodTitle":
+          "Slow, careful desk that speaks “officer language”",
+        "compare.good1":
+          "Templates tuned for legal-adjacent work, immigration, claims and high-risk HR cases.",
+        "compare.good2":
+          "Calmer, more respectful tone — designed for older readers and decision makers.",
+        "compare.good3":
+          "Each task follows a structure: facts → timeline → risk → clear request.",
+        "compare.btn": "Open desk and try one task",
 
-        "persona.title": "WHO IS USING THIS DESK",
-        "persona.hint": "Click any card to start a similar task on your own desk.",
+        // Personas
+        "persona.title": "Who quietly uses this desk?",
+        "persona.hint":
+          "Real-style avatars · 40+ managers, engineers, logistics owners, retired officers.",
 
-        "persona.1.name": "Retired engineer · 62",
-        "persona.1.role": "Missed connection & luggage loss · airline claim",
-        "persona.1.quote":
-          "“I can describe what happened, but I don’t know how to write a serious claim letter. The desk turned my notes into something I’m not embarrassed to send to the airline.”",
-        "persona.1.tag1": "Insurance / airline claims",
-        "persona.1.tag2": "Clear numbers & receipts",
+        "persona.p1.name": "Martin, 58",
+        "persona.p1.role": "Trucking & logistics owner · US Midwest",
+        "persona.p1.quote":
+          "“I hate long emails. The desk turns my voice messages into short, firm letters that airlines, insurers and customers actually respond to.”",
+        "persona.p1.tag1": "Insurance & airline claims",
+        "persona.p1.tag2": "Driver HR issues",
+        "persona.p1.btn": "See similar claim letters",
 
-        "persona.2.name": "Senior manager · 55",
-        "persona.2.role": "Adult children & inheritance · family crisis letter",
-        "persona.2.quote":
-          "“I needed to say no more loans, but still keep the relationship. The desk helped me find words that were firm but not cruel.”",
-        "persona.2.tag1": "Family boundaries",
-        "persona.2.tag2": "High emotional value",
+        "persona.p2.name": "Elena, 46",
+        "persona.p2.role":
+          "Senior engineer · moving between EU countries",
+        "persona.p2.quote":
+          "“For immigration I needed letters that sound professional, not emotional. The desk knew exactly what officers look for.”",
+        "persona.p2.tag1": "Immigration explanations",
+        "persona.p2.tag2": "Contract clarifications",
+        "persona.p2.btn": "View immigration examples",
 
-        "persona.3.name": "Small business owner · 48",
-        "persona.3.role": "Contract termination & new terms · legal-style letter",
-        "persona.3.quote":
-          "“I don’t want to fight, I just want clear terms. The desk helped me end one contract and propose a fair new one in plain but precise English.”",
-        "persona.3.tag1": "Legal-style documents",
-        "persona.3.tag2": "High ticket fees",
+        "persona.p3.name": "Sandra, 52",
+        "persona.p3.role":
+          "HR & compliance manager · manufacturing",
+        "persona.p3.quote":
+          "“I use AurumDesk for sensitive HR letters — warnings, restructures, investigations. It keeps everything calm and legally safe.”",
+        "persona.p3.tag1": "HR & compliance drafts",
+        "persona.p3.tag2": "Investigation summaries",
+        "persona.p3.btn": "See HR & contract packs",
 
-        "persona.btn.claims": "Start a claim like this →",
-        "persona.btn.crisis": "Start a family letter like this →",
-        "persona.btn.legal": "Start a legal letter like this →",
-
-        "footer.left":
-          "Aurum Task Desk · Private AI writing & resolution desk for serious adults.",
+        // Footer
+        "footer.copy":
+          "© Aurum Task Desk. Quiet AI writing & escalation desk for older professionals.",
+        "footer.legal": "Legal & disclaimer",
         "footer.privacy": "Privacy",
-        "footer.terms": "Terms",
-        "footer.desk": "Open your desk"
+        "footer.terms": "Terms of use"
       },
 
       zh: {
-        "logo.sub": "为严肃事务服务的安静 AI 写作桌",
-
+        // 顶部导航
+        "nav.brand": "Aurum Task Desk 任务桌",
+        "nav.sub": "为严肃事务服务的安静 AI 写作桌",
         "nav.tasks": "任务大厅",
         "nav.pricing": "定价",
         "nav.desk": "我的任务桌",
-        "nav.langLabel": "语言",
         "nav.signin": "登录",
-        "nav.logout": "退出",
+        "nav.langLabel": "语言",
 
-        "hero.legal.tagline": "线路 01 · 法律文书 / 合同草稿",
-        "hero.legal.title": "不用请整家律所，也能写出像样的法律风格文件。",
-        "hero.legal.text":
-          "合同终止、合作协议、律师函、立场说明和各类制度文书——语气冷静、措辞严谨，可以拿给专业人士看。",
-        "hero.legal.meta":
-          "典型客单：每份 <strong>99–299 美元</strong> · 客户只需在任务桌上给出简单描述即可开始。",
-        "hero.legal.card.title": "合同终止函草稿",
-        "hero.legal.card.body":
-          "“写一封语气坚定但礼貌的合同解除信，发给多次违约的长期供应商，同时保留未来合作的可能性。”",
-        "hero.legal.card.price": "常见客单 ~149 美元",
+        // Hero slides
+        "hero.tagline1": "为严肃长信准备的私人 AI 写作桌",
+        "hero.title1":
+          "合同、移民说明、保险理赔、家庭&危机长信——帮你安静写好。",
+        "hero.sub1":
+          "面向欧美 40+ 专业人士，不想再跟普通 AI 聊天框较劲。你只需描述情况与目标，任务桌负责起草、润色和升级沟通。",
+        "hero.meta1":
+          "<strong>每次任务 19.9 美元起</strong> · 无需订阅 · 人工复核的 AI 写作桌",
+        "hero.ctaMain": "打开我的私人任务桌",
+        "hero.ctaSub": "查看定价与示例",
 
-        "hero.imm.tagline": "线路 02 · 移民 & 签证说明信",
-        "hero.imm.title": "把复杂的移民故事，整理成结构清晰的说明信。",
-        "hero.imm.text":
-          "用于递交给移民官和使馆的解释信、关系证明和复议陈述，让对方在几分钟内看懂你的情况。",
-        "hero.imm.meta":
-          "典型客单：<strong>49–149 美元</strong> · 情绪价值和经济价值都高，需求多年稳定。",
-        "hero.imm.card.title": "长期定居与家庭关系支持信",
-        "hero.imm.card.body":
-          "“请帮我写一封支持信，说明我的工作记录、积蓄和家庭情况，以及我们计划长期定居欧洲的原因。”",
-        "hero.imm.card.price": "常见客单 ~89 美元",
+        "hero.card1.title": "法律文书 / 合同草稿组合",
+        "hero.card.tag": "最赚钱线路",
+        "hero.card1.body":
+          "委托协议、服务合同、和解草稿等——语气礼貌但立场清晰，方便管理层和律师阅读。",
+        "hero.card1.price": "单次任务从 19.9 美元起",
+        "hero.card1.pill": "中小企业主常用线路",
 
-        "hero.claims.tagline": "线路 03 · 保险理赔 / 航空索赔",
-        "hero.claims.title": "延误或损失之后，用一封冷静的索赔信把问题说清楚。",
-        "hero.claims.text":
-          "航班延误、行李遗失、医疗账单、财产损失——任务桌帮你把时间线、金额和证据整理成一套，方便公司处理。",
-        "hero.claims.meta":
-          "典型客单：<strong>39–129 美元</strong> · 一旦拿到赔偿，很容易向客户说明价值。",
-        "hero.claims.card.title": "长时间延误赔偿申请",
-        "hero.claims.card.body":
-          "“请帮我写一封航班延误索赔信，说明 15 小时延误、机票信息、票据，并提出合理的赔偿要求。”",
-        "hero.claims.card.price": "常见客单 ~69 美元",
+        "hero.tagline2": "移民 & 长期居留说明信",
+        "hero.title2":
+          "移民官喜欢冷静、结构清楚的故事——而不是情绪化长文。",
+        "hero.sub2":
+          "我们帮你把工作经历、家庭原因和回国约束，整理成符合审理习惯的说明：简洁、逻辑清楚、易于通过。",
+        "hero.meta2":
+          "<strong>需求稳定</strong> · 访客签证说明 · 工作 / 学习类解释信",
+        "hero.ctaImm": "查看移民说明信服务页",
+        "hero.ctaDesk": "先描述我的情况",
 
-        "hero.crisis.tagline": "线路 04 · 家庭 & 情绪危机长信",
-        "hero.crisis.title": "把关于金钱、照顾和边界的难话，用不吵架的方式说清楚。",
-        "hero.crisis.text":
-          "给成年子女、伴侣或父母的长信，谈遗产、资助和底线，语气冷静但清楚，让对方听得进去。",
-        "hero.crisis.meta":
-          "典型客单：<strong>29–149 美元</strong> · 同一家人往往会多次回头下单。",
-        "hero.crisis.card.title": "写给成年子女的金钱边界信",
-        "hero.crisis.card.body":
-          "“请帮我解释为什么以后会减少经济支持，遗产会如何安排，以及我还能在哪些方面提供帮助。”",
-        "hero.crisis.card.price": "常见客单 ~79 美元",
+        "hero.card2.title": "访客签证 & 情况解释信",
+        "hero.card.tagStable": "需求稳定",
+        "hero.card2.body":
+          "说明与你本国的联系、收入来源、旅行记录，不显得过度求情或虚假。",
+        "hero.card2.price": "通常每个案子 2–3 次任务",
+        "hero.card2.pill": "适用于家庭 & 职业人士",
 
-        "hero.esc.tagline": "线路 05 · 升级投诉 / 正式申诉",
-        "hero.esc.title": "当前台客服不再理你，用纸面、冷静地升级沟通。",
-        "hero.esc.text":
-          "写给主管、监管机构、申诉专员或高管的升级信，把事实、证据和下一步要求清楚列出，而不是情绪宣泄。",
-        "hero.esc.meta":
-          "典型客单：<strong>29–99 美元</strong> · 面向大众的刚需服务，极易打包成产品。",
-        "hero.esc.card.title": "向银行主管升级投诉信",
-        "hero.esc.card.body":
-          "“请帮我写一封给银行高管的升级投诉信，说明账户多次出错，要求全面核查并给出书面回复。”",
-        "hero.esc.card.price": "常见客单 ~59 美元",
+        "hero.tagline3": "理赔、危机 & 升级投诉信",
+        "hero.title3":
+          "航班取消、家庭危机或职场冲突时，用精准的文字解决问题。",
+        "hero.sub3":
+          "任务桌替你写给航空公司、保险、银行、学校、HR 的冷静但有力的信。情绪由你消化，结构和证据由我们整理。",
+        "hero.meta3":
+          "<strong>转化率高</strong> · 保险 & 航空理赔 · 升级投诉信",
+        "hero.ctaClaims": "查看理赔与升级投诉服务页",
+        "hero.ctaDesk2": "用我的真实案例开始",
 
-        "hero.card.tag.hot": "高客单",
-        "hero.card.tag.stable": "需求稳定",
-        "hero.card.tag.value": "价值直观",
-        "hero.card.tag.repeat": "高复购",
-        "hero.card.tag.mass": "大众刚需",
-        "hero.card.pill": "只需几句清楚描述 → 完整长信",
+        "hero.card3.title": "航空 / 保险 / HR 升级信",
+        "hero.card.tagHigh": "成功率高",
+        "hero.card3.body":
+          "让处理人员快速看懂时间线、证据与诉求方案，愿意坐下来解决问题。",
+        "hero.card3.price": "常见 1–2 封往返即可解决",
+        "hero.card3.pill": "适合退款 / 升舱 / 赔付协商",
 
-        "hero.headline":
-          "一个真正安静的 AI 写作桌，用来写你<b>敢发出去的严肃长信</b>。",
-        "hero.subline":
-          "Aurum 不是一个随便聊天的对话框，而是为欧美中老年专业人士准备的“私人写作桌”，解决法律、名誉和家庭关系的真实问题。",
+        // Five main service tiles
+        "tiles.title": "五大核心业务入口",
+        "tiles.hint":
+          "点击任意卡片，会打开对应的专业服务页面（内含详细说明与示例）。",
+        "tiles.legal.title": "法律文书 / 合同草稿",
+        "tiles.legal.sub": "最赚钱 · 商务 & 个人重要文件",
+        "tiles.imm.title": "移民 & 签证说明信",
+        "tiles.imm.sub": "需求稳定 · 访客、工作、家庭团聚等",
+        "tiles.claim.title": "保险 / 航空理赔信",
+        "tiles.claim.sub": "成功率高 · 证据与时间线清晰",
+        "tiles.family.title": "家庭 & 情绪危机长信",
+        "tiles.family.sub": "复购率高 · 温和但立场坚定",
+        "tiles.esc.title": "投诉升级服务",
+        "tiles.esc.sub": "大众需求 · 银行、平台、HR 等场景",
 
-        "hero.badge1": "无订阅 · 每次任务从 19.9 美元起",
-        "hero.badge2": "法律风格草稿",
-        "hero.badge3": "移民说明 & 各类理赔",
-        "hero.badge4": "家庭危机 & 升级投诉",
-
-        "hero.steps.title": "任务桌如何运作",
-        "hero.steps.1":
-          "<strong>先选一条业务线</strong> —— 法律文书、移民说明、理赔、家庭危机或升级投诉。",
-        "hero.steps.2":
-          "<strong>把你的乱七八糟资料丢进来</strong> —— 截图、要点、旧邮件，只要能说明情况即可。",
-        "hero.steps.3":
-          "<strong>收回一封可以直接发送的长信</strong> —— 结构、时间线、金额都帮你整理好。",
-
-        "hero.cta.main": "打开我的任务桌，发起一个任务",
-        "hero.cta.pricing": "查看定价与示例",
-        "hero.note":
-          "无需订阅。大部分任务从 <strong>19.9 美元</strong> 起，根据复杂度逐步计费。任务桌不用于约会、垃圾信息或大规模冷开发。",
-
-        "hero.btn.startLegal": "发起法律文书任务",
-        "hero.btn.startImm": "发起移民说明信任务",
-        "hero.btn.startClaims": "发起理赔 / 索赔信任务",
-        "hero.btn.startCrisis": "发起家庭危机长信任务",
-        "hero.btn.startEsc": "发起升级投诉信任务",
-        "hero.btn.example": "查看示例简要说明",
-
-        "tiles.title": "这张任务桌上最值钱的几条业务线",
-        "tiles.hint": "点击任意卡片，会在对应线路上打开你的任务桌。",
-        "tiles.legal.label": "法律文书草稿",
-        "tiles.legal.sub": "合同 & 正式函件",
-        "tiles.imm.label": "移民说明信",
-        "tiles.imm.sub": "签证、解释与复议",
-        "tiles.claims.label": "理赔 / 索赔信",
-        "tiles.claims.sub": "保险 & 航空索赔",
-        "tiles.crisis.label": "家庭危机长信",
-        "tiles.crisis.sub": "写给家人的难说之话",
-        "tiles.esc.label": "升级投诉",
-        "tiles.esc.sub": "冷静版正式投诉信",
-
-        "compare.title": "为什么不直接打开一个 ChatGPT 窗口？",
+        // ChatGPT compare
+        "compare.title": "为什么不直接用 ChatGPT 聊天框？",
         "compare.sub":
-          "ChatGPT 很强，但它是为所有人聊天而训练的。这张任务桌只为一类人服务：中老年专业人士，他们的信件关系到金钱、名誉和家庭关系。",
-        "compare.pill1": "不是玩具 · 面向成年人",
-        "compare.pill2": "无订阅 · 按次付费",
-        "compare.pill3": "法律风格结构",
-        "compare.pill4": "安静的写作桌 · 而不是无尽对话",
+          "ChatGPT 很强，但在严肃长信上，容易写出空话、套话或太客气的模板。AurumDesk 专门为 40+ 专业人士调校，用严格格式处理合同、移民、理赔和高风险沟通。",
+        "compare.pill1": "面向 40+ 专业人士与老板",
+        "compare.pill2": "一个安静写作桌 · 不是又一个吵闹 AI App",
+        "compare.pill3": "聚焦：法律相关、理赔 & 危机沟通",
 
-        "compare.chatgpt.label": "只是一个 ChatGPT 聊天框",
-        "compare.chatgpt.title": "又一个网页标签 · 没有结构",
-        "compare.chatgpt.li1": "•<span>需要来回聊很久，很容易忘记自己到底要什么。</span>",
-        "compare.chatgpt.li2": "•<span>语气可能太友好、太软，甚至有点“网络聊天感”。</span>",
-        "compare.chatgpt.li3": "•<span>最后还是你自己决定：这封信算不算“够正式”。</span>",
-        "compare.chatgpt.li4": "•<span>没有专门针对中老年专业人士和现实纠纷场景。</span>",
+        "compare.badLabel": "通用 AI 聊天",
+        "compare.badTitle": "速度快但浅层 · 没有责任感",
+        "compare.bad1":
+          "写出看起来很厉害的长段文字，但不符合律师、移民官、保险理赔员的阅读习惯。",
+        "compare.bad2":
+          "不了解风险，有时会建议攻击性过强的语气，反而把问题升级。",
+        "compare.bad3":
+          "结构、标题、时间线和证据，仍然需要你自己设计。",
 
-        "compare.aurum.label": "Aurum Task Desk 任务桌",
-        "compare.aurum.title": "一张真正替你“写完”的写作桌",
-        "compare.aurum.li1": "•<span>从你凌乱的讲述开始，以一封可以直接发送的长信结束。</span>",
-        "compare.aurum.li2": "•<span>时间线、金额、证据都帮你排好，专业人士一眼能看懂。</span>",
-        "compare.aurum.li3": "•<span>重点聚焦合同、移民、理赔和家庭危机这些高价值场景。</span>",
-        "compare.aurum.li4": "•<span>更像一间私人写作办公室，而不是公共 AI 游乐场。</span>",
-        "compare.aurum.cta": "在法律线路上打开我的任务桌 →",
+        "compare.goodLabel": "Aurum Task Desk 任务桌",
+        "compare.goodTitle": "慢一点，但更懂“官员 / 审核者语言”",
+        "compare.good1":
+          "模板专门针对法律相关工作、移民说明、理赔和高风险 HR 场景。",
+        "compare.good2":
+          "整体语气更冷静、尊重，适合中老年决策者阅读。",
+        "compare.good3":
+          "每个任务都遵循“事实 → 时间线 → 风险 → 明确请求”的结构。",
+        "compare.btn": "打开任务桌，试一单看看",
 
-        "persona.title": "谁在使用这张任务桌",
-        "persona.hint": "点击任意卡片，在你的任务桌上发起类似任务。",
+        // Personas
+        "persona.title": "谁在悄悄使用这张任务桌？",
+        "persona.hint":
+          "逼真头像示意 · 40+ 管理者、工程师、物流老板、退役军人等。",
 
-        "persona.1.name": "退休工程师 · 62 岁",
-        "persona.1.role": "转机失败 & 行李遗失 · 航空索赔",
-        "persona.1.quote":
-          "“我能讲清楚发生了什么，但不会写一封正式的索赔信。任务桌把我的笔记整理成一封我敢发给航空公司的信。”",
-        "persona.1.tag1": "保险 / 航空理赔",
-        "persona.1.tag2": "金额和票据清晰",
+        "persona.p1.name": "Martin · 58 岁",
+        "persona.p1.role": "美国中西部卡车与物流公司老板",
+        "persona.p1.quote":
+          "“我讨厌写长邮件。任务桌把我的语音信息整理成简短、有力、对方愿意回复的正式信件。”",
+        "persona.p1.tag1": "保险 / 航空理赔",
+        "persona.p1.tag2": "司机 HR 问题",
+        "persona.p1.btn": "查看类似理赔信示例",
 
-        "persona.2.name": "部门高级经理 · 55 岁",
-        "persona.2.role": "成年子女 & 遗产安排 · 家庭危机长信",
-        "persona.2.quote":
-          "“我必须说‘不能再借钱了’，但又不想把关系搞坏。任务桌帮我找到既坚定又不过分伤人的表达。”",
-        "persona.2.tag1": "家庭边界",
-        "persona.2.tag2": "高情绪价值",
+        "persona.p2.name": "Elena · 46 岁",
+        "persona.p2.role": "在欧盟各国之间流动的高级工程师",
+        "persona.p2.quote":
+          "“移民材料需要的是专业，不是情绪。任务桌非常清楚移民官在找什么。”",
+        "persona.p2.tag1": "移民解释信",
+        "persona.p2.tag2": "合同条款澄清",
+        "persona.p2.btn": "查看移民类示例",
 
-        "persona.3.name": "小企业老板 · 48 岁",
-        "persona.3.role": "终止旧合同 & 提出新条款 · 法律风格函件",
-        "persona.3.quote":
-          "“我不想吵架，只想把条款说清楚。任务桌帮我写好终止函，同时给出一套公平的新方案。”",
-        "persona.3.tag1": "法律风格文件",
-        "persona.3.tag2": "高客单费用",
+        "persona.p3.name": "Sandra · 52 岁",
+        "persona.p3.role": "制造业 HR & 合规负责人",
+        "persona.p3.quote":
+          "“我用 AurumDesk 写敏感 HR 信件——警告、调整架构、调查说明，整体感觉冷静又稳妥。”",
+        "persona.p3.tag1": "HR & 合规类草稿",
+        "persona.p3.tag2": "调查总结报告",
+        "persona.p3.btn": "查看 HR / 合同类套餐",
 
-        "persona.btn.claims": "发起类似索赔任务 →",
-        "persona.btn.crisis": "发起类似家庭长信任务 →",
-        "persona.btn.legal": "发起类似法律文书任务 →",
-
-        "footer.left":
-          "Aurum Task Desk · 为严肃成年人服务的私人 AI 写作与解决方案任务桌。",
+        // Footer
+        "footer.copy":
+          "© Aurum Task Desk · 为中老年专业人士打造的安静 AI 写作与升级沟通任务桌。",
+        "footer.legal": "法律声明",
         "footer.privacy": "隐私政策",
-        "footer.terms": "使用条款",
-        "footer.desk": "打开我的任务桌"
+        "footer.terms": "使用条款"
       }
     };
 
-    // ===== 应用多语言 =====
+    // =========================
+    // 应用多语言
+    // =========================
     function applyTranslations(lang) {
-      const dict = translations[lang] || translations.en;
+      let dict = translations[lang];
+      if (!dict) {
+        lang = "en";
+        dict = translations.en;
+      }
+
       document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const key = el.getAttribute("data-i18n");
         const val = dict[key];
@@ -2072,7 +1832,7 @@ html = r'''<!DOCTYPE html>
         el.innerHTML = val;
       });
 
-      // 按钮激活状态
+      // 语言按钮激活状态
       document.querySelectorAll(".lang-btn").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.lang === lang);
       });
@@ -2080,120 +1840,98 @@ html = r'''<!DOCTYPE html>
       localStorage.setItem("aurum_lang", lang);
     }
 
-    // ===== 简单登录状态（基于 localStorage） =====
-    function refreshAuthUI() {
-      const sign = document.querySelector(".nav-signin-link");
-      const userArea = document.querySelector(".nav-user-area");
-      const hi = document.querySelector(".nav-hi");
-
-      let email = "";
-      const raw = localStorage.getItem("aurum_user");
-      if (raw) {
-        try {
-          const obj = JSON.parse(raw);
-          email = obj.email || obj.user_email || "";
-        } catch (e) {}
-      }
-
-      if (email) {
-        sign.style.display = "none";
-        userArea.style.display = "inline-flex";
-        hi.textContent = "Hi, " + email;
-      } else {
-        sign.style.display = "";
-        userArea.style.display = "none";
-        hi.textContent = "";
-      }
-    }
-
-    function logout() {
-      localStorage.removeItem("aurum_user");
-      // 如果你有后端登出接口，可以在这里 fetch 一下
-      refreshAuthUI();
-    }
-
-    // ===== 轮播逻辑 =====
+    // =========================
+    // Hero 自动轮播 + 控制
+    // =========================
     function initHeroSlider() {
       const slides = Array.from(document.querySelectorAll(".hero-slide"));
-      const dots = Array.from(document.querySelectorAll(".hero-dot"));
-      const prev = document.getElementById("hero-prev");
-      const next = document.getElementById("hero-next");
+      if (!slides.length) return;
 
-      let index = 0;
+      let current = 0;
       let timer = null;
 
-      function show(i) {
-        index = (i + slides.length) % slides.length;
-        slides.forEach((s, idx) => {
-          s.classList.toggle("active", idx === index);
+      function showSlide(index) {
+        current = (index + slides.length) % slides.length;
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === current);
         });
-        dots.forEach((d, idx) => {
-          d.classList.toggle("active", idx === index);
+
+        // 所有点同步高亮（因为每个 slide 里都有一组点）
+        const dots = document.querySelectorAll(".hero-dot");
+        dots.forEach((dot) => {
+          const target = Number(dot.dataset.target || 0);
+          dot.classList.toggle("active", target === current);
         });
       }
 
-      function auto() {
-        clearInterval(timer);
+      function startAuto() {
+        stopAuto();
         timer = setInterval(() => {
-          show(index + 1);
-        }, 8000);
+          showSlide(current + 1);
+        }, 8000); // 8 秒自动切换一次
       }
 
-      dots.forEach((dot, idx) => {
+      function stopAuto() {
+        if (timer) clearInterval(timer);
+      }
+
+      // 点点切换
+      document.querySelectorAll(".hero-dot").forEach((dot) => {
         dot.addEventListener("click", () => {
-          show(idx);
-          auto();
+          const target = Number(dot.dataset.target || 0);
+          showSlide(target);
+          startAuto();
         });
       });
 
-      prev.addEventListener("click", () => {
-        show(index - 1);
-        auto();
-      });
-
-      next.addEventListener("click", () => {
-        show(index + 1);
-        auto();
-      });
-
-      show(0);
-      auto();
-    }
-
-    // ===== 打开 desk.html 时携带线路参数 =====
-    function openDesk(line, extra = "") {
-      const params = new URLSearchParams();
-      if (line) params.set("line", line);
-      if (extra) params.set("mode", extra);
-      const qs = params.toString();
-      window.location.href = "desk.html" + (qs ? "?" + qs : "");
-    }
-
-    function wireLineButtons() {
-      document.querySelectorAll("[data-line-start]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          openDesk(btn.dataset.lineStart);
+      // 左右箭头
+      document.querySelectorAll(".hero-arrow").forEach((arrow) => {
+        arrow.addEventListener("click", () => {
+          const dir = arrow.dataset.dir;
+          if (dir === "prev") {
+            showSlide(current - 1);
+          } else {
+            showSlide(current + 1);
+          }
+          startAuto();
         });
       });
 
-      document.querySelectorAll("[data-line-example]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          openDesk(btn.dataset.lineExample, "example");
-        });
-      });
-
-      document.querySelectorAll(".hero-main-cta, .compare-cta, .persona-btn, .tile-item").forEach((el) => {
-        const line = el.dataset.line;
-        if (!line) return;
-        el.addEventListener("click", () => openDesk(line));
-      });
+      // 初始
+      showSlide(0);
+      startAuto();
     }
 
-    // ===== 事件绑定 =====
-    document.addEventListener("DOMContentLoaded", () => {
-      // 语言
-      const savedLang = localStorage.getItem("aurum_lang") || "zh";
-      applyTranslations(savedLang);
+    // =========================
+    // 滚动发光 / 进场动画
+    // =========================
+    function initScrollAnimations() {
+      const sections = document.querySelectorAll(".section-animate");
+      if (!("IntersectionObserver" in window) || !sections.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.2
+        }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    }
+
+    // =========================
+    // 语言按钮绑定
+    // =========================
+    function initLangSwitcher() {
+      const saved = localStorage.getItem("aurum_lang") || "en";
+      applyTranslations(saved);
 
       document.querySelectorAll(".lang-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
@@ -2201,146 +1939,16 @@ html = r'''<!DOCTYPE html>
           applyTranslations(lang);
         });
       });
+    }
 
-      // 登录显示
-      refreshAuthUI();
-      const logoutBtn = document.querySelector(".nav-logout-btn");
-      if (logoutBtn) logoutBtn.addEventListener("click", logout);
-
-      // 轮播
+    // =========================
+    // DOM Ready
+    // =========================
+    document.addEventListener("DOMContentLoaded", () => {
+      initLangSwitcher();
       initHeroSlider();
-
-      // desk 跳转
-      wireLineButtons();
+      initScrollAnimations();
     });
   </script>
 </body>
 </html>
-'''
-
-# ---- Modify: fix hero aspect ratio ----
-html = html.replace(
-    ".hero-slide-right {\n      position: relative;",
-    ".hero-slide-right {\n      position: relative;\n      aspect-ratio: 4 / 3;\n      min-height: 260px;"
-)
-
-# ---- Modify: persona avatar to real photos ----
-html = html.replace(
-    """.persona-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      background:
-        radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.95), transparent 55%),
-        conic-gradient(from 160deg, #facc15, #f97316, #22c55e, #0ea5e9, #facc15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      color: #020617;
-      box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.9),
-        0 10px 25px rgba(15, 23, 42, 0.95);
-    }
-""",
-    """.persona-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      overflow: hidden;
-      border: 1px solid rgba(248, 250, 252, 0.7);
-      box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.9),
-        0 10px 25px rgba(15, 23, 42, 0.95);
-      flex-shrink: 0;
-    }
-    .persona-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-"""
-)
-
-html = html.replace(
-    '<div class="persona-avatar">E</div>',
-    '<div class="persona-avatar"><img src="persona-1.jpg" alt="Retired engineer" /></div>'
-)
-html = html.replace(
-    '<div class="persona-avatar">M</div>',
-    '<div class="persona-avatar"><img src="persona-2.jpg" alt="Senior manager" /></div>'
-)
-html = html.replace(
-    '<div class="persona-avatar">B</div>',
-    '<div class="persona-avatar"><img src="persona-3.jpg" alt="Small business owner" /></div>'
-)
-
-# ---- Add scroll-in animation styles and hero glow ----
-extra_css = """
-    /* ===== GLOBAL SCROLL ANIMATIONS ===== */
-    .section-animate {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.65s ease-out, transform 0.65s ease-out;
-    }
-    .section-animate.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .hero-banner {
-      animation: heroGlow 18s ease-in-out infinite alternate;
-    }
-
-    @keyframes heroGlow {
-      0% {
-        box-shadow: 0 26px 70px rgba(15, 23, 42, 0.9);
-      }
-      100% {
-        box-shadow: 0 36px 90px rgba(250, 204, 21, 0.45);
-      }
-    }
-"""
-html = html.replace("    /* ===== RESPONSIVE ===== */", extra_css + "\n\n    /* ===== RESPONSIVE ===== */")
-
-# ---- Mark sections with animation class ----
-html = html.replace('<section class="hero">', '<section class="hero section-animate">')
-html = html.replace('<section class="tiles-section">', '<section class="tiles-section section-animate">')
-html = html.replace('<section class="compare-section">', '<section class="compare-section section-animate">')
-html = html.replace('<section class="persona-section">', '<section class="persona-section section-animate">')
-
-# ---- Add scroll animation JS ----
-scroll_js = """
-    // ===== 滚动进入动画 =====
-    function initScrollAnimations() {
-      const els = document.querySelectorAll(".section-animate");
-      if (!("IntersectionObserver" in window)) {
-        els.forEach((el) => el.classList.add("in-view"));
-        return;
-      }
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("in-view");
-              io.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.25 }
-      );
-      els.forEach((el) => io.observe(el));
-    }
-"""
-html = html.replace("// ===== 事件绑定 =====", scroll_js + "\n    // ===== 事件绑定 =====")
-
-# call in DOMContentLoaded
-html = html.replace("// 轮播\n      initHeroSlider();\n\n      // desk 跳转", "// 轮播\n      initHeroSlider();\n\n      // 滚动动画\n      initScrollAnimations();\n\n      // desk 跳转")
-
-# ---- Save file ----
-path = "/mnt/data/aurum-index-optimized.html"
-with open(path, "w", encoding="utf-8") as f:
-    f.write(html)
-
-path
