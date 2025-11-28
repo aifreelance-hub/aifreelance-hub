@@ -380,150 +380,147 @@
   </div>
 
   <script>
-    const form = document.getElementById("admin-form");
-    const passwordInput = document.getElementById("admin-password");
-    const statusEl = document.getElementById("admin-status");
-    const btn = document.getElementById("admin-btn");
-    const logoutBtn = document.getElementById("logout-btn");
-    const usersPanel = document.getElementById("users-panel");
-    const usersBody = document.getElementById("users-body");
-    const usersSubtitle = document.getElementById("users-subtitle");
-    const refreshBtn = document.getElementById("refresh-btn");
+  // ⬅️ 改成你自己的 Worker 地址（和 auth / register 用的是同一个）
+  const ADMIN_API_BASE = "https://你的-worker-名字.your-account.workers.dev";
 
-    function setStatus(msg, type) {
-      statusEl.textContent = msg || "";
-      statusEl.className = "status " + (type || "muted");
+  const form = document.getElementById("admin-form");
+  const passwordInput = document.getElementById("admin-password");
+  const statusEl = document.getElementById("admin-status");
+  const btn = document.getElementById("admin-btn");
+  const logoutBtn = document.getElementById("logout-btn");
+  const usersPanel = document.getElementById("users-panel");
+  const usersBody = document.getElementById("users-body");
+  const usersSubtitle = document.getElementById("users-subtitle");
+  const refreshBtn = document.getElementById("refresh-btn");
+
+  function setStatus(msg, type) {
+    statusEl.textContent = msg || "";
+    statusEl.className = "status " + (type || "muted");
+  }
+
+  function formatTime(ts) {
+    if (!ts) return "-";
+    const d = new Date(ts * 1000); // created_at 是秒
+    return d.toLocaleString("zh-CN", { hour12: false });
+  }
+
+  function renderUsers(users) {
+    usersBody.innerHTML = "";
+    if (!users || users.length === 0) {
+      usersBody.innerHTML =
+        '<tr><td colspan="4" style="text-align:center; color:#6b7280;">暂无用户数据</td></tr>';
+      usersSubtitle.textContent = "暂无用户数据。";
+      return;
     }
+    users.forEach((u) => {
+      const tr = document.createElement("tr");
+      const plan = (u.plan || "free").toLowerCase();
+      tr.innerHTML = `
+        <td>${u.id ?? "-"}</td>
+        <td title="${u.email || ""}">${u.email || "-"}</td>
+        <td>
+          <span class="pill-plan ${plan === "free" ? "free" : "paid"}">
+            ${plan}
+          </span>
+        </td>
+        <td>${formatTime(u.created_at)}</td>
+      `;
+      usersBody.appendChild(tr);
+    });
+    usersSubtitle.textContent = `共 ${users.length} 个用户（按注册时间倒序，最多 200 条）。`;
+  }
 
-    function formatTime(ts) {
-      if (!ts) return "-";
-      // 你的 created_at 是秒
-      const d = new Date(ts * 1000);
-      return d.toLocaleString("zh-CN", { hour12: false });
-    }
-
-    function renderUsers(users) {
-      usersBody.innerHTML = "";
-      if (!users || users.length === 0) {
-        usersBody.innerHTML =
-          '<tr><td colspan="4" style="text-align:center; color:#6b7280;">暂无用户数据</td></tr>';
-        usersSubtitle.textContent = "暂无用户数据。";
-        return;
-      }
-      users.forEach((u) => {
-        const tr = document.createElement("tr");
-        const plan = (u.plan || "free").toLowerCase();
-        tr.innerHTML = `
-          <td>${u.id ?? "-"}</td>
-          <td title="${u.email || ""}">${u.email || "-"}</td>
-          <td>
-            <span class="pill-plan ${plan === "free" ? "free" : "paid"}">
-              ${plan}
-            </span>
-          </td>
-          <td>${formatTime(u.created_at)}</td>
-        `;
-        usersBody.appendChild(tr);
+  async function loadUsers() {
+    try {
+      usersSubtitle.textContent = "正在加载用户数据…";
+      const res = await fetch(ADMIN_API_BASE + "/admin/users", {
+        method: "GET",
       });
-      usersSubtitle.textContent = `共 ${users.length} 个用户（按注册时间倒序，最多 200 条）。`;
-    }
-
-    async function loadUsers() {
-      try {
-        usersSubtitle.textContent = "正在加载用户数据…";
-        const res = await fetch("/admin/users", {
-          method: "GET",
-          // 同域，不需要 credentials: "include"
-        });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-          if (res.status === 401) {
-            usersSubtitle.textContent = "未授权，请先在左侧登录后台。";
-            usersPanel.style.display = "none";
-            logoutBtn.style.display = "none";
-            return;
-          }
-          usersSubtitle.textContent = (data && data.error) || "加载失败。";
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (res.status === 401) {
+          usersSubtitle.textContent = "未授权，请先在左侧登录后台。";
+          usersPanel.style.display = "none";
+          logoutBtn.style.display = "none";
           return;
         }
-        // 你的后端返回 { users: [...] }
-        const users = data.users || [];
-        usersPanel.style.display = "block";
-        logoutBtn.style.display = "inline-block";
-        renderUsers(users);
-        setStatus("已登录后台，可在右侧查看用户列表。", "success");
-      } catch (err) {
-        console.error(err);
-        usersSubtitle.textContent = "网络异常，无法获取用户数据。";
-      }
-    }
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const password = passwordInput.value.trim();
-      if (!password) {
-        setStatus("请输入密码。", "error");
+        usersSubtitle.textContent = (data && data.error) || "加载失败。";
         return;
       }
+      const users = data.users || [];
+      usersPanel.style.display = "block";
+      logoutBtn.style.display = "inline-block";
+      renderUsers(users);
+      setStatus("已登录后台，可在右侧查看用户列表。", "success");
+    } catch (err) {
+      console.error(err);
+      usersSubtitle.textContent = "网络异常，无法获取用户数据。";
+    }
+  }
 
-      btn.disabled = true;
-      setStatus("正在校验管理员密码…", "muted");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const password = passwordInput.value.trim();
+    if (!password) {
+      setStatus("请输入密码。", "error");
+      return;
+    }
 
-      try {
-        const res = await fetch("/admin/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ password }),
-        });
+    btn.disabled = true;
+    setStatus("正在校验管理员密码…", "muted");
 
-        const data = await res.json().catch(() => ({}));
+    try {
+      const res = await fetch(ADMIN_API_BASE + "/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
 
-        if (!res.ok || !data.ok) {
-          const msg =
-            (data && data.error) ||
-            (res.status === 401 ? "密码错误，请重试。" : "请求失败，请稍后再试。");
-          setStatus(msg, "error");
-          usersPanel.style.display = "none";
-          logoutBtn.style.display = "none";
-        } else {
-          setStatus("验证成功，正在加载用户数据…", "success");
-          // 登录成功会在 Cookie 里写入 admin_session=ok
-          await loadUsers();
-        }
-      } catch (err) {
-        console.error(err);
-        setStatus("网络异常，请检查 Worker 是否在线。", "error");
-      } finally {
-        btn.disabled = false;
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok || !data.ok) {
+        const msg =
+          (data && data.error) ||
+          (res.status === 401 ? "密码错误，请重试。" : "请求失败，请稍后再试。");
+        setStatus(msg, "error");
+        usersPanel.style.display = "none";
+        logoutBtn.style.display = "none";
+      } else {
+        setStatus("验证成功，正在加载用户数据…", "success");
+        await loadUsers();
       }
-    });
+    } catch (err) {
+      console.error(err);
+      setStatus("网络异常，请检查 Worker 是否在线。", "error");
+    } finally {
+      btn.disabled = false;
+    }
+  });
 
-    logoutBtn.addEventListener("click", async () => {
-      try {
-        const res = await fetch("/admin/logout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        });
-        const data = await res.json().catch(() => ({}));
-        if (res.ok && data.ok) {
-          setStatus("已登出后台。", "muted");
-          usersPanel.style.display = "none";
-          logoutBtn.style.display = "none";
-        } else {
-          setStatus("登出失败，但不会影响安全。", "error");
-        }
-      } catch (err) {
-        console.error(err);
-        setStatus("网络异常，登出失败。", "error");
+  logoutBtn.addEventListener("click", async () => {
+    try {
+      const res = await fetch(ADMIN_API_BASE + "/admin/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        setStatus("已登出后台。", "muted");
+        usersPanel.style.display = "none";
+        logoutBtn.style.display = "none";
+      } else {
+        setStatus("登出失败，但不会影响安全。", "error");
       }
-    });
+    } catch (err) {
+      console.error(err);
+      setStatus("网络异常，登出失败。", "error");
+    }
+  });
 
-    refreshBtn.addEventListener("click", () => {
-      loadUsers();
-    });
-
-    // 页面打开时，尝试直接加载一次（如果已有 admin_session=ok 会直接看到数据）
+  refreshBtn.addEventListener("click", () => {
     loadUsers();
-  </script>
-</body>
-</html>
+  });
+
+  // 如果 Cookie 已经有 admin_session=ok，则页面一打开就能直接看数据
+  loadUsers();
+</script>
