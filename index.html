@@ -21,7 +21,7 @@
   <!-- Basic SEO -->
   <meta
     name="description"
-    content="Aurum Task Desk is a quiet AI writing & resolution desk for older US & EU professionals. Legal drafts, immigration letters, claims, crisis letters and escalation services."
+    content="Aurum Task Desk is a quiet AI writing & resolution desk for older US & EU professionals. Legal drafts, immigration letters, insurance claims, crisis letters and escalation services."
   />
   <meta
     name="keywords"
@@ -49,7 +49,7 @@
 
     :root {
       --bg: #050816;
-      --bg-soft: #070b1f;
+      --bg-soft: #0b1020;
       --accent: #facc15;
       --accent2: #f97316;
       --text-main: #f9fafb;
@@ -60,18 +60,21 @@
 
     body {
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, system-ui, "SF Pro Text", "Segoe UI", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top, rgba(250, 204, 21, 0.12), transparent 55%),
-        radial-gradient(circle at 80% 0%, rgba(59, 130, 246, 0.24), transparent 55%),
-        radial-gradient(circle at 0% 100%, rgba(34, 197, 94, 0.18), transparent 60%),
+        radial-gradient(circle at top, rgba(250, 204, 21, 0.1), transparent 55%),
+        radial-gradient(circle at 80% 0%, rgba(59, 130, 246, 0.22), transparent 55%),
+        radial-gradient(circle at 0% 100%, rgba(34, 197, 94, 0.16), transparent 60%),
         #020617;
       color: var(--text-main);
       display: flex;
       flex-direction: column;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .page-shell {
       min-height: 100vh;
@@ -81,9 +84,9 @@
 
     .container {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 0 18px 32px;
+      padding: 0 24px 32px;
     }
 
     /* ===== NAVBAR ===== */
@@ -103,24 +106,25 @@
     }
 
     .navbar-inner {
-      max-width: 1120px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 10px 18px;
+      padding: 10px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 16px;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
       gap: 10px;
+      cursor: pointer;
     }
 
     .nav-logo-mark {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 999px;
       background:
         conic-gradient(from 160deg, #facc15, #f97316, #22c55e, #60a5fa, #facc15);
@@ -129,7 +133,6 @@
         0 0 20px rgba(250, 204, 21, 0.7);
       position: relative;
       overflow: hidden;
-      cursor: pointer;
     }
 
     .nav-logo-mark::after {
@@ -141,10 +144,16 @@
       mix-blend-mode: screen;
     }
 
+    .nav-left-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
     .nav-logo-main {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.19em;
       text-transform: uppercase;
       line-height: 1.1;
     }
@@ -155,16 +164,10 @@
       opacity: 0.9;
     }
 
-    .nav-left-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
     .nav-center {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 20px;
       font-size: 13px;
       color: var(--text-muted);
     }
@@ -180,9 +183,9 @@
       left: 0;
       bottom: -4px;
       width: 0;
-      height: 1px;
+      height: 2px;
       background: linear-gradient(to right, #facc15, #f97316);
-      transition: width 0.18s ease;
+      transition: width 0.16s ease-out;
     }
 
     .nav-center a:hover {
@@ -190,7 +193,9 @@
       color: var(--accent);
     }
 
-    .nav-center a:hover::after { width: 100%; }
+    .nav-center a:hover::after {
+      width: 100%;
+    }
 
     .nav-right {
       display: flex;
@@ -271,122 +276,300 @@
       transform: translateY(-0.5px);
     }
 
-    /* ===== HERO（搜索首页型） ===== */
+    /* ===== HERO BANNER (微软风格) ===== */
 
     .hero {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding-top: 26px;
+      padding-bottom: 18px;
     }
 
-    .hero-inner {
-      width: 100%;
-      max-width: 840px;
-      margin: 0 auto;
-      padding: 32px 18px 40px;
-      text-align: center;
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 3.3fr) minmax(0, 3.7fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 900px) {
+      .hero-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-banner {
       position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      background: radial-gradient(circle at 10% 0%, rgba(250, 204, 21, 0.28), transparent 60%),
+                  radial-gradient(circle at 80% 100%, rgba(59, 130, 246, 0.25), transparent 60%),
+                  linear-gradient(120deg, #1f2937, #020617);
+      box-shadow: var(--shadow-soft);
+      padding: 26px 26px;
+      min-height: 260px;
     }
 
-    .hero-glow {
+    .hero-slide {
       position: absolute;
       inset: 0;
-      margin: auto;
-      max-width: 620px;
-      max-height: 620px;
-      border-radius: 999px;
-      background:
-        radial-gradient(circle at 30% 0%, rgba(250, 204, 21, 0.28), transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.24), transparent 60%);
-      filter: blur(28px);
-      opacity: 0.65;
-      z-index: -1;
-      animation: heroGlow 9s ease-in-out infinite alternate;
+      padding: 26px 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 2.1fr);
+      gap: 24px;
+      align-items: center;
+      opacity: 0;
+      transform: translateX(18px);
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
-    @keyframes heroGlow {
-      0% { transform: scale(0.96) translateY(6px); opacity: 0.4; }
-      100% { transform: scale(1.04) translateY(-4px); opacity: 0.8; }
+    .hero-slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
     }
 
-    .hero-logo {
-      font-size: clamp(38px, 4.4vw, 46px);
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      background: linear-gradient(to right, #facc15, #f97316, #facc15);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero-title {
-      font-size: clamp(22px, 2.3vw, 26px);
-      font-weight: 500;
-      margin-bottom: 8px;
-    }
-
-    .hero-title-em {
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    .hero-subtitle {
-      font-size: 14px;
-      color: var(--text-muted);
-      max-width: 520px;
-      margin: 0 auto 22px;
-      line-height: 1.7;
-    }
-
-    .hero-pill-row {
-      display: inline-flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-
-    .hero-pill {
-      padding: 3px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-      background: rgba(15, 23, 42, 0.85);
+    .hero-slide-left {
+      background: rgba(15, 23, 42, 0.86);
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
       backdrop-filter: blur(10px);
     }
 
-    .hero-pill.gold {
-      border-color: var(--accent);
+    .hero-tagline {
+      font-size: 13px;
       color: var(--accent);
-      background: rgba(48, 37, 11, 0.95);
+      font-weight: 600;
+      margin-bottom: 8px;
     }
 
-    /* 搜索条区域 */
+    .hero-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtext {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .hero-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-meta strong {
+      color: var(--accent);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-btn-main,
+    .hero-btn-sub {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 7px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.16s ease, color 0.16s ease,
+        transform 0.1s ease, box-shadow 0.18s ease, border-color 0.16s ease;
+      white-space: nowrap;
+    }
+
+    .hero-btn-main {
+      background: linear-gradient(to right, #facc15, #f97316);
+      color: #111827;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(248, 250, 252, 0.22);
+    }
+
+    .hero-btn-main:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 40px rgba(248, 250, 252, 0.3);
+    }
+
+    .hero-btn-sub {
+      background: transparent;
+      border-color: rgba(148, 163, 184, 0.7);
+      color: var(--text-muted);
+    }
+
+    .hero-btn-sub:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(15, 23, 42, 0.96);
+      transform: translateY(-0.5px);
+    }
+
+    .hero-slide-right {
+      position: relative;
+      border-radius: 22px;
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.4), transparent 55%),
+                  radial-gradient(circle at 100% 0, rgba(56, 189, 248, 0.35), transparent 60%),
+                  linear-gradient(135deg, #f97316, #0ea5e9);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transform-origin: center;
+      animation: floatCard 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCard {
+      0% { transform: translateY(2px) rotate(-1.2deg); }
+      100% { transform: translateY(-4px) rotate(1.2deg); }
+    }
+
+    .hero-card-inner {
+      position: absolute;
+      inset: 18px;
+      border-radius: 18px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(15, 23, 42, 0.9);
+      padding: 16px 16px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--text-main);
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .hero-card-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .hero-card-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.6);
+      color: var(--accent);
+    }
+
+    .hero-card-body {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 10px;
+      max-height: 72px;
+      overflow: hidden;
+    }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .hero-card-price {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-card-pill {
+      padding: 3px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-slider-controls {
+      position: absolute;
+      left: 18px;
+      bottom: 10px;
+      right: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .hero-slider-dots {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .hero-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.16s ease, transform 0.16s ease, border-color 0.16s ease;
+    }
+
+    .hero-dot.active {
+      background: #facc15;
+      border-color: #facc15;
+      transform: scale(1.1);
+    }
+
+    .hero-slider-arrows {
+      display: inline-flex;
+      gap: 6px;
+    }
+
+    .hero-arrow {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.9);
+      transition: background 0.16s ease, transform 0.1s ease, border-color 0.16s ease;
+    }
+
+    .hero-arrow:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ===== QUICK BRIEF（类似搜索条） ===== */
+
+    .hero-right-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
 
     .hero-search-card {
-      margin: 0 auto;
-      max-width: 720px;
-      padding: 16px 18px 12px;
-      border-radius: 999px;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.95));
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border-radius: 24px;
+      padding: 16px 18px 14px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.65);
       box-shadow:
-        0 24px 70px rgba(15, 23, 42, 0.95),
+        0 24px 60px rgba(15, 23, 42, 0.95),
         0 0 0 1px rgba(15, 23, 42, 0.96);
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .hero-icon {
-      width: 32px;
-      height: 32px;
+    .hero-search-icon {
+      width: 30px;
+      height: 30px;
       border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.7);
       display: flex;
@@ -394,13 +577,12 @@
       justify-content: center;
       font-size: 16px;
       color: var(--text-muted);
-      background: radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.25), transparent 60%);
       flex-shrink: 0;
+      background: radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.25), transparent 60%);
     }
 
     .hero-input-wrap {
       flex: 1;
-      text-align: left;
     }
 
     .hero-input {
@@ -417,175 +599,96 @@
     }
 
     .hero-input-hint {
+      margin-top: 2px;
       font-size: 11px;
       color: var(--text-muted);
-      margin-top: 2px;
     }
 
-    .hero-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      align-items: flex-end;
-    }
-
-    .hero-btn {
+    .hero-search-btn {
       border-radius: 999px;
       border: 1px solid transparent;
-      padding: 6px 14px;
+      padding: 7px 14px;
       font-size: 12px;
       cursor: pointer;
-      white-space: nowrap;
-      transition: background 0.16s ease, color 0.16s ease,
-        transform 0.1s ease, box-shadow 0.16s ease, border-color 0.16s ease;
-    }
-
-    .hero-btn.primary {
       background: linear-gradient(to right, #facc15, #f97316);
       color: #111827;
       font-weight: 550;
-      box-shadow: 0 10px 32px rgba(248, 250, 252, 0.2);
+      white-space: nowrap;
+      transition: transform 0.1s ease, box-shadow 0.16s ease;
     }
 
-    .hero-btn.primary:hover {
+    .hero-search-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 40px rgba(248, 250, 252, 0.28);
+      box-shadow: 0 12px 32px rgba(248, 250, 252, 0.25);
     }
 
-    .hero-btn.ghost {
-      background: transparent;
-      border-color: rgba(148, 163, 184, 0.7);
-      color: var(--text-muted);
-    }
-
-    .hero-btn.ghost:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(15, 23, 42, 0.9);
-      transform: translateY(-0.5px);
-    }
-
-    .hero-meta-row {
-      margin-top: 14px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
+    .hero-note {
       font-size: 11px;
       color: var(--text-muted);
-      flex-wrap: wrap;
     }
 
-    .hero-meta-left {
-      text-align: left;
-      flex: 1;
+    /* ===== ICON TILES（微软式入口） ===== */
+
+    .tiles-section {
+      margin-top: 26px;
     }
 
-    .hero-meta-right {
-      text-align: right;
-      flex: 1;
-    }
-
-    /* ===== PROFIT LINE CARDS ===== */
-
-    .lines-section {
-      margin-top: 28px;
-    }
-
-    .lines-title {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .lines-grid {
+    .tiles-row {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 10px;
     }
 
-    @media (max-width: 980px) {
-      .lines-grid {
+    @media (max-width: 1024px) {
+      .tiles-row {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
-
     @media (max-width: 720px) {
-      .lines-grid {
+      .tiles-row {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 520px) {
-      .lines-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .line-card {
-      border-radius: 18px;
-      padding: 10px 11px 9px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), #020617);
+    .tile-item {
+      text-align: center;
+      padding: 10px 8px 12px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.96);
       border: 1px solid rgba(148, 163, 184, 0.6);
-      box-shadow: var(--shadow-soft);
-      font-size: 11px;
-      text-align: left;
-      position: relative;
-      overflow: hidden;
       cursor: pointer;
-      transition: transform 0.12s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      transition: transform 0.14s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      box-shadow: var(--shadow-soft);
     }
 
-    .line-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 0%, rgba(250, 204, 21, 0.16), transparent 55%);
-      opacity: 0;
-      transition: opacity 0.18s ease;
-      pointer-events: none;
-    }
-
-    .line-card:hover {
-      transform: translateY(-2px);
+    .tile-item:hover {
+      transform: translateY(-3px);
       box-shadow: 0 26px 70px rgba(15, 23, 42, 1);
-      border-color: rgba(250, 204, 21, 0.8);
+      border-color: rgba(250, 204, 21, 0.9);
+      background: linear-gradient(135deg, #020617, #111827);
     }
 
-    .line-card:hover::before { opacity: 1; }
-
-    .line-label {
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-      font-size: 10px;
+    .tile-icon {
+      width: 28px;
+      height: 28px;
+      margin: 0 auto 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
     }
 
-    .line-name {
+    .tile-label {
       font-size: 12px;
       font-weight: 500;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
-    .line-desc {
-      color: var(--text-muted);
-      margin-bottom: 6px;
-      min-height: 32px;
-    }
-
-    .line-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .tile-sub {
       font-size: 10px;
       color: var(--text-muted);
-    }
-
-    .line-price {
-      color: var(--accent);
-      font-weight: 500;
     }
 
     /* ===== FOOTER ===== */
@@ -596,9 +699,9 @@
     }
 
     .footer-inner {
-      max-width: 1120px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 14px 18px 16px;
+      padding: 14px 24px 16px;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
@@ -626,30 +729,35 @@
 
     @media (max-width: 768px) {
       .navbar-inner {
-        padding-inline: 12px;
+        padding-inline: 16px;
       }
       .nav-center {
         display: none;
       }
+      .container {
+        padding-inline: 16px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-banner {
+        padding: 18px 14px;
+      }
+      .hero-slide {
+        padding: 18px 14px;
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-slider-controls {
+        left: 12px;
+        right: 12px;
+      }
       .hero-search-card {
         flex-direction: column;
         align-items: stretch;
-        border-radius: 24px;
       }
-      .hero-actions {
-        flex-direction: row;
-        justify-content: flex-end;
-      }
-      .hero-btn {
-        flex: 1;
+      .hero-search-btn {
+        width: 100%;
         text-align: center;
-      }
-      .hero-meta-row {
-        flex-direction: column;
-      }
-      .hero-meta-left,
-      .hero-meta-right {
-        text-align: left;
       }
     }
   </style>
@@ -680,9 +788,6 @@
             <span class="nav-lang-label" data-i18n="nav.langLabel">LANG</span>
             <button class="lang-btn" data-lang="en">EN</button>
             <button class="lang-btn" data-lang="zh">中文</button>
-            <button class="lang-btn" data-lang="de">DE</button>
-            <button class="lang-btn" data-lang="fr">FR</button>
-            <button class="lang-btn" data-lang="es">ES</button>
           </div>
           <a href="auth.html" class="nav-signin-link" data-i18n="nav.signin">Sign in</a>
           <div class="nav-user-area" style="display:none;">
@@ -693,143 +798,345 @@
       </div>
     </header>
 
-    <!-- HERO -->
-    <main class="hero">
-      <div class="container">
-        <div class="hero-inner">
-          <div class="hero-glow"></div>
+    <!-- MAIN -->
+    <main class="container">
+      <!-- HERO 区域 -->
+      <section class="hero">
+        <div class="hero-layout">
+          <!-- 左侧：大 Banner / 轮播 -->
+          <div class="hero-banner" id="hero-banner">
+            <!-- slide 1: 法律文书 -->
+            <div class="hero-slide active" data-line="legal">
+              <div class="hero-slide-left">
+                <div class="hero-tagline" data-i18n="hero.legal.tagline">
+                  Line 01 · Legal documents / contracts
+                </div>
+                <h2 class="hero-title" data-i18n="hero.legal.title">
+                  Draft legal-style contracts and serious letters without a full law firm.
+                </h2>
+                <p class="hero-subtext" data-i18n="hero.legal.text">
+                  Termination notices, partnership agreements, demand letters and policy documents —
+                  written in calm, precise language that can be shown to professionals.
+                </p>
+                <p class="hero-meta" data-i18n="hero.legal.meta">
+                  Typical ticket: <strong>99–299 USD</strong> per document · each task starts from
+                  a simple description on your desk.
+                </p>
+                <div class="hero-buttons">
+                  <button class="hero-btn-main" data-line-start="legal" data-i18n="hero.btn.start">
+                    Start a legal draft task
+                  </button>
+                  <button class="hero-btn-sub" data-line-example="legal" data-i18n="hero.btn.example">
+                    See example brief
+                  </button>
+                </div>
+              </div>
+              <div class="hero-slide-right">
+                <div class="hero-card-inner">
+                  <div class="hero-card-header">
+                    <div class="hero-card-title" data-i18n="hero.legal.card.title">
+                      Contract termination letter
+                    </div>
+                    <div class="hero-card-tag" data-i18n="hero.card.tag.hot">
+                      High fee
+                    </div>
+                  </div>
+                  <div class="hero-card-body" data-i18n="hero.legal.card.body">
+                    “Please prepare a firm but respectful letter ending our supply contract due to
+                    repeated delivery failures, while keeping the option to work together in the future.”
+                  </div>
+                  <div class="hero-card-footer">
+                    <span class="hero-card-price" data-i18n="hero.legal.card.price">
+                      ~149 USD typical ticket
+                    </span>
+                    <span class="hero-card-pill" data-i18n="hero.card.pill">
+                      2–3 clear sentences → full letter
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <div class="hero-logo">AURUM</div>
-          <h1 class="hero-title" data-i18n="hero.title">
-            One quiet AI desk for <span class="hero-title-em">high-value, serious letters.</span>
-          </h1>
-          <p class="hero-subtitle" data-i18n="hero.subtitle">
-            Turn messy screenshots and notes into contracts, immigration letters, claims, crisis messages and escalations
-            that you are not embarrassed to send.
-          </p>
+            <!-- slide 2: 移民 -->
+            <div class="hero-slide" data-line="immigration">
+              <div class="hero-slide-left">
+                <div class="hero-tagline" data-i18n="hero.imm.tagline">
+                  Line 02 · Immigration & visa letters
+                </div>
+                <h2 class="hero-title" data-i18n="hero.imm.title">
+                  Turn complex immigration stories into clear, structured letters.
+                </h2>
+                <p class="hero-subtext" data-i18n="hero.imm.text">
+                  Support letters, relationship explanations and appeal narratives that speak your case
+                  calmly to officers and consulates.
+                </p>
+                <p class="hero-meta" data-i18n="hero.imm.meta">
+                  Typical ticket: <strong>49–149 USD</strong> · high emotional and financial value,
+                  stable demand.
+                </p>
+                <div class="hero-buttons">
+                  <button class="hero-btn-main" data-line-start="immigration" data-i18n="hero.btn.startImm">
+                    Start an immigration letter
+                  </button>
+                  <button class="hero-btn-sub" data-line-example="immigration" data-i18n="hero.btn.example">
+                    See example brief
+                  </button>
+                </div>
+              </div>
+              <div class="hero-slide-right">
+                <div class="hero-card-inner">
+                  <div class="hero-card-header">
+                    <div class="hero-card-title" data-i18n="hero.imm.card.title">
+                      Letter to explain relocation & ties
+                    </div>
+                    <div class="hero-card-tag" data-i18n="hero.card.tag.stable">
+                      Stable demand
+                    </div>
+                  </div>
+                  <div class="hero-card-body" data-i18n="hero.imm.card.body">
+                    “Please write a support letter explaining my stable work history, family in the EU
+                    and why I plan to relocate permanently with my spouse.”
+                  </div>
+                  <div class="hero-card-footer">
+                    <span class="hero-card-price" data-i18n="hero.imm.card.price">
+                      ~89 USD typical ticket
+                    </span>
+                    <span class="hero-card-pill" data-i18n="hero.card.pill">
+                      You talk simply, desk writes clearly
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <div class="hero-pill-row">
-            <span class="hero-pill gold" data-i18n="hero.pill.legal">Legal / contract drafts · highest fee</span>
-            <span class="hero-pill" data-i18n="hero.pill.immigration">Immigration & visa letters</span>
-            <span class="hero-pill" data-i18n="hero.pill.claims">Insurance & airline claims</span>
-            <span class="hero-pill" data-i18n="hero.pill.crisis">Family & crisis letters</span>
-            <span class="hero-pill" data-i18n="hero.pill.escalation">Complaint escalation services</span>
+            <!-- slide 3: 理赔 -->
+            <div class="hero-slide" data-line="claims">
+              <div class="hero-slide-left">
+                <div class="hero-tagline" data-i18n="hero.claims.tagline">
+                  Line 03 · Insurance & airline claims
+                </div>
+                <h2 class="hero-title" data-i18n="hero.claims.title">
+                  Turn chaos after delay or loss into a measured claim letter.
+                </h2>
+                <p class="hero-subtext" data-i18n="hero.claims.text">
+                  Flights, luggage, medical bills, property damage — structure your evidence and request
+                  in a way companies will actually read.
+                </p>
+                <p class="hero-meta" data-i18n="hero.claims.meta">
+                  Typical ticket: <strong>39–129 USD</strong> · easy to show value when compensation arrives.
+                </p>
+                <div class="hero-buttons">
+                  <button class="hero-btn-main" data-line-start="claims" data-i18n="hero.btn.startClaims">
+                    Start a claim letter
+                  </button>
+                  <button class="hero-btn-sub" data-line-example="claims" data-i18n="hero.btn.example">
+                    See example brief
+                  </button>
+                </div>
+              </div>
+              <div class="hero-slide-right">
+                <div class="hero-card-inner">
+                  <div class="hero-card-header">
+                    <div class="hero-card-title" data-i18n="hero.claims.card.title">
+                      Airline delay compensation
+                    </div>
+                    <div class="hero-card-tag" data-i18n="hero.card.tag.value">
+                      Clear value
+                    </div>
+                  </div>
+                  <div class="hero-card-body" data-i18n="hero.claims.card.body">
+                    “Please prepare a clear claim letter for a 15-hour delay, including tickets, receipts and
+                    a reasonable compensation request under the airline rules.”
+                  </div>
+                  <div class="hero-card-footer">
+                    <span class="hero-card-price" data-i18n="hero.claims.card.price">
+                      ~69 USD typical ticket
+                    </span>
+                    <span class="hero-card-pill" data-i18n="hero.card.pill">
+                      Structure, dates, amounts all aligned
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- slide 4: 危机 -->
+            <div class="hero-slide" data-line="crisis">
+              <div class="hero-slide-left">
+                <div class="hero-tagline" data-i18n="hero.crisis.tagline">
+                  Line 04 · Family & emotional crisis letters
+                </div>
+                <h2 class="hero-title" data-i18n="hero.crisis.title">
+                  Say hard things about money, care and boundaries — without shouting.
+                </h2>
+                <p class="hero-subtext" data-i18n="hero.crisis.text">
+                  Long emails to adult children, partners or parents about inheritance, support and
+                  limits, written in calm but firm language.
+                </p>
+                <p class="hero-meta" data-i18n="hero.crisis.meta">
+                  Typical ticket: <strong>29–149 USD</strong> · high repeat demand from the same clients.
+                </p>
+                <div class="hero-buttons">
+                  <button class="hero-btn-main" data-line-start="crisis" data-i18n="hero.btn.startCrisis">
+                    Start a crisis letter
+                  </button>
+                  <button class="hero-btn-sub" data-line-example="crisis" data-i18n="hero.btn.example">
+                    See example brief
+                  </button>
+                </div>
+              </div>
+              <div class="hero-slide-right">
+                <div class="hero-card-inner">
+                  <div class="hero-card-header">
+                    <div class="hero-card-title" data-i18n="hero.crisis.card.title">
+                      Letter to adult child about money
+                    </div>
+                    <div class="hero-card-tag" data-i18n="hero.card.tag.repeat">
+                      High repeat
+                    </div>
+                  </div>
+                  <div class="hero-card-body" data-i18n="hero.crisis.card.body">
+                    “Please help me explain to my adult son why I will limit financial support, how
+                    inheritance will work, and what I can still do to help.”
+                  </div>
+                  <div class="hero-card-footer">
+                    <span class="hero-card-price" data-i18n="hero.crisis.card.price">
+                      ~79 USD typical ticket
+                    </span>
+                    <span class="hero-card-pill" data-i18n="hero.card.pill">
+                      Calm tone, clear boundaries
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- slide 5: 投诉升级 -->
+            <div class="hero-slide" data-line="escalation">
+              <div class="hero-slide-left">
+                <div class="hero-tagline" data-i18n="hero.esc.tagline">
+                  Line 05 · Complaint escalation services
+                </div>
+                <h2 class="hero-title" data-i18n="hero.esc.title">
+                  When “customer support” stops listening, escalate calmly on paper.
+                </h2>
+                <p class="hero-subtext" data-i18n="hero.esc.text">
+                  Letters to supervisors, regulators, ombudsmen and executives that lay out facts and
+                  requested remedies without drama.
+                </p>
+                <p class="hero-meta" data-i18n="hero.esc.meta">
+                  Typical ticket: <strong>29–99 USD</strong> · mass-market need, easy to sell as a service.
+                </p>
+                <div class="hero-buttons">
+                  <button class="hero-btn-main" data-line-start="escalation" data-i18n="hero.btn.startEsc">
+                    Start an escalation letter
+                  </button>
+                  <button class="hero-btn-sub" data-line-example="escalation" data-i18n="hero.btn.example">
+                    See example brief
+                  </button>
+                </div>
+              </div>
+              <div class="hero-slide-right">
+                <div class="hero-card-inner">
+                  <div class="hero-card-header">
+                    <div class="hero-card-title" data-i18n="hero.esc.card.title">
+                      Escalation to bank supervisor
+                    </div>
+                    <div class="hero-card-tag" data-i18n="hero.card.tag.mass">
+                      Mass need
+                    </div>
+                  </div>
+                  <div class="hero-card-body" data-i18n="hero.esc.card.body">
+                    “Please write an escalation letter to a senior manager about repeated mistakes
+                    on my account and ask for a complete review and written response.”
+                  </div>
+                  <div class="hero-card-footer">
+                    <span class="hero-card-price" data-i18n="hero.esc.card.price">
+                      ~59 USD typical ticket
+                    </span>
+                    <span class="hero-card-pill" data-i18n="hero.card.pill">
+                      Facts + clear next steps
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- slider controls -->
+            <div class="hero-slider-controls">
+              <div class="hero-slider-dots">
+                <button class="hero-dot active" data-index="0" aria-label="Legal"></button>
+                <button class="hero-dot" data-index="1" aria-label="Immigration"></button>
+                <button class="hero-dot" data-index="2" aria-label="Claims"></button>
+                <button class="hero-dot" data-index="3" aria-label="Crisis"></button>
+                <button class="hero-dot" data-index="4" aria-label="Escalation"></button>
+              </div>
+              <div class="hero-slider-arrows">
+                <button class="hero-arrow" id="hero-prev" aria-label="Previous slide">‹</button>
+                <button class="hero-arrow" id="hero-next" aria-label="Next slide">›</button>
+              </div>
+            </div>
           </div>
 
-          <!-- 搜索条 -->
-          <section class="hero-search-card" aria-label="Describe your task">
-            <div class="hero-icon">✦</div>
-            <div class="hero-input-wrap">
-              <input
-                id="task-input"
-                class="hero-input"
-                type="text"
-                autocomplete="off"
-                data-i18n-placeholder="hero.input.placeholder"
-                placeholder="Example: draft a strong but respectful contract termination letter to my long-term supplier."
-              />
-              <div class="hero-input-hint" data-i18n="hero.input.hint">
-                2–3 clear sentences is enough. The desk structures the full letter for you.
+          <!-- 右侧：快速简要 + 提示文字 -->
+          <div class="hero-right-panel">
+            <section class="hero-search-card" aria-label="Describe your task">
+              <div class="hero-search-icon">✦</div>
+              <div class="hero-input-wrap">
+                <input
+                  id="task-input"
+                  class="hero-input"
+                  type="text"
+                  autocomplete="off"
+                  data-i18n-placeholder="hero.input.placeholder"
+                  placeholder="Example: draft a strong but respectful contract termination letter to my long-term supplier."
+                />
+                <div class="hero-input-hint" data-i18n="hero.input.hint">
+                  2–3 clear sentences is enough. The desk structures the full letter for you.
+                </div>
               </div>
-            </div>
-            <div class="hero-actions">
-              <button
-                id="start-task-btn"
-                class="hero-btn primary"
-                type="button"
-                data-i18n="hero.cta.start"
-              >
-                Start on my desk
+              <button id="task-start-btn" class="hero-search-btn" type="button" data-i18n="hero.input.cta">
+                Start task on my desk
               </button>
-              <button
-                id="examples-btn"
-                class="hero-btn ghost"
-                type="button"
-                data-i18n="hero.cta.examples"
-              >
-                See profitable task types
-              </button>
-            </div>
-          </section>
-
-          <div class="hero-meta-row">
-            <div class="hero-meta-left" data-i18n="hero.meta.left">
-              No subscription required · most tasks start around <strong>USD 19.9</strong> and scale by complexity.
-            </div>
-            <div class="hero-meta-right" data-i18n="hero.meta.right">
-              Built for older US & EU professionals · calm, serious tone · not for dating or spam.
-            </div>
+            </section>
+            <p class="hero-note" data-i18n="hero.note">
+              No subscription. Each task typically starts at <strong>USD 19.9</strong> and scales with complexity.
+              The desk is built for older US & EU professionals who want calm, serious writing — not dating, not spam.
+            </p>
           </div>
-
-          <!-- 高利润业务线卡片 -->
-          <section class="lines-section">
-            <div class="lines-title" data-i18n="lines.title">
-              Most profitable lines on this desk
-            </div>
-            <div class="lines-grid">
-              <div class="line-card" data-template="legal">
-                <div class="line-label" data-i18n="lines.legal.label">Line 01 · Legal drafts</div>
-                <div class="line-name" data-i18n="lines.legal.name">Legal-style documents & contracts</div>
-                <div class="line-desc" data-i18n="lines.legal.desc">
-                  Termination notices, partnership agreements, demand letters and serious policy documents.
-                </div>
-                <div class="line-meta">
-                  <span class="line-price" data-i18n="lines.legal.price">Typical fee: 99–299 USD</span>
-                  <span>↗</span>
-                </div>
-              </div>
-
-              <div class="line-card" data-template="immigration">
-                <div class="line-label" data-i18n="lines.immigration.label">Line 02 · Immigration</div>
-                <div class="line-name" data-i18n="lines.immigration.name">Immigration & visa application letters</div>
-                <div class="line-desc" data-i18n="lines.immigration.desc">
-                  Explanation letters, relationship proofs and supporting narratives for applications and appeals.
-                </div>
-                <div class="line-meta">
-                  <span class="line-price" data-i18n="lines.immigration.price">Typical fee: 49–149 USD</span>
-                  <span>↗</span>
-                </div>
-              </div>
-
-              <div class="line-card" data-template="claims">
-                <div class="line-label" data-i18n="lines.claims.label">Line 03 · Claims</div>
-                <div class="line-name" data-i18n="lines.claims.name">Insurance & airline claims</div>
-                <div class="line-desc" data-i18n="lines.claims.desc">
-                  Structured claim letters for delays, cancellations, medical bills and property issues.
-                </div>
-                <div class="line-meta">
-                  <span class="line-price" data-i18n="lines.claims.price">Typical fee: 39–129 USD</span>
-                  <span>↗</span>
-                </div>
-              </div>
-
-              <div class="line-card" data-template="crisis">
-                <div class="line-label" data-i18n="lines.crisis.label">Line 04 · Crisis</div>
-                <div class="line-name" data-i18n="lines.crisis.name">Family & emotional crisis letters</div>
-                <div class="line-desc" data-i18n="lines.crisis.desc">
-                  Difficult conversations around money, boundaries, divorce, inheritance and long-term care.
-                </div>
-                <div class="line-meta">
-                  <span class="line-price" data-i18n="lines.crisis.price">Typical fee: 29–149 USD</span>
-                  <span>↗</span>
-                </div>
-              </div>
-
-              <div class="line-card" data-template="escalation">
-                <div class="line-label" data-i18n="lines.escalation.label">Line 05 · Escalation</div>
-                <div class="line-name" data-i18n="lines.escalation.name">Complaint escalation services</div>
-                <div class="line-desc" data-i18n="lines.escalation.desc">
-                  Calm, factual escalation letters to banks, airlines, platforms, HR and regulators.
-                </div>
-                <div class="line-meta">
-                  <span class="line-price" data-i18n="lines.escalation.price">Typical fee: 29–99 USD</span>
-                  <span>↗</span>
-                </div>
-              </div>
-            </div>
-          </section>
         </div>
-      </div>
+      </section>
+
+      <!-- ICON TILES 区域：类似微软图标导航 -->
+      <section class="tiles-section">
+        <div class="tiles-row">
+          <div class="tile-item" data-jump="legal">
+            <div class="tile-icon">⚖️</div>
+            <div class="tile-label" data-i18n="tiles.legal.label">Legal drafts</div>
+            <div class="tile-sub" data-i18n="tiles.legal.sub">Contracts & formal letters</div>
+          </div>
+          <div class="tile-item" data-jump="immigration">
+            <div class="tile-icon">🛂</div>
+            <div class="tile-label" data-i18n="tiles.imm.label">Immigration</div>
+            <div class="tile-sub" data-i18n="tiles.imm.sub">Visa & support letters</div>
+          </div>
+          <div class="tile-item" data-jump="claims">
+            <div class="tile-icon">✈️</div>
+            <div class="tile-label" data-i18n="tiles.claims.label">Claims</div>
+            <div class="tile-sub" data-i18n="tiles.claims.sub">Insurance & airline claims</div>
+          </div>
+          <div class="tile-item" data-jump="crisis">
+            <div class="tile-icon">💬</div>
+            <div class="tile-label" data-i18n="tiles.crisis.label">Family crisis</div>
+            <div class="tile-sub" data-i18n="tiles.crisis.sub">Hard letters to loved ones</div>
+          </div>
+          <div class="tile-item" data-jump="escalation">
+            <div class="tile-icon">📣</div>
+            <div class="tile-label" data-i18n="tiles.esc.label">Escalation</div>
+            <div class="tile-sub" data-i18n="tiles.esc.sub">Calm complaint upgrades</div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- FOOTER -->
@@ -848,7 +1155,7 @@
   </div>
 
   <script>
-    // 多语言文本
+    // ===== 多语言文本（英文 + 中文）=====
     const translations = {
       en: {
         "logo.sub": "Quiet AI writing desk for serious letters",
@@ -860,61 +1167,96 @@
         "nav.signin": "Sign in",
         "nav.logout": "Logout",
 
-        "hero.title": "One quiet AI desk for <span class='hero-title-em'>high-value, serious letters.</span>",
-        "hero.subtitle":
-          "Turn messy screenshots and notes into contracts, immigration letters, claims, crisis messages and escalations that you are not embarrassed to send.",
-        "hero.pill.legal": "Legal / contract drafts · highest fee",
-        "hero.pill.immigration": "Immigration & visa letters",
-        "hero.pill.claims": "Insurance & airline claims",
-        "hero.pill.crisis": "Family & crisis letters",
-        "hero.pill.escalation": "Complaint escalation services",
+        "hero.legal.tagline": "Line 01 · Legal documents / contracts",
+        "hero.legal.title": "Draft legal-style contracts and serious letters without a full law firm.",
+        "hero.legal.text":
+          "Termination notices, partnership agreements, demand letters and policy documents — written in calm, precise language that can be shown to professionals.",
+        "hero.legal.meta":
+          "Typical ticket: <strong>99–299 USD</strong> per document · each task starts from a simple description on your desk.",
+        "hero.legal.card.title": "Contract termination letter",
+        "hero.legal.card.body":
+          "“Please prepare a firm but respectful letter ending our supply contract due to repeated delivery failures, while keeping the option to work together in the future.”",
+        "hero.legal.card.price": "~149 USD typical ticket",
+
+        "hero.imm.tagline": "Line 02 · Immigration & visa letters",
+        "hero.imm.title": "Turn complex immigration stories into clear, structured letters.",
+        "hero.imm.text":
+          "Support letters, relationship explanations and appeal narratives that speak your case calmly to officers and consulates.",
+        "hero.imm.meta":
+          "Typical ticket: <strong>49–149 USD</strong> · high emotional and financial value, stable demand.",
+        "hero.imm.card.title": "Letter to explain relocation & ties",
+        "hero.imm.card.body":
+          "“Please write a support letter explaining my stable work history, family in the EU and why I plan to relocate permanently with my spouse.”",
+        "hero.imm.card.price": "~89 USD typical ticket",
+
+        "hero.claims.tagline": "Line 03 · Insurance & airline claims",
+        "hero.claims.title": "Turn chaos after delay or loss into a measured claim letter.",
+        "hero.claims.text":
+          "Flights, luggage, medical bills, property damage — structure your evidence and request in a way companies will actually read.",
+        "hero.claims.meta":
+          "Typical ticket: <strong>39–129 USD</strong> · easy to show value when compensation arrives.",
+        "hero.claims.card.title": "Airline delay compensation",
+        "hero.claims.card.body":
+          "“Please prepare a clear claim letter for a 15-hour delay, including tickets, receipts and a reasonable compensation request under the airline rules.”",
+        "hero.claims.card.price": "~69 USD typical ticket",
+
+        "hero.crisis.tagline": "Line 04 · Family & emotional crisis letters",
+        "hero.crisis.title": "Say hard things about money, care and boundaries — without shouting.",
+        "hero.crisis.text":
+          "Long emails to adult children, partners or parents about inheritance, support and limits, written in calm but firm language.",
+        "hero.crisis.meta":
+          "Typical ticket: <strong>29–149 USD</strong> · high repeat demand from the same clients.",
+        "hero.crisis.card.title": "Letter to adult child about money",
+        "hero.crisis.card.body":
+          "“Please help me explain to my adult son why I will limit financial support, how inheritance will work, and what I can still do to help.”",
+        "hero.crisis.card.price": "~79 USD typical ticket",
+
+        "hero.esc.tagline": "Line 05 · Complaint escalation services",
+        "hero.esc.title": "When “customer support” stops listening, escalate calmly on paper.",
+        "hero.esc.text":
+          "Letters to supervisors, regulators, ombudsmen and executives that lay out facts and requested remedies without drama.",
+        "hero.esc.meta":
+          "Typical ticket: <strong>29–99 USD</strong> · mass-market need, easy to sell as a service.",
+        "hero.esc.card.title": "Escalation to bank supervisor",
+        "hero.esc.card.body":
+          "“Please write an escalation letter to a senior manager about repeated mistakes on my account and ask for a complete review and written response.”",
+        "hero.esc.card.price": "~59 USD typical ticket",
+
+        "hero.card.tag.hot": "High fee",
+        "hero.card.tag.stable": "Stable demand",
+        "hero.card.tag.value": "Clear value",
+        "hero.card.tag.repeat": "High repeat",
+        "hero.card.tag.mass": "Mass need",
+        "hero.card.pill": "2–3 clear sentences → full letter",
+
+        "hero.btn.start": "Start a legal draft task",
+        "hero.btn.startImm": "Start an immigration letter",
+        "hero.btn.startClaims": "Start a claim letter",
+        "hero.btn.startCrisis": "Start a crisis letter",
+        "hero.btn.startEsc": "Start an escalation letter",
+        "hero.btn.example": "See example brief",
 
         "hero.input.placeholder":
           "Example: draft a strong but respectful contract termination letter to my long-term supplier.",
         "hero.input.hint":
           "2–3 clear sentences is enough. The desk structures the full letter for you.",
+        "hero.input.cta": "Start task on my desk",
+        "hero.note":
+          "No subscription. Each task typically starts at <strong>USD 19.9</strong> and scales with complexity. The desk is built for older US & EU professionals who want calm, serious writing — not dating, not spam.",
 
-        "hero.cta.start": "Start on my desk",
-        "hero.cta.examples": "See profitable task types",
+        "tiles.legal.label": "Legal drafts",
+        "tiles.legal.sub": "Contracts & formal letters",
+        "tiles.imm.label": "Immigration",
+        "tiles.imm.sub": "Visa & support letters",
+        "tiles.claims.label": "Claims",
+        "tiles.claims.sub": "Insurance & airline claims",
+        "tiles.crisis.label": "Family crisis",
+        "tiles.crisis.sub": "Hard letters to loved ones",
+        "tiles.esc.label": "Escalation",
+        "tiles.esc.sub": "Calm complaint upgrades",
 
-        "hero.meta.left":
-          "No subscription required · most tasks start around <strong>USD 19.9</strong> and scale by complexity.",
-        "hero.meta.right":
-          "Built for older US & EU professionals · calm, serious tone · not for dating or spam.",
-
-        "lines.title": "Most profitable lines on this desk",
-
-        "lines.legal.label": "Line 01 · Legal drafts",
-        "lines.legal.name": "Legal-style documents & contracts",
-        "lines.legal.desc":
-          "Termination notices, partnership agreements, demand letters and serious policy documents.",
-        "lines.legal.price": "Typical fee: 99–299 USD",
-
-        "lines.immigration.label": "Line 02 · Immigration",
-        "lines.immigration.name": "Immigration & visa application letters",
-        "lines.immigration.desc":
-          "Explanation letters, relationship proofs and supporting narratives for applications and appeals.",
-        "lines.immigration.price": "Typical fee: 49–149 USD",
-
-        "lines.claims.label": "Line 03 · Claims",
-        "lines.claims.name": "Insurance & airline claims",
-        "lines.claims.desc":
-          "Structured claim letters for delays, cancellations, medical bills and property issues.",
-        "lines.claims.price": "Typical fee: 39–129 USD",
-
-        "lines.crisis.label": "Line 04 · Crisis",
-        "lines.crisis.name": "Family & emotional crisis letters",
-        "lines.crisis.desc":
-          "Difficult conversations around money, boundaries, divorce, inheritance and long-term care.",
-        "lines.crisis.price": "Typical fee: 29–149 USD",
-
-        "lines.escalation.label": "Line 05 · Escalation",
-        "lines.escalation.name": "Complaint escalation services",
-        "lines.escalation.desc":
-          "Calm, factual escalation letters to banks, airlines, platforms, HR and regulators.",
-        "lines.escalation.price": "Typical fee: 29–99 USD",
-
-        "footer.left": "Aurum Task Desk · Private AI writing & resolution desk for serious adults.",
+        "footer.left":
+          "Aurum Task Desk · Private AI writing & resolution desk for serious adults.",
         "footer.privacy": "Privacy",
         "footer.terms": "Terms",
         "footer.desk": "Open your desk"
@@ -929,280 +1271,105 @@
         "nav.signin": "登录",
         "nav.logout": "退出",
 
-        "hero.title": "一张为<span class='hero-title-em'>高价值严肃信件</span>准备的安静 AI 桌子。",
-        "hero.subtitle":
-          "把你的截图、聊天记录和零散要点，整理成可以真的发给银行、航空公司、律师和家人的正式文字。",
-        "hero.pill.legal": "法律文书 / 合同草稿 · 客单价最高",
-        "hero.pill.immigration": "移民 & 签证申请信",
-        "hero.pill.claims": "保险理赔 & 航空延误索赔",
-        "hero.pill.crisis": "家庭 & 情感危机信件",
-        "hero.pill.escalation": "投诉升级与正式函件服务",
+        "hero.legal.tagline": "线路 01 · 法律文书 / 合同草稿",
+        "hero.legal.title": "不用请整家律所，也能写出像样的法律风格文件。",
+        "hero.legal.text":
+          "合同终止、合作协议、立场函、Demand Letter 和各类制度文书——语气冷静、措辞严谨，不丢脸。",
+        "hero.legal.meta":
+          "典型客单：每份 <strong>99–299 美元</strong> · 客户只需要提供简单描述，在任务桌上补充细节。",
+        "hero.legal.card.title": "合同终止函草稿",
+        "hero.legal.card.body":
+          "“写一封语气坚定但礼貌的合同解除信，发给多次违约的长期供应商，同时保留未来合作的可能性。”",
+        "hero.legal.card.price": "常见客单 ~149 美元",
+
+        "hero.imm.tagline": "线路 02 · 移民 & 签证申请信",
+        "hero.imm.title": "把复杂的移民故事，整理成结构清晰的说明信。",
+        "hero.imm.text":
+          "用于递交给移民官和使馆的解释信、关系证明和复议陈述，让对方在 3 分钟内看懂你的情况。",
+        "hero.imm.meta":
+          "典型客单：<strong>49–149 美元</strong> · 情绪价值 + 经济价值都高，需求稳定。",
+        "hero.imm.card.title": "说明长期定居与家庭关系的信件",
+        "hero.imm.card.body":
+          "“请帮我写一封支持信，说明我的稳定收入、在欧盟的家庭情况，以及计划与配偶长期定居的原因。”",
+        "hero.imm.card.price": "常见客单 ~89 美元",
+
+        "hero.claims.tagline": "线路 03 · 保险理赔 / 航空索赔",
+        "hero.claims.title": "延误、行李丢失之后，用冷静的文字要回该有的赔付。",
+        "hero.claims.text":
+          "航班延误、取消、医疗账单、财产损失——把证据、金额和规则按对方习惯的方式排好给他看。",
+        "hero.claims.meta":
+          "典型客单：<strong>39–129 美元</strong> · 一旦赔到钱，客户会非常愿意复购。",
+        "hero.claims.card.title": "长时间延误索赔信",
+        "hero.claims.card.body":
+          "“请帮我写一封针对 15 小时延误的索赔信，包含机票、消费小票和依据航司规则的合理赔付请求。”",
+        "hero.claims.card.price": "常见客单 ~69 美元",
+
+        "hero.crisis.tagline": "线路 04 · 家庭 & 情感危机信",
+        "hero.crisis.title": "关于钱、照护和边界的话，可以冷静地写清楚。",
+        "hero.crisis.text":
+          "给成年的子女、伴侣或父母写长信，谈遗产、赡养、借款和边界，用坚定但不撕破脸的方式表达。",
+        "hero.crisis.meta":
+          "典型客单：<strong>29–149 美元</strong> · 同一批客户往往会持续复购。",
+        "hero.crisis.card.title": "写给成年子女的财务边界信",
+        "hero.crisis.card.body":
+          "“请帮我写一封给儿子的信，说明以后经济支持会减少，遗产如何安排，以及我还能在哪些方面提供帮助。”",
+        "hero.crisis.card.price": "常见客单 ~79 美元",
+
+        "hero.esc.tagline": "线路 05 · 投诉升级与正式函件",
+        "hero.esc.title": "当客服再也听不进去，用纸面、事实和程序升级。",
+        "hero.esc.text":
+          "面向银行、平台、航空公司、HR 或监管机构的升级信，按事实、时间线和诉求来写，而不是靠吼。",
+        "hero.esc.meta":
+          "典型客单：<strong>29–99 美元</strong> · 大众需求，极容易包装成一项服务。",
+        "hero.esc.card.title": "向银行高层升级投诉的信",
+        "hero.esc.card.body":
+          "“帮我写一封给高级经理的升级信，说明账户多次出错的经过，并要求进行完整复核和书面回复。”",
+        "hero.esc.card.price": "常见客单 ~59 美元",
+
+        "hero.card.tag.hot": "高客单",
+        "hero.card.tag.stable": "需求稳定",
+        "hero.card.tag.value": "价值清晰",
+        "hero.card.tag.repeat": "复购率高",
+        "hero.card.tag.mass": "大众需求",
+        "hero.card.pill": "客户说几句 → 桌子写完全文",
+
+        "hero.btn.start": "开始一单法律文书任务",
+        "hero.btn.startImm": "开始一单移民信任务",
+        "hero.btn.startClaims": "开始一单理赔信任务",
+        "hero.btn.startCrisis": "开始一单危机信任务",
+        "hero.btn.startEsc": "开始一单升级投诉任务",
+        "hero.btn.example": "查看示例简要",
 
         "hero.input.placeholder":
           "示例：写一封语气坚定但礼貌的合同终止信，发给多次违约的长期供应商。",
         "hero.input.hint":
           "用 2–3 句写清楚背景和诉求即可，其余结构和措辞由任务桌处理。",
+        "hero.input.cta": "在我的任务桌上开始任务",
+        "hero.note":
+          "无需订阅。每次任务通常从 <strong>19.9 美元</strong> 起，根据复杂度递增。主要面向欧美中老年专业人士，只做严肃、高价值写作，不接约会 / 垃圾营销。",
 
-        "hero.cta.start": "在我的任务桌上开始任务",
-        "hero.cta.examples": "查看高利润任务类型",
+        "tiles.legal.label": "法律文书",
+        "tiles.legal.sub": "合同 & 严肃函件",
+        "tiles.imm.label": "移民文书",
+        "tiles.imm.sub": "签证 & 解释信",
+        "tiles.claims.label": "理赔信",
+        "tiles.claims.sub": "保险 & 航空索赔",
+        "tiles.crisis.label": "家庭危机信",
+        "tiles.crisis.sub": "写给家人的难开口信件",
+        "tiles.esc.label": "升级投诉",
+        "tiles.esc.sub": "给银行 / 机构的正式函件",
 
-        "hero.meta.left":
-          "无需订阅 · 大部分任务从 <strong>19.9 美元</strong> 起，根据复杂度往上增加。",
-        "hero.meta.right":
-          "主要面向欧美中老年专业人士 · 语气冷静、克制 · 不接约会、垃圾营销类内容。",
-
-        "lines.title": "在这张桌子上最赚钱的几条线",
-
-        "lines.legal.label": "线路 01 · 法律文书",
-        "lines.legal.name": "法律风格文书与合同草稿",
-        "lines.legal.desc":
-          "合同终止、合作协议、严肃立场函与 Demand Letter 草稿。",
-        "lines.legal.price": "典型收费：99–299 美元",
-
-        "lines.immigration.label": "线路 02 · 移民",
-        "lines.immigration.name": "移民与签证申请信",
-        "lines.immigration.desc":
-          "解释信、关系证明与补充说明文书，用于各类申请与复议。",
-        "lines.immigration.price": "典型收费：49–149 美元",
-
-        "lines.claims.label": "线路 03 · 理赔",
-        "lines.claims.name": "保险与航空理赔信件",
-        "lines.claims.desc":
-          "为延误、取消、医疗账单与财产损失撰写清晰、结构化的索赔说明。",
-        "lines.claims.price": "典型收费：39–129 美元",
-
-        "lines.crisis.label": "线路 04 · 危机",
-        "lines.crisis.name": "家庭与情感危机信件",
-        "lines.crisis.desc":
-          "围绕金钱、边界、离婚、遗产与长期照护的艰难沟通文字。",
-        "lines.crisis.price": "典型收费：29–149 美元",
-
-        "lines.escalation.label": "线路 05 · 升级投诉",
-        "lines.escalation.name": "投诉升级与正式函件服务",
-        "lines.escalation.desc":
-          "向银行、航空公司、平台、HR 或监管机构发送冷静、事实清晰的升级信件。",
-        "lines.escalation.price": "典型收费：29–99 美元",
-
-        "footer.left": "Aurum 任务桌 · 为严肃成年人服务的私密写作与解决方案桌。",
+        "footer.left":
+          "Aurum 任务桌 · 为严肃成年人服务的私密写作与解决方案桌。",
         "footer.privacy": "隐私政策",
         "footer.terms": "使用条款",
         "footer.desk": "打开我的任务桌"
-      },
-      de: {
-        "logo.sub": "Ruhiger KI-Schreibtisch für ernsthafte Schreiben",
-
-        "nav.tasks": "Aufgabenhalle",
-        "nav.pricing": "Preise",
-        "nav.desk": "Ihr Schreibtisch",
-        "nav.langLabel": "SPRACHE",
-        "nav.signin": "Anmelden",
-        "nav.logout": "Abmelden",
-
-        "hero.title": "Ein ruhiger KI-Schreibtisch für <span class='hero-title-em'>wertige, ernsthafte Schreiben.</span>",
-        "hero.subtitle":
-          "Verwandeln Sie Notizen und Screenshots in Verträge, Einwanderungsschreiben, Schadensmeldungen, Krisenbriefe und Eskalationen, die man wirklich versenden kann.",
-        "hero.pill.legal": "Rechtliche Entwürfe / Verträge · höchste Gebühr",
-        "hero.pill.immigration": "Einwanderungs- & Visaschreiben",
-        "hero.pill.claims": "Versicherungs- & Flugansprüche",
-        "hero.pill.crisis": "Familien- & Krisenbriefe",
-        "hero.pill.escalation": "Beschwerde-Eskalationsservice",
-
-        "hero.input.placeholder":
-          "Beispiel: Entwurf eines höflichen, aber klaren Kündigungsschreibens an einen langjährigen, aber vertragsbrüchigen Lieferanten.",
-        "hero.input.hint":
-          "2–3 klare Sätze reichen. Der Schreibtisch baut den kompletten Brief daraus auf.",
-
-        "hero.cta.start": "Auf meinem Schreibtisch starten",
-        "hero.cta.examples": "Lukrative Aufgabentypen ansehen",
-
-        "hero.meta.left":
-          "Kein Abo nötig · die meisten Aufgaben beginnen bei ca. <strong>19,9 USD</strong> und steigen mit der Komplexität.",
-        "hero.meta.right":
-          "Für ältere Fachkräfte in USA & EU · ruhiger, seriöser Ton · kein Dating, kein Spam.",
-
-        "lines.title": "Die profitabelsten Linien an diesem Schreibtisch",
-
-        "lines.legal.label": "Linie 01 · Rechtliche Entwürfe",
-        "lines.legal.name": "Rechtsähnliche Dokumente & Verträge",
-        "lines.legal.desc":
-          "Kündigungsschreiben, Partnerschaftsverträge, Anspruchsschreiben und Richtlinien.",
-        "lines.legal.price": "Typische Gebühr: 99–299 USD",
-
-        "lines.immigration.label": "Linie 02 · Einwanderung",
-        "lines.immigration.name": "Einwanderungs- & Visaschreiben",
-        "lines.immigration.desc":
-          "Erklärungsschreiben, Beziehungsnachweise und unterstützende Schreiben für Anträge und Beschwerden.",
-        "lines.immigration.price": "Typische Gebühr: 49–149 USD",
-
-        "lines.claims.label": "Linie 03 · Ansprüche",
-        "lines.claims.name": "Versicherungs- & Flugschadensansprüche",
-        "lines.claims.desc":
-          "Strukturierte Schreiben bei Verspätungen, Ausfällen, Arztrechnungen und Sachschäden.",
-        "lines.claims.price": "Typische Gebühr: 39–129 USD",
-
-        "lines.crisis.label": "Linie 04 · Krise",
-        "lines.crisis.name": "Familien- & Krisenbriefe",
-        "lines.crisis.desc":
-          "Schwierige Gespräche über Geld, Grenzen, Scheidung, Erbe und Langzeitpflege.",
-        "lines.crisis.price": "Typische Gebühr: 29–149 USD",
-
-        "lines.escalation.label": "Linie 05 · Eskalation",
-        "lines.escalation.name": "Beschwerde-Eskalationsservice",
-        "lines.escalation.desc":
-          "Sachliche Eskalationsschreiben an Banken, Airlines, Plattformen, HR und Behörden.",
-        "lines.escalation.price": "Typische Gebühr: 29–99 USD",
-
-        "footer.left":
-          "Aurum Task Desk · Ruhiger KI-Schreibtisch für seriöse Schreiben.",
-        "footer.privacy": "Datenschutz",
-        "footer.terms": "Nutzungsbedingungen",
-        "footer.desk": "Meinen Schreibtisch öffnen"
-      },
-      fr: {
-        "logo.sub": "Bureau d’écriture IA discret pour lettres sérieuses",
-
-        "nav.tasks": "Hall des tâches",
-        "nav.pricing": "Tarifs",
-        "nav.desk": "Votre bureau",
-        "nav.langLabel": "LANG",
-        "nav.signin": "Connexion",
-        "nav.logout": "Déconnexion",
-
-        "hero.title": "Un bureau IA discret pour <span class='hero-title-em'>des lettres sérieuses et à forte valeur.</span>",
-        "hero.subtitle":
-          "Transformez captures d’écran et notes en contrats, lettres d’immigration, demandes d’indemnisation, messages de crise et lettres d’escalade que vous pouvez réellement envoyer.",
-        "hero.pill.legal": "Brouillons juridiques / contrats · honoraires élevés",
-        "hero.pill.immigration": "Lettres d’immigration & de visa",
-        "hero.pill.claims": "Demandes d’indemnisation & retards de vol",
-        "hero.pill.crisis": "Lettres familiales & de crise",
-        "hero.pill.escalation": "Service d’escalade de plaintes",
-
-        "hero.input.placeholder":
-          "Exemple : rédiger une lettre de résiliation de contrat ferme mais respectueuse à mon fournisseur de longue date.",
-        "hero.input.hint":
-          "2–3 phrases claires suffisent. Le bureau construit la lettre complète à partir de là.",
-
-        "hero.cta.start": "Commencer sur mon bureau",
-        "hero.cta.examples": "Voir les types de tâches rentables",
-
-        "hero.meta.left":
-          "Aucun abonnement · la plupart des tâches commencent autour de <strong>19,9 USD</strong> et augmentent selon la complexité.",
-        "hero.meta.right":
-          "Conçu pour les professionnels plus âgés en Europe & Amérique du Nord · ton calme et sérieux · pas de rencontres, pas de spam.",
-
-        "lines.title": "Les lignes les plus rentables sur ce bureau",
-
-        "lines.legal.label": "Ligne 01 · Brouillons juridiques",
-        "lines.legal.name": "Documents de style juridique & contrats",
-        "lines.legal.desc":
-          "Lettres de résiliation, accords de partenariat, lettres de mise en demeure et politiques internes.",
-        "lines.legal.price": "Honoraires typiques : 99–299 USD",
-
-        "lines.immigration.label": "Ligne 02 · Immigration",
-        "lines.immigration.name": "Lettres d’immigration & de visa",
-        "lines.immigration.desc":
-          "Lettres explicatives, preuves de relation et narrations de soutien pour dossiers et recours.",
-        "lines.immigration.price": "Honoraires typiques : 49–149 USD",
-
-        "lines.claims.label": "Ligne 03 · Indemnisation",
-        "lines.claims.name": "Demandes d’indemnisation & retards de vol",
-        "lines.claims.desc":
-          "Lettres structurées pour retards, annulations, factures médicales et sinistres.",
-        "lines.claims.price": "Honoraires typiques : 39–129 USD",
-
-        "lines.crisis.label": "Ligne 04 · Crise",
-        "lines.crisis.name": "Lettres familiales & de crise",
-        "lines.crisis.desc":
-          "Conversations difficiles autour de l’argent, des limites, du divorce, de l’héritage et des soins de longue durée.",
-        "lines.crisis.price": "Honoraires typiques : 29–149 USD",
-
-        "lines.escalation.label": "Ligne 05 · Escalade",
-        "lines.escalation.name": "Service d’escalade de plaintes",
-        "lines.escalation.desc":
-          "Lettres factuelles et calmes adressées aux banques, compagnies aériennes, plateformes, RH et autorités.",
-        "lines.escalation.price": "Honoraires typiques : 29–99 USD",
-
-        "footer.left":
-          "Aurum Task Desk · Bureau d’écriture & de résolution privé pour adultes sérieux.",
-        "footer.privacy": "Confidentialité",
-        "footer.terms": "Conditions",
-        "footer.desk": "Ouvrir mon bureau"
-      },
-      es: {
-        "logo.sub": "Escritorio de IA silencioso para cartas serias",
-
-        "nav.tasks": "Sala de tareas",
-        "nav.pricing": "Precios",
-        "nav.desk": "Mi escritorio",
-        "nav.langLabel": "IDIOMA",
-        "nav.signin": "Iniciar sesión",
-        "nav.logout": "Salir",
-
-        "hero.title": "Un escritorio de IA silencioso para <span class='hero-title-em'>cartas serias y de alto valor.</span>",
-        "hero.subtitle":
-          "Convierte notas y capturas en contratos, cartas de inmigración, reclamaciones, mensajes de crisis y cartas de escalación que realmente puedes enviar.",
-        "hero.pill.legal": "Borradores legales / contratos · mayor tarifa",
-        "hero.pill.immigration": "Cartas de inmigración y visado",
-        "hero.pill.claims": "Reclamaciones a seguros y aerolíneas",
-        "hero.pill.crisis": "Cartas familiares y de crisis",
-        "hero.pill.escalation": "Servicio de escalación de quejas",
-
-        "hero.input.placeholder":
-          "Ejemplo: redactar una carta de rescisión de contrato firme pero respetuosa para mi proveedor de muchos años.",
-        "hero.input.hint":
-          "2–3 frases claras son suficientes. El escritorio estructura la carta completa por ti.",
-
-        "hero.cta.start": "Empezar en mi escritorio",
-        "hero.cta.examples": "Ver tipos de tareas rentables",
-
-        "hero.meta.left":
-          "Sin suscripción · la mayoría de tareas empiezan alrededor de <strong>19,9 USD</strong> y suben según complejidad.",
-        "hero.meta.right":
-          "Pensado para profesionales mayores en EE. UU. y Europa · tono calmado y serio · no para citas ni spam.",
-
-        "lines.title": "Líneas más rentables en este escritorio",
-
-        "lines.legal.label": "Línea 01 · Borradores legales",
-        "lines.legal.name": "Documentos de estilo legal y contratos",
-        "lines.legal.desc":
-          "Cartas de rescisión, acuerdos de colaboración, demandas formales y políticas internas.",
-        "lines.legal.price": "Tarifa típica: 99–299 USD",
-
-        "lines.immigration.label": "Línea 02 · Inmigración",
-        "lines.immigration.name": "Cartas de inmigración y visado",
-        "lines.immigration.desc":
-          "Cartas explicativas, pruebas de relación y narrativas de apoyo para expedientes y apelaciones.",
-        "lines.immigration.price": "Tarifa típica: 49–149 USD",
-
-        "lines.claims.label": "Línea 03 · Reclamaciones",
-        "lines.claims.name": "Reclamaciones a seguros y aerolíneas",
-        "lines.claims.desc":
-          "Cartas estructuradas para retrasos, cancelaciones, facturas médicas y siniestros.",
-        "lines.claims.price": "Tarifa típica: 39–129 USD",
-
-        "lines.crisis.label": "Línea 04 · Crisis",
-        "lines.crisis.name": "Cartas familiares y de crisis",
-        "lines.crisis.desc":
-          "Conversaciones difíciles sobre dinero, límites, divorcio, herencia y cuidados a largo plazo.",
-        "lines.crisis.price": "Tarifa típica: 29–149 USD",
-
-        "lines.escalation.label": "Línea 05 · Escalación",
-        "lines.escalation.name": "Servicio de escalación de quejas",
-        "lines.escalation.desc":
-          "Cartas calmadas y objetivas a bancos, aerolíneas, plataformas, RR. HH. y reguladores.",
-        "lines.escalation.price": "Tarifa típica: 29–99 USD",
-
-        "footer.left":
-          "Aurum Task Desk · Escritorio privado de redacción y resolución para adultos serios.",
-        "footer.privacy": "Privacidad",
-        "footer.terms": "Términos",
-        "footer.desk": "Abrir mi escritorio"
       }
     };
 
     function applyLanguage(lang) {
       const dict = translations[lang] || translations.en;
-      document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
+      document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
 
       document.querySelectorAll("[data-i18n]").forEach((el) => {
         const key = el.getAttribute("data-i18n");
@@ -1269,26 +1436,70 @@
       });
     }
 
-    function setupHeroActions() {
+    // ===== 轮播逻辑 =====
+    function setupHeroSlider() {
+      const slides = Array.from(document.querySelectorAll(".hero-slide"));
+      const dots = Array.from(document.querySelectorAll(".hero-dot"));
+      const prev = document.getElementById("hero-prev");
+      const next = document.getElementById("hero-next");
+      const banner = document.getElementById("hero-banner");
+      let index = 0;
+      let timer = null;
+
+      function showSlide(i) {
+        index = (i + slides.length) % slides.length;
+        slides.forEach((s, idx) => {
+          s.classList.toggle("active", idx === index);
+        });
+        dots.forEach((d, idx) => {
+          d.classList.toggle("active", idx === index);
+        });
+      }
+
+      function startAuto() {
+        stopAuto();
+        timer = setInterval(() => {
+          showSlide(index + 1);
+        }, 9000);
+      }
+
+      function stopAuto() {
+        if (timer) clearInterval(timer);
+        timer = null;
+      }
+
+      dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          const i = parseInt(dot.getAttribute("data-index"), 10);
+          showSlide(i);
+        });
+      });
+
+      if (prev) prev.addEventListener("click", () => showSlide(index - 1));
+      if (next) next.addEventListener("click", () => showSlide(index + 1));
+
+      if (banner) {
+        banner.addEventListener("mouseenter", stopAuto);
+        banner.addEventListener("mouseleave", startAuto);
+      }
+
+      showSlide(0);
+      startAuto();
+
+      // tiles 点击跳转到对应 slide
+      document.querySelectorAll(".tile-item").forEach((tile) => {
+        tile.addEventListener("click", () => {
+          const line = tile.getAttribute("data-jump");
+          const targetIdx = slides.findIndex((s) => s.getAttribute("data-line") === line);
+          if (targetIdx >= 0) showSlide(targetIdx);
+        });
+      });
+    }
+
+    // ===== 任务输入 & 示例自动填充 =====
+    function setupTaskActions() {
       const input = document.getElementById("task-input");
-      const startBtn = document.getElementById("start-task-btn");
-      const examplesBtn = document.getElementById("examples-btn");
-      const lineCards = document.querySelectorAll(".line-card");
-
-      if (startBtn) {
-        startBtn.addEventListener("click", () => {
-          const text = (input && input.value.trim()) || "";
-          const base = "desk.html";
-          const url = text ? `${base}?prefill=${encodeURIComponent(text)}` : base;
-          window.location.href = url;
-        });
-      }
-
-      if (examplesBtn) {
-        examplesBtn.addEventListener("click", () => {
-          window.location.href = "pricing.html";
-        });
-      }
+      const startBtn = document.getElementById("task-start-btn");
 
       const templatesEn = {
         legal:
@@ -1300,7 +1511,7 @@
         crisis:
           "Draft a calm but firm letter to my adult child about money boundaries, inheritance and future support.",
         escalation:
-          "Write an escalation letter to the bank supervisor about repeated account mistakes, requesting a senior review."
+          "Write an escalation letter to the bank supervisor about repeated account mistakes and ask for a senior review."
       };
 
       const templatesZh = {
@@ -1316,25 +1527,51 @@
           "写一封向银行更高层投诉的升级信，说明账户多次出错的经过，并要求由高级经理复核。"
       };
 
-      lineCards.forEach((card) => {
-        card.addEventListener("click", () => {
-          if (!input) return;
-          const key = card.getAttribute("data-template");
-          const lang = localStorage.getItem("aurum_lang") || "en";
-          let text = templatesEn[key] || "";
-          if (lang === "zh" && templatesZh[key]) {
-            text = templatesZh[key];
+      // 顶部按钮：start / example
+      document.querySelectorAll("[data-line-start]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const line = btn.getAttribute("data-line-start");
+          if (!input) {
+            window.location.href = "desk.html";
+            return;
           }
+          const lang = localStorage.getItem("aurum_lang") || "en";
+          let text = templatesEn[line] || "";
+          if (lang === "zh" && templatesZh[line]) text = templatesZh[line];
+          if (text) input.value = text;
+          const base = "desk.html";
+          const url = text ? `${base}?prefill=${encodeURIComponent(text)}` : base;
+          window.location.href = url;
+        });
+      });
+
+      document.querySelectorAll("[data-line-example]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (!input) return;
+          const line = btn.getAttribute("data-line-example");
+          const lang = localStorage.getItem("aurum_lang") || "en";
+          let text = templatesEn[line] || "";
+          if (lang === "zh" && templatesZh[line]) text = templatesZh[line];
           input.value = text;
           input.focus();
         });
       });
+
+      if (startBtn) {
+        startBtn.addEventListener("click", () => {
+          const text = (input && input.value.trim()) || "";
+          const base = "desk.html";
+          const url = text ? `${base}?prefill=${encodeURIComponent(text)}` : base;
+          window.location.href = url;
+        });
+      }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
       setupLanguage();
       renderUserArea();
-      setupHeroActions();
+      setupHeroSlider();
+      setupTaskActions();
     });
   </script>
 </body>
