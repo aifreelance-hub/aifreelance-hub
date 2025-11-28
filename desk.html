@@ -950,6 +950,8 @@
               to any company or person. When you are happy with the direction,
               you can open a full Desk and continue privately.
             </div>
+            <!-- 实际预览内容容器 -->
+            <div id="aiPreviewContent" style="display:none;"></div>
           </div>
         </section>
       </section>
@@ -974,10 +976,9 @@
 
     // ========== AI 生成预览 ==========
     const aiGenerateBtn = document.getElementById("aiGenerateBtn");
-    const aiStatus = document.getElementById("aiStatus");
     const aiStatusText = document.getElementById("aiStatusText");
-    const aiPreviewBox = document.getElementById("aiPreviewBox");
     const aiPreviewPlaceholder = document.getElementById("aiPreviewPlaceholder");
+    const aiPreviewContent = document.getElementById("aiPreviewContent");
     const toneSelect = document.getElementById("toneSelect");
     const languageSelect = document.getElementById("languageSelect");
     const recipientInput = document.getElementById("recipientInput");
@@ -996,7 +997,8 @@
         : "AI is generating a preview draft for you…";
 
       try {
-        const res = await fetch("/ai/preview", {
+        // 这里改成 /api/generate，直接命中 Worker
+        const res = await fetch("/api/generate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -1020,7 +1022,9 @@
         }
 
         aiPreviewPlaceholder.style.display = "none";
-        aiPreviewBox.textContent = data.preview;
+        aiPreviewContent.style.display = "block";
+        aiPreviewContent.textContent = data.preview;
+
         aiStatusText.textContent = language === "中文"
           ? "预览完成。你可以修改细节，再次生成，或稍后在正式任务中继续。"
           : "Preview ready. You can adjust details, generate again, or continue later inside a full Desk.";
@@ -1042,7 +1046,8 @@
     document.getElementById("btnClear").addEventListener("click", () => {
       recipientInput.value = "";
       detailsTextarea.value = "";
-      aiPreviewBox.textContent = "";
+      aiPreviewContent.textContent = "";
+      aiPreviewContent.style.display = "none";
       aiPreviewPlaceholder.style.display = "block";
       aiStatusText.textContent = languageSelect.value === "中文"
         ? "AI 将生成约 30% 的预览草稿，不会保存也不会发送。"
@@ -1150,6 +1155,8 @@
           "AI 生成的 30% 预览内容会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以打开完整任务台，在更私密的环境中继续完善。"
       }
     };
+
+    const langButtons = document.querySelectorAll(".lang-btn");
 
     function applyLang(lang) {
       const t = i18n[lang] || i18n.en;
