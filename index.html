@@ -458,6 +458,93 @@
       min-height: 260px;
     }
 
+    .case-slider {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: radial-gradient(circle at top, #020617, #020617);
+    }
+
+    .case-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.01);
+      transition: opacity 0.45s ease-out, transform 0.6s ease-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .case-slide.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .case-image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.02) contrast(1.02);
+    }
+
+    .case-info {
+      position: relative;
+      margin: 0 10px 10px;
+      border-radius: 14px;
+      padding: 8px 10px;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      backdrop-filter: blur(10px);
+      max-width: 80%;
+      z-index: 2;
+    }
+
+    .case-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .case-text {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .case-dots {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      display: flex;
+      gap: 6px;
+      z-index: 3;
+    }
+
+    .case-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .case-dot.active {
+      border-color: rgba(251, 191, 36, 0.9);
+      background: #fbbf24;
+      box-shadow:
+        0 0 10px rgba(251, 191, 36, 0.8),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+
+
     .hero-avatars::before {
       content: "";
       position: absolute;
@@ -967,26 +1054,39 @@
               </div>
             </div>
 
-            <aside class="hero-avatars" aria-label="Professional examples">
-              <div class="avatar-main">
-                <img
-                  id="avatar-img"
-                  src="img/aurum-case-1.jpg"
-                  alt="Case illustration — add your own professional photo"
-                />
-                <div class="avatar-meta">
-                  <div class="avatar-meta-name" id="avatar-name">Serious letter scenario</div>
-                  <div class="avatar-meta-role" id="avatar-role">
-                    Letters for immigration, insurance, contracts, complaints and crisis situations.
-                  </div>
-                  <div class="avatar-meta-note" id="avatar-note">
-                    Visual example only. All real client details stay private inside the desk.
+                        <aside class="hero-avatars" aria-label="Professional examples">
+              <div class="case-slider">
+                <div class="case-slide active" data-index="0">
+                  <div class="case-image" style="background-image:url('img/aurum-case-1.jpg');"></div>
+                  <div class="case-info">
+                    <div class="case-title">Serious letter scenario</div>
+                    <div class="case-text">
+                      For contract drafts, legal-style notices, and professional correspondence. Desk produces structured, ready-to-submit letters.
+                    </div>
                   </div>
                 </div>
-                <div class="avatar-indicators" id="avatar-dots">
-                  <div class="avatar-dot active"></div>
-                  <div class="avatar-dot"></div>
-                  <div class="avatar-dot"></div>
+                <div class="case-slide" data-index="1">
+                  <div class="case-image" style="background-image:url('img/aurum-case-2.jpg');"></div>
+                  <div class="case-info">
+                    <div class="case-title">Claim & escalation scenario</div>
+                    <div class="case-text">
+                      For airline refund claims, insurance disputes, and escalation letters to companies.
+                    </div>
+                  </div>
+                </div>
+                <div class="case-slide" data-index="2">
+                  <div class="case-image" style="background-image:url('img/aurum-case-3.jpg');"></div>
+                  <div class="case-info">
+                    <div class="case-title">Immigration & crisis scenario</div>
+                    <div class="case-text">
+                      For visa RFE responses, refusal explanations, and family crisis letters.
+                    </div>
+                  </div>
+                </div>
+                <div class="case-dots">
+                  <button class="case-dot active" data-target="0" aria-label="Serious letter scenario"></button>
+                  <button class="case-dot" data-target="1" aria-label="Claim & escalation scenario"></button>
+                  <button class="case-dot" data-target="2" aria-label="Immigration & crisis scenario"></button>
                 </div>
               </div>
             </aside>
@@ -1329,54 +1429,36 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Avatar slider (simple auto-rotate)
-    const avatars = [
-      {
-        img: "img/aurum-case-1.jpg",
-        name: "Serious letter scenario",
-        role: "Letters for immigration, insurance, contracts, complaints and crisis situations.",
-        note: "Visual example only. Add your own professional portrait photos to /img/."
-      },
-      {
-        img: "img/aurum-case-2.jpg",
-        name: "Immigration & claim scenario",
-        role: "Explaining decisions to immigration officers and insurers in calm, structured English.",
-        note: "The desk focuses on real-world officers, not social media writing."
-      },
-      {
-        img: "img/aurum-case-3.jpg",
-        name: "Work & family scenario",
-        role: "Handling workplace and family letters without sounding aggressive or chaotic.",
-        note: "Shows how emotional stories become clear, respectful letters."
-      }
-    ];
+        // Case slider — 3 professional scenarios
+    const caseSlides = document.querySelectorAll(".case-slide");
+    const caseDots = document.querySelectorAll(".case-dot");
+    let caseIndex = 0;
 
-    const avatarImg = document.getElementById("avatar-img");
-    const avatarName = document.getElementById("avatar-name");
-    const avatarRole = document.getElementById("avatar-role");
-    const avatarNote = document.getElementById("avatar-note");
-    const dotsContainer = document.getElementById("avatar-dots");
-    const dots = dotsContainer.querySelectorAll(".avatar-dot");
-
-    let avatarIndex = 0;
-    function showAvatar(index) {
-      const a = avatars[index];
-      avatarImg.style.opacity = "0";
-      setTimeout(() => {
-        avatarImg.src = a.img;
-        avatarName.textContent = a.name;
-        avatarRole.textContent = a.role;
-        avatarNote.textContent = a.note;
-        avatarImg.style.opacity = "1";
-        dots.forEach((d, i) => d.classList.toggle("active", i === index));
-      }, 220);
+    function showCaseSlide(index) {
+      caseSlides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+      caseDots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+      });
+      caseIndex = index;
     }
-    setInterval(() => {
-      avatarIndex = (avatarIndex + 1) % avatars.length;
-      showAvatar(avatarIndex);
-    }, 4800);
 
-    // Simple i18n
+    caseDots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const target = Number(dot.getAttribute("data-target")) || 0;
+        showCaseSlide(target);
+      });
+    });
+
+    if (caseSlides.length > 1) {
+      setInterval(() => {
+        const next = (caseIndex + 1) % caseSlides.length;
+        showCaseSlide(next);
+      }, 6000);
+    }
+
+// Simple i18n
     const translations = {
       zh: {
         brandTitle: "Aurum Task Desk",
