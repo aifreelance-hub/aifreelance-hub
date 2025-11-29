@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
+  <script async src="https://www.googletmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
@@ -56,7 +56,7 @@
       margin: 0 auto;
     }
 
-    /* === 顶部导航样式：和首页保持一致 === */
+    /* === 顶部导航：与首页风格统一 === */
     header {
       display: flex;
       align-items: center;
@@ -355,7 +355,7 @@
     }
     .service-card-title {
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text-soft);
     }
     .service-card-mini {
@@ -739,6 +739,7 @@
       color: #111827;
     }
 
+    /* Step 2: 付款 + 完整信件 */
     .step2-card {
       margin-top: 18px;
       border-radius: var(--radius-xl);
@@ -1284,7 +1285,8 @@
   </div>
 
   <script>
-    const PADDLE_LINK = "https://your-paddle-checkout-link.com"; // TODO: 换成你的 Paddle 支付链接
+    // 替换成你的收款链接（可以是 Paddle 单价链接、Wise 固定金额收款页、PayPal.Me 等）
+    const PADDLE_LINK = "https://your-paddle-checkout-link.com";
 
     const serviceItems = document.querySelectorAll(".service-item");
     const taskTypeInput = document.getElementById("taskTypeInput");
@@ -1471,7 +1473,7 @@
       if (PADDLE_LINK && PADDLE_LINK.startsWith("http")) {
         window.open(PADDLE_LINK, "_blank");
       } else {
-        alert("Please configure your Paddle checkout link in desk.html (PADDLE_LINK).");
+        alert("Please configure your payment link in desk.html (PADDLE_LINK).");
       }
     });
 
@@ -1718,7 +1720,7 @@
       }
     };
 
-    // ==== 登录状态：从 auth.html 写入的 aurum_user 里读取 ====
+    // ==== 登录状态：复用 aurum_user ====
     const USER_STORAGE_KEY = "aurum_user";
 
     function getCurrentUser() {
@@ -1739,14 +1741,15 @@
       const user = getCurrentUser();
       const t = (i18n[currentLang] || i18n.en);
 
-      if (user && user.name) {
-        const name = String(user.name).slice(0, 18);
-        const hiText = currentLang === "zh" ? "Hi, " + name : "Hi, " + name;
+      if (user && (user.name || user.email)) {
+        const baseName = user.name || (user.email || "").split("@")[0] || "User";
+        const name = String(baseName).slice(0, 18);
+        const hiText = "Hi, " + name;
         loginTextEl.textContent = hiText;
-        loginBtn.href = "desk.html"; // 已登录时直接进 Desk
+        loginBtn.href = "desk.html"; // 已登录直接进 Desk
       } else {
         loginTextEl.textContent = t.loginBtn;
-        loginBtn.href = "auth.html"; // 未登录时去登录页
+        loginBtn.href = "auth.html"; // 未登录去登录页
       }
     }
     // ==== 登录状态 END ====
@@ -1824,9 +1827,10 @@
       }
 
       syncScenarioAndPrice();
-      localStorage.setItem("aurum_lang", lang);
+      try {
+        localStorage.setItem("aurum_lang", lang);
+      } catch {}
 
-      // 语言切换时同步更新登录按钮文字
       applyLoginState();
     }
 
@@ -1838,12 +1842,12 @@
     });
 
     (function initLang() {
-      const saved = localStorage.getItem("aurum_lang");
-      if (saved === "zh" || saved === "en") {
-        applyLang(saved);
-      } else {
-        applyLang("en");
-      }
+      let saved = "en";
+      try {
+        const stored = localStorage.getItem("aurum_lang");
+        if (stored === "zh" || stored === "en") saved = stored;
+      } catch {}
+      applyLang(saved);
     })();
   </script>
 </body>
