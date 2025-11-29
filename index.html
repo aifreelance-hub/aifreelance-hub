@@ -183,46 +183,31 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 12px;
     }
 
     .nav-link {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.85rem;
-      padding: 4px 6px;
+      padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid transparent;
-      transition: all 0.18s ease-out;
+      transition: all 0.16s ease-out;
       cursor: pointer;
       white-space: nowrap;
     }
-
-    /* 大一点的 pill，用在 首页 / Desk */
-    .nav-link-pill {
-      padding: 6px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98));
-    }
-
     .nav-link:hover {
       color: #e5e7eb;
-      border-color: rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.96));
+      border-color: rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9));
     }
 
-    /* 当前页面高亮：金色渐变 pill，保留悬停 */
+    /* 当前页面高亮 */
     .nav-link--active {
-      color: #020617;
-      border-color: transparent;
-      background: linear-gradient(135deg, #fbbf24, #f97316);
-      box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.7),
-        0 14px 32px rgba(8, 47, 73, 0.9);
-    }
-    .nav-link--active:hover {
-      color: #020617;
+      color: var(--gold);
+      border-color: rgba(251, 191, 36, 0.8);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.95));
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.5);
     }
 
     .lang-toggle {
@@ -909,30 +894,10 @@
         <nav>
           <!-- 顶部页面导航：首页 / Desk / 关于我们 / 联系我们 -->
           <div class="nav-links">
-            <a
-              href="index.html"
-              class="nav-link nav-link-pill"
-              data-page="home"
-              data-i18n-key="navHome"
-            >Home</a>
-            <a
-              href="desk.html"
-              class="nav-link nav-link-pill"
-              data-page="desk"
-              data-i18n-key="navDesk"
-            >Desk</a>
-            <a
-              href="about.html"
-              class="nav-link"
-              data-page="about"
-              data-i18n-key="navAbout"
-            >About</a>
-            <a
-              href="contact.html"
-              class="nav-link"
-              data-page="contact"
-              data-i18n-key="navContact"
-            >Contact</a>
+            <a href="index.html" class="nav-link" data-page="home" data-i18n-key="navHome">Home</a>
+            <a href="desk.html" class="nav-link" data-page="desk" data-i18n-key="navDesk">Desk</a>
+            <a href="about.html" class="nav-link" id="navAbout">关于我们</a>
+            <a href="contact.html" class="nav-link" id="navContact">联系我们</a>
           </div>
           <div class="lang-toggle" aria-label="Language">
             <button class="lang-btn active" data-lang="en">EN</button>
@@ -945,14 +910,421 @@
         </nav>
       </header>
 
-      <!-- 下面内容保持不变 -->
       <main class="hero-and-main">
-        <!-- ……你的 hero 和各个卡片内容原样保留，这里省略，保持你刚才那份代码不变 …… -->
-        <!-- 我没有改动 main 里面任何内容 -->
-        <!-- 为了节省空间，这里略去，实际使用时请保留你发给我的那一整段 main 内容 -->
-        <!-- ↓↓↓ 这里开始照原来的 main 内容粘回去 ↓↓↓ -->
-        <!--（你可以直接用我这份完整文件，不需要自己粘）-->
-        <!-- 我在这里就不重复贴一遍 main 部分了 -->
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-inner">
+            <div>
+              <div class="pill-row">
+                <div class="pill-dot"></div>
+                <span data-i18n-key="pillLeft">Quiet desk for serious letters</span>
+                <span class="pill-highlight" data-i18n-key="pillRight">Legal / immigration / insurance / complaints</span>
+              </div>
+
+              <h1 id="hero-title">
+                <span class="accent" data-i18n-key="heroLine1">A private AI desk</span>
+                <br />
+                <span data-i18n-key="heroLine2">for 40+ US & EU clients</span>
+              </h1>
+
+              <p class="hero-sub" data-i18n-key="heroSub">
+                Professional, ready-to-submit letters for legal, immigration, insurance, complaint escalation and family crisis situations — designed for 40+ US & EU clients who do not want to fight with AI prompts.
+              </p>
+
+              <div class="trust-row">
+                <div class="trust-tag">
+                  <span class="dot"></span>
+                  <span data-i18n-key="trust1">No subscription, pay per task</span>
+                </div>
+                <div class="trust-tag">
+                  <span class="dot"></span>
+                  <span data-i18n-key="trust2">Optimised for lawyers, HR, case officers</span>
+                </div>
+              </div>
+
+              <div class="hero-cta-row">
+                <a href="desk.html" class="btn-primary">
+                  <span data-i18n-key="ctaPrimary">Start a task</span>
+                  <span>→</span>
+                </a>
+                <a href="#services" class="btn-ghost">
+                  <span>☲</span>
+                  <span data-i18n-key="ctaSecondary">View the 5 key services</span>
+                </a>
+              </div>
+
+              <div class="hero-steps">
+                <div class="hero-step-chip">
+                  <span class="num">1</span>
+                  <span data-i18n-key="chip1">Upload screenshots or describe the situation</span>
+                </div>
+                <div class="hero-step-chip">
+                  <span class="num">2</span>
+                  <span data-i18n-key="chip2">Tell us who you write to and your ideal outcome</span>
+                </div>
+                <div class="hero-step-chip">
+                  <span class="num">3</span>
+                  <span data-i18n-key="chip3">Receive a structured, ready-to-submit letter</span>
+                </div>
+              </div>
+            </div>
+
+            <aside class="hero-avatars" aria-label="Case examples">
+              <div class="case-list">
+                <div class="case-item">
+                  <div class="case-tag">CASE 1 · Serious letter</div>
+                  <div class="case-title">Serious letter scenario</div>
+                  <div class="case-desc">
+                    For contract drafts, legal-style notices, and professional correspondence. Desk produces structured, ready-to-submit letters.
+                  </div>
+                </div>
+                <div class="case-item">
+                  <div class="case-tag">CASE 2 · Claims & escalation</div>
+                  <div class="case-title">Claim & escalation scenario</div>
+                  <div class="case-desc">
+                    For airline refund claims, insurance disputes, and escalation letters to companies.
+                  </div>
+                </div>
+                <div class="case-item">
+                  <div class="case-tag">CASE 3 · Immigration & crisis</div>
+                  <div class="case-title">Immigration & crisis scenario</div>
+                  <div class="case-desc">
+                    For visa RFE responses, refusal explanations, and family crisis letters.
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="sections-grid">
+          <div class="card" id="why">
+            <div class="card-inner">
+              <div class="section-label" data-i18n-key="whyLabel">Why this desk?</div>
+              <div class="section-title-row">
+                <div class="section-title" data-i18n-key="whyTitle">
+                  Built for 40+ US & EU clients in real trouble
+                </div>
+                <div class="section-pill" data-i18n-key="whyPill">
+                  Not a generic AI toy
+                </div>
+              </div>
+              <div class="reason-list">
+                <div class="reason-item">
+                  <div class="reason-icon">◎</div>
+                  <div>
+                    <strong data-i18n-key="why1Title">Serious situations only.</strong>
+                    <span data-i18n-key="why1Body">
+                      Immigration, legal-style, insurance claim, complaint escalation, and family crisis letters.
+                    </span>
+                  </div>
+                </div>
+                <div class="reason-item">
+                  <div class="reason-icon">◎</div>
+                  <div>
+                    <strong data-i18n-key="why2Title">Ready to submit.</strong>
+                    <span data-i18n-key="why2Body">
+                      The output is structured for lawyers, HR, case officers and insurance handlers — not for social media.
+                    </span>
+                  </div>
+                </div>
+                <div class="reason-item">
+                  <div class="reason-icon">◎</div>
+                  <div>
+                    <strong data-i18n-key="why3Title">40+ friendly.</strong>
+                    <span data-i18n-key="why3Body">
+                      No prompt dancing or technical jargon. You answer questions; the desk prepares the letter.
+                    </span>
+                  </div>
+                </div>
+                <div class="reason-item">
+                  <div class="reason-icon">◎</div>
+                  <div>
+                    <strong data-i18n-key="why4Title">No subscription.</strong>
+                    <span data-i18n-key="why4Body">
+                      Each task is priced per letter. No hidden monthly plans that keep charging your card.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="why-compare">
+                <div class="why-compare-col">
+                  <div class="why-compare-title">If you only use ChatGPT chat…</div>
+                  <ul class="why-compare-list">
+                    <li>Need to design your own prompts and structure.</li>
+                    <li>Output tone may be too casual or “AI-ish”.</li>
+                    <li>No one checks if it fits legal, HR or claim style.</li>
+                  </ul>
+                </div>
+                <div class="why-compare-col">
+                  <div class="why-compare-title">With Aurum Task Desk…</div>
+                  <ul class="why-compare-list">
+                    <li>We turn your notes into structured letters.</li>
+                    <li>Tone and length tuned for officers, HR and insurers.</li>
+                    <li>Clear English that 40+ professionals are comfortable sending.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="pricing">
+            <div class="card-inner">
+              <div class="section-label" data-i18n-key="pricingLabel">Pricing snapshot</div>
+              <div class="section-title-row">
+                <div class="section-title" data-i18n-key="pricingTitle">
+                  Five specialised services, clear prices
+                </div>
+              </div>
+              <div class="services-grid" id="services">
+                <div class="service-card">
+                  <div class="service-icon">§</div>
+                  <div class="service-title" data-i18n-key="svc1Title">
+                    Legal letters & contract drafts
+                  </div>
+                  <div class="service-desc" data-i18n-key="svc1Desc">
+                    Contract wording, breach notices, formal legal-style letters for companies or individuals.
+                  </div>
+                  <div class="service-meta-row">
+                    <div class="service-price" data-i18n-key="svc1Price">USD 29.9</div>
+                    <a class="service-cta" data-i18n-key="svc1Cta" href="desk.html#legal">
+                      Open service →
+                    </a>
+                  </div>
+                </div>
+
+                <div class="service-card">
+                  <div class="service-icon">✈</div>
+                  <div class="service-title" data-i18n-key="svc3Title">
+                    Insurance & airline claim letters
+                  </div>
+                  <div class="service-desc" data-i18n-key="svc3Desc">
+                    Delay / cancellation refunds, lost luggage claims, rejected payouts rewritten in a stronger tone.
+                  </div>
+                  <div class="service-meta-row">
+                    <div class="service-price" data-i18n-key="svc3Price">USD 24.9</div>
+                    <a class="service-cta" data-i18n-key="svc3Cta" href="desk.html#claims">
+                      Open service →
+                    </a>
+                  </div>
+                </div>
+
+                <div class="service-card">
+                  <div class="service-icon">🛂</div>
+                  <div class="service-title" data-i18n-key="svc2Title">
+                    Immigration letters & RFE explanations
+                  </div>
+                  <div class="service-desc" data-i18n-key="svc2Desc">
+                    RFE response, refusal explanation, background statements for visas, residency and green card.
+                  </div>
+                  <div class="service-meta-row">
+                    <div class="service-price" data-i18n-key="svc2Price">USD 39.9</div>
+                    <a class="service-cta" data-i18n-key="svc2Cta" href="desk.html#immigration">
+                      Open service →
+                    </a>
+                  </div>
+                </div>
+
+                <div class="service-card">
+                  <div class="service-icon">❤</div>
+                  <div class="service-title" data-i18n-key="svc4Title">
+                    Family & emotional crisis letters
+                  </div>
+                  <div class="service-desc" data-i18n-key="svc4Desc">
+                    Calm, structured letters for serious relationship or family conflicts — without drama.
+                  </div>
+                  <div class="service-meta-row">
+                    <div class="service-price" data-i18n-key="svc4Price">USD 19.9</div>
+                    <a class="service-cta" data-i18n-key="svc4Cta" href="desk.html#family">
+                      Open service →
+                    </a>
+                  </div>
+                </div>
+
+                <div class="service-card">
+                  <div class="service-icon">⚠</div>
+                  <div class="service-title" data-i18n-key="svc5Title">
+                    Complaint & escalation services
+                  </div>
+                  <div class="service-desc" data-i18n-key="svc5Desc">
+                    Escalation letters to banks, airlines, employers, and regulators when “normal” emails are ignored.
+                  </div>
+                  <div class="service-meta-row">
+                    <div class="service-price" data-i18n-key="svc5Price">USD 29.9</div>
+                    <a class="service-cta" data-i18n-key="svc5Cta" href="desk.html#complaint">
+                      Open service →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="why-not">
+            <div class="card-inner">
+              <div class="section-label" data-i18n-key="compareLabel">Why not just use ChatGPT?</div>
+              <div class="section-title-row">
+                <div class="section-title" data-i18n-key="compareTitle">
+                  Generic AI vs a quiet, specialised desk
+                </div>
+              </div>
+              <div class="compare-grid">
+                <div class="compare-card">
+                  <div class="compare-title compare-bad" data-i18n-key="compareLeftTitle">
+                    Generic AI tools
+                  </div>
+                  <ul class="compare-list">
+                    <li>
+                      <span>–</span>
+                      <span data-i18n-key="cmpL1">
+                        Long, academic paragraphs that do not match legal or case-officer style.
+                      </span>
+                    </li>
+                    <li>
+                      <span>–</span>
+                      <span data-i18n-key="cmpL2">
+                        No understanding of how immigration, insurance or complaint letters are actually read.
+                      </span>
+                    </li>
+                    <li>
+                      <span>–</span>
+                      <span data-i18n-key="cmpL3">
+                        You must prompt, tweak, and rewrite many times — exhausting for 40+ clients.
+                      </span>
+                    </li>
+                    <li>
+                      <span>–</span>
+                      <span data-i18n-key="cmpL4">
+                        Output often “feels like AI”, which some officers now reject instantly.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="compare-card">
+                  <div class="compare-title compare-good" data-i18n-key="compareRightTitle">
+                    Aurum Task Desk
+                  </div>
+                  <ul class="compare-list">
+                    <li>
+                      <span>+</span>
+                      <span data-i18n-key="cmpR1">
+                        Structure, tone and length tuned for real-world reviewers (lawyers, HR, case officers).
+                      </span>
+                    </li>
+                    <li>
+                      <span>+</span>
+                      <span data-i18n-key="cmpR2">
+                        Focus only on legal-style, immigration, insurance, complaint and crisis situations.
+                      </span>
+                    </li>
+                    <li>
+                      <span>+</span>
+                      <span data-i18n-key="cmpR3">
+                        Clear questions instead of prompts — suitable for non-technical users.
+                      </span>
+                    </li>
+                    <li>
+                      <span>+</span>
+                      <span data-i18n-key="cmpR4">
+                        Pay per task, from 19.9 USD, no recurring subscription.
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="how">
+            <div class="card-inner">
+              <div class="section-label" data-i18n-key="howLabel">How it works</div>
+              <div class="section-title-row">
+                <div class="section-title" data-i18n-key="howTitle">
+                  Starting a task is intentionally simple
+                </div>
+              </div>
+              <div class="steps-list">
+                <div class="step-item">
+                  <div class="step-num">1</div>
+                  <div class="step-body" data-i18n-key="step1">
+                    <strong>Share what happened.</strong>
+                    Upload screenshots, letters, or describe the situation in your own words. No need to be “perfect”.
+                  </div>
+                </div>
+                <div class="step-item">
+                  <div class="step-num">2</div>
+                  <div class="step-body" data-i18n-key="step2">
+                    <strong>Clarify who and what.</strong>
+                    Tell us who you are writing to (lawyer, embassy, insurer, employer, airline) and your ideal outcome.
+                  </div>
+                </div>
+                <div class="step-item">
+                  <div class="step-num">3</div>
+                  <div class="step-body" data-i18n-key="step3">
+                    <strong>Receive a ready-to-submit letter.</strong>
+                    You review, add personal details if needed, and then send it on — email, portal or print.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="personas">
+            <div class="card-inner">
+              <div class="section-label" data-i18n-key="whoLabel">Who this desk is for</div>
+              <div class="section-title-row">
+                <div class="section-title" data-i18n-key="whoTitle">
+                  Three typical Aurum Desk clients
+                </div>
+              </div>
+              <div class="persona-list">
+                <div class="persona-item">
+                  <div class="persona-badge">①</div>
+                  <div data-i18n-key="persona1">
+                    Overseas Chinese or international workers living in the US/EU, English is not native, facing immigration or insurance problems.
+                  </div>
+                </div>
+                <div class="persona-item">
+                  <div class="persona-badge">②</div>
+                  <div data-i18n-key="persona2">
+                    40+ professionals, managers, or small business owners who dislike “prompt engineering” but need strong, serious letters.
+                  </div>
+                </div>
+                <div class="persona-item">
+                  <div class="persona-badge">③</div>
+                  <div data-i18n-key="persona3">
+                    People in real crisis: refusal letters, unfair treatment, sudden family or relationship breakdown, airlines or banks ignoring them.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" id="privacy">
+            <div class="card-inner">
+              <div class="section-label" data-i18n-key="privacyLabel">Protection & privacy</div>
+              <div class="section-title-row">
+                <div class="section-title" data-i18n-key="privacyTitle">
+                  Quiet by design — your situation is not content
+                </div>
+              </div>
+              <div class="privacy-list">
+                <div data-i18n-key="pri1">
+                  We do not use your letters as “training data”. Your situation is never treated as marketing material.
+                </div>
+                <div data-i18n-key="pri2">
+                  Sensitive IDs (passport, visa numbers, medical files) can be redacted before upload if you prefer.
+                </div>
+                <div data-i18n-key="pri3">
+                  You can request deletion of past tasks after your situation is resolved.
+                </div>
+                <div data-i18n-key="pri4">
+                  The desk is built with a simple, auditable backend — not a giant ad platform.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
 
@@ -965,6 +1337,7 @@
           </span>
         </div>
         <div class="footer-links">
+          
           <a href="privacy.html" data-i18n-key="footerPrivacy">Privacy</a>
           <a href="terms.html" data-i18n-key="footerTerms">Terms</a>
         </div>
@@ -1091,6 +1464,7 @@
         pri4:
           "Desk 采用简单、可审计的后台逻辑，而不是复杂难懂、到处串联广告的巨型平台。",
         footerCopy: "为严肃问题而生的安静写作工作台。",
+    
         footerPrivacy: "隐私政策",
         footerTerms: "使用条款"
       }
@@ -1114,7 +1488,7 @@
         document.documentElement.lang = "zh-CN";
       } else {
         // Reset to default EN text (stored in HTML)
-        window.location.reload();
+        window.location.reload(); // simplest way to ensure all original EN text comes back clean
       }
 
       try {
@@ -1139,7 +1513,7 @@
       }
     } catch (_) {}
 
-    // 顶部页面导航当前页高亮（全站共用）
+    // 顶部页面导航当前页高亮（index.html → 首页）
     (function () {
       const path = window.location.pathname.toLowerCase();
       let currentKey = "home";
