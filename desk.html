@@ -374,45 +374,31 @@
       background: radial-gradient(circle at 30% 0%, #0f172a,#020617);
     }
     .service-text-block {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-/* 主标题：变成很亮的字 */
-.service-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #e5e7eb;           /* 新增这一行 */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* 副标题：稍微浅一点，但仍然清晰可见 */
-.service-sub {
-  font-size: 11px;
-  color: rgba(148, 163, 184, 0.95);  /* 比之前更亮一点 */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* 选中状态再稍微提高对比度 */
-.service-item.active .service-title {
-  color: #f9fafb;
-}
-.service-item.active .service-sub {
-  color: rgba(209, 213, 219, 0.95);
-}
-
-    .service-sub {
-      font-size: 11px;
-      color: var(--text-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .service-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e5e7eb;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+    .service-sub {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.95);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .service-item.active .service-title {
+      color: #f9fafb;
+    }
+    .service-item.active .service-sub {
+      color: rgba(209, 213, 219, 0.95);
     }
     .service-price {
       font-size: 12px;
@@ -1015,7 +1001,8 @@
         : "The desk is drafting a preview for you…";
 
       try {
-        const res = await fetch("/api/generate", {
+        // 只调用 Worker 的 /ai/preview，返回的一定是 Cloudflare AI 真正生成的文本
+        const res = await fetch("/ai/preview", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -1034,6 +1021,7 @@
         }
         const data = await res.json();
 
+        // 如果后端没有明确 ok:true 或没有 preview，一律当失败处理
         if (!data.ok || !data.preview) {
           throw new Error(data.error || "Empty preview");
         }
