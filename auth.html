@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.png" />
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- Google tag (保持你以前的统计，如果不需要可以删掉) -->
+  <!-- Google tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -462,12 +462,11 @@
   </div>
 
   <script>
-    // 统一 API：用相对路径，走到同域 Worker（你现在的 Worker 已经有 /auth/* 这些路由）
     const STORAGE_KEY = "aurum_user";
-    let registerToken = ""; // 保存 /auth/send-code 返回的 token
-    let resetToken = "";    // 保存重设密码时收到的 token（方案：也用 send-code + token，可以复用）
+    let registerToken = "";
+    let resetToken = "";
 
-    // 简单切 tab
+    // Tab 切换
     const tabButtons = document.querySelectorAll(".tab-btn");
     const tabPanels = document.querySelectorAll(".tab-panel");
     function activateTab(id) {
@@ -477,7 +476,6 @@
       tabPanels.forEach(p => {
         p.classList.toggle("active", p.id === "tab-" + id);
       });
-      // 清状态
       document.getElementById("login-status").textContent = "";
       document.getElementById("reg-status").textContent = "";
       document.getElementById("reset-status").textContent = "";
@@ -489,8 +487,12 @@
       a.addEventListener("click", () => activateTab(a.getAttribute("data-switch-tab")));
     });
 
-    // 简单封装 fetch
+    // 统一 POST：所有接口走 /api/auth/*
     async function postJSON(path, data) {
+      if (!path.startsWith("http")) {
+        if (!path.startsWith("/")) path = "/" + path;
+        path = "/api/auth" + path; // 例如传入 "/login" → "/api/auth/login"
+      }
       const res = await fetch(path, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -500,7 +502,6 @@
       return { ok: res.ok && json.ok !== false, status: res.status, data: json };
     }
 
-    // 保存 / 读取当前用户
     function saveUser(user) {
       if (!user) return;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
@@ -515,7 +516,7 @@
       }
     }
 
-    // 登录按钮
+    // 登录
     document.getElementById("btn-login").addEventListener("click", async () => {
       const email = document.getElementById("login-email").value.trim().toLowerCase();
       const password = document.getElementById("login-password").value.trim();
@@ -529,7 +530,7 @@
         return;
       }
 
-      const { ok, data } = await postJSON("/auth/login", { email, password });
+      const { ok, data } = await postJSON("/login", { email, password });
       if (!ok || !data.ok) {
         statusEl.textContent = data.error || "登录失败，请检查邮箱和密码。";
         statusEl.classList.add("err");
@@ -540,14 +541,12 @@
       statusEl.textContent = "登录成功，正在跳转…";
       statusEl.classList.add("ok");
 
-      // 跳回任务台或首页
       setTimeout(() => {
-        // 你可以改成 desk.html
         window.location.href = "desk.html";
       }, 600);
     });
 
-    // 发送注册验证码
+    // 验证码倒计时
     let codeTimer = null;
     function startCountdown(btn) {
       let left = 60;
@@ -566,6 +565,7 @@
       codeTimer = setInterval(tick, 1000);
     }
 
+    // 注册：发送验证码
     document.getElementById("btn-send-code").addEventListener("click", async () => {
       const email = document.getElementById("reg-email").value.trim().toLowerCase();
       const statusEl = document.getElementById("reg-status");
@@ -577,7 +577,7 @@
       statusEl.textContent = "正在发送验证码…";
       statusEl.className = "status";
 
-      const { ok, data } = await postJSON("/auth/send-code", { email });
+      const { ok, data } = await postJSON("/send-code", { email });
       if (!ok || !data.ok) {
         statusEl.textContent = data.error || "验证码发送失败，请稍后重试。";
         statusEl.classList.add("err");
@@ -589,7 +589,7 @@
       startCountdown(document.getElementById("btn-send-code"));
     });
 
-    // 注册
+    // 注册提交
     document.getElementById("btn-register").addEventListener("click", async () => {
       const name = document.getElementById("reg-name").value.trim();
       const email = document.getElementById("reg-email").value.trim().toLowerCase();
@@ -615,7 +615,7 @@
         return;
       }
 
-      const { ok, data } = await postJSON("/auth/register", {
+      const { ok, data } = await postJSON("/register", {
         name,
         email,
         password,
@@ -638,7 +638,7 @@
       }, 700);
     });
 
-    // 重设密码：先发验证码
+    // 重设：发送验证码
     document.getElementById("btn-send-reset-code").addEventListener("click", async () => {
       const email = document.getElementById("reset-email").value.trim().toLowerCase();
       const statusEl = document.getElementById("reset-status");
@@ -650,7 +650,7 @@
       statusEl.textContent = "正在发送验证码…";
       statusEl.className = "status";
 
-      const { ok, data } = await postJSON("/auth/send-code", { email });
+      const { ok, data } = await postJSON("/send-code", { email });
       if (!ok || !data.ok) {
         statusEl.textContent = data.error || "验证码发送失败，请稍后重试。";
         statusEl.classList.add("err");
@@ -662,7 +662,7 @@
       startCountdown(document.getElementById("btn-send-reset-code"));
     });
 
-    // 重设密码提交
+    // 重设提交
     document.getElementById("btn-reset").addEventListener("click", async () => {
       const email = document.getElementById("reset-email").value.trim().toLowerCase();
       const newPassword = document.getElementById("reset-password").value.trim();
@@ -688,7 +688,7 @@
         return;
       }
 
-      const { ok, data } = await postJSON("/auth/reset-password", {
+      const { ok, data } = await postJSON("/reset-password", {
         email,
         newPassword,
         code,
@@ -706,7 +706,7 @@
       setTimeout(() => activateTab("login"), 800);
     });
 
-    // 如果已经登录，直接提示
+    // 如果已登录，给个提示
     window.addEventListener("DOMContentLoaded", () => {
       const u = getUser();
       if (u && u.email) {
