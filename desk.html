@@ -534,43 +534,29 @@
       line-height: 1.4;
     }
 
-    /* 上传附件块 */
-    .upload-block {
-      border-radius: 10px;
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.8);
-      padding: 8px 8px 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .upload-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .upload-tip {
+    .ai-attachments-note {
+      margin-top: 4px;
       font-size: 10px;
       color: var(--text-soft);
+      opacity: 0.9;
     }
-    .upload-list {
+    .ai-attachments-list {
+      margin-top: 6px;
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 2px;
+      gap: 4px;
     }
-    .upload-file-pill {
-      padding: 4px 8px;
+    .ai-attachment-pill {
+      font-size: 10px;
+      padding: 3px 8px;
       border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.6);
-      font-size: 10px;
-      color: var(--text-soft);
       background: rgba(15, 23, 42, 0.95);
+      color: var(--text-soft);
       max-width: 100%;
       white-space: nowrap;
-      text-overflow: ellipsis;
       overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .ai-footer-row {
@@ -603,9 +589,6 @@
       background: rgba(15, 23, 42, 1);
       box-shadow: 0 10px 36px rgba(15, 23, 42, 0.9);
       transform: translateY(-0.5px);
-    }
-    .ai-upgrade-btn {
-      border-color: rgba(251, 191, 36, 0.7);
     }
     .ai-generate-btn {
       border-radius: 999px;
@@ -655,6 +638,54 @@
     .ai-preview-placeholder {
       color: rgba(191, 219, 254, 0.95);
       font-size: 11px;
+    }
+
+    /* 升级弹窗 */
+    .upgrade-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+    }
+    .upgrade-modal {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top left,#020617,#020617 55%);
+      border: 1px solid rgba(251,191,36,0.5);
+      box-shadow: 0 30px 120px rgba(0,0,0,0.9);
+      padding: 14px 16px 12px;
+    }
+    .upgrade-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .upgrade-modal-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .upgrade-close {
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .upgrade-modal-body {
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .upgrade-modal-footer {
+      display: flex;
+      justify-content: flex-end;
     }
 
     /* 响应式 */
@@ -971,29 +1002,22 @@
               ></textarea>
             </div>
 
-            <!-- 上传附件，真正给 AI 用 -->
+            <!-- 上传附件 -->
             <div class="ai-form-full">
               <div class="ai-label">
-                <span id="lblUpload">Upload screenshots or letters (optional)</span>
+                <span id="lblAttachments">Attachments (optional)</span>
+                <span class="badge" id="lblAttachmentsBadge">Screenshots, letters, PDFs</span>
               </div>
-              <div class="upload-block">
-                <div class="upload-actions">
-                  <button type="button" class="ai-secondary-btn" id="btnChooseFiles">
-                    <span id="btnChooseFilesText">Upload files</span>
-                  </button>
-                  <span class="upload-tip" id="uploadTipText">
-                    Up to 3 files. Clear photos or PDFs work best.
-                  </span>
-                </div>
-                <input
-                  id="fileInput"
-                  type="file"
-                  multiple
-                  accept=".png,.jpg,.jpeg,.pdf,.txt,.doc,.docx,.eml"
-                  style="display:none"
-                />
-                <div class="upload-list" id="uploadList"></div>
+              <input
+                id="attachmentsInput"
+                class="ai-input"
+                type="file"
+                multiple
+              />
+              <div class="ai-attachments-note" id="attachmentsNote">
+                You can upload up to 5 files. The desk will read text from images and PDFs to help draft.
               </div>
+              <div class="ai-attachments-list" id="attachmentsList"></div>
             </div>
           </div>
 
@@ -1007,11 +1031,16 @@
               </button>
             </div>
             <div class="ai-left-buttons">
-              <button type="button" class="ai-secondary-btn ai-upgrade-btn" id="btnUpgradeFull">
-                <span id="btnUpgradeFullText">Upgrade to full letter</span>
-              </button>
               <button type="button" class="ai-generate-btn" id="aiGenerateBtn">
                 <span id="aiGenerateBtnText">Generate preview draft</span>
+              </button>
+              <button
+                type="button"
+                class="ai-secondary-btn ai-upgrade-btn"
+                id="btnUpgradeFull"
+                style="display:none;"
+              >
+                <span id="btnUpgradeFullText">Upgrade to full letter</span>
               </button>
               <div class="ai-status" id="aiStatus">
                 <span id="aiStatusText">
@@ -1026,6 +1055,26 @@
               Your 30% preview draft will appear here. It is not saved, not sent
               to any company or person. When you are happy with the direction,
               you can open a full Desk and continue privately.
+            </div>
+          </div>
+
+          <!-- 升级完整信件弹窗 -->
+          <div class="upgrade-modal-backdrop" id="upgradeModal" style="display:none;">
+            <div class="upgrade-modal">
+              <div class="upgrade-modal-header">
+                <div class="upgrade-modal-title" id="upgradeTitle">
+                  Happy with the direction?
+                </div>
+                <button type="button" class="upgrade-close" id="upgradeClose">×</button>
+              </div>
+              <div class="upgrade-modal-body" id="upgradeBody">
+                You can now upgrade this preview into a full, ready-to-send letter on the paid desk.
+              </div>
+              <div class="upgrade-modal-footer">
+                <button type="button" class="ai-secondary-btn ai-upgrade-btn" id="upgradeGoBtn">
+                  <span id="upgradeGoBtnText">Go to full letter desk</span>
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -1049,7 +1098,7 @@
       });
     });
 
-    // ========== 预览生成 & 上传附件 ==========
+    // ========== 预览生成 ==========
     const aiGenerateBtn = document.getElementById("aiGenerateBtn");
     const aiStatusText = document.getElementById("aiStatusText");
     const aiPreviewBox = document.getElementById("aiPreviewBox");
@@ -1059,41 +1108,54 @@
     const recipientInput = document.getElementById("recipientInput");
     const detailsTextarea = document.getElementById("detailsTextarea");
 
-    const fileInput = document.getElementById("fileInput");
-    const btnChooseFiles = document.getElementById("btnChooseFiles");
-    const uploadList = document.getElementById("uploadList");
-    let attachments = [];
+    // 上传附件
+    const attachmentsInput = document.getElementById("attachmentsInput");
+    const attachmentsList = document.getElementById("attachmentsList");
+    let selectedAttachments = [];
 
-    btnChooseFiles.addEventListener("click", () => {
-      fileInput.click();
-    });
-
-    fileInput.addEventListener("change", () => {
-      const files = Array.from(fileInput.files || []);
-      attachments = [];
-      uploadList.innerHTML = "";
-      const maxFiles = 3;
-
-      files.slice(0, maxFiles).forEach((file) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const base64 = reader.result || "";
-          attachments.push({
-            name: file.name || "attachment",
-            type: file.type || "application/octet-stream",
-            size: file.size || 0,
-            base64: String(base64)
-          });
-
-          const pill = document.createElement("div");
-          pill.className = "upload-file-pill";
-          pill.textContent =
-            file.name + " (" + Math.round((file.size || 0) / 1024) + " KB)";
-          uploadList.appendChild(pill);
-        };
-        reader.readAsDataURL(file);
+    function renderAttachmentsList() {
+      if (!attachmentsList) return;
+      attachmentsList.innerHTML = "";
+      if (!selectedAttachments.length) return;
+      selectedAttachments.forEach((att) => {
+        const div = document.createElement("div");
+        div.className = "ai-attachment-pill";
+        div.textContent = att.name;
+        attachmentsList.appendChild(div);
       });
-    });
+    }
+
+    if (attachmentsInput) {
+      attachmentsInput.addEventListener("change", () => {
+        const files = Array.from(attachmentsInput.files || []);
+        selectedAttachments = [];
+        attachmentsList.innerHTML = "";
+        if (!files.length) return;
+
+        const maxFiles = 5;
+        const slice = files.slice(0, maxFiles);
+        let remaining = slice.length;
+
+        slice.forEach((file) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const result = e.target.result || "";
+            const base64 =
+              typeof result === "string" ? (result.split(",")[1] || "") : "";
+            selectedAttachments.push({
+              name: file.name,
+              type: file.type || "attachment",
+              base64,
+            });
+            remaining--;
+            if (remaining === 0) {
+              renderAttachmentsList();
+            }
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+    }
 
     async function callPreview() {
       const taskType  = (taskTypeInput.value || "").trim() || "写作任务";
@@ -1117,7 +1179,7 @@
             language,
             recipient,
             details,
-            attachments
+            attachments: selectedAttachments
           })
         });
 
@@ -1150,6 +1212,12 @@
         aiStatusText.textContent = language === "中文"
           ? "预览完成。你可以先在这里修改，再在正式任务台中继续。"
           : "Preview ready. You can adjust it here, then continue inside your Desk.";
+
+        // 预览成功：显示升级按钮 + 弹窗
+        if (btnUpgradeFull) {
+          btnUpgradeFull.style.display = "inline-flex";
+        }
+        showUpgradeModal(language);
       } catch (err) {
         console.error("Frontend error:", err);
         aiStatusText.textContent = language === "中文"
@@ -1164,18 +1232,73 @@
       callPreview();
     });
 
+    // ========== 升级完整信件：按钮 + 弹窗 ==========
+    const btnUpgradeFull = document.getElementById("btnUpgradeFull");
+    const upgradeModal = document.getElementById("upgradeModal");
+    const upgradeClose = document.getElementById("upgradeClose");
+    const upgradeGoBtn = document.getElementById("upgradeGoBtn");
+
+    function showUpgradeModal(language) {
+      if (!upgradeModal) return;
+      const isZh = language === "中文";
+
+      document.getElementById("upgradeTitle").textContent = isZh
+        ? "对方向满意了吗？"
+        : "Happy with the direction?";
+
+      document.getElementById("upgradeBody").textContent = isZh
+        ? "现在可以将这份预览升级为一封完整、可以直接递交的正式信件。升级会在新的付费任务台中完成。"
+        : "You can now upgrade this preview into a full, ready-to-send letter on the paid desk.";
+
+      document.getElementById("upgradeGoBtnText").textContent = isZh
+        ? "前往完整信件任务台"
+        : "Go to full letter desk";
+
+      upgradeModal.style.display = "flex";
+    }
+
+    function hideUpgradeModal() {
+      if (upgradeModal) {
+        upgradeModal.style.display = "none";
+      }
+    }
+
+    if (upgradeClose) {
+      upgradeClose.addEventListener("click", hideUpgradeModal);
+    }
+    if (upgradeModal) {
+      upgradeModal.addEventListener("click", (e) => {
+        if (e.target === upgradeModal) hideUpgradeModal();
+      });
+    }
+
+    function goToFullDesk() {
+      try {
+        localStorage.setItem("aurum_last_task_type", taskTypeInput.value || "");
+      } catch (e) {}
+      window.location.href = "desk_full.html";
+    }
+    if (upgradeGoBtn) {
+      upgradeGoBtn.addEventListener("click", goToFullDesk);
+    }
+    if (btnUpgradeFull) {
+      btnUpgradeFull.addEventListener("click", goToFullDesk);
+    }
+
     // ========== 辅助按钮 ==========
     document.getElementById("btnClear").addEventListener("click", () => {
       recipientInput.value = "";
       detailsTextarea.value = "";
       aiPreviewBox.textContent = "";
       aiPreviewPlaceholder.style.display = "block";
-      attachments = [];
-      uploadList.innerHTML = "";
-      fileInput.value = "";
       aiStatusText.textContent = languageSelect.value === "中文"
         ? "系统只会生成约 30% 的预览草稿，不会保存也不会发送。"
         : "System will draft about 30% of the letter as a preview only.";
+
+      // 清空附件
+      selectedAttachments = [];
+      if (attachmentsInput) attachmentsInput.value = "";
+      if (attachmentsList) attachmentsList.innerHTML = "";
     });
 
     document.getElementById("btnPasteExample").addEventListener("click", () => {
@@ -1187,18 +1310,6 @@
         detailsTextarea.value =
           "During my return trip, my flight was heavily delayed which made me miss my connection and important meetings. The airline only gave a small meal voucher and has not offered a clear compensation plan.";
       }
-    });
-
-    // ========== 升级为完整信件：跳转到 desk_full.html ==========
-    const btnUpgradeFull = document.getElementById("btnUpgradeFull");
-    btnUpgradeFull.addEventListener("click", () => {
-      try {
-        localStorage.setItem(
-          "aurum_last_task_type",
-          taskTypeInput.value || ""
-        );
-      } catch (e) {}
-      window.location.href = "desk_full.html";
     });
 
     // ========== 简单中英文切换 ==========
@@ -1239,12 +1350,17 @@
         lblTone: "Tone",
         lblRecipient: "Recipient (optional)",
         lblDetails: "What happened? (you can be brief)",
-        lblUpload: "Upload screenshots or letters (optional)",
-        btnChooseFiles: "Upload files",
-        uploadTip: "Up to 3 files. Clear photos or PDFs work best.",
+        lblAttachments: "Attachments (optional)",
+        lblAttachmentsBadge: "Screenshots, letters, PDFs",
+        attachmentsNote:
+          "You can upload up to 5 files. The desk will read text from images and PDFs to help draft.",
         btnExample: "Paste an example case",
         btnPreview: "Generate preview draft",
         btnUpgradeFull: "Upgrade to full letter",
+        upgradeTitle: "Happy with the direction?",
+        upgradeBody:
+          "You can now upgrade this preview into a full, ready-to-send letter on the paid desk.",
+        upgradeGoBtnText: "Go to full letter desk",
         statusDefault:
           "System will draft about 30% of the letter as a preview only.",
         previewPlaceholder:
@@ -1285,12 +1401,17 @@
         lblTone: "语气",
         lblRecipient: "收件方（可选）",
         lblDetails: "简单讲讲发生了什么",
-        lblUpload: "上传截图或信件（可选）",
-        btnChooseFiles: "上传附件",
-        uploadTip: "最多 3 个文件，清晰的截图或 PDF 效果更好。",
+        lblAttachments: "上传附件（可选）",
+        lblAttachmentsBadge: "截图、信件、PDF 文件",
+        attachmentsNote:
+          "最多上传 5 个文件。系统会尝试读取图片和 PDF 中的文字，帮助生成草稿。",
         btnExample: "粘贴一个示例案例",
         btnPreview: "生成预览草稿",
         btnUpgradeFull: "升级为完整信件",
+        upgradeTitle: "对方向满意了吗？",
+        upgradeBody:
+          "现在可以将这份预览升级为一封完整、可以直接递交的正式信件。升级会在新的付费任务台中完成。",
+        upgradeGoBtnText: "前往完整信件任务台",
         statusDefault:
           "系统只会生成约 30% 的预览草稿，不会保存也不会发送。",
         previewPlaceholder:
@@ -1337,19 +1458,28 @@
       document.getElementById("lblTone").textContent = t.lblTone;
       document.getElementById("lblRecipient").textContent = t.lblRecipient;
       document.getElementById("lblDetails").textContent = t.lblDetails;
-      document.getElementById("lblUpload").textContent = t.lblUpload;
-      document.getElementById("btnChooseFilesText").textContent = t.btnChooseFiles;
-      document.getElementById("uploadTipText").textContent = t.uploadTip;
+
+      document.getElementById("lblAttachments").textContent = t.lblAttachments;
+      document.getElementById("lblAttachmentsBadge").textContent =
+        t.lblAttachmentsBadge;
+      document.getElementById("attachmentsNote").textContent =
+        t.attachmentsNote;
 
       document.getElementById("btnPasteExampleText").textContent =
         t.btnExample;
       document.getElementById("aiGenerateBtnText").textContent =
         t.btnPreview;
-      document.getElementById("btnUpgradeFullText").textContent =
-        t.btnUpgradeFull;
       document.getElementById("aiStatusText").textContent = t.statusDefault;
       document.getElementById("aiPreviewPlaceholder").textContent =
         t.previewPlaceholder;
+
+      // 升级按钮和弹窗文案
+      document.getElementById("btnUpgradeFullText").textContent =
+        t.btnUpgradeFull;
+      document.getElementById("upgradeTitle").textContent = t.upgradeTitle;
+      document.getElementById("upgradeBody").textContent = t.upgradeBody;
+      document.getElementById("upgradeGoBtnText").textContent =
+        t.upgradeGoBtnText;
 
       langButtons.forEach((b) => {
         b.classList.toggle("active", b.dataset.lang === lang);
