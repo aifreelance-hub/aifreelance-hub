@@ -113,67 +113,90 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 24px;
       font-size: 13px;
     }
-    .nav-links a {
+    .nav-main-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-link {
       color: #e5e7eb;
       text-decoration: none;
       opacity: 0.85;
       transition: opacity 0.15s ease, transform 0.15s ease;
+      position: relative;
     }
-    .nav-links a:hover {
+    .nav-link:hover {
       opacity: 1;
       transform: translateY(-1px);
     }
-    .nav-links span.sep {
-      color: var(--text-soft);
-      font-size: 12px;
+    .nav-link-pill {
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: transparent;
+    }
+    .nav-link-pill.active {
+      border-color: rgba(248, 250, 252, 0.9);
+      background: linear-gradient(135deg,#fbbf24,#f97316);
+      color: #111827;
+      box-shadow: 0 10px 40px rgba(15,23,42,0.9);
+      opacity: 1;
+      transform: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
     .lang-toggle {
       display: inline-flex;
       align-items: center;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.6);
       padding: 2px;
-      background: radial-gradient(circle at top left,#111827,#020617);
+      background: radial-gradient(circle at top left,#020617,#020617);
     }
     .lang-btn {
       border: none;
       outline: none;
-      padding: 4px 10px;
+      padding: 4px 12px;
       font-size: 11px;
       border-radius: 999px;
       background: transparent;
       color: var(--text-soft);
       cursor: pointer;
       transition: all 0.18s ease;
+      min-width: 38px;
     }
     .lang-btn.active {
-      background: rgba(15, 23, 42, 0.9);
-      color: #f9fafb;
-      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+      background: linear-gradient(135deg,#fbbf24,#f97316);
+      color: #111827;
+      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.9);
     }
 
     .primary-btn {
       border-radius: 999px;
-      border: none;
+      border: 1px solid rgba(148, 163, 184, 0.6);
       background: linear-gradient(120deg,#fbbf24,#f97316);
       color: #111827;
-      padding: 8px 16px;
+      padding: 8px 20px;
       font-size: 12px;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       cursor: pointer;
-      box-shadow: 0 12px 45px rgba(15,23,42,0.9);
+      box-shadow: 0 16px 55px rgba(15,23,42,0.9);
       transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
     }
     .primary-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 18px 70px rgba(15,23,42,1);
+      box-shadow: 0 22px 80px rgba(15,23,42,1);
       filter: brightness(1.03);
     }
     .primary-btn span.icon {
@@ -801,6 +824,12 @@
       .step2-card {
         grid-template-columns: minmax(0, 1fr);
       }
+      .nav-links {
+        gap: 16px;
+      }
+      .nav-main-links {
+        display: none; /* 小屏简单一点，只保留登录和语言 */
+      }
     }
     @media (max-width: 640px) {
       body {
@@ -844,19 +873,22 @@
       </div>
 
       <nav class="nav-links">
-        <a href="index.html" id="navHome">Home</a>
-        <a href="index.html#services" id="navServices">Services</a>
-        <a href="index.html#flow" id="navFlow">Flow</a>
-        <a href="pricing.html" id="navPricing">Pricing</a>
-        <span class="sep">|</span>
-        <div class="lang-toggle">
-          <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
-          <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
+        <div class="nav-main-links">
+          <a href="index.html" class="nav-link nav-link-pill" id="navHome">Home</a>
+          <a href="desk.html" class="nav-link nav-link-pill active" id="navDesk">Desk</a>
+          <a href="index.html#about" class="nav-link" id="navAbout">About</a>
+          <a href="index.html#contact" class="nav-link" id="navContact">Contact</a>
         </div>
-        <button class="primary-btn" type="button">
-          <span class="icon">★</span>
-          <span id="loginBtnText">Login / My Desk</span>
-        </button>
+        <div class="nav-right">
+          <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
+            <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
+          </div>
+          <button class="primary-btn" onclick="window.location.href='auth.html'">
+            <span class="icon">★</span>
+            <span id="loginBtnText">Login / My Desk</span>
+          </button>
+        </div>
       </nav>
     </header>
 
@@ -1264,52 +1296,6 @@
     let currentLang = "en";
     let currentPrice = "29.9";
 
-    // ===== 登录按钮状态（和首页一致）=====
-    const loginBtn = document.querySelector(".primary-btn");
-    const loginBtnTextEl = document.getElementById("loginBtnText");
-
-    function applyLoginState() {
-      if (!loginBtn || !loginBtnTextEl) return;
-      try {
-        const raw =
-          localStorage.getItem("aurum_user") ||
-          localStorage.getItem("aurumdesk_user");
-        if (!raw) {
-          loginBtnTextEl.textContent =
-            currentLang === "zh" ? "登录 / 我的任务台" : "Login / My Desk";
-          loginBtn.onclick = () => {
-            window.location.href = "auth.html";
-          };
-          return;
-        }
-        const user = JSON.parse(raw);
-        const name = user && (user.name || user.email || "");
-        if (name) {
-          const displayName =
-            name.length > 16 ? name.slice(0, 16) + "…" : name;
-          loginBtnTextEl.textContent =
-            currentLang === "zh"
-              ? "您好，" + displayName
-              : "Hi, " + displayName;
-          loginBtn.onclick = () => {
-            window.location.href = "desk.html";
-          };
-        } else {
-          loginBtnTextEl.textContent =
-            currentLang === "zh" ? "登录 / 我的任务台" : "Login / My Desk";
-          loginBtn.onclick = () => {
-            window.location.href = "auth.html";
-          };
-        }
-      } catch (e) {
-        loginBtnTextEl.textContent =
-          currentLang === "zh" ? "登录 / 我的任务台" : "Login / My Desk";
-        loginBtn.onclick = () => {
-          window.location.href = "auth.html";
-        };
-      }
-    }
-
     // ========== 左侧服务可点击 =========
     function syncScenarioAndPrice() {
       fullScenarioLabel.textContent = taskTypeInput.value || "";
@@ -1585,9 +1571,9 @@
       en: {
         brandSub: "Private writing & resolution desk",
         navHome: "Home",
-        navServices: "Services",
-        navFlow: "Flow",
-        navPricing: "Pricing",
+        navDesk: "Desk",
+        navAbout: "About",
+        navContact: "Contact",
         loginBtn: "Login / My Desk",
         flowPill: "Flow",
         flowTitle: "Starting a task is intentionally simple",
@@ -1649,10 +1635,10 @@
       zh: {
         brandSub: "安静而专业的写作与申诉任务台",
         navHome: "首页",
-        navServices: "服务",
-        navFlow: "流程",
-        navPricing: "价格",
-        loginBtn: "登录 / 我的任务台",
+        navDesk: "Desk 任务台",
+        navAbout: "关于我们",
+        navContact: "联系我们",
+        loginBtn: "登录 / 我的 Desk",
         flowPill: "流程",
         flowTitle: "开始一个任务，被刻意设计得很简单",
         flowSubtitle:
@@ -1716,14 +1702,12 @@
       const t = i18n[lang] || i18n.en;
       currentLang = lang;
 
-      // <html lang="...">
-      document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
-
       document.getElementById("brandSubText").textContent = t.brandSub;
       document.getElementById("navHome").textContent = t.navHome;
-      document.getElementById("navServices").textContent = t.navServices;
-      document.getElementById("navFlow").textContent = t.navFlow;
-      document.getElementById("navPricing").textContent = t.navPricing;
+      document.getElementById("navDesk").textContent = t.navDesk;
+      document.getElementById("navAbout").textContent = t.navAbout;
+      document.getElementById("navContact").textContent = t.navContact;
+      document.getElementById("loginBtnText").textContent = t.loginBtn;
 
       document.getElementById("flowPillText").textContent = t.flowPill;
       document.getElementById("flowTitle").textContent = t.flowTitle;
@@ -1780,15 +1764,14 @@
 
       if (lang === "zh") {
         languageSelect.value = "中文";
+        document.documentElement.lang = "zh-CN";
       } else {
         languageSelect.value = "English";
+        document.documentElement.lang = "en";
       }
 
       syncScenarioAndPrice();
       localStorage.setItem("aurum_lang", lang);
-
-      // 根据语言刷新登录按钮文案
-      applyLoginState();
     }
 
     langButtons.forEach((btn) => {
