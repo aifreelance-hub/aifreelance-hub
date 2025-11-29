@@ -2,22 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NEYY7RN85S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-NEYY7RN85S');
-</script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aurum Task Desk — Contact</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicon -->
   <link rel="icon" href="favicon.png" />
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- Google Tag -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -27,541 +19,852 @@
   </script>
 
   <style>
-    * { box-sizing: border-box; }
-
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      background: #f5f3ef;
-      color: #1d2734;
-      line-height: 1.7;
+      padding: 0;
     }
-
-    a { text-decoration: none; color: inherit; }
-
-    .page-shell {
+    :root {
+      --bg-deep: #020617;
+      --bg-card: #020617;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --text-main: #e5e7eb;
+      --text-soft: #cbd5f5;
+      --gold: #fbbf24;
+      --accent-blue: #38bdf8;
+      --shadow-strong: 0 32px 120px rgba(0,0,0,0.9);
+      --radius-xl: 24px;
+      --radius-lg: 16px;
+      --radius-pill: 999px;
+      --blur-strong: 40px;
+    }
+    body {
       min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
+      color: var(--text-main);
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      padding: 24px 12px 48px;
     }
-
-    /* ===== Navbar：与 terms / privacy 一致，无登录按钮 ===== */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      backdrop-filter: blur(14px);
-      background: rgba(5, 8, 22, 0.95);
-      color: #f6f4ed;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
-    }
-
-    .navbar-inner {
-      max-width: 1180px;
+    .page-shell {
+      width: 100%;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 14px 20px;
+    }
+
+    /* 顶部导航（和首页统一风格） */
+    .top-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-bottom: 24px;
     }
-
-    .nav-left {
+    .brand-block {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #f5f2e6;
     }
-
-    .logo-mark {
-      width: 26px;
-      height: 26px;
+    .brand-avatar {
+      width: 40px;
+      height: 40px;
       border-radius: 999px;
       background: conic-gradient(
-        from 220deg,
-        #facc6b,
-        #f97316,
-        #facc6b,
-        #fde68a
+        from 180deg,
+        #fbbf24,
+        #38bdf8,
+        #4f46e5,
+        #fbbf24
       );
-      box-shadow: 0 0 14px rgba(250, 204, 21, 0.65);
-    }
-
-    .nav-right {
       display: flex;
       align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      justify-content: center;
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.7);
+    }
+    .brand-avatar-inner {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0%, #1f2937 0%, #020617 55%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+    .brand-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .brand-name {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-soft);
     }
 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 13px;
+    }
     .nav-links a {
-      margin-left: 18px;
-      font-size: 14px;
-      opacity: 0.86;
+      color: #e5e7eb;
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+      padding-bottom: 3px;
+      border-bottom: 1px solid transparent;
     }
-
-    .nav-links a:first-child {
-      margin-left: 0;
-    }
-
     .nav-links a:hover {
       opacity: 1;
-      color: #f0d37a;
+      transform: translateY(-1px);
+    }
+    .nav-links a.active {
+      border-bottom-color: rgba(248, 250, 252, 0.8);
+      opacity: 1;
+    }
+    .nav-links span.sep {
+      color: var(--text-soft);
+      font-size: 12px;
     }
 
-    .nav-lang {
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 2px;
+      background: radial-gradient(circle at top left,#111827,#020617);
+    }
+    .lang-btn {
+      border: none;
+      outline: none;
+      padding: 4px 10px;
+      font-size: 11px;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .lang-btn.active {
+      background: rgba(15, 23, 42, 0.9);
+      color: #f9fafb;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+    }
+
+    .primary-btn {
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(120deg,#fbbf24,#f97316);
+      color: #111827;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-    }
-
-    .lang-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #a7a39a;
-    }
-
-    .lang-btn {
-      border-radius: 999px;
-      border: 1px solid transparent;
-      background: transparent;
-      padding: 4px 10px;
-      font-size: 12px;
       cursor: pointer;
-      opacity: 0.85;
-      color: #e5e7eb;
+      box-shadow: 0 12px 45px rgba(15,23,42,0.9);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+    }
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 70px rgba(15,23,42,1);
+      filter: brightness(1.03);
+    }
+    .primary-btn span.icon {
+      font-size: 14px;
     }
 
-    .lang-btn:hover {
-      opacity: 1;
-      border-color: rgba(240, 211, 122, 0.5);
+    /* 主体卡片 */
+    .contact-card {
+      margin-top: 6px;
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.06) 0%, transparent 55%),
+        rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(15, 23, 42, 0.95);
+      box-shadow: var(--shadow-strong);
+      padding: 22px 22px 24px;
+      backdrop-filter: blur(var(--blur-strong));
     }
 
-    .lang-btn.active {
-      border-color: #facc6b;
-      background: rgba(240, 211, 122, 0.12);
-      color: #fefce8;
-      opacity: 1;
-    }
-
-    /* ===== 内容区域 ===== */
-    .content-wrap {
-      flex: 1;
-      padding: 32px 16px 48px;
-    }
-
-    .content-inner {
-      max-width: 980px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 18px;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
-      padding: 32px 28px 40px;
-    }
-
-    .breadcrumb {
-      font-size: 12px;
-      color: #64748b;
-      margin-bottom: 10px;
+    .contact-header {
       display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .contact-pill {
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
     }
-
-    .breadcrumb-dot {
+    .contact-pill-dot {
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: #f59e0b;
+      background: radial-gradient(circle at 30% 0%, #22c55e, #15803d);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.16);
     }
-
-    .page-title {
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .page-subtitle {
-      font-size: 14px;
-      color: #6b7280;
-      margin-bottom: 18px;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 26px;
-      margin-top: 8px;
-    }
-
-    .contact-section-title {
-      font-size: 16px;
+    .contact-title {
+      font-size: 20px;
       font-weight: 600;
-      margin-bottom: 6px;
+      letter-spacing: 0.01em;
+    }
+    .contact-subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      max-width: 640px;
     }
 
-    .section-text {
-      font-size: 14px;
-      color: #374151;
-      margin-bottom: 8px;
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
     }
 
-    .info-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 8px 0 0;
-    }
-
-    .info-list li {
-      font-size: 14px;
-      margin-bottom: 6px;
+    .contact-info-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148,163,184,0.5);
+      padding: 14px 14px 16px;
+      background:
+        radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 1));
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .contact-info-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .contact-info-text {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+    .contact-badge-row {
+      display: flex;
+      flex-wrap: wrap;
       gap: 6px;
-    }
-
-    .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: #fef3c7;
-      color: #92400e;
-      font-size: 11px;
       margin-top: 4px;
     }
-
-    /* 简单表单样式（只前端，暂不提交后台） */
-    .form-field {
-      margin-bottom: 12px;
+    .contact-badge {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148,163,184,0.7);
+      color: var(--text-soft);
+    }
+    .contact-email-box {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.7);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .contact-email-highlight {
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .contact-mail-note {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 6px;
     }
 
-    .form-label {
-      font-size: 13px;
+    .contact-form-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 16px 16px 18px;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 55%),
+        radial-gradient(circle at bottom left, rgba(251, 191, 36, 0.12), transparent 60%),
+        rgba(15, 23, 42, 0.98);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 12px;
+    }
+    .form-full {
+      grid-column: 1 / -1;
+    }
+    .field-label {
+      font-size: 11px;
+      color: var(--text-soft);
       margin-bottom: 4px;
-      color: #4b5563;
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
-
-    .form-input,
-    .form-textarea {
+    .field-label span.badge {
+      font-size: 9px;
+      padding: 0 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+    }
+    .field-input,
+    .field-select,
+    .field-textarea {
       width: 100%;
       border-radius: 10px;
-      border: 1px solid #d1d5db;
-      padding: 8px 10px;
-      font-size: 14px;
-      font-family: inherit;
-      outline: none;
-      background: #f9fafb;
-    }
-
-    .form-input:focus,
-    .form-textarea:focus {
-      border-color: #f59e0b;
-      box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.4);
-      background: #ffffff;
-    }
-
-    .form-textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    .form-hint {
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
       font-size: 12px;
-      color: #9ca3af;
+      padding: 7px 9px;
+      outline: none;
+      resize: vertical;
+      min-height: 0;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
     }
-
-    .submit-btn {
+    .field-select {
+      padding-right: 22px;
+    }
+    .field-textarea {
+      min-height: 120px;
+      line-height: 1.45;
+    }
+    .field-input:focus,
+    .field-select:focus,
+    .field-textarea:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
+      background: rgba(15, 23, 42, 0.96);
+    }
+    .form-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
       margin-top: 10px;
-      padding: 8px 18px;
+      flex-wrap: wrap;
+    }
+    .contact-submit-btn {
       border-radius: 999px;
       border: none;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      background: linear-gradient(to right, #facc15, #f97316);
+      background: linear-gradient(120deg,#fbbf24,#f97316);
       color: #111827;
-      box-shadow: 0 10px 22px rgba(180, 83, 9, 0.35);
-    }
-
-    .submit-btn:hover {
-      filter: brightness(1.03);
-    }
-
-    .footer-note {
-      margin-top: 20px;
+      padding: 8px 18px;
       font-size: 12px;
-      color: #9ca3af;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 16px 55px rgba(15,23,42,0.9);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+      white-space: nowrap;
+    }
+    .contact-submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 70px rgba(15,23,42,1);
+      filter: brightness(1.02);
+    }
+    .contact-status {
+      font-size: 11px;
+      color: var(--text-soft);
+      max-width: 320px;
     }
 
-    @media (max-width: 768px) {
-      .navbar-inner {
-        padding-inline: 14px;
+    @media (max-width: 920px) {
+      .contact-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 8px 32px;
+      }
+      .contact-card {
+        padding: 16px 12px 18px;
+      }
+      .top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
       }
       .nav-links {
-        display: none; /* 小屏保留语言即可，导航在首页点 */
-      }
-      .card {
-        padding: 24px 18px 28px;
-      }
-      .contact-grid {
-        grid-template-columns: minmax(0, 1fr);
+        flex-wrap: wrap;
+        row-gap: 6px;
       }
     }
   </style>
 </head>
-
 <body>
-<div class="page-shell">
-  <!-- ===== Navbar ===== -->
-  <header class="navbar">
-    <div class="navbar-inner">
-      <div class="nav-left">
-        <div class="logo-mark"></div>
-        <span>Aurum Task Desk</span>
-      </div>
-
-      <div class="nav-right">
-        <nav class="nav-links">
-          <a href="index.html" data-i18n="nav.home">Home</a>
-          <a href="pricing.html" data-i18n="nav.pricing">Pricing</a>
-          <a href="tasks.html" data-i18n="nav.tasks">Tasks</a>
-          <a href="contact.html" data-i18n="nav.contact">Contact</a>
-        </nav>
-
-        <div class="nav-lang">
-          <span class="lang-label">LANG</span>
-          <button class="lang-btn" data-lang="en">EN</button>
-          <button class="lang-btn" data-lang="zh">中文</button>
+  <div class="page-shell">
+    <!-- 顶部导航（和首页保持一致，Contact 高亮） -->
+    <header class="top-nav">
+      <div class="brand-block">
+        <div class="brand-avatar">
+          <div class="brand-avatar-inner">AU</div>
+        </div>
+        <div class="brand-text-block">
+          <div class="brand-name">Aurum Task Desk</div>
+          <div class="brand-sub" id="brandSubText">
+            Private writing & resolution desk
+          </div>
         </div>
       </div>
-    </div>
-  </header>
 
-  <!-- ===== Main Content ===== -->
-  <main class="content-wrap">
-    <div class="content-inner">
-      <section class="card">
-        <div class="breadcrumb">
-          <span class="breadcrumb-dot"></span>
-          <span data-i18n="crumb.contact">Contact</span>
+      <nav class="nav-links">
+        <a href="index.html" id="navHome">Home</a>
+        <a href="index.html#services" id="navServices">Services</a>
+        <a href="index.html#flow" id="navFlow">Flow</a>
+        <a href="pricing.html" id="navPricing">Pricing</a>
+        <a href="about.html" id="navAbout">About</a>
+        <a href="contact.html" id="navContact" class="active">Contact</a>
+        <span class="sep">|</span>
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
+          <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
         </div>
+        <button class="primary-btn" onclick="window.location.href='auth.html'">
+          <span class="icon">★</span>
+          <span id="loginBtnText">Login / My Desk</span>
+        </button>
+      </nav>
+    </header>
 
-        <h1 class="page-title" data-i18n="page.title">Contact</h1>
-        <p class="page-subtitle" data-i18n="page.subtitle">
-          A quiet email is usually enough. Send a short note and I will reply personally.
+    <!-- 联系我们卡片 -->
+    <main class="contact-card">
+      <section class="contact-header">
+        <div class="contact-pill">
+          <span class="contact-pill-dot"></span>
+          <span id="contactPillText">Contact</span>
+        </div>
+        <h1 class="contact-title" id="contactTitle">
+          A quiet inbox for serious matters
+        </h1>
+        <p class="contact-subtitle" id="contactSubtitle">
+          Send a calm, clear email directly to the desk. We mainly serve older US &amp; EU professionals
+          dealing with disputes, immigration, insurance, and family-related letters.
         </p>
+      </section>
 
-        <div class="contact-grid">
-          <!-- 左：说明 & 联系方式 -->
-          <div>
-            <h2 class="contact-section-title" data-i18n="sec1.title">
-              How to reach Aurum Task Desk
-            </h2>
-            <p class="section-text" data-i18n="sec1.text1">
-              For task ideas, questions about pricing, or concerns about privacy, you can reach me directly at:
-            </p>
-
-            <ul class="info-list">
-              <li>
-                <span class="dot"></span>
-                <span><b data-i18n="sec1.email.label">Email:</b> <a href="mailto:support@aurumdesks.com">support@aurumdesks.com</a></span>
-              </li>
-              <li>
-                <span class="dot"></span>
-                <span data-i18n="sec1.time">Typical response time: within 24–48 hours on business days.</span>
-              </li>
-              <li>
-                <span class="dot"></span>
-                <span data-i18n="sec1.note">Please avoid sending bank card numbers or highly sensitive documents by email.</span>
-              </li>
-            </ul>
-
-            <div class="badge" data-i18n="sec1.badge">
-              Calm, private, one-to-one replies
+      <section class="contact-layout">
+        <!-- 左侧：联系说明 -->
+        <aside class="contact-info-card">
+          <div class="contact-info-title" id="infoTitle">
+            Before you send
+          </div>
+          <p class="contact-info-text" id="infoText">
+            This form does not send data to any server. It simply opens your own email app with a
+            pre-filled message, so you stay in full control. You can add attachments privately before sending.
+          </p>
+          <div class="contact-badge-row">
+            <div class="contact-badge" id="badge1">
+              ✓ Uses your own email app
             </div>
-
-            <p class="footer-note" data-i18n="footer.note">
-              If your question is about data or privacy, you can also review our Privacy Policy page.
-            </p>
+            <div class="contact-badge" id="badge2">
+              ✓ You can edit everything before sending
+            </div>
+            <div class="contact-badge" id="badge3">
+              ✓ No auto-send, no account needed
+            </div>
           </div>
 
-          <!-- 右：简单表单（只前端，用于收集信息然后复制发邮件） -->
-          <div>
-            <h2 class="contact-section-title" data-i18n="sec2.title">
-              Send a quick outline
-            </h2>
-            <p class="section-text" data-i18n="sec2.text1">
-              You can write your message here, then copy it into your email app.
-            </p>
-
-            <div class="form-field">
-              <label class="form-label" for="field-email" data-i18n="form.email.label">Your email (for reply)</label>
-              <input id="field-email" class="form-input" type="email" placeholder="you@example.com" />
+          <div class="contact-email-box">
+            <div>
+              <div id="directEmailLabel">Direct email inbox</div>
+              <div class="contact-email-highlight">support@aurumdesks.com</div>
             </div>
+            <button
+              type="button"
+              class="contact-submit-btn"
+              onclick="window.location.href='mailto:support@aurumdesks.com'">
+              <span id="openEmailBtnText">Open email</span>
+            </button>
+          </div>
+          <p class="contact-mail-note" id="mailNote">
+            If the form on the right does not work on your device, you can always copy this email address
+            and write to us directly from your own mailbox.
+          </p>
+        </aside>
 
-            <div class="form-field">
-              <label class="form-label" for="field-topic" data-i18n="form.topic.label">Topic</label>
-              <input id="field-topic" class="form-input" type="text" placeholder="Calm letter, LinkedIn content, task bundle..." />
-            </div>
+        <!-- 右侧：表单 -->
+        <section class="contact-form-card">
+          <form id="contactForm">
+            <div class="form-grid">
+              <div>
+                <label class="field-label" for="contactName">
+                  <span id="lblName">Your name</span>
+                  <span class="badge" id="lblNameBadge">Optional</span>
+                </label>
+                <input
+                  id="contactName"
+                  class="field-input"
+                  type="text"
+                  autocomplete="name" />
+              </div>
 
-            <div class="form-field">
-              <label class="form-label" for="field-message" data-i18n="form.message.label">What do you need help with?</label>
-              <textarea id="field-message" class="form-textarea" placeholder=""></textarea>
-              <div class="form-hint" data-i18n="form.hint">
-                I suggest 3–5 sentences: who you are, what you want to achieve, and your timing.
+              <div>
+                <label class="field-label" for="contactEmail">
+                  <span id="lblEmail">Your email</span>
+                  <span class="badge" id="lblEmailBadge">Required</span>
+                </label>
+                <input
+                  id="contactEmail"
+                  class="field-input"
+                  type="email"
+                  autocomplete="email"
+                  required />
+              </div>
+
+              <div class="form-full">
+                <label class="field-label" for="contactTopic">
+                  <span id="lblTopic">Which area best describes your case?</span>
+                </label>
+                <select id="contactTopic" class="field-select">
+                  <option value="" selected>
+                    — select —
+                  </option>
+                  <option value="legal">Legal letter / contract / dispute</option>
+                  <option value="insurance">Insurance / airline claim</option>
+                  <option value="immigration">Immigration / visa / RFE</option>
+                  <option value="family">Family / relationship / emotional letter</option>
+                  <option value="complaint">Complaint / escalation</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-full">
+                <label class="field-label" for="contactSubject">
+                  <span id="lblSubject">Email subject (optional)</span>
+                </label>
+                <input
+                  id="contactSubject"
+                  class="field-input"
+                  type="text"
+                  placeholder="" />
+              </div>
+
+              <div class="form-full">
+                <label class="field-label" for="contactMessage">
+                  <span id="lblMessage">Briefly describe what happened</span>
+                  <span class="badge" id="lblMessageBadge">Required</span>
+                </label>
+                <textarea
+                  id="contactMessage"
+                  class="field-textarea"
+                ></textarea>
               </div>
             </div>
 
-            <button type="button" class="submit-btn" id="copy-btn" data-i18n="form.button">
-              Copy text and open email
-            </button>
-          </div>
-        </div>
+            <div class="form-footer-row">
+              <button type="submit" class="contact-submit-btn">
+                <span id="submitBtnText">Open my email app &amp; draft</span>
+              </button>
+              <div class="contact-status" id="contactStatus">
+                After you click, your phone or computer will open a new email window to
+                <span class="contact-email-highlight">support@aurumdesks.com</span>.  
+                You can still change everything before sending.
+              </div>
+            </div>
+          </form>
+        </section>
       </section>
-    </div>
-  </main>
-</div>
+    </main>
+  </div>
 
-<!-- ===== 语言脚本：与 terms / privacy 一致，使用 localStorage.aurum_lang ===== -->
-<script>
-  const CONTACT_LANG = {
-    en: {
-      "nav.home": "Home",
-      "nav.pricing": "Pricing",
-      "nav.tasks": "Task Marketplace",
-      "nav.contact": "Contact",
+  <script>
+    // ===== 全局语言状态 =====
+    let currentLang = "en";
 
-      "crumb.contact": "Contact",
+    const langButtons = document.querySelectorAll(".lang-btn");
 
-      "page.title": "Contact",
-      "page.subtitle":
-        "A quiet email is usually enough. Send a short note and I will reply personally.",
+    const i18n = {
+      en: {
+        brandSub: "Private writing & resolution desk",
+        navHome: "Home",
+        navServices: "Services",
+        navFlow: "Flow",
+        navPricing: "Pricing",
+        navAbout: "About",
+        navContact: "Contact",
+        loginBtn: "Login / My Desk",
 
-      "sec1.title": "How to reach Aurum Task Desk",
-      "sec1.text1":
-        "For task ideas, questions about pricing, or concerns about privacy, you can reach me directly at:",
-      "sec1.email.label": "Email:",
-      "sec1.time": "Typical response time: within 24–48 hours on business days.",
-      "sec1.note": "Please avoid sending bank card numbers or highly sensitive documents by email.",
-      "sec1.badge": "Calm, private, one-to-one replies",
+        contactPill: "Contact",
+        contactTitle: "A quiet inbox for serious matters",
+        contactSubtitle:
+          "Send a calm, clear email directly to the desk. We mainly serve older US & EU professionals dealing with disputes, immigration, insurance, and family-related letters.",
 
-      "sec2.title": "Send a quick outline",
-      "sec2.text1": "You can write your message here, then copy it into your email app.",
+        infoTitle: "Before you send",
+        infoText:
+          "This form does not send data to any server. It simply opens your own email app with a pre-filled message, so you stay in full control. You can add attachments privately before sending.",
+        badge1: "✓ Uses your own email app",
+        badge2: "✓ You can edit everything before sending",
+        badge3: "✓ No auto-send, no account needed",
+        directEmailLabel: "Direct email inbox",
+        openEmailBtnText: "Open email",
+        mailNote:
+          "If the form on the right does not work on your device, you can always copy this email address and write to us directly from your own mailbox.",
 
-      "form.email.label": "Your email (for reply)",
-      "form.topic.label": "Topic",
-      "form.message.label": "What do you need help with?",
-      "form.hint":
-        "I suggest 3–5 sentences: who you are, what you want to achieve, and your timing.",
-      "form.button": "Copy text and open email",
+        lblName: "Your name",
+        lblNameBadge: "Optional",
+        lblEmail: "Your email",
+        lblEmailBadge: "Required",
+        lblTopic: "Which area best describes your case?",
+        lblSubject: "Email subject (optional)",
+        lblMessage: "Briefly describe what happened",
+        lblMessageBadge: "Required",
 
-      "footer.note":
-        "If your question is about data or privacy, you can also review our Privacy Policy page."
-    },
+        topicPlaceholder: "— select —",
+        topicLegal: "Legal letter / contract / dispute",
+        topicInsurance: "Insurance / airline claim",
+        topicImmigration: "Immigration / visa / RFE",
+        topicFamily: "Family / relationship / emotional letter",
+        topicComplaint: "Complaint / escalation",
+        topicOther: "Other",
 
-    zh: {
-      "nav.home": "首页",
-      "nav.pricing": "价格",
-      "nav.tasks": "任务大厅",
-      "nav.contact": "联系",
+        submitBtnText: "Open my email app & draft",
+        statusDefault:
+          "After you click, your phone or computer will open a new email window to support@aurumdesks.com. You can still change everything before sending.",
+        statusMissingMessage:
+          "Please briefly describe what happened so the email is not empty.",
+        statusMissingEmail:
+          "Please enter your email so we can reply properly.",
+        statusMailOpened:
+          "We have opened your email app with a draft. You can add attachments and send when ready."
+      },
+      zh: {
+        brandSub: "安静而专业的写作与申诉任务台",
+        navHome: "首页",
+        navServices: "服务",
+        navFlow: "流程",
+        navPricing: "价格",
+        navAbout: "关于我们",
+        navContact: "联系我们",
+        loginBtn: "登录 / 我的任务台",
 
-      "crumb.contact": "联系",
+        contactPill: "联系任务台",
+        contactTitle: "给一封安静、认真的邮件入口",
+        contactSubtitle:
+          "通过邮箱和任务台沟通，适合处理法律纠纷、移民材料、保险理赔、家庭矛盾等需要冷静书面的事项。",
 
-      "page.title": "联系 Aurum Task Desk",
-      "page.subtitle":
-        "一封安静的邮件就够了。简单说说你的情况，我会亲自回复。",
+        infoTitle: "发送前先了解一下",
+        infoText:
+          "右侧表单不会把内容提交到服务器，而是帮你在本机打开邮件应用，并预填一封草稿邮件。你可以在发送前自行添加附件、修改任何内容。",
+        badge1: "✓ 使用你自己的邮箱应用",
+        badge2: "✓ 发送前所有内容都可修改",
+        badge3: "✓ 不会自动代发，无需账号",
+        directEmailLabel: "直接邮箱入口",
+        openEmailBtnText: "打开邮箱",
+        mailNote:
+          "如果右侧表单在你的设备上不好用，你也可以直接复制这个邮箱地址，在自己的邮箱里新建邮件。",
 
-      "sec1.title": "联系 Aurum Task Desk 的方式",
-      "sec1.text1":
-        "如果你有任务想法、价格问题，或者对隐私有疑问，都可以直接发邮件给我：",
-      "sec1.email.label": "邮箱：",
-      "sec1.time": "正常情况下，我会在工作日 24–48 小时内回复。",
-      "sec1.note": "请不要在邮件中发送银行卡号或特别敏感的证件图片等信息。",
-      "sec1.badge": "安静、一对一的私人回复",
+        lblName: "你的称呼",
+        lblNameBadge: "可选",
+        lblEmail: "你的邮箱",
+        lblEmailBadge: "必填",
+        lblTopic: "你的情况大致属于哪一类？",
+        lblSubject: "邮件主题（可选）",
+        lblMessage: "请简单描述发生了什么",
+        lblMessageBadge: "必填",
 
-      "sec2.title": "先写一个简单大纲",
-      "sec2.text1": "你可以先在这里写好内容，然后复制到自己的邮箱里发送。",
+        topicPlaceholder: "— 请选择 —",
+        topicLegal: "法律信件 / 合同 / 纠纷",
+        topicInsurance: "保险 / 航空理赔",
+        topicImmigration: "移民 / 签证 / RFE",
+        topicFamily: "家庭 / 关系 / 情绪类来信",
+        topicComplaint: "投诉 / 升级申诉",
+        topicOther: "其他",
 
-      "form.email.label": "你的邮箱（用于回复）",
-      "form.topic.label": "主题",
-      "form.message.label": "你希望我帮你做什么？",
-      "form.hint":
-        "建议写 3–5 句：你是谁、想解决什么问题、大概的时间安排。",
-      "form.button": "复制内容并打开邮箱",
+        submitBtnText: "打开邮箱草稿并预填内容",
+        statusDefault:
+          "点击后，你的手机或电脑会打开一封发往 support@aurumdesks.com 的邮件草稿。你可以在发送前自由增删内容和附件。",
+        statusMissingMessage:
+          "请至少用几句话简单描述一下情况，避免邮件内容是空的。",
+        statusMissingEmail:
+          "请填写你的邮箱，方便任务台回复你。",
+        statusMailOpened:
+          "系统已尝试为你打开本机邮箱草稿。你可以在邮件中继续补充细节、添加附件，然后自行点击发送。"
+      }
+    };
 
-      "footer.note":
-        "如果你的问题与数据或隐私有关，也可以先阅读我们的《隐私政策》页面。"
-    }
-  };
+    function applyLang(lang) {
+      const t = i18n[lang] || i18n.en;
+      currentLang = lang;
 
-  function applyLang(lang) {
-    const dict = CONTACT_LANG[lang] || CONTACT_LANG["en"];
-    document.querySelectorAll("[data-i18n]").forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      if (dict[key]) el.textContent = dict[key];
-    });
+      document.getElementById("brandSubText").textContent = t.brandSub;
+      document.getElementById("navHome").textContent = t.navHome;
+      document.getElementById("navServices").textContent = t.navServices;
+      document.getElementById("navFlow").textContent = t.navFlow;
+      document.getElementById("navPricing").textContent = t.navPricing;
+      document.getElementById("navAbout").textContent = t.navAbout;
+      document.getElementById("navContact").textContent = t.navContact;
+      document.getElementById("loginBtnText").textContent = t.loginBtn;
 
-    document.querySelectorAll(".lang-btn").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.lang === lang);
-    });
-  }
+      document.getElementById("contactPillText").textContent = t.contactPill;
+      document.getElementById("contactTitle").textContent = t.contactTitle;
+      document.getElementById("contactSubtitle").textContent = t.contactSubtitle;
 
-  document.addEventListener("DOMContentLoaded", () => {
-    // 1) 语言：使用 aurum_lang，未设置则默认中文
-    let lang = localStorage.getItem("aurum_lang");
-    if (!lang) {
-      lang = "zh";
+      document.getElementById("infoTitle").textContent = t.infoTitle;
+      document.getElementById("infoText").textContent = t.infoText;
+      document.getElementById("badge1").textContent = t.badge1;
+      document.getElementById("badge2").textContent = t.badge2;
+      document.getElementById("badge3").textContent = t.badge3;
+      document.getElementById("directEmailLabel").textContent = t.directEmailLabel;
+      document.getElementById("openEmailBtnText").textContent = t.openEmailBtnText;
+      document.getElementById("mailNote").textContent = t.mailNote;
+
+      document.getElementById("lblName").textContent = t.lblName;
+      document.getElementById("lblNameBadge").textContent = t.lblNameBadge;
+      document.getElementById("lblEmail").textContent = t.lblEmail;
+      document.getElementById("lblEmailBadge").textContent = t.lblEmailBadge;
+      document.getElementById("lblTopic").textContent = t.lblTopic;
+      document.getElementById("lblSubject").textContent = t.lblSubject;
+      document.getElementById("lblMessage").textContent = t.lblMessage;
+      document.getElementById("lblMessageBadge").textContent = t.lblMessageBadge;
+
+      // 下拉选项
+      const topicSelect = document.getElementById("contactTopic");
+      topicSelect.options[0].textContent = t.topicPlaceholder;
+      topicSelect.options[1].textContent = t.topicLegal;
+      topicSelect.options[2].textContent = t.topicInsurance;
+      topicSelect.options[3].textContent = t.topicImmigration;
+      topicSelect.options[4].textContent = t.topicFamily;
+      topicSelect.options[5].textContent = t.topicComplaint;
+      topicSelect.options[6].textContent = t.topicOther;
+
+      document.getElementById("submitBtnText").textContent = t.submitBtnText;
+      document.getElementById("contactStatus").textContent = t.statusDefault;
+
+      langButtons.forEach((b) => {
+        b.classList.toggle("active", b.dataset.lang === lang);
+      });
+
+      // 记住语言
       localStorage.setItem("aurum_lang", lang);
     }
-    applyLang(lang);
 
-    document.querySelectorAll(".lang-btn").forEach((btn) => {
+    langButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        const newLang = btn.dataset.lang;
-        localStorage.setItem("aurum_lang", newLang);
-        applyLang(newLang);
+        const lang = btn.dataset.lang || "en";
+        applyLang(lang);
       });
     });
 
-    // 2) “复制内容并打开邮箱”按钮，只是辅助用户复制文本
-    const copyBtn = document.getElementById("copy-btn");
-    if (copyBtn) {
-      copyBtn.addEventListener("click", () => {
-        const email = (document.getElementById("field-email") || {}).value || "";
-        const topic = (document.getElementById("field-topic") || {}).value || "";
-        const message = (document.getElementById("field-message") || {}).value || "";
+    // 初始化语言（和其他页面保持一致）
+    (function initLang() {
+      const saved = localStorage.getItem("aurum_lang");
+      if (saved === "zh" || saved === "en") {
+        applyLang(saved);
+      } else {
+        applyLang("en");
+      }
+    })();
 
-        let body = "";
-        if (email) body += "From: " + email + "%0D%0A";
-        if (topic) body += "Topic: " + topic + "%0D%0A%0D%0A";
-        if (message) body += message.replace(/\n/g, "%0D%0A");
+    // ===== 表单：打开本机邮箱，预填邮件 =====
+    const contactForm = document.getElementById("contactForm");
+    const contactStatus = document.getElementById("contactStatus");
 
-        const mailtoLink =
-          "mailto:support@aurumdesks.com" +
-          (topic ? "?subject=" + encodeURIComponent(topic) : "") +
-          (body ? (topic ? "&" : "?") + "body=" + body : "");
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-        window.location.href = mailtoLink;
-      });
-    }
-  });
-</script>
+      const t = i18n[currentLang] || i18n.en;
+
+      const name = (document.getElementById("contactName").value || "").trim();
+      const email = (document.getElementById("contactEmail").value || "").trim();
+      const topic = document.getElementById("contactTopic").value || "";
+      const subjectInput = (document.getElementById("contactSubject").value || "").trim();
+      const message = (document.getElementById("contactMessage").value || "").trim();
+
+      if (!email) {
+        contactStatus.textContent = t.statusMissingEmail;
+        return;
+      }
+      if (!message) {
+        contactStatus.textContent = t.statusMissingMessage;
+        return;
+      }
+
+      // 主题
+      let subject = subjectInput;
+      if (!subject) {
+        if (currentLang === "zh") {
+          subject = "来自网站的咨询 — Aurum Task Desk";
+        } else {
+          subject = "New enquiry from Aurum Task Desk website";
+        }
+      }
+
+      // 话题文本
+      let topicText = "";
+      switch (topic) {
+        case "legal":
+          topicText = t.topicLegal;
+          break;
+        case "insurance":
+          topicText = t.topicInsurance;
+          break;
+        case "immigration":
+          topicText = t.topicImmigration;
+          break;
+        case "family":
+          topicText = t.topicFamily;
+          break;
+        case "complaint":
+          topicText = t.topicComplaint;
+          break;
+        case "other":
+          topicText = t.topicOther;
+          break;
+        default:
+          topicText = "";
+      }
+
+      // 邮件正文
+      let bodyLines = [];
+      if (currentLang === "zh") {
+        bodyLines.push("客户称呼: " + (name || "(未填写)"));
+        bodyLines.push("客户邮箱: " + email);
+        bodyLines.push("大致类型: " + (topicText || "(未选择)"));
+        bodyLines.push("");
+        bodyLines.push("—— 客户的情况描述 ——");
+        bodyLines.push(message);
+        bodyLines.push("");
+        bodyLines.push("（此邮件由 Aurum Task Desk 网站表单生成，你可以直接回复此邮箱与客户沟通。）");
+      } else {
+        bodyLines.push("Name: " + (name || "(not provided)"));
+        bodyLines.push("Client email: " + email);
+        bodyLines.push("Rough area: " + (topicText || "(not selected)"));
+        bodyLines.push("");
+        bodyLines.push("—— Client's description ——");
+        bodyLines.push(message);
+        bodyLines.push("");
+        bodyLines.push("(This email was drafted via the Aurum Task Desk contact form. You can reply directly to this email address.)");
+      }
+
+      const body = bodyLines.join("\n");
+      const mailto =
+        "mailto:support@aurumdesks.com" +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+
+      // 打开本机邮箱应用
+      window.location.href = mailto;
+
+      contactStatus.textContent = t.statusMailOpened;
+    });
+  </script>
 </body>
 </html>
