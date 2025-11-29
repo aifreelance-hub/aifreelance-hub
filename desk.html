@@ -534,16 +534,67 @@
       line-height: 1.4;
     }
 
-    /* 附件区样式 */
-    .ai-input-file {
-      padding: 4px 6px;
-      font-size: 11px;
-      background: rgba(15, 23, 42, 0.9);
+    /* 上传区域样式 */
+    .ai-upload-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-    .ai-attachments-hint {
-      margin-top: 3px;
+    .ai-upload-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: radial-gradient(circle at top left,#020617,#020617);
+      font-size: 11px;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all 0.16s ease;
+      white-space: nowrap;
+    }
+    .ai-upload-btn:hover {
+      border-style: solid;
+      box-shadow: 0 10px 32px rgba(15, 23, 42, 0.9);
+      transform: translateY(-0.5px);
+    }
+    .ai-upload-btn input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .ai-upload-hint {
       font-size: 10px;
-      color: rgba(148, 163, 184, 0.95);
+      color: rgba(148, 163, 184, 0.9);
+    }
+    .ai-upload-list {
+      margin-top: 6px;
+      list-style: none;
+      max-height: 72px;
+      overflow-y: auto;
+      padding-left: 2px;
+    }
+    .ai-upload-item {
+      font-size: 10px;
+      color: rgba(199, 210, 254, 0.95);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 0;
+    }
+    .ai-upload-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.9);
+      flex-shrink: 0;
+    }
+    .ai-upload-size {
+      opacity: 0.7;
     }
 
     .ai-footer-row {
@@ -620,53 +671,10 @@
       line-height: 1.45;
       white-space: pre-wrap;
       color: #e5e7eb;
-      position: relative;
     }
     .ai-preview-placeholder {
       color: rgba(191, 219, 254, 0.95);
       font-size: 11px;
-    }
-
-    /* skeleton loading */
-    .skeleton-line {
-      height: 9px;
-      border-radius: 999px;
-      margin-bottom: 5px;
-      background: linear-gradient(
-        90deg,
-        rgba(31, 41, 55, 0.9) 0%,
-        rgba(55, 65, 81, 0.9) 50%,
-        rgba(31, 41, 55, 0.9) 100%
-      );
-      background-size: 180% 100%;
-      animation: shimmer 1.1s infinite;
-    }
-    .skeleton-line.short { width: 40%; }
-    .skeleton-line.mid { width: 70%; }
-    .skeleton-line.full { width: 100%; }
-
-    @keyframes shimmer {
-      0% { background-position: 180% 0; }
-      100% { background-position: -20% 0; }
-    }
-
-    .info-bar {
-      margin-top: 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(251, 191, 36, 0.8);
-      background: radial-gradient(circle at top left, rgba(251, 191, 36, 0.14), rgba(15, 23, 42, 0.98));
-      padding: 8px 10px;
-      display: flex;
-      gap: 8px;
-      font-size: 11px;
-      color: #f9fafb;
-    }
-    .info-bar-icon {
-      font-size: 14px;
-      margin-top: 1px;
-    }
-    .info-bar-text strong {
-      color: var(--gold);
     }
 
     /* 响应式 */
@@ -983,22 +991,26 @@
               ></textarea>
             </div>
 
-            <!-- 新增：附件上传区 -->
+            <!-- 上传附件区域 -->
             <div class="ai-form-full">
               <div class="ai-label">
-                <span id="lblAttachments">Attachments (optional)</span>
-                <span class="badge" id="lblAttachmentsBadge">Screenshots, letters, PDFs</span>
+                <span id="lblAttachments">Upload screenshots or letters (optional)</span>
               </div>
-              <input
-                id="attachmentInput"
-                class="ai-input ai-input-file"
-                type="file"
-                multiple
-                accept=".png,.jpg,.jpeg,.heic,.pdf,.txt,.doc,.docx"
-              />
-              <div class="ai-attachments-hint" id="attachmentsHint">
-                Up to 3 files, about 5MB each. The desk will only read the text it can detect for preview.
+              <div class="ai-upload-row">
+                <label class="ai-upload-btn">
+                  <span id="aiUploadBtnText">Upload files</span>
+                  <input
+                    id="fileInput"
+                    type="file"
+                    multiple
+                    accept=".png,.jpg,.jpeg,.webp,.txt,.pdf"
+                  />
+                </label>
+                <div class="ai-upload-hint" id="aiUploadHint">
+                  Up to 5 files. Images or .txt are best for preview.
+                </div>
               </div>
+              <ul class="ai-upload-list" id="aiUploadList"></ul>
             </div>
           </div>
 
@@ -1023,24 +1035,12 @@
             </div>
           </div>
 
-          <!-- 安全提示条 -->
-          <div class="info-bar">
-            <div class="info-bar-icon">ⓘ</div>
-            <div class="info-bar-text">
-              <strong>Nothing here is auto-sent or auto-charged · 此处内容不会自动发送，也不会自动扣费。</strong>
-              <div>
-                You can close this page anytime before confirming a task. / 在你正式确认任务前，随时可以关闭本页，一切不会被递交。
-              </div>
-            </div>
-          </div>
-
           <div class="ai-preview-box" id="aiPreviewBox">
             <div class="ai-preview-placeholder" id="aiPreviewPlaceholder">
               Your 30% preview draft will appear here. It is not saved, not sent
               to any company or person. When you are happy with the direction,
               you can open a full Desk and continue privately.
             </div>
-            <div id="aiPreviewContent"></div>
           </div>
         </section>
       </section>
@@ -1063,46 +1063,87 @@
       });
     });
 
+    // ========== 上传附件（前端收集，发给 Worker） ==========
+    const fileInput = document.getElementById("fileInput");
+    const aiUploadList = document.getElementById("aiUploadList");
+    const MAX_FILES = 5;
+    let attachments = [];
+
+    function formatBytes(bytes) {
+      if (!bytes && bytes !== 0) return "";
+      if (bytes < 1024) return bytes + " B";
+      const kb = bytes / 1024;
+      if (kb < 1024) return kb.toFixed(1) + " KB";
+      const mb = kb / 1024;
+      return mb.toFixed(1) + " MB";
+    }
+
+    function renderAttachmentList() {
+      aiUploadList.innerHTML = "";
+      if (!attachments.length) return;
+      attachments.forEach((att) => {
+        const li = document.createElement("li");
+        li.className = "ai-upload-item";
+        const dot = document.createElement("span");
+        dot.className = "ai-upload-dot";
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = att.name || "file";
+        const sizeSpan = document.createElement("span");
+        sizeSpan.className = "ai-upload-size";
+        sizeSpan.textContent = "· " + formatBytes(att.size || 0);
+        li.appendChild(dot);
+        li.appendChild(nameSpan);
+        li.appendChild(sizeSpan);
+        aiUploadList.appendChild(li);
+      });
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result || "");
+        reader.onerror = (err) => reject(err);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (fileInput) {
+      fileInput.addEventListener("change", async (e) => {
+        const files = Array.from(e.target.files || []);
+        if (!files.length) {
+          attachments = [];
+          renderAttachmentList();
+          return;
+        }
+        const selected = files.slice(0, MAX_FILES);
+        const newAttachments = [];
+        for (const f of selected) {
+          try {
+            const base64 = await fileToBase64(f);
+            newAttachments.push({
+              name: f.name,
+              type: f.type,
+              size: f.size,
+              base64,
+            });
+          } catch (err) {
+            console.error("fileToBase64 error:", err);
+          }
+        }
+        attachments = newAttachments;
+        renderAttachmentList();
+      });
+    }
+
     // ========== 预览生成 ==========
     const aiGenerateBtn = document.getElementById("aiGenerateBtn");
-    const aiGenerateBtnTextEl = document.getElementById("aiGenerateBtnText");
     const aiStatusText = document.getElementById("aiStatusText");
+    const aiPreviewBox = document.getElementById("aiPreviewBox");
     const aiPreviewPlaceholder = document.getElementById("aiPreviewPlaceholder");
-    const aiPreviewContent = document.getElementById("aiPreviewContent");
     const toneSelect = document.getElementById("toneSelect");
     const languageSelect = document.getElementById("languageSelect");
     const recipientInput = document.getElementById("recipientInput");
     const detailsTextarea = document.getElementById("detailsTextarea");
-    const attachmentInput = document.getElementById("attachmentInput");
-
-    // 把附件转成 base64，限制最多 3 个、约 5MB
-    async function collectAttachments() {
-      const files = Array.from(attachmentInput.files || []).slice(0, 3);
-      const out = [];
-
-      for (const file of files) {
-        if (file.size > 5 * 1024 * 1024) {
-          continue; // 太大就忽略
-        }
-        const base64 = await new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => {
-            const result = reader.result || "";
-            const parts = String(result).split(",");
-            resolve(parts.length > 1 ? parts[1] : "");
-          };
-          reader.onerror = reject;
-          reader.readAsDataURL(file);
-        });
-        out.push({
-          name: file.name,
-          type: file.type || "application/octet-stream",
-          size: file.size,
-          base64
-        });
-      }
-      return out;
-    }
 
     async function callPreview() {
       const taskType  = (taskTypeInput.value || "").trim() || "写作任务";
@@ -1112,42 +1153,9 @@
       const details   = (detailsTextarea.value || "").toString();
 
       aiGenerateBtn.disabled = true;
-      const originalBtnLabel = aiGenerateBtnTextEl.textContent;
-
-      aiGenerateBtnTextEl.textContent = language === "中文"
-        ? "正在生成预览..."
-        : "Generating preview...";
-
       aiStatusText.textContent = language === "中文"
         ? "系统正在生成预览草稿…"
         : "The desk is drafting a preview for you…";
-
-      // skeleton loading
-      aiPreviewPlaceholder.style.display = "none";
-      aiPreviewContent.innerHTML =
-        '<div class="skeleton-line full"></div>' +
-        '<div class="skeleton-line mid"></div>' +
-        '<div class="skeleton-line full"></div>' +
-        '<div class="skeleton-line mid"></div>' +
-        '<div class="skeleton-line short"></div>';
-
-      // 收集附件
-      let attachments = [];
-      try {
-        attachments = await collectAttachments();
-      } catch (e) {
-        console.warn("Attachment read error:", e);
-      }
-
-      // 即使后端暂时没用 attachments 字段，也在 details 里提一下文件名
-      let detailsToSend = details;
-      if (attachments.length) {
-        const names = attachments.map(a => a.name).join(", ");
-        const note = language === "中文"
-          ? `【附件说明】我还上传了这些文件供你参考：${names}`
-          : `[Attachments] I also uploaded these files for you to reference: ${names}`;
-        detailsToSend = details + "\n\n" + note;
-      }
 
       try {
         const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/generate", {
@@ -1158,11 +1166,12 @@
             tone,
             language,
             recipient,
-            details: detailsToSend,
-            attachments   // 后端若支持，可以真正读取这些文件
+            details,
+            attachments, // 把前端收集的附件一起发给 Worker
           })
         });
 
+        // 尝试把后端返回的 JSON 都解析出来
         let data = {};
         try {
           data = await res.json();
@@ -1170,12 +1179,10 @@
           data = {};
         }
 
+        // 后端 500 / 404 等情况，把后端的 error 原文拿出来
         if (!res.ok || !data.ok) {
           const errMsg = (data && data.error) ? String(data.error) : ("HTTP " + res.status);
           console.error("Backend error:", errMsg);
-
-          aiPreviewContent.textContent = "";
-          aiPreviewPlaceholder.style.display = "block";
 
           aiStatusText.textContent = language === "中文"
             ? "后端报错：" + errMsg
@@ -1184,30 +1191,24 @@
         }
 
         if (!data.preview) {
-          aiPreviewContent.textContent = "";
-          aiPreviewPlaceholder.style.display = "block";
-
           aiStatusText.textContent = language === "中文"
             ? "后端没有返回预览内容。"
             : "Backend returned no preview content.";
           return;
         }
 
-        aiPreviewContent.textContent = data.preview;
+        aiPreviewPlaceholder.style.display = "none";
+        aiPreviewBox.textContent = data.preview;
         aiStatusText.textContent = language === "中文"
           ? "预览完成。你可以先在这里修改，再在正式任务台中继续。"
           : "Preview ready. You can adjust it here, then continue inside your Desk.";
       } catch (err) {
         console.error("Frontend error:", err);
-        aiPreviewContent.textContent = "";
-        aiPreviewPlaceholder.style.display = "block";
-
         aiStatusText.textContent = language === "中文"
           ? "前端错误：" + (err && err.message ? err.message : String(err))
           : "Frontend error: " + (err && err.message ? err.message : String(err));
       } finally {
         aiGenerateBtn.disabled = false;
-        aiGenerateBtnTextEl.textContent = originalBtnLabel;
       }
     }
 
@@ -1219,9 +1220,11 @@
     document.getElementById("btnClear").addEventListener("click", () => {
       recipientInput.value = "";
       detailsTextarea.value = "";
-      attachmentInput.value = "";
-      aiPreviewContent.textContent = "";
+      aiPreviewBox.textContent = "";
       aiPreviewPlaceholder.style.display = "block";
+      attachments = [];
+      if (fileInput) fileInput.value = "";
+      renderAttachmentList();
       aiStatusText.textContent = languageSelect.value === "中文"
         ? "系统只会生成约 30% 的预览草稿，不会保存也不会发送。"
         : "System will draft about 30% of the letter as a preview only.";
@@ -1231,10 +1234,10 @@
       if (detailsTextarea.value.trim()) return;
       if (languageSelect.value === "中文") {
         detailsTextarea.value =
-          "我希望向客户解释长期欠款的事实，并提出一个分期还款的方案，同时保持语气平和、尊重，不激化矛盾。";
+          "我在回国旅途中遇到航班大面积延误，导致我无法按时转机并错过后续行程，航空公司只提供了很少的餐食券，也没有给出明确的赔偿方案。";
       } else {
         detailsTextarea.value =
-          "I need to inform my client about the long overdue payment and propose a structured repayment plan, while staying calm and respectful to avoid escalating the conflict.";
+          "During my return trip, my flight was heavily delayed which made me miss my connection and important meetings. The airline only gave a small meal voucher and has not offered a clear compensation plan.";
       }
     });
 
@@ -1276,10 +1279,9 @@
         lblTone: "Tone",
         lblRecipient: "Recipient (optional)",
         lblDetails: "What happened? (you can be brief)",
-        lblAttachments: "Attachments (optional)",
-        lblAttachmentsBadge: "Screenshots, letters, PDFs",
-        attachmentsHint:
-          "Up to 3 files, about 5MB each. The desk will only read the text it can detect for preview.",
+        lblAttachments: "Upload screenshots or letters (optional)",
+        uploadBtn: "Upload files",
+        uploadHint: "Up to 5 files. Images or .txt are best for preview.",
         btnExample: "Paste an example case",
         btnPreview: "Generate preview draft",
         statusDefault:
@@ -1322,10 +1324,9 @@
         lblTone: "语气",
         lblRecipient: "收件方（可选）",
         lblDetails: "简单讲讲发生了什么",
-        lblAttachments: "附件（可选）",
-        lblAttachmentsBadge: "截图、信件、票据 PDF",
-        attachmentsHint:
-          "最多上传 3 个文件，单个约 5MB。系统只会读取能识别到的文字用于预览，不会外传。",
+        lblAttachments: "上传截图或信件（可选）",
+        uploadBtn: "上传附件",
+        uploadHint: "最多 5 个文件，截图 / 照片 / 文本都可以用于预览。",
         btnExample: "粘贴一个示例案例",
         btnPreview: "生成预览草稿",
         statusDefault:
@@ -1375,10 +1376,8 @@
       document.getElementById("lblRecipient").textContent = t.lblRecipient;
       document.getElementById("lblDetails").textContent = t.lblDetails;
       document.getElementById("lblAttachments").textContent = t.lblAttachments;
-      document.getElementById("lblAttachmentsBadge").textContent =
-        t.lblAttachmentsBadge;
-      document.getElementById("attachmentsHint").textContent =
-        t.attachmentsHint;
+      document.getElementById("aiUploadBtnText").textContent = t.uploadBtn;
+      document.getElementById("aiUploadHint").textContent = t.uploadHint;
 
       document.getElementById("btnPasteExampleText").textContent =
         t.btnExample;
@@ -1401,7 +1400,6 @@
       localStorage.setItem("aurum_lang", lang);
     }
 
-    const langButtons = document.querySelectorAll(".lang-btn");
     langButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const lang = btn.dataset.lang || "en";
