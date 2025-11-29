@@ -472,7 +472,7 @@
             <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
             <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
           </div>
-          <button class="primary-btn" onclick="window.location.href='auth.html'">
+          <button class="primary-btn">
             <span class="icon">⭑</span>
             <span id="loginBtnText">Login / My Desk</span>
           </button>
@@ -892,6 +892,41 @@
       window.location.href = mailto;
       contactStatus.textContent = t.statusMailOpened;
     });
+
+    // ============================
+    // 登录状态同步：Aurum Desk 全站通用
+    // ============================
+    (function syncLoginState() {
+      let user = null;
+
+      try {
+        const raw = localStorage.getItem("aurum_user");
+        if (raw) user = JSON.parse(raw);
+      } catch (e) {
+        console.warn("User parse error", e);
+      }
+
+      const loginBtn = document.querySelector(".primary-btn");
+      const loginText = document.getElementById("loginBtnText");
+
+      if (!loginBtn || !loginText) return;
+
+      if (user && user.email) {
+        // 已登录：显示 Hi, Name，并跳转 desk.html
+        const displayName =
+          (user.name && user.name.trim()) ||
+          (user.email && user.email.split("@")[0]) ||
+          "My Desk";
+
+        loginText.textContent = `Hi, ${displayName}`;
+        loginBtn.onclick = () => (window.location.href = "desk.html");
+      } else {
+        // 未登录：回到普通 Login / My Desk
+        loginText.textContent =
+          currentLang === "zh" ? "登录 / 我的任务台" : "Login / My Desk";
+        loginBtn.onclick = () => (window.location.href = "auth.html");
+      }
+    })();
   </script>
 </body>
 </html>
