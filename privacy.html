@@ -19,11 +19,7 @@
   </script>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg-deep: #020617;
       --bg-card: #020617;
@@ -33,8 +29,8 @@
       --gold: #fbbf24;
       --accent-blue: #38bdf8;
       --shadow-strong: 0 32px 120px rgba(0,0,0,0.9);
-      --radius-xl: 24px;
-      --radius-lg: 16px;
+      --radius-xl: 28px;
+      --radius-lg: 18px;
       --radius-pill: 999px;
       --blur-strong: 40px;
     }
@@ -42,8 +38,7 @@
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
         "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
+      background: radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
       color: var(--text-main);
       display: flex;
       justify-content: center;
@@ -55,18 +50,18 @@
       margin: 0 auto;
     }
 
-    /* 顶部导航：和 index / desk / about / contact / terms 统一 */
+    /* 顶部导航 */
     .top-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       padding: 10px 18px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       border-radius: 999px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.9);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.9), rgba(2,6,23,0.96));
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow: 0 14px 40px rgba(15,23,42,0.9);
       backdrop-filter: blur(18px);
       position: sticky;
       top: 10px;
@@ -93,8 +88,8 @@
       align-items: center;
       justify-content: center;
       box-shadow:
-        0 0 0 1px rgba(148, 163, 184, 0.9),
-        0 0 40px rgba(14, 165, 233, 0.8);
+        0 0 0 1px rgba(148,163,184,0.9),
+        0 0 40px rgba(14,165,233,0.8);
     }
     .brand-avatar-inner {
       width: 100%;
@@ -126,7 +121,6 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
-
     .nav-links {
       display: flex;
       align-items: center;
@@ -150,21 +144,25 @@
     }
     .nav-link:hover {
       color: #e5e7eb;
-      border-color: rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9));
+      border-color: rgba(148,163,184,0.6);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(2,6,23,0.9));
     }
-
+    .nav-link--active {
+      color: var(--gold);
+      border-color: rgba(251,191,36,0.8);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.85), rgba(2,6,23,0.95));
+      box-shadow: 0 0 0 1px rgba(251,191,36,0.5);
+    }
     .nav-right {
       display: flex;
       align-items: center;
       gap: 14px;
     }
-
     .lang-toggle {
       display: inline-flex;
       align-items: center;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border: 1px solid rgba(148,163,184,0.6);
       padding: 2px;
       background: radial-gradient(circle at top left,#020617,#020617);
     }
@@ -183,13 +181,12 @@
     .lang-btn.active {
       background: linear-gradient(135deg,#fbbf24,#f97316);
       color: #111827;
-      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.9);
+      box-shadow: 0 0 0 1px rgba(248,250,252,0.9);
     }
-
     .primary-btn {
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
+      border: 1px solid rgba(148,163,184,0.6);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(2,6,23,0.96));
       color: #e5e7eb;
       padding: 6px 14px;
       font-size: 0.8rem;
@@ -199,12 +196,10 @@
       gap: 6px;
       cursor: pointer;
       box-shadow: 0 14px 40px rgba(15,23,42,0.9);
-      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease, color 0.14s ease;
       white-space: nowrap;
     }
-    .primary-btn span.icon {
-      font-size: 0.9rem;
-    }
+    .primary-btn span.icon { font-size: 0.9rem; }
     .primary-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 20px 70px rgba(15,23,42,1);
@@ -213,170 +208,91 @@
     }
 
     @media (max-width: 900px) {
-      .top-nav {
-        border-radius: 18px;
-        padding-inline: 14px;
-      }
+      .top-nav { border-radius: 18px; padding-inline: 14px; }
     }
     @media (max-width: 720px) {
-      body {
-        padding: 18px 8px 32px;
-      }
-      .nav-main-links {
-        display: none; /* 小屏只保留语言 + 登录 */
-      }
+      body { padding: 18px 8px 32px; }
+      .nav-main-links { display: none; }
     }
 
-    /* 主体卡片 */
-    .privacy-card {
-      margin-top: 6px;
+    /* 内容卡片 */
+    .policy-card {
       border-radius: var(--radius-xl);
       background:
-        radial-gradient(circle at top left, rgba(59, 130, 246, 0.16) 0%, transparent 60%),
-        radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.06) 0%, transparent 55%),
-        rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(15, 23, 42, 0.95);
+        radial-gradient(circle at top left, rgba(56,189,248,0.16) 0%, transparent 60%),
+        radial-gradient(circle at bottom right, rgba(251,191,36,0.12) 0%, transparent 55%),
+        rgba(15,23,42,0.97);
+      border: 1px solid rgba(15,23,42,0.96);
       box-shadow: var(--shadow-strong);
-      padding: 22px 22px 26px;
+      padding: 26px 24px 28px;
       backdrop-filter: blur(var(--blur-strong));
     }
-
-    .privacy-header-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-bottom: 8px;
-    }
-    .privacy-pill-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 0%, #22c55e, #16a34a);
-      box-shadow: 0 0 0 4px rgba(34,197,94,0.16);
-    }
-    .privacy-title {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      margin-bottom: 6px;
-    }
-    .privacy-subtitle {
-      font-size: 13px;
-      color: var(--text-soft);
-      max-width: 720px;
-      margin-bottom: 14px;
-    }
-
-    .privacy-meta-note {
-      font-size: 11px;
-      color: rgba(148,163,184,0.9);
-      border-radius: 12px;
-      border: 1px dashed rgba(148,163,184,0.7);
-      padding: 8px 10px;
-      background: radial-gradient(circle at top left,rgba(15,23,42,0.98),rgba(15,23,42,1));
+    .policy-heading-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
       margin-bottom: 18px;
-      line-height: 1.6;
     }
-
-    .privacy-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
-      gap: 18px;
-      align-items: flex-start;
+    .policy-title {
+      font-size: 24px;
+      font-weight: 650;
+      letter-spacing: 0.03em;
     }
-    @media (max-width: 900px) {
-      .privacy-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .privacy-section {
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148,163,184,0.6);
-      padding: 12px 13px 12px;
-      background:
-        radial-gradient(circle at top left,#020617,#020617);
-      font-size: 12px;
-      line-height: 1.7;
-      color: var(--text-soft);
-      margin-bottom: 10px;
-    }
-    .privacy-section-title {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #e5e7eb;
-    }
-    .privacy-section p + p {
-      margin-top: 6px;
-    }
-    .privacy-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 6px 0 0;
-      display: grid;
-      gap: 4px;
-    }
-    .privacy-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      font-size: 12px;
-    }
-    .privacy-bullet {
-      width: 6px;
-      height: 6px;
+    .policy-tag {
+      font-size: 11px;
+      padding: 3px 10px;
       border-radius: 999px;
-      margin-top: 6px;
-      background: radial-gradient(circle at 30% 0%, #38bdf8,#0ea5e9);
+      border: 1px solid rgba(148,163,184,0.7);
+      color: var(--text-soft);
+      background: rgba(15,23,42,0.98);
+    }
+    .policy-intro {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .policy-updated {
+      font-size: 11px;
+      color: rgba(148,163,184,0.9);
+      margin-bottom: 16px;
     }
 
-    .privacy-side-card {
+    .policy-section {
       border-radius: var(--radius-lg);
-      border: 1px dashed rgba(148,163,184,0.7);
-      padding: 12px 13px;
-      background:
-        radial-gradient(circle at top right, rgba(56,189,248,0.16), transparent 55%),
-        rgba(15,23,42,0.98);
-      font-size: 11px;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: radial-gradient(circle at top left,#020617,#020617);
+      padding: 12px 13px 10px;
+      margin-bottom: 12px;
+    }
+    .policy-section-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .policy-section-body {
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+    .policy-list {
+      margin-top: 6px;
+      padding-left: 16px;
+      font-size: 12px;
       color: var(--text-soft);
       line-height: 1.6;
     }
-    .privacy-side-title {
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #e5e7eb;
-    }
-    .privacy-side-small {
-      font-size: 10px;
-      color: rgba(148,163,184,0.95);
-      margin-bottom: 8px;
-    }
-    .privacy-side-list {
-      list-style: none;
-      padding: 0;
-      display: grid;
-      gap: 4px;
-    }
-    .privacy-side-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-    }
-    .privacy-side-bullet {
-      font-size: 11px;
-      color: var(--gold);
-      margin-top: 1px;
-    }
+    .policy-list li { margin-bottom: 4px; }
 
-    .privacy-footer-note {
-      margin-top: 16px;
+    .policy-footer-note {
+      margin-top: 14px;
       font-size: 11px;
       color: rgba(148,163,184,0.9);
       line-height: 1.6;
+      border-top: 1px dashed rgba(55,65,81,0.9);
+      padding-top: 10px;
     }
   </style>
 </head>
@@ -401,14 +317,14 @@
           <a href="index.html" class="nav-link" id="navHome">Home</a>
           <a href="desk.html" class="nav-link" id="navDesk">Desk</a>
           <a href="about.html" class="nav-link" id="navAbout">About</a>
-          <a href="contact.html" class="nav-link" id="navContact">Contact</a>
+          <a href="index.html#contact" class="nav-link" id="navContact">Contact</a>
         </div>
         <div class="nav-right">
           <div class="lang-toggle">
             <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
             <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
           </div>
-          <button class="primary-btn" onclick="window.location.href='auth.html'">
+          <button class="primary-btn">
             <span class="icon">⭑</span>
             <span id="loginBtnText">Login / My Desk</span>
           </button>
@@ -416,297 +332,146 @@
       </nav>
     </header>
 
-    <!-- 隐私政策主体 -->
-    <main class="privacy-card">
-      <div class="privacy-header-pill">
-        <span class="privacy-pill-dot"></span>
-        <span id="privacyPillText">Privacy policy</span>
+    <!-- 隐私政策内容 -->
+    <main class="policy-card">
+      <div class="policy-heading-row">
+        <h1 class="policy-title" id="policyTitle">Privacy Policy</h1>
+        <span class="policy-tag" id="policyTag">How your words are handled</span>
       </div>
-      <h1 class="privacy-title" id="privacyTitle">
-        Aurum Task Desk — privacy policy
-      </h1>
-      <p class="privacy-subtitle" id="privacySubtitle">
-        This policy explains, in plain language, how Aurum Task Desk (“the desk”, “we”, “us”)
-        handles information when you visit the site, use the Desk, or contact the team.
+      <p class="policy-intro" id="policyIntro">
+        This page explains how Aurum Task Desk handles the information you share when you use the desk,
+        including preview drafts, full letters and basic account data.
       </p>
+      <p class="policy-updated" id="policyUpdated">Last updated: 2025-11-01</p>
 
-      <div class="privacy-meta-note" id="privacyMetaNote">
-        This is a transparency page aimed at older, non-technical users. It is not a contract or
-        legal advice, but it does describe how the service is intended to behave in practice.
-      </div>
-
-      <section class="privacy-grid">
-        <!-- 左侧：主要条款区块 -->
-        <div>
-          <article class="privacy-section">
-            <h2 class="privacy-section-title" id="sec1Title">1. What this desk is (and is not)</h2>
-            <p id="sec1P1">
-              Aurum Task Desk is a private AI-assisted writing service for serious letters. You type
-              in a situation, the desk helps you structure and draft a letter. We do not run social
-              feeds, do not sell advertisement space, and do not sell your letters as “content”.
-            </p>
-            <p id="sec1P2">
-              The service uses external infrastructure (such as hosting, email and payment
-              providers, and AI model providers) to function, but the desk is designed around a
-              low-drama, low-exposure mindset.
-            </p>
-          </article>
-
-          <article class="privacy-section">
-            <h2 class="privacy-section-title" id="sec2Title">2. Information you type into the Desk</h2>
-            <p id="sec2P1">
-              When you use the Desk to generate a draft, the text you type into the form (for
-              example, what happened, timeline, people involved) is sent to our backend worker and
-              to one or more AI model providers so a draft letter can be generated.
-            </p>
-            <ul class="privacy-list">
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec2L1">
-                  We use this information only to process your request and improve the immediate
-                  quality of that draft.
-                </span>
-              </li>
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec2L2">
-                  We do not publish your drafts or use them as marketing material without your
-                  explicit consent.
-                </span>
-              </li>
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec2L3">
-                  You are encouraged to remove full card numbers, passwords and similar secrets
-                  from the text, or add those later in your own document before sending.
-                </span>
-              </li>
-            </ul>
-          </article>
-
-          <article class="privacy-section">
-            <h2 class="privacy-section-title" id="sec3Title">3. Accounts, login, and support</h2>
-            <p id="sec3P1">
-              Some parts of the Desk may allow or require you to create an account (for example, to
-              view order history or manage access to multiple letters).
-            </p>
-            <ul class="privacy-list">
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec3L1">
-                  If you register, we store only the minimum account data needed (such as email,
-                  login records and basic preferences) to keep your access stable and secure.
-                </span>
-              </li>
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec3L2">
-                  When you write to support (for example, via support@aurumdesks.com), your email
-                  and any attachments will be stored in the support inbox so we can respond.
-                </span>
-              </li>
-            </ul>
-          </article>
-
-          <article class="privacy-section">
-            <h2 class="privacy-section-title" id="sec4Title">4. Payments and billing information</h2>
-            <p id="sec4P1">
-              When you pay for a letter, task pack or subscription, your payment is handled by a
-              third-party payment provider. This may include online payment platforms or card
-              processors.
-            </p>
-            <ul class="privacy-list">
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec4L1">
-                  The Desk itself does not see or store your full card number or bank password. That
-                  information is handled by the payment provider.
-                </span>
-              </li>
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec4L2">
-                  We may receive limited billing information such as transaction IDs, amounts,
-                  currency, and status (success / failed / refunded) to keep records and provide
-                  support.
-                </span>
-              </li>
-            </ul>
-          </article>
-
-          <article class="privacy-section">
-            <h2 class="privacy-section-title" id="sec5Title">5. Logs, cookies and analytics</h2>
-            <p id="sec5P1">
-              Like most websites, the Desk keeps basic technical logs to keep the service secure and
-              stable. These may include your IP address, browser type, and timestamps of requests.
-            </p>
-            <p id="sec5P2">
-              The site may also use analytics tools (for example, Google Analytics) to understand
-              which pages are visited and how often people successfully complete a task. These tools
-              typically set cookies in your browser.
-            </p>
-            <ul class="privacy-list">
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec5L1">
-                  Analytics are used in aggregate form to improve the Desk (for example, spotting a
-                  page where many people get stuck).
-                </span>
-              </li>
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec5L2">
-                  We do not use analytics to build “interest profiles” for advertising on other
-                  websites.
-                </span>
-              </li>
-            </ul>
-          </article>
-
-          <article class="privacy-section">
-            <h2 class="privacy-section-title" id="sec6Title">6. How long information is kept</h2>
-            <p id="sec6P1">
-              Different types of information are kept for different lengths of time, depending on
-              why they exist:
-            </p>
-            <ul class="privacy-list">
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec6L1">
-                  Technical logs are usually kept for a limited period (for example, weeks or a few
-                  months) to investigate abuse and maintain security.
-                </span>
-              </li>
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec6L2">
-                  Basic billing records may be kept longer where law or accounting rules require
-                  it.
-                </span>
-              </li>
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec6L3">
-                  Support emails are kept as part of the support history so we can follow up on
-                  previous issues, unless you specifically request deletion where law allows.
-                </span>
-              </li>
-            </ul>
-          </article>
-
-          <article class="privacy-section">
-            <h2 class="privacy-section-title" id="sec7Title">7. Where data may be processed</h2>
-            <p id="sec7P1">
-              Because the Desk uses international infrastructure (hosting, AI models, payment
-              processors, email services), your information may be processed in countries other than
-              your own.
-            </p>
-            <p id="sec7P2">
-              We aim to work only with providers who have a reasonable reputation for security and
-              compliance. However, the exact legal protections available to you may depend on your
-              country and the provider’s location.
-            </p>
-          </article>
-
-          <article class="privacy-section">
-            <h2 class="privacy-section-title" id="sec8Title">8. Your choices and rights</h2>
-            <p id="sec8P1">
-              Depending on where you live, you may have legal rights to access, correct, or delete
-              certain information about you, or to object to certain uses.
-            </p>
-            <ul class="privacy-list">
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec8L1">
-                  You can choose how much detail to include in prompts. You can also keep your own
-                  copies of drafts on your devices and delete any local browser data.
-                </span>
-              </li>
-              <li>
-                <span class="privacy-bullet"></span>
-                <span id="sec8L2">
-                  If you wish to exercise a data right (for example, ask what data we hold that is
-                  linked to your email), you can write to support@aurumdesks.com. We may ask you to
-                  verify your identity before responding.
-                </span>
-              </li>
-            </ul>
-          </article>
-
-          <article class="privacy-section">
-            <h2 class="privacy-section-title" id="sec9Title">9. Changes to this policy</h2>
-            <p id="sec9P1">
-              The Desk may update this privacy policy from time to time as the service, technology
-              or law changes. The updated version will be posted on this page with a revised date.
-            </p>
-            <p id="sec9P2">
-              If a change seems significant for ordinary users, we will aim to highlight it in a
-              short note or banner rather than hiding it in small print.
-            </p>
-          </article>
-        </div>
-
-        <!-- 右侧：简明提示 -->
-        <aside class="privacy-side-card">
-          <h2 class="privacy-side-title" id="sideTitle">
-            Plain-language summary
-          </h2>
-          <div class="privacy-side-small" id="sideSmall">
-            For older professionals who dislike drama, here is the short version of how privacy
-            works here:
-          </div>
-          <ul class="privacy-side-list">
-            <li>
-              <span class="privacy-side-bullet">●</span>
-              <span id="sideL1">
-                You type a situation; the Desk and its AI providers use it to generate a draft
-                letter. We are not in the business of selling your letters as “content”.
-              </span>
+      <section class="policy-section">
+        <h2 class="policy-section-title" id="sec1Title">1. What we collect</h2>
+        <div class="policy-section-body" id="sec1Body">
+          <ul class="policy-list" id="sec1List">
+            <li id="sec1Item1">
+              Basic account data such as email address, language preference and approximate region
+              (from your browser or payment provider).
             </li>
-            <li>
-              <span class="privacy-side-bullet">●</span>
-              <span id="sideL2">
-                Payments go through outside payment platforms. They see your card details; we
-                mostly see the result and receipts.
-              </span>
+            <li id="sec1Item2">
+              The text you type into the desk when describing your situation and the letter you want to generate.
             </li>
-            <li>
-              <span class="privacy-side-bullet">●</span>
-              <span id="sideL3">
-                Analytics are used to see which pages work, not to follow you around the internet
-                with ads.
-              </span>
-            </li>
-            <li>
-              <span class="privacy-side-bullet">●</span>
-              <span id="sideL4">
-                If you are worried or want to know what data is linked to your email, you can
-                calmly write to the support inbox and ask.
-              </span>
+            <li id="sec1Item3">
+              Technical logs such as browser type, IP address range and error messages, to keep the desk secure and stable.
             </li>
           </ul>
-        </aside>
+        </div>
       </section>
 
-      <div class="privacy-footer-note" id="footerNote">
-        Last updated: 2025. This page is meant to be readable, not intimidating. If there is a
-        conflict between this summary and any mandatory local law, the local law will override
-        where required.
-      </div>
+      <section class="policy-section">
+        <h2 class="policy-section-title" id="sec2Title">2. How your letter text is used</h2>
+        <div class="policy-section-body" id="sec2Body">
+          <p id="sec2P1">
+            Your letter text is used only to prepare and generate drafts for you. It is processed by the private
+            AI backend that powers Aurum Task Desk.
+          </p>
+          <ul class="policy-list" id="sec2List">
+            <li id="sec2Item1">
+              Your letter text is not sold to data brokers, ad networks or marketing companies.
+            </li>
+            <li id="sec2Item2">
+              We do not publish your letters as examples without your explicit consent.
+            </li>
+            <li id="sec2Item3">
+              We may keep short, anonymised snippets to improve the quality and safety of the desk, but these
+              are detached from your identity.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="policy-section">
+        <h2 class="policy-section-title" id="sec3Title">3. Cookies and local storage</h2>
+        <div class="policy-section-body" id="sec3Body">
+          <ul class="policy-list" id="sec3List">
+            <li id="sec3Item1">
+              A small cookie or local storage entry may be used to keep you logged in and remember your language choice.
+            </li>
+            <li id="sec3Item2">
+              You can clear these at any time in your browser settings; if you do, you may need to log in again.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="policy-section">
+        <h2 class="policy-section-title" id="sec4Title">4. Third-party services</h2>
+        <div class="policy-section-body" id="sec4Body">
+          <ul class="policy-list" id="sec4List">
+            <li id="sec4Item1">
+              Payments are processed by third-party payment providers (for example, Paddle or similar services).
+              They receive only the information needed to complete the transaction.
+            </li>
+            <li id="sec4Item2">
+              Basic analytics (such as Google Analytics) may be used to understand which pages are visited,
+              so we can improve the desk for older professionals.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="policy-section">
+        <h2 class="policy-section-title" id="sec5Title">5. Data retention</h2>
+        <div class="policy-section-body" id="sec5Body">
+          <ul class="policy-list" id="sec5List">
+            <li id="sec5Item1">
+              Account data is kept for as long as your account is active or as required by law and accounting rules.
+            </li>
+            <li id="sec5Item2">
+              Letter content may be kept for a limited period to help you recover drafts or resolve disputes,
+              after which it may be deleted or anonymised.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="policy-section">
+        <h2 class="policy-section-title" id="sec6Title">6. Your choices</h2>
+        <div class="policy-section-body" id="sec6Body">
+          <ul class="policy-list" id="sec6List">
+            <li id="sec6Item1">
+              You can ask us to delete your account and associated letter history, subject to legal retention duties.
+            </li>
+            <li id="sec6Item2">
+              You can choose not to create an account and use only preview mode, understanding that your drafts may
+              not be stored permanently.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="policy-section">
+        <h2 class="policy-section-title" id="sec7Title">7. Contact</h2>
+        <div class="policy-section-body" id="sec7Body">
+          <p id="sec7P1">
+            If you have questions about this policy or how Aurum Task Desk handles your information,
+            you can reach the desk owner using the contact form on the main website.
+          </p>
+        </div>
+      </section>
+
+      <p class="policy-footer-note" id="policyFooterNote">
+        This privacy policy is written for clarity rather than legal jargon, so older professionals can quickly see
+        how their words are treated. If local law requires a more detailed version, that document will prevail.
+      </p>
     </main>
   </div>
 
   <script>
-    // ===== 语言 & 文案 =====
     const langButtons = document.querySelectorAll(".lang-btn");
+    const loginBtnTextEl = document.getElementById("loginBtnText");
     const brandSubText = document.getElementById("brandSubText");
     const navHome = document.getElementById("navHome");
     const navDesk = document.getElementById("navDesk");
     const navAbout = document.getElementById("navAbout");
     const navContact = document.getElementById("navContact");
-    const loginBtnTextEl = document.getElementById("loginBtnText");
 
     let currentLang = "en";
+    let currentUser = null;
 
     const i18n = {
       en: {
@@ -717,99 +482,60 @@
         navContact: "Contact",
         loginBtn: "Login / My Desk",
 
-        privacyPill: "Privacy policy",
-        privacyTitle: "Aurum Task Desk — privacy policy",
-        privacySubtitle:
-          "This policy explains, in plain language, how Aurum Task Desk (“the desk”, “we”, “us”) handles information when you visit the site, use the Desk, or contact the team.",
-        privacyMetaNote:
-          "This is a transparency page aimed at older, non-technical users. It is not a contract or legal advice, but it does describe how the service is intended to behave in practice.",
+        policyTitle: "Privacy Policy",
+        policyTag: "How your words are handled",
+        policyIntro:
+          "This page explains how Aurum Task Desk handles the information you share when you use the desk, including preview drafts, full letters and basic account data.",
+        policyUpdated: "Last updated: 2025-11-01",
 
-        sec1Title: "1. What this desk is (and is not)",
-        sec1P1:
-          "Aurum Task Desk is a private AI-assisted writing service for serious letters. You type in a situation, the desk helps you structure and draft a letter. We do not run social feeds, do not sell advertisement space, and do not sell your letters as “content”.",
-        sec1P2:
-          "The service uses external infrastructure (such as hosting, email and payment providers, and AI model providers) to function, but the desk is designed around a low-drama, low-exposure mindset.",
+        sec1Title: "1. What we collect",
+        sec1Item1:
+          "Basic account data such as email address, language preference and approximate region (from your browser or payment provider).",
+        sec1Item2:
+          "The text you type into the desk when describing your situation and the letter you want to generate.",
+        sec1Item3:
+          "Technical logs such as browser type, IP address range and error messages, to keep the desk secure and stable.",
 
-        sec2Title: "2. Information you type into the Desk",
+        sec2Title: "2. How your letter text is used",
         sec2P1:
-          "When you use the Desk to generate a draft, the text you type into the form (for example, what happened, timeline, people involved) is sent to our backend worker and to one or more AI model providers so a draft letter can be generated.",
-        sec2L1:
-          "We use this information only to process your request and improve the immediate quality of that draft.",
-        sec2L2:
-          "We do not publish your drafts or use them as marketing material without your explicit consent.",
-        sec2L3:
-          "You are encouraged to remove full card numbers, passwords and similar secrets from the text, or add those later in your own document before sending.",
+          "Your letter text is used only to prepare and generate drafts for you. It is processed by the private AI backend that powers Aurum Task Desk.",
+        sec2Item1:
+          "Your letter text is not sold to data brokers, ad networks or marketing companies.",
+        sec2Item2:
+          "We do not publish your letters as examples without your explicit consent.",
+        sec2Item3:
+          "We may keep short, anonymised snippets to improve the quality and safety of the desk, but these are detached from your identity.",
 
-        sec3Title: "3. Accounts, login, and support",
-        sec3P1:
-          "Some parts of the Desk may allow or require you to create an account (for example, to view order history or manage access to multiple letters).",
-        sec3L1:
-          "If you register, we store only the minimum account data needed (such as email, login records and basic preferences) to keep your access stable and secure.",
-        sec3L2:
-          "When you write to support (for example, via support@aurumdesks.com), your email and any attachments will be stored in the support inbox so we can respond.",
+        sec3Title: "3. Cookies and local storage",
+        sec3Item1:
+          "A small cookie or local storage entry may be used to keep you logged in and remember your language choice.",
+        sec3Item2:
+          "You can clear these at any time in your browser settings; if you do, you may need to log in again.",
 
-        sec4Title: "4. Payments and billing information",
-        sec4P1:
-          "When you pay for a letter, task pack or subscription, your payment is handled by a third-party payment provider. This may include online payment platforms or card processors.",
-        sec4L1:
-          "The Desk itself does not see or store your full card number or bank password. That information is handled by the payment provider.",
-        sec4L2:
-          "We may receive limited billing information such as transaction IDs, amounts, currency, and status (success / failed / refunded) to keep records and provide support.",
+        sec4Title: "4. Third-party services",
+        sec4Item1:
+          "Payments are processed by third-party payment providers (for example, Paddle or similar services). They receive only the information needed to complete the transaction.",
+        sec4Item2:
+          "Basic analytics (such as Google Analytics) may be used to understand which pages are visited, so we can improve the desk for older professionals.",
 
-        sec5Title: "5. Logs, cookies and analytics",
-        sec5P1:
-          "Like most websites, the Desk keeps basic technical logs to keep the service secure and stable. These may include your IP address, browser type, and timestamps of requests.",
-        sec5P2:
-          "The site may also use analytics tools (for example, Google Analytics) to understand which pages are visited and how often people successfully complete a task. These tools typically set cookies in your browser.",
-        sec5L1:
-          "Analytics are used in aggregate form to improve the Desk (for example, spotting a page where many people get stuck).",
-        sec5L2:
-          "We do not use analytics to build “interest profiles” for advertising on other websites.",
+        sec5Title: "5. Data retention",
+        sec5Item1:
+          "Account data is kept for as long as your account is active or as required by law and accounting rules.",
+        sec5Item2:
+          "Letter content may be kept for a limited period to help you recover drafts or resolve disputes, after which it may be deleted or anonymised.",
 
-        sec6Title: "6. How long information is kept",
-        sec6P1:
-          "Different types of information are kept for different lengths of time, depending on why they exist:",
-        sec6L1:
-          "Technical logs are usually kept for a limited period (for example, weeks or a few months) to investigate abuse and maintain security.",
-        sec6L2:
-          "Basic billing records may be kept longer where law or accounting rules require it.",
-        sec6L3:
-          "Support emails are kept as part of the support history so we can follow up on previous issues, unless you specifically request deletion where law allows.",
+        sec6Title: "6. Your choices",
+        sec6Item1:
+          "You can ask us to delete your account and associated letter history, subject to legal retention duties.",
+        sec6Item2:
+          "You can choose not to create an account and use only preview mode, understanding that your drafts may not be stored permanently.",
 
-        sec7Title: "7. Where data may be processed",
+        sec7Title: "7. Contact",
         sec7P1:
-          "Because the Desk uses international infrastructure (hosting, AI models, payment processors, email services), your information may be processed in countries other than your own.",
-        sec7P2:
-          "We aim to work only with providers who have a reasonable reputation for security and compliance. However, the exact legal protections available to you may depend on your country and the provider’s location.",
+          "If you have questions about this policy or how Aurum Task Desk handles your information, you can reach the desk owner using the contact form on the main website.",
 
-        sec8Title: "8. Your choices and rights",
-        sec8P1:
-          "Depending on where you live, you may have legal rights to access, correct, or delete certain information about you, or to object to certain uses.",
-        sec8L1:
-          "You can choose how much detail to include in prompts. You can also keep your own copies of drafts on your devices and delete any local browser data.",
-        sec8L2:
-          "If you wish to exercise a data right (for example, ask what data we hold that is linked to your email), you can write to support@aurumdesks.com. We may ask you to verify your identity before responding.",
-
-        sec9Title: "9. Changes to this policy",
-        sec9P1:
-          "The Desk may update this privacy policy from time to time as the service, technology or law changes. The updated version will be posted on this page with a revised date.",
-        sec9P2:
-          "If a change seems significant for ordinary users, we will aim to highlight it in a short note or banner rather than hiding it in small print.",
-
-        sideTitle: "Plain-language summary",
-        sideSmall:
-          "For older professionals who dislike drama, here is the short version of how privacy works here:",
-        sideL1:
-          "You type a situation; the Desk and its AI providers use it to generate a draft letter. We are not in the business of selling your letters as “content”.",
-        sideL2:
-          "Payments go through outside payment platforms. They see your card details; we mostly see the result and receipts.",
-        sideL3:
-          "Analytics are used to see which pages work, not to follow you around the internet with ads.",
-        sideL4:
-          "If you are worried or want to know what data is linked to your email, you can calmly write to the support inbox and ask.",
-
-        footerNote:
-          "Last updated: 2025. This page is meant to be readable, not intimidating. If there is a conflict between this summary and any mandatory local law, the local law will override where required."
+        policyFooterNote:
+          "This privacy policy is written for clarity rather than legal jargon, so older professionals can quickly see how their words are treated. If local law requires a more detailed version, that document will prevail."
       },
       zh: {
         brandSub: "安静而专业的写作与申诉任务台",
@@ -817,101 +543,62 @@
         navDesk: "Desk 任务台",
         navAbout: "关于我们",
         navContact: "联系我们",
-        loginBtn: "登录 / 我的任务台",
+        loginBtn: "登录 / 我的 Desk",
 
-        privacyPill: "隐私政策",
-        privacyTitle: "Aurum Task Desk — 隐私政策",
-        privacySubtitle:
-          "本页面用通俗语言说明：当你访问本网站、使用任务台或联系团队时，Aurum Task Desk（下称“本任务台”、“我们”）如何处理与你有关的信息。",
-        privacyMetaNote:
-          "这是一份面向不太爱折腾技术细节用户的“说明书”，不是律师文件，也不构成法律意见，但会尽量说明我们实际打算如何做。",
+        policyTitle: "隐私政策",
+        policyTag: "你的文字如何被处理",
+        policyIntro:
+          "本页面说明你在使用 Aurum Task Desk 时，我们如何处理你提供的信息，包括预览草稿、完整信件以及基础账号数据。",
+        policyUpdated: "最近更新日期：2025-11-01",
 
-        sec1Title: "1. 这个任务台是什么（以及不是什么）",
-        sec1P1:
-          "Aurum Task Desk 是一个帮助你处理严肃信件的、带 AI 辅助的私人写作服务。你把情况、时间线、诉求大致写出来，任务台帮你整理思路、起草信件。我们不做社交媒体，也不会把你的信件当作“内容”拿去售卖。",
-        sec1P2:
-          "为了运行服务，本任务台会使用外部基础设施（例如服务器托管、邮件服务、支付平台、AI 模型提供方等），但整体思路是尽量减少戏剧性和暴露感。",
+        sec1Title: "1. 我们收集哪些信息",
+        sec1Item1:
+          "基础账号信息，例如邮箱地址、语言偏好以及大致所在地区（来自浏览器或付款服务商提供的信息）。",
+        sec1Item2:
+          "你在任务台中输入的文字，包括对事件的描述以及希望生成的信件内容。",
+        sec1Item3:
+          "技术日志信息，例如浏览器类型、IP 地址范围、报错信息等，用于保障系统安全与稳定。",
 
-        sec2Title: "2. 你在任务台中输入的文字",
+        sec2Title: "2. 你的信件内容如何被使用",
         sec2P1:
-          "当你在任务台中输入情况说明并请求生成草稿时，你填写的文字（例如发生了什么、时间、相关人员等）会被发送到我们的后端，以及一个或多个 AI 模型提供方，用于生成草稿信件。",
-        sec2L1:
-          "这些信息仅用于处理本次请求，提高当下这一封草稿的质量。",
-        sec2L2:
-          "未经你明确同意，我们不会公开发布你的信件内容，也不会把它们用作公开营销材料。",
-        sec2L3:
-          "我们建议你在输入时尽量不要写完整银行卡号、密码等极度敏感信息，如确有需要，可以在本地文档中自行补充后再寄给第三方。",
+          "你的信件内容仅用于为你准备和生成草稿，由支持 Aurum Task Desk 的私有后端 AI 处理。",
+        sec2Item1:
+          "你的信件不会被出售给数据中介、广告网络或营销公司。",
+        sec2Item2:
+          "未经你明确同意，我们不会把你的信件对外作为示例展示。",
+        sec2Item3:
+          "我们可能保留少量已匿名化的片段，用于提升工具质量与安全性，但这些片段不会附着你的身份信息。",
 
-        sec3Title: "3. 账号、登录与客服沟通",
-        sec3P1:
-          "任务台的部分功能可能允许或要求你创建账号（例如查看历史订单、在一定时间内管理多封信件等）。",
-        sec3L1:
-          "如你注册账号，我们仅保存维持账号运行所需的最基本信息（例如邮箱、登录记录、基础偏好），用于保障访问稳定与安全。",
-        sec3L2:
-          "当你写邮件到客服邮箱（例如 support@aurumdesks.com）时，你的邮箱地址和附件会存储在客服邮箱中，以便我们回复和追踪问题。",
+        sec3Title: "3. Cookies 与本地存储",
+        sec3Item1:
+          "我们可能使用 Cookie 或本地存储来保持你的登录状态，并记住你的语言选择。",
+        sec3Item2:
+          "你可以随时在浏览器中清除这些数据，但清除后可能需要重新登录。",
 
-        sec4Title: "4. 付款与账单信息",
-        sec4P1:
-          "当你为单封信件、任务包或订阅付费时，付款由第三方支付服务处理，例如线上支付平台或银行卡处理机构。",
-        sec4L1:
-          "本任务台本身不会看到或存储你的完整卡号、网银密码等，这类信息由支付服务处理。",
-        sec4L2:
-          "我们可能会收到有限的账单信息，例如交易编号、金额、币种和状态（成功 / 失败 / 退款等），用于记账与售后支持。",
+        sec4Title: "4. 第三方服务",
+        sec4Item1:
+          "付款由第三方支付服务商处理（例如 Paddle 或类似服务），他们只会收到完成交易所必需的信息。",
+        sec4Item2:
+          "我们可能使用基础统计工具（如 Google Analytics）了解哪些页面被访问，以便为成熟用户优化体验。",
 
-        sec5Title: "5. 日志、Cookie 与统计分析",
-        sec5P1:
-          "和大部分网站类似，为了保障安全与稳定，本任务台会保留基本的技术日志，例如 IP 地址、浏览器类型、访问时间等。",
-        sec5P2:
-          "站点也可能使用分析工具（例如 Google Analytics），以了解哪些页面被访问、用户在什么地方容易卡住。这些工具通常会在你的浏览器中设置 Cookie。",
-        sec5L1:
-          "我们以汇总形式使用这些统计数据，目的是改进任务台体验（例如发现某个页面很多人中途退出）。",
-        sec5L2:
-          "我们不会用这些统计数据给你建立“广告兴趣画像”，也不会用来在其他网站上追踪、投放广告。",
+        sec5Title: "5. 数据保存期限",
+        sec5Item1:
+          "账号数据会在你的账号处于激活状态期间保存，或根据法律与财务要求保存相应时长。",
+        sec5Item2:
+          "信件内容可能会在有限时间内被保存，以方便你找回草稿或处理纠纷，之后将被删除或匿名化。",
 
-        sec6Title: "6. 信息大概会保存多久",
-        sec6P1:
-          "不同类型的信息，根据存在的原因，保留时间也不同：",
-        sec6L1:
-          "技术日志通常只保留有限时间（例如几周到几个月），方便调查滥用行为和维护安全。",
-        sec6L2:
-          "与法律或财务记账相关的基础账单记录，可能按当地法规要求保留更长时间。",
-        sec6L3:
-          "客服邮件属于沟通历史的一部分，通常会保留，以便后续跟进；如果在法律允许范围内，你希望删除和你相关的记录，可以邮件联系我们提出申请。",
+        sec6Title: "6. 你的选择",
+        sec6Item1:
+          "在符合法律要求的前提下，你可以要求我们删除你的账号以及相关信件记录。",
+        sec6Item2:
+          "你也可以选择不注册账号，只使用预览模式，但需要理解预览草稿可能不会被长期保存。",
 
-        sec7Title: "7. 数据可能在哪些国家被处理",
+        sec7Title: "7. 联系方式",
         sec7P1:
-          "由于本任务台使用的是国际化基础设施（服务器托管、AI 模型、支付服务、邮箱等），你的信息可能会在你所在国家 / 地区以外被处理。",
-        sec7P2:
-          "我们会尽量选择在安全与合规方面有一定信誉的服务商。但你能享有的具体法律保护，也会受到你所在国家以及服务商所在地法律的影响。",
+          "如你对本隐私政策或 Aurum Task Desk 如何处理你的信息有任何疑问，可以通过主站的联系表单与站长取得联系。",
 
-        sec8Title: "8. 你的选择与可能拥有的权利",
-        sec8P1:
-          "根据你所在的国家 / 地区，你可能在法律上享有访问、更正、删除部分个人信息，或反对某些用途等权利。",
-        sec8L1:
-          "你可以自行决定在输入框中写多少细节，也可以把生成的草稿保存在自己的设备上，并清理浏览器中的本地数据。",
-        sec8L2:
-          "如果你希望行使数据相关权利（例如想知道和你邮箱相关的记录有哪些），可以发邮件到 support@aurumdesks.com。出于安全考虑，我们可能会先核实你的身份。",
-
-        sec9Title: "9. 本政策的更新",
-        sec9P1:
-          "随着服务模式、技术或法律环境的变化，本任务台可能会不时更新本隐私政策。最新版本会发布在本页面，并附上更新日期。",
-        sec9P2:
-          "如果某次改动对普通用户影响较大，我们会尽量用简短提示或醒目的方式说明，而不是把重要内容藏在小字里。",
-
-        sideTitle: "一句话说明",
-        sideSmall:
-          "给不爱折腾隐私条款的你，一个更简短的版本：",
-        sideL1:
-          "你把情况写进任务台，任务台和 AI 提供方用它来生成一封信；我们不打算靠贩卖你的信件赚钱。",
-        sideL2:
-          "付款通过外部支付平台完成，它们看到的是你的卡信息，我们主要看到结果和收据。",
-        sideL3:
-          "网站用统计数据看哪里需要改进，而不是跟着你到处投广告。",
-        sideL4:
-          "如果你担心，或者想知道和你邮箱相关的数据，可以冷静写信到客服邮箱询问。",
-
-        footerNote:
-          "最近更新：2025 年。本页面的目标是“能看懂”，而不是“吓人”。如果其中内容与当地强制性法律条款有冲突，以当地法律为准。"
+        policyFooterNote:
+          "本隐私政策尽量用清晰、易理解的语言撰写，方便成熟用户快速了解自己的文字如何被对待。如当地法律要求更正式版本，以该正式文本为准。"
       }
     };
 
@@ -919,83 +606,58 @@
       const t = i18n[lang] || i18n.en;
       currentLang = lang;
 
-      // 顶部导航
       brandSubText.textContent = t.brandSub;
       navHome.textContent = t.navHome;
       navDesk.textContent = t.navDesk;
       navAbout.textContent = t.navAbout;
       navContact.textContent = t.navContact;
-      loginBtnTextEl.textContent = t.loginBtn;
 
-      // 主体文案
-      document.getElementById("privacyPillText").textContent = t.privacyPill;
-      document.getElementById("privacyTitle").textContent = t.privacyTitle;
-      document.getElementById("privacySubtitle").textContent = t.privacySubtitle;
-      document.getElementById("privacyMetaNote").textContent = t.privacyMetaNote;
+      if (!currentUser || !currentUser.email) {
+        loginBtnTextEl.textContent = t.loginBtn;
+      }
+
+      document.getElementById("policyTitle").textContent = t.policyTitle;
+      document.getElementById("policyTag").textContent = t.policyTag;
+      document.getElementById("policyIntro").textContent = t.policyIntro;
+      document.getElementById("policyUpdated").textContent = t.policyUpdated;
 
       document.getElementById("sec1Title").textContent = t.sec1Title;
-      document.getElementById("sec1P1").textContent = t.sec1P1;
-      document.getElementById("sec1P2").textContent = t.sec1P2;
+      document.getElementById("sec1Item1").textContent = t.sec1Item1;
+      document.getElementById("sec1Item2").textContent = t.sec1Item2;
+      document.getElementById("sec1Item3").textContent = t.sec1Item3;
 
       document.getElementById("sec2Title").textContent = t.sec2Title;
       document.getElementById("sec2P1").textContent = t.sec2P1;
-      document.getElementById("sec2L1").textContent = t.sec2L1;
-      document.getElementById("sec2L2").textContent = t.sec2L2;
-      document.getElementById("sec2L3").textContent = t.sec2L3;
+      document.getElementById("sec2Item1").textContent = t.sec2Item1;
+      document.getElementById("sec2Item2").textContent = t.sec2Item2;
+      document.getElementById("sec2Item3").textContent = t.sec2Item3;
 
       document.getElementById("sec3Title").textContent = t.sec3Title;
-      document.getElementById("sec3P1").textContent = t.sec3P1;
-      document.getElementById("sec3L1").textContent = t.sec3L1;
-      document.getElementById("sec3L2").textContent = t.sec3L2;
+      document.getElementById("sec3Item1").textContent = t.sec3Item1;
+      document.getElementById("sec3Item2").textContent = t.sec3Item2;
 
       document.getElementById("sec4Title").textContent = t.sec4Title;
-      document.getElementById("sec4P1").textContent = t.sec4P1;
-      document.getElementById("sec4L1").textContent = t.sec4L1;
-      document.getElementById("sec4L2").textContent = t.sec4L2;
+      document.getElementById("sec4Item1").textContent = t.sec4Item1;
+      document.getElementById("sec4Item2").textContent = t.sec4Item2;
 
       document.getElementById("sec5Title").textContent = t.sec5Title;
-      document.getElementById("sec5P1").textContent = t.sec5P1;
-      document.getElementById("sec5P2").textContent = t.sec5P2;
-      document.getElementById("sec5L1").textContent = t.sec5L1;
-      document.getElementById("sec5L2").textContent = t.sec5L2;
+      document.getElementById("sec5Item1").textContent = t.sec5Item1;
+      document.getElementById("sec5Item2").textContent = t.sec5Item2;
 
       document.getElementById("sec6Title").textContent = t.sec6Title;
-      document.getElementById("sec6P1").textContent = t.sec6P1;
-      document.getElementById("sec6L1").textContent = t.sec6L1;
-      document.getElementById("sec6L2").textContent = t.sec6L2;
-      document.getElementById("sec6L3").textContent = t.sec6L3;
+      document.getElementById("sec6Item1").textContent = t.sec6Item1;
+      document.getElementById("sec6Item2").textContent = t.sec6Item2;
 
       document.getElementById("sec7Title").textContent = t.sec7Title;
       document.getElementById("sec7P1").textContent = t.sec7P1;
-      document.getElementById("sec7P2").textContent = t.sec7P2;
 
-      document.getElementById("sec8Title").textContent = t.sec8Title;
-      document.getElementById("sec8P1").textContent = t.sec8P1;
-      document.getElementById("sec8L1").textContent = t.sec8L1;
-      document.getElementById("sec8L2").textContent = t.sec8L2;
+      document.getElementById("policyFooterNote").textContent = t.policyFooterNote;
 
-      document.getElementById("sec9Title").textContent = t.sec9Title;
-      document.getElementById("sec9P1").textContent = t.sec9P1;
-      document.getElementById("sec9P2").textContent = t.sec9P2;
-
-      document.getElementById("sideTitle").textContent = t.sideTitle;
-      document.getElementById("sideSmall").textContent = t.sideSmall;
-      document.getElementById("sideL1").textContent = t.sideL1;
-      document.getElementById("sideL2").textContent = t.sideL2;
-      document.getElementById("sideL3").textContent = t.sideL3;
-      document.getElementById("sideL4").textContent = t.sideL4;
-
-      document.getElementById("footerNote").textContent = t.footerNote;
-
-      // 按钮高亮
       langButtons.forEach((b) => {
         b.classList.toggle("active", b.dataset.lang === lang);
       });
 
-      // html lang
-      document.documentElement.lang = (lang === "zh" ? "zh-CN" : "en");
-
-      // 保存语言，和其它页面同步
+      document.documentElement.lang = (lang === "zh") ? "zh-CN" : "en";
       localStorage.setItem("aurum_lang", lang);
     }
 
@@ -1012,6 +674,35 @@
         applyLang(saved);
       } else {
         applyLang("en");
+      }
+    })();
+
+    (function syncLoginState() {
+      let user = null;
+      try {
+        const raw = localStorage.getItem("aurum_user");
+        if (raw) user = JSON.parse(raw);
+      } catch (e) {
+        console.warn("aurum_user parse error", e);
+      }
+
+      const loginBtn = document.querySelector(".primary-btn");
+      if (!loginBtn || !loginBtnTextEl) return;
+
+      currentUser = user;
+
+      if (user && user.email) {
+        const displayName =
+          (user.name && user.name.trim()) ||
+          (user.email && user.email.split("@")[0]) ||
+          "My Desk";
+
+        loginBtnTextEl.textContent = `Hi, ${displayName}`;
+        loginBtn.onclick = () => (window.location.href = "desk.html");
+      } else {
+        const t = i18n[currentLang] || i18n.en;
+        loginBtnTextEl.textContent = t.loginBtn;
+        loginBtn.onclick = () => (window.location.href = "auth.html");
       }
     })();
   </script>
