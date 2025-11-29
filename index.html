@@ -46,6 +46,10 @@
       --radius-xl: 24px;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
         "Segoe UI", sans-serif;
@@ -93,6 +97,18 @@
       padding: 20px 16px 72px;
     }
 
+    /* Simple animations */
+    @keyframes softPulse {
+      0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
+      100% { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+      100% { transform: translateY(0); }
+    }
+
     /* Header */
     header {
       display: flex;
@@ -137,6 +153,7 @@
       box-shadow:
         0 0 0 1px rgba(148, 163, 184, 0.9),
         0 0 40px rgba(14, 165, 233, 0.8);
+      animation: softPulse 2.8s ease-out infinite;
     }
 
     .brand-mark-inner {
@@ -183,7 +200,8 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .nav-link {
@@ -275,6 +293,7 @@
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
+      animation: floatUp 9s ease-in-out infinite;
     }
 
     .hero::before {
@@ -319,6 +338,25 @@
     .pill-highlight {
       color: #e5e7eb;
       font-weight: 500;
+    }
+
+    .urgent-strip {
+      margin-bottom: 10px;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.76rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: radial-gradient(circle at left, rgba(250, 204, 21, 0.12), rgba(15, 23, 42, 0.96));
+      border: 1px dashed rgba(234, 179, 8, 0.7);
+    }
+    .urgent-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #f97316;
+      box-shadow: 0 0 18px rgba(248, 113, 113, 0.9);
     }
 
     h1 {
@@ -492,6 +530,12 @@
       padding: 9px 10px;
       background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
       border: 1px solid rgba(148, 163, 184, 0.55);
+      transition: all 0.2s ease-out;
+    }
+    .case-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.9);
+      border-color: rgba(251, 191, 36, 0.8);
     }
     .case-tag {
       font-size: 0.7rem;
@@ -508,6 +552,35 @@
       font-size: 0.74rem;
       color: var(--text-muted);
       line-height: 1.5;
+    }
+
+    .avatar-strip {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    .avatar-stack {
+      display: flex;
+      align-items: center;
+    }
+    .avatar-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #e5e7eb;
+      margin-left: -6px;
+    }
+    .avatar-circle:first-child {
+      margin-left: 0;
     }
 
     /* Sections below hero */
@@ -789,6 +862,33 @@
       color: var(--text-muted);
     }
 
+    /* Not for card */
+    .notfor-list {
+      margin-top: 6px;
+      font-size: 0.74rem;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      color: var(--text-muted);
+    }
+    .notfor-item {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .notfor-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--danger);
+      flex-shrink: 0;
+    }
+
     /* Footer */
     footer {
       max-width: 1120px;
@@ -831,9 +931,6 @@
         max-width: 320px;
         margin-inline: auto;
       }
-      .sections-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
       .services-grid {
         grid-template-columns: minmax(0, 1fr);
       }
@@ -865,9 +962,6 @@
       .hero-steps {
         flex-direction: column;
       }
-    }
-
-    @media (max-width: 640px) {
       .compare-grid {
         grid-template-columns: minmax(0, 1fr);
       }
@@ -892,12 +986,16 @@
           </div>
         </div>
         <nav>
-          <!-- 顶部页面导航：首页 / Desk / 关于我们 / 联系我们 -->
+          <!-- 顶部页面导航：首页 / Desk / 关于我们 / 联系我们 + 锚点导航 -->
           <div class="nav-links">
             <a href="index.html" class="nav-link" data-page="home" data-i18n-key="navHome">Home</a>
             <a href="desk.html" class="nav-link" data-page="desk" data-i18n-key="navDesk">Desk</a>
-            <a href="about.html" class="nav-link" id="navAbout">About</a>
-            <a href="contact.html" class="nav-link" id="navContact">Contact</a>
+            <a href="about.html" class="nav-link" data-page="about" data-i18n-key="navAbout">About</a>
+            <a href="contact.html" class="nav-link" data-page="contact" data-i18n-key="navContact">Contact</a>
+            <a href="#services" class="nav-link" data-i18n-key="navServices">Services</a>
+            <a href="#how" class="nav-link" data-i18n-key="navHow">How</a>
+            <a href="#why-not" class="nav-link" data-i18n-key="navCompare">Why not ChatGPT?</a>
+            <a href="#pricing" class="nav-link" data-i18n-key="navPricing">Pricing</a>
           </div>
           <div class="lang-toggle" aria-label="Language">
             <button class="lang-btn active" data-lang="en">EN</button>
@@ -929,6 +1027,13 @@
                 <div class="pill-dot"></div>
                 <span data-i18n-key="pillLeft">Quiet desk for serious letters</span>
                 <span class="pill-highlight" data-i18n-key="pillRight">Legal / immigration / insurance / complaints</span>
+              </div>
+
+              <div class="urgent-strip">
+                <div class="urgent-dot"></div>
+                <span data-i18n-key="urgentText">
+                  For real problems only: time-sensitive legal, immigration, insurance or crisis letters — from 29.9 USD per task.
+                </span>
               </div>
 
               <h1 id="hero-title">
@@ -982,25 +1087,36 @@
             <aside class="hero-avatars" aria-label="Case examples">
               <div class="case-list">
                 <div class="case-item">
-                  <div class="case-tag">CASE 1 · Serious letter</div>
-                  <div class="case-title">Serious letter scenario</div>
-                  <div class="case-desc">
+                  <div class="case-tag" data-i18n-key="case1Tag">CASE 1 · Serious letter</div>
+                  <div class="case-title" data-i18n-key="case1Title">Serious letter scenario</div>
+                  <div class="case-desc" data-i18n-key="case1Desc">
                     For contract drafts, legal-style notices, and professional correspondence. Desk produces structured, ready-to-submit letters.
                   </div>
                 </div>
                 <div class="case-item">
-                  <div class="case-tag">CASE 2 · Claims & escalation</div>
-                  <div class="case-title">Claim & escalation scenario</div>
-                  <div class="case-desc">
+                  <div class="case-tag" data-i18n-key="case2Tag">CASE 2 · Claims & escalation</div>
+                  <div class="case-title" data-i18n-key="case2Title">Claim & escalation scenario</div>
+                  <div class="case-desc" data-i18n-key="case2Desc">
                     For airline refund claims, insurance disputes, and escalation letters to companies.
                   </div>
                 </div>
                 <div class="case-item">
-                  <div class="case-tag">CASE 3 · Immigration & crisis</div>
-                  <div class="case-title">Immigration & crisis scenario</div>
-                  <div class="case-desc">
+                  <div class="case-tag" data-i18n-key="case3Tag">CASE 3 · Immigration & crisis</div>
+                  <div class="case-title" data-i18n-key="case3Title">Immigration & crisis scenario</div>
+                  <div class="case-desc" data-i18n-key="case3Desc">
                     For visa RFE responses, refusal explanations, and family crisis letters.
                   </div>
+                </div>
+              </div>
+
+              <div class="avatar-strip">
+                <div class="avatar-stack">
+                  <div class="avatar-circle">MK</div>
+                  <div class="avatar-circle">JR</div>
+                  <div class="avatar-circle">LS</div>
+                </div>
+                <div data-i18n-key="avatarStripText">
+                  Typical clients: 42–68 year old professionals, managers and small business owners.
                 </div>
               </div>
             </aside>
@@ -1060,19 +1176,19 @@
 
               <div class="why-compare">
                 <div class="why-compare-col">
-                  <div class="why-compare-title">If you only use ChatGPT chat…</div>
+                  <div class="why-compare-title" data-i18n-key="whyCompareLeftTitle">If you only use ChatGPT chat…</div>
                   <ul class="why-compare-list">
-                    <li>Need to design your own prompts and structure.</li>
-                    <li>Output tone may be too casual or “AI-ish”.</li>
-                    <li>No one checks if it fits legal, HR or claim style.</li>
+                    <li data-i18n-key="whyCompareLeft1">Need to design your own prompts and structure.</li>
+                    <li data-i18n-key="whyCompareLeft2">Output tone may be too casual or “AI-ish”.</li>
+                    <li data-i18n-key="whyCompareLeft3">No one checks if it fits legal, HR or claim style.</li>
                   </ul>
                 </div>
                 <div class="why-compare-col">
-                  <div class="why-compare-title">With Aurum Task Desk…</div>
+                  <div class="why-compare-title" data-i18n-key="whyCompareRightTitle">With Aurum Task Desk…</div>
                   <ul class="why-compare-list">
-                    <li>We turn your notes into structured letters.</li>
-                    <li>Tone and length tuned for officers, HR and insurers.</li>
-                    <li>Clear English that 40+ professionals are comfortable sending.</li>
+                    <li data-i18n-key="whyCompareRight1">We turn your notes into structured letters.</li>
+                    <li data-i18n-key="whyCompareRight2">Tone and length tuned for officers, HR and insurers.</li>
+                    <li data-i18n-key="whyCompareRight3">Clear English that 40+ professionals are comfortable sending.</li>
                   </ul>
                 </div>
               </div>
@@ -1335,6 +1451,38 @@
               </div>
             </div>
           </div>
+
+          <div class="card" id="not-for">
+            <div class="card-inner">
+              <div class="section-label" data-i18n-key="notForLabel">Who this desk is not for</div>
+              <div class="section-title-row">
+                <div class="section-title" data-i18n-key="notForTitle">
+                  To keep the desk quiet and serious
+                </div>
+              </div>
+              <div class="notfor-list">
+                <div class="notfor-item">
+                  <div class="notfor-icon">✕</div>
+                  <div data-i18n-key="nf1">
+                    People looking for entertainment content, social media posts, or general homework help. This desk is for real-world problems only.
+                  </div>
+                </div>
+                <div class="notfor-item">
+                  <div class="notfor-icon">✕</div>
+                  <div data-i18n-key="nf2">
+                    Users who want to generate dozens of letters per day or run bulk campaigns. Each task is meant to be specific and important.
+                  </div>
+                </div>
+                <div class="notfor-item">
+                  <div class="notfor-icon">✕</div>
+                  <div data-i18n-key="nf3">
+                    Situations that require licensed legal advice or representation in court. The desk focuses on writing support, not formal legal counsel.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </section>
       </main>
     </div>
@@ -1376,6 +1524,8 @@
         logout: "退出登录",
         pillLeft: "安静、严肃场景专用的写作工作台",
         pillRight: "法律 / 移民 / 保险 / 投诉",
+        urgentText:
+          "只接严肃问题：法律、移民、保险理赔或危机场景的英文信件 —— 单次服务从 29.9 美元起。",
         heroLine1: "面向严肃问题的私人 AI 写作桌",
         heroLine2: "专为 40+ 欧美客户设计",
         heroSub:
@@ -1387,6 +1537,23 @@
         chip1: "上传截图或简单描述事情经过",
         chip2: "告诉我们写给谁、希望得到什么结果",
         chip3: "收到结构完整、可以直接提交的英文信件",
+
+        case1Tag: "案例 1 · 严肃法律信",
+        case1Title: "严肃法律 / 合同场景",
+        case1Desc:
+          "用于合同草稿、违约通知、正式法律风格往来信件，由 Desk 生成可直接提交的结构化文本。",
+        case2Tag: "案例 2 · 理赔与升级",
+        case2Title: "理赔 / 投诉升级场景",
+        case2Desc:
+          "用于航空退款、保险纠纷、对公司或机构的升级投诉信，让对方重新认真审视你的情况。",
+        case3Tag: "案例 3 · 移民与危机",
+        case3Title: "移民 / 危机说明场景",
+        case3Desc:
+          "用于签证 RFE 回应、拒签解释、家庭或情感危机的冷静说明信件。",
+
+        avatarStripText:
+          "典型用户：42–68 岁的专业人士、管理者与小企业主。",
+
         whyLabel: "为什么需要这个 Desk？",
         whyTitle: "为有真实麻烦的 40+ 欧美用户准备",
         whyPill: "不是玩具型 AI",
@@ -1402,6 +1569,18 @@
         why4Title: "没有订阅。",
         why4Body:
           "每封信按次计费，没有隐藏月费，不会悄悄自动扣款。",
+
+        whyCompareLeftTitle: "如果你只用 ChatGPT 聊天……",
+        whyCompareLeft1: "需要自己设计 prompt 和结构，过程很折腾。",
+        whyCompareLeft2: "语气容易过于随意或“AI 味”太重。",
+        whyCompareLeft3: "没人帮你检查是否符合法律、HR 或理赔信的风格。",
+        whyCompareRightTitle: "使用 Aurum Task Desk……",
+        whyCompareRight1: "由 Desk 帮你把碎片信息整理成完整结构化信件。",
+        whyCompareRight2:
+          "语气和长度围绕审核官、HR 和理赔人员来调优，更贴近真实阅读习惯。",
+        whyCompareRight3:
+          "通过清晰的问题收集信息，而不是要求你写复杂指令。",
+
         pricingLabel: "定价概览",
         pricingTitle: "5 大专门服务，清晰价格",
         svc1Title: "法律文书 / 合同草稿",
@@ -1428,6 +1607,7 @@
           "升级写给银行、航空公司、雇主或监管机构，让对方认真对待你的问题。",
         svc5Price: "USD 29.9",
         svc5Cta: "进入服务 →",
+
         compareLabel: "为什么不用 ChatGPT？",
         compareTitle: "通用 AI vs. 安静的专门写作桌",
         compareLeftTitle: "通用型 AI 工具",
@@ -1448,6 +1628,7 @@
           "用问答方式收集信息，不需要你懂技术或写复杂指令。",
         cmpR4:
           "按封计费，从 29.9 美元起，无需订阅，无自动续费。",
+
         howLabel: "流程",
         howTitle: "开始一个任务，其实很简单",
         step1:
@@ -1456,6 +1637,7 @@
           "【2】说明写给谁、想要什么：是律师、使馆、保险公司、雇主还是航空公司？你希望对方做什么？",
         step3:
           "【3】收到可直接提交的英文信件：你可以再补充细节，然后通过邮箱、在线表格或纸质形式发送。",
+
         whoLabel: "适合人群",
         whoTitle: "三类典型的 Aurum Desk 用户",
         persona1:
@@ -1464,6 +1646,7 @@
           "40+ 职场人士、经理或小企业主，不想学习 AI 技巧，但需要严肃、好用的英文信件。",
         persona3:
           "已经收到拒信、负面回复，或被长期忽视的人：需要通过严肃、礼貌但清晰的信件重新“被看见”。",
+
         privacyLabel: "保护与隐私",
         privacyTitle: "安静为先 —— 你的遭遇不是“素材”",
         pri1:
@@ -1474,6 +1657,16 @@
           "在事情解决之后，你可以请求删除相关任务记录，不继续保留。",
         pri4:
           "Desk 采用简单、可审计的后台逻辑，而不是复杂难懂、到处串联广告的巨型平台。",
+
+        notForLabel: "不适合的人群",
+        notForTitle: "为了保持桌面安静、严肃",
+        nf1:
+          "只想要娱乐内容、社交媒体文案或一般作业辅导的用户。本桌面只服务真实的现实问题。",
+        nf2:
+          "希望每天批量生成大量信件、做群发活动的用户。每个任务都应该是具体而重要的。",
+        nf3:
+          "需要持牌律师提供正式法律意见或出庭代理的情况。Desk 只做写作支持，并非法律代理。",
+
         footerCopy: "为严肃问题而生的安静写作工作台。",
         footerPrivacy: "隐私政策",
         footerTerms: "使用条款"
