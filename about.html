@@ -1,533 +1,989 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-    <!-- Google tag (gtag.js) -->
+  <meta charset="UTF-8" />
+  <title>Aurum Task Desk — About Aurum Desk</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-NEY7RNB5S');
   </script>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aurum Task Desk — About</title>
-<link rel="icon" type="image/png" href="favicon.png">
-<style>
-body {
-  margin: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f5f3ef;
-  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-  color: #1d2a39;
-  line-height: 1.6;
-}
-a { text-decoration: none; color: inherit; }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --bg-deep: #020617;
+      --bg-card: #020617;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --text-main: #e5e7eb;
+      --text-soft: #cbd5f5;
+      --gold: #fbbf24;
+      --accent-blue: #38bdf8;
+      --shadow-strong: 0 32px 120px rgba(0,0,0,0.9);
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --blur-strong: 40px;
+    }
+    body {
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px 48px;
+    }
+    .page-shell {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
 
-.container {
-  max-width: 1180px;
-  margin: auto;
-  padding: 20px;
-}
+    /* 顶部导航（和首页/desk 同款） */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: conic-gradient(
+        from 180deg,
+        #fbbf24,
+        #38bdf8,
+        #4f46e5,
+        #fbbf24
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.7);
+    }
+    .brand-avatar-inner {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0%, #1f2937 0%, #020617 55%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+    .brand-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .brand-name {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 0;
-  border-bottom: 1px solid #d5d3ce;
-}
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 13px;
+    }
+    .nav-main-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-link {
+      color: #e5e7eb;
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      position: relative;
+    }
+    .nav-link:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+    .nav-link-pill {
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: transparent;
+    }
+    .nav-link-pill.active {
+      border-color: rgba(248, 250, 252, 0.9);
+      background: linear-gradient(135deg,#fbbf24,#f97316);
+      color: #111827;
+      box-shadow: 0 10px 40px rgba(15,23,42,0.9);
+      opacity: 1;
+      transform: none;
+    }
 
-.nav-left {
-  font-size: 22px;
-  font-weight: 700;
-  color: #0f1c2c;
-}
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-.nav-right a {
-  margin-left: 24px;
-  font-size: 15px;
-  opacity: 0.85;
-}
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 2px;
+      background: radial-gradient(circle at top left,#020617,#020617);
+    }
+    .lang-btn {
+      border: none;
+      outline: none;
+      padding: 4px 12px;
+      font-size: 11px;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      min-width: 38px;
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg,#fbbf24,#f97316);
+      color: #111827;
+      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.9);
+    }
 
-.nav-right a:hover { opacity: 1; }
+    .primary-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: linear-gradient(120deg,#fbbf24,#f97316);
+      color: #111827;
+      padding: 8px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 16px 55px rgba(15,23,42,0.9);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+    }
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 80px rgba(15,23,42,1);
+      filter: brightness(1.03);
+    }
+    .primary-btn span.icon {
+      font-size: 14px;
+    }
 
-/* 登录状态区域样式 */
-.nav-user-area {
-  display: inline-flex;
-  align-items: center;
-  margin-left: 20px;
-  gap: 10px;
-}
+    /* 主体布局 */
+    .about-main {
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.12) 0%, transparent 55%),
+        rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(15, 23, 42, 0.95);
+      box-shadow: var(--shadow-strong);
+      padding: 26px 24px 28px;
+      backdrop-filter: blur(var(--blur-strong));
+    }
 
-.nav-user-area .nav-hi {
-  font-size: 13px;
-  opacity: 0.9;
-}
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 20px;
+      margin-bottom: 24px;
+      align-items: stretch;
+    }
 
-.nav-user-area .nav-logout-btn {
-  padding: 5px 12px;
-  border-radius: 999px;
-  border: 1px solid #0f1c2c;
-  background: transparent;
-  color: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
+    .about-hero {
+      padding-right: 10px;
+    }
+    .about-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-soft);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.95), rgba(15,23,42,0.98));
+      margin-bottom: 10px;
+    }
+    .about-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0%, #22c55e, #16a34a);
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.18);
+    }
+    .about-title {
+      font-size: 26px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      margin-bottom: 10px;
+    }
+    .about-subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.7;
+      max-width: 640px;
+      margin-bottom: 14px;
+    }
+    .about-metric-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .metric-pill {
+      border-radius: var(--radius-pill);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      padding: 6px 10px;
+      font-size: 11px;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15,23,42,0.95);
+    }
+    .metric-pill strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
 
-.nav-user-area .nav-logout-btn:hover {
-  background: rgba(15, 28, 44, 0.06);
-}
+    .about-note-box {
+      margin-top: 10px;
+      padding: 10px 11px;
+      border-radius: 14px;
+      border: 1px dashed rgba(148,163,184,0.7);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,1));
+      font-size: 11px;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+    .about-note-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: rgba(148,163,184,0.9);
+      margin-bottom: 4px;
+    }
 
-.nav-user-area .nav-signin-link {
-  font-size: 14px;
-  padding: 5px 0;
-}
+    .about-side-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148,163,184,0.6);
+      background:
+        radial-gradient(circle at top right, rgba(56,189,248,0.15), transparent 55%),
+        rgba(15,23,42,0.98);
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .side-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .side-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+    .who-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+    }
+    .who-item {
+      border-radius: 14px;
+      border: 1px dashed rgba(148,163,184,0.7);
+      padding: 8px 10px;
+      font-size: 11px;
+      line-height: 1.5;
+      background: rgba(15,23,42,0.96);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .who-tag {
+      font-size: 10px;
+      color: rgba(148,163,184,0.95);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .who-main {
+      font-size: 11px;
+      color: #e5e7eb;
+    }
 
-.footer {
-  margin-top: 70px;
-  border-top: 1px solid #d2cfca;
-  padding: 35px 0;
-  text-align: center;
-  font-size: 14px;
-  opacity: 0.75;
-}
+    /* What we do / 不做 */
+    .do-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .do-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148,163,184,0.6);
+      padding: 12px 12px 10px;
+      background: radial-gradient(circle at top left,#020617,#020617);
+      font-size: 12px;
+    }
+    .do-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .do-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .do-badge {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      color: var(--text-soft);
+    }
+    .do-list {
+      list-style: none;
+      padding-left: 0;
+      display: grid;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .do-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+    .do-bullet {
+      font-size: 10px;
+      color: var(--gold);
+      margin-top: 2px;
+    }
 
-.page-header {
-  margin-top: 40px;
-}
+    /* 信任 / founder */
+    .trust-section {
+      margin-top: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(148,163,184,0.7);
+      padding: 14px 13px 12px;
+      background:
+        radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,1));
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+      gap: 16px;
+    }
+    .trust-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .trust-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+    .trust-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+    .trust-list li {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .trust-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      margin-top: 5px;
+      background: radial-gradient(circle at 30% 0%, #38bdf8,#0ea5e9);
+    }
 
-.header-title {
-  font-size: 34px;
-  font-weight: 800;
-  color: #132033;
-}
+    .founder-card {
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.6);
+      padding: 10px 11px;
+      background:
+        radial-gradient(circle at top right, rgba(251,191,36,0.16), transparent 55%),
+        rgba(15,23,42,0.98);
+      font-size: 11px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      position: relative;
+      overflow: hidden;
+    }
+    .founder-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(248,250,252,0.8);
+      margin-bottom: 4px;
+    }
+    .founder-name {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+    .founder-meta {
+      font-size: 10px;
+      color: rgba(148,163,184,0.95);
+      margin-bottom: 6px;
+    }
+    .founder-card::after {
+      content: "AURUM";
+      position: absolute;
+      right: -10px;
+      bottom: -6px;
+      font-size: 32px;
+      letter-spacing: 0.18em;
+      font-weight: 700;
+      color: rgba(15,23,42,0.85);
+    }
 
-.header-sub {
-  font-size: 16px;
-  opacity: 0.85;
-  max-width: 700px;
-}
-
-.section-block {
-  margin-top: 50px;
-}
-
-.section-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #132033;
-  margin-bottom: 10px;
-}
-
-.section-text {
-  font-size: 15px;
-  max-width: 760px;
-  opacity: 0.9;
-}
-
-.value-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 22px;
-  margin-top: 22px;
-}
-
-.value-card {
-  padding: 18px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.8);
-  border: 1px solid #dcd9d3;
-  font-size: 14px;
-}
-</style>
+    /* 响应式 */
+    @media (max-width: 960px) {
+      .about-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .trust-section {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav-main-links {
+        gap: 18px;
+      }
+    }
+    @media (max-width: 720px) {
+      body {
+        padding: 18px 8px 32px;
+      }
+      .about-main {
+        padding: 18px 14px 20px;
+      }
+      .do-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .nav-main-links {
+        display: none; /* 小屏只保留语言+登录 */
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="page-shell">
+    <!-- 顶部导航 -->
+    <header class="top-nav">
+      <div class="brand-block">
+        <div class="brand-avatar">
+          <div class="brand-avatar-inner">AU</div>
+        </div>
+        <div class="brand-text-block">
+          <div class="brand-name">Aurum Task Desk</div>
+          <div class="brand-sub" id="brandSubText">
+            Private writing & resolution desk
+          </div>
+        </div>
+      </div>
 
-<nav class="navbar container">
-  <div class="nav-left">Aurum Task Desk</div>
-  <div class="nav-right">
-    <a href="index.html" id="navHome">Home</a>
-    <a href="tasks.html" id="navTasks">Task Marketplace</a>
-    <a href="about.html" id="navAbout">About</a>
-    <a href="pricing.html" id="navPricing">Pricing</a>
-    <a href="contact.html" id="navContact">Contact</a>
-    <!-- 登录状态显示区域 -->
-    <span id="navUserArea" class="nav-user-area"></span>
+      <nav class="nav-links">
+        <div class="nav-main-links">
+          <a href="index.html" class="nav-link nav-link-pill" id="navHome">Home</a>
+          <a href="desk.html" class="nav-link nav-link-pill" id="navDesk">Desk</a>
+          <a href="about.html" class="nav-link nav-link-pill active" id="navAbout">About</a>
+          <a href="index.html#contact" class="nav-link" id="navContact">Contact</a>
+        </div>
+        <div class="nav-right">
+          <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
+            <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
+          </div>
+          <button class="primary-btn" onclick="window.location.href='auth.html'">
+            <span class="icon">★</span>
+            <span id="loginBtnText">Login / My Desk</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- About 主体 -->
+    <main class="about-main">
+      <section class="about-grid">
+        <!-- 左：品牌说明 -->
+        <div class="about-hero">
+          <div class="about-pill">
+            <span class="about-pill-dot"></span>
+            <span id="aboutPillText">About Aurum Task Desk</span>
+          </div>
+          <h1 class="about-title" id="aboutTitle">
+            A quiet AI writing desk for older professionals who dislike drama
+          </h1>
+          <p class="about-subtitle" id="aboutSubtitle">
+            Aurum Task Desk is built for mature US & EU professionals who need calm, well-structured letters –
+            not noisy “AI chat”. The desk sits quietly in the background and helps you draft serious documents
+            when something goes wrong in life, work or immigration.
+          </p>
+
+          <div class="about-metric-row">
+            <div class="metric-pill" id="metric1">
+              <strong>40+ focus</strong>
+              <span>Designed for people who have real responsibilities.</span>
+            </div>
+            <div class="metric-pill" id="metric2">
+              <strong>Serious scenarios only</strong>
+              <span>Disputes, insurance, immigration, family crisis.</span>
+            </div>
+            <div class="metric-pill" id="metric3">
+              <strong>No monthly noise</strong>
+              <span>Pay per letter when you truly need it.</span>
+            </div>
+          </div>
+
+          <div class="about-note-box">
+            <div class="about-note-title" id="aboutNoteTitle">WHY IT EXISTS</div>
+            <div id="aboutNoteText">
+              Many older professionals tried generic chatbots and felt more stressed and exposed.
+              Aurum was created as a “private writing desk” – a place where you can calmly explain
+              what happened and receive one focused, ready-to-send letter without feeling pushed,
+              sold to, or judged.
+            </div>
+          </div>
+        </div>
+
+        <!-- 右：适合人群 -->
+        <aside class="about-side-card">
+          <h2 class="side-title" id="whoTitle">Who the desk quietly serves</h2>
+          <p class="side-sub" id="whoSubtitle">
+            The desk is not for influencers or students. It is for people who lost sleep over a serious letter.
+          </p>
+          <div class="who-grid">
+            <div class="who-item">
+              <div class="who-tag" id="whoTag1">TYPE 01</div>
+              <div class="who-main" id="whoMain1">
+                Senior employees, engineers, managers or small business owners who must send a formal
+                letter to a company, supplier, landlord, or partner and want it to be calm but firm.
+              </div>
+            </div>
+            <div class="who-item">
+              <div class="who-tag" id="whoTag2">TYPE 02</div>
+              <div class="who-main" id="whoMain2">
+                Travellers, retirees or families facing insurance or airline problems – delays, lost luggage,
+                denied claims – who need a structured claim letter with the right tone.
+              </div>
+            </div>
+            <div class="who-item">
+              <div class="who-tag" id="whoTag3">TYPE 03</div>
+              <div class="who-main" id="whoMain3">
+                People dealing with immigration paperwork, embassy communication or family crisis letters
+                who feel emotionally overwhelmed and want a neutral, private assistant.
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- What we do / 不做 -->
+      <section class="do-grid">
+        <article class="do-card">
+          <div class="do-title-row">
+            <h2 class="do-title" id="doTitle">What the desk actually does</h2>
+            <span class="do-badge" id="doBadge">Calm, structured work</span>
+          </div>
+          <ul class="do-list" id="doList">
+            <li>
+              <span class="do-bullet">●</span>
+              <span id="doItem1">
+                Helps you explain “what happened” clearly – sometimes in better order than you can in one breath.
+              </span>
+            </li>
+            <li>
+              <span class="do-bullet">●</span>
+              <span id="doItem2">
+                Drafts letters that sound like a responsible adult, not a robot, influencer or teenager.
+              </span>
+            </li>
+            <li>
+              <span class="do-bullet">●</span>
+              <span id="doItem3">
+                Adjusts tone from calm & respectful to firm & urgent, without crossing into aggression.
+              </span>
+            </li>
+            <li>
+              <span class="do-bullet">●</span>
+              <span id="doItem4">
+                Helps you preserve a paper trail – so if things escalate, your side looks organised and reasonable.
+              </span>
+            </li>
+          </ul>
+        </article>
+
+        <article class="do-card">
+          <div class="do-title-row">
+            <h2 class="do-title" id="dontTitle">What the desk does <u>not</u> do</h2>
+            <span class="do-badge" id="dontBadge">Important boundaries</span>
+          </div>
+          <ul class="do-list" id="dontList">
+            <li>
+              <span class="do-bullet">✕</span>
+              <span id="dontItem1">
+                Does not pretend to be your lawyer, immigration advisor or doctor. It is a writing desk, not legal counsel.
+              </span>
+            </li>
+            <li>
+              <span class="do-bullet">✕</span>
+              <span id="dontItem2">
+                Does not send letters on your behalf or contact companies for you – you stay fully in control.
+              </span>
+            </li>
+            <li>
+              <span class="do-bullet">✕</span>
+              <span id="dontItem3">
+                Does not gamify, show “streaks”, or push you to come back daily. You use it only when needed.
+              </span>
+            </li>
+            <li>
+              <span class="do-bullet">✕</span>
+              <span id="dontItem4">
+                Does not store your documents for “AI training” – the focus is on private, one-off letters.
+              </span>
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <!-- 信任与 Founder -->
+      <section class="trust-section">
+        <div>
+          <h2 class="trust-title" id="trustTitle">How trust is protected</h2>
+          <p class="trust-sub" id="trustSubtitle">
+            Older professionals care about how their words are handled. The desk is designed with a “low-drama” mindset.
+          </p>
+          <ul class="trust-list">
+            <li>
+              <span class="trust-bullet"></span>
+              <span id="trustItem1">
+                You are not forced into an account for preview drafts. You pay only when you decide to generate a full letter.
+              </span>
+            </li>
+            <li>
+              <span class="trust-bullet"></span>
+              <span id="trustItem2">
+                Letters are generated inside a private backend worker, not inside public group chats or shared templates.
+              </span>
+            </li>
+            <li>
+              <span class="trust-bullet"></span>
+              <span id="trustItem3">
+                The desk is built to feel like an old-fashioned writing service – quiet, focused, with little flashing noise.
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <aside class="founder-card">
+          <div class="founder-label" id="founderLabel">FOUNDER’S NOTE</div>
+          <div class="founder-name" id="founderName">From Sophie — Aurum Desk</div>
+          <div class="founder-meta" id="founderMeta">
+            Quiet AI desk, for people who have seen enough drama in life.
+          </div>
+          <div id="founderText">
+            I designed Aurum after watching older friends struggle with long English letters to airlines, landlords,
+            immigration offices and family members. Most “AI tools” made them feel more lost and exposed.
+            This desk is my attempt to give them a calmer space: one scenario at a time, one letter at a time,
+            no judgement, no pressure to become “good at tech”.
+          </div>
+        </aside>
+      </section>
+    </main>
   </div>
-</nav>
 
-<section class="page-header container">
-  <h1 class="header-title" id="headerTitle">About Aurum Task Desk</h1>
-  <p class="header-sub" id="headerSub">
-    Aurum Task Desk is a small, private coordination office for AI-assisted tasks.
-    It is designed for older professionals, business owners, and high-intent clients who prefer
-    calm, structured help instead of noisy public marketplaces.
-  </p>
-</section>
+  <script>
+    // ===== 语言 & 导航同步逻辑（和 desk / index 用同一个 aurum_lang） =====
+    const langButtons = document.querySelectorAll(".lang-btn");
+    const loginBtnTextEl = document.getElementById("loginBtnText");
+    const brandSubText = document.getElementById("brandSubText");
+    const navHome = document.getElementById("navHome");
+    const navDesk = document.getElementById("navDesk");
+    const navAbout = document.getElementById("navAbout");
+    const navContact = document.getElementById("navContact");
 
-<section class="section-block container">
-  <h2 class="section-title" id="whatTitle">What the Desk Is</h2>
-  <p class="section-text" id="whatText">
-    Instead of being another open platform, Aurum Task Desk acts like a discreet middle office.
-    Clients submit tasks. Freelancers (and you, behind the scenes) execute with AI tools.
-    The Desk coordinates expectations, timelines, and communication, and keeps a transparent fee for doing so.
-  </p>
-</section>
+    const i18n = {
+      en: {
+        brandSub: "Private writing & resolution desk",
+        navHome: "Home",
+        navDesk: "Desk",
+        navAbout: "About",
+        navContact: "Contact",
+        loginBtn: "Login / My Desk",
 
-<section class="section-block container">
-  <h2 class="section-title" id="howTitle">How It Operates</h2>
-  <div class="value-grid">
-    <div class="value-card">
-      <strong id="howStep1Title">1 — Tasks come in</strong>
-      <p id="howStep1Text">Clients describe what they need in simple language: letters, articles, scripts, content, or small automations.</p>
-    </div>
-    <div class="value-card">
-      <strong id="howStep2Title">2 — Work is executed</strong>
-      <p id="howStep2Text">Freelancers use AI plus human judgement to deliver results following Desk guidelines for tone and clarity.</p>
-    </div>
-    <div class="value-card">
-      <strong id="howStep3Title">3 — Settlement & desk fee</strong>
-      <p id="howStep3Text">
-        Clients pay via a secure third-party payment provider (such as Paddle) or other agreed channels.
-        Contributors are paid a net amount. The difference is the desk fee.
-      </p>
-    </div>
-  </div>
-</section>
+        aboutPill: "About Aurum Task Desk",
+        aboutTitle:
+          "A quiet AI writing desk for older professionals who dislike drama",
+        aboutSubtitle:
+          "Aurum Task Desk is built for mature US & EU professionals who need calm, well-structured letters – not noisy “AI chat”. The desk sits quietly in the background and helps you draft serious documents when something goes wrong in life, work or immigration.",
+        metric1:
+          "<strong>40+ focus</strong><span>Designed for people who have real responsibilities.</span>",
+        metric2:
+          "<strong>Serious scenarios only</strong><span>Disputes, insurance, immigration, family crisis.</span>",
+        metric3:
+          "<strong>No monthly noise</strong><span>Pay per letter when you truly need it.</span>",
+        aboutNoteTitle: "WHY IT EXISTS",
+        aboutNoteText:
+          "Many older professionals tried generic chatbots and felt more stressed and exposed. Aurum was created as a “private writing desk” – a place where you can calmly explain what happened and receive one focused, ready-to-send letter without feeling pushed, sold to, or judged.",
 
-<section class="section-block container">
-  <h2 class="section-title" id="valuesTitle">Desk Values</h2>
-  <div class="value-grid">
-    <div class="value-card">
-      <strong id="value1Title">Calm & private</strong>
-      <p id="value1Text">No hype. No spam. Just quiet, serious collaboration.</p>
-    </div>
-    <div class="value-card">
-      <strong id="value2Title">Clarity in words</strong>
-      <p id="value2Text">Scopes, updates, and outputs are written in plain language.</p>
-    </div>
-    <div class="value-card">
-      <strong id="value3Title">Respect for time</strong>
-      <p id="value3Text">Built for people who balance work, health, family, and travel.</p>
-    </div>
-    <div class="value-card">
-      <strong id="value4Title">Transparent economics</strong>
-      <p id="value4Text">Clients pay one price, contributors know their net amount, and the desk fee is the spread.</p>
-    </div>
-  </div>
-</section>
+        whoTitle: "Who the desk quietly serves",
+        whoSubtitle:
+          "The desk is not for influencers or students. It is for people who lost sleep over a serious letter.",
+        whoTag1: "TYPE 01",
+        whoTag2: "TYPE 02",
+        whoTag3: "TYPE 03",
+        whoMain1:
+          "Senior employees, engineers, managers or small business owners who must send a formal letter to a company, supplier, landlord, or partner and want it to be calm but firm.",
+        whoMain2:
+          "Travellers, retirees or families facing insurance or airline problems – delays, lost luggage, denied claims – who need a structured claim letter with the right tone.",
+        whoMain3:
+          "People dealing with immigration paperwork, embassy communication or family crisis letters who feel emotionally overwhelmed and want a neutral, private assistant.",
 
-<footer class="footer" id="footerText">
-  © 2025 Aurum Task Desk — Private AI Task Coordination Desk
-</footer>
+        doTitle: "What the desk actually does",
+        doBadge: "Calm, structured work",
+        doItem1:
+          "Helps you explain “what happened” clearly – sometimes in better order than you can in one breath.",
+        doItem2:
+          "Drafts letters that sound like a responsible adult, not a robot, influencer or teenager.",
+        doItem3:
+          "Adjusts tone from calm & respectful to firm & urgent, without crossing into aggression.",
+        doItem4:
+          "Helps you preserve a paper trail – so if things escalate, your side looks organised and reasonable.",
 
-<!-- 多语言 + 登录状态脚本 -->
-<script>
-  // ========== 多语言：读取首页设置的 localStorage.aurum_lang ==========
-  let AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
+        dontTitle: "What the desk does not do",
+        dontBadge: "Important boundaries",
+        dontItem1:
+          "Does not pretend to be your lawyer, immigration advisor or doctor. It is a writing desk, not legal counsel.",
+        dontItem2:
+          "Does not send letters on your behalf or contact companies for you – you stay fully in control.",
+        dontItem3:
+          "Does not gamify, show “streaks”, or push you to come back daily. You use it only when needed.",
+        dontItem4:
+          "Does not store your documents for “AI training” – the focus is on private, one-off letters.",
 
-  const LANG_STRINGS = {
-    // ===== English =====
-    en: {
-      navHome: "Home",
-      navTasks: "Task Marketplace",
-      navAbout: "About",
-      navPricing: "Pricing",
-      navContact: "Contact",
+        trustTitle: "How trust is protected",
+        trustSubtitle:
+          "Older professionals care about how their words are handled. The desk is designed with a “low-drama” mindset.",
+        trustItem1:
+          "You are not forced into an account for preview drafts. You pay only when you decide to generate a full letter.",
+        trustItem2:
+          "Letters are generated inside a private backend worker, not inside public group chats or shared templates.",
+        trustItem3:
+          "The desk is built to feel like an old-fashioned writing service – quiet, focused, with little flashing noise.",
 
-      headerTitle: "About Aurum Task Desk",
-      headerSub:
-        "Aurum Task Desk is a small, private coordination office for AI-assisted tasks. It is designed for older professionals, business owners, and high-intent clients who prefer calm, structured help instead of noisy public marketplaces.",
+        founderLabel: "FOUNDER’S NOTE",
+        founderName: "From Sophie — Aurum Desk",
+        founderMeta: "Quiet AI desk, for people who have seen enough drama in life.",
+        founderText:
+          "I designed Aurum after watching older friends struggle with long English letters to airlines, landlords, immigration offices and family members. Most “AI tools” made them feel more lost and exposed. This desk is my attempt to give them a calmer space: one scenario at a time, one letter at a time, no judgement, no pressure to become “good at tech”."
+      },
+      zh: {
+        brandSub: "安静而专业的写作与申诉任务台",
+        navHome: "首页",
+        navDesk: "Desk 任务台",
+        navAbout: "关于我们",
+        navContact: "联系我们",
+        loginBtn: "登录 / 我的 Desk",
 
-      whatTitle: "What the Desk Is",
-      whatText:
-        "Instead of being another open platform, Aurum Task Desk acts like a discreet middle office. Clients submit tasks. Freelancers (and you, behind the scenes) execute with AI tools. The Desk coordinates expectations, timelines, and communication, and keeps a transparent fee for doing so.",
+        aboutPill: "关于 Aurum Task Desk",
+        aboutTitle: "为不喜欢“折腾”的成熟人群做的一张安静写字台",
+        aboutSubtitle:
+          "Aurum Task Desk 专门为欧美 40 岁以上、已经有家庭与责任的专业人士设计——他们需要的是冷静、有结构的正式信件，而不是花哨的“AI 聊天”。当生活、工作或移民出现问题时，这个任务台在后台安静地帮助你完成严肃文书。",
+        metric1:
+          "<strong>40+ 重点人群</strong><span>为真正肩上有责任的人设计。</span>",
+        metric2:
+          "<strong>只做严肃场景</strong><span>纠纷、保险、航司、移民、家庭危机等。</span>",
+        metric3:
+          "<strong>不用月费吵闹</strong><span>只在你需要时，为单封信件付费。</span>",
+        aboutNoteTitle: "为什么要做这个桌子",
+        aboutNoteText:
+          "很多长辈尝试过各种聊天机器人，反而更焦虑，觉得自己讲不清、数据被到处乱放。Aurum 的初衷，是做一张“私人写字台”——你可以慢慢讲发生了什么，然后拿到一封冷静、结构清晰、可以直接递交的正式信件，而不是被营销、被催促。",
 
-      howTitle: "How It Operates",
-      howStep1Title: "1 — Tasks come in",
-      howStep1Text:
-        "Clients describe what they need in simple language: letters, articles, scripts, content, or small automations.",
-      howStep2Title: "2 — Work is executed",
-      howStep2Text:
-        "Freelancers use AI plus human judgement to deliver results following Desk guidelines for tone and clarity.",
-      howStep3Title: "3 — Settlement & desk fee",
-      howStep3Text:
-        "Clients pay via a secure third-party payment provider (such as Paddle) or other agreed channels. Contributors are paid a net amount. The difference is the desk fee.",
+        whoTitle: "这个任务台悄悄为谁服务",
+        whoSubtitle:
+          "它不是给网红、学生用的，而是给那些为一封信失眠的人用的。",
+        whoTag1: "人群 01",
+        whoTag2: "人群 02",
+        whoTag3: "人群 03",
+        whoMain1:
+          "资深员工、工程师、管理者或小企业主，需要给公司、供应商、房东或合作方发一封正式信，希望语气冷静但有力度。",
+        whoMain2:
+          "经常旅行的退休人士或家庭，在保险或航司问题上（延误、行李丢失、拒赔）需要一封结构清晰、语气得体的索赔信。",
+        whoMain3:
+          "正在处理移民材料、使馆沟通或家庭危机长信的人，情绪已经很重，希望有一个中立、安静的写作帮手。",
 
-      valuesTitle: "Desk Values",
-      value1Title: "Calm & private",
-      value1Text: "No hype. No spam. Just quiet, serious collaboration.",
-      value2Title: "Clarity in words",
-      value2Text: "Scopes, updates, and outputs are written in plain language.",
-      value3Title: "Respect for time",
-      value3Text:
-        "Built for people who balance work, health, family, and travel.",
-      value4Title: "Transparent economics",
-      value4Text:
-        "Clients pay one price, contributors know their net amount, and the desk fee is the spread.",
+        doTitle: "任务台具体会帮你做什么",
+        doBadge: "冷静、结构化的工作",
+        doItem1:
+          "帮你把“到底发生了什么”梳理清楚，往往比你一口气说出来更有顺序、更有条理。",
+        doItem2:
+          "起草一封听起来像成熟成年人写的信，而不是机器人、网红或小年轻的语气。",
+        doItem3:
+          "在“平和尊重”和“坚定有力”之间，帮你调整合适的语气，但不会失控或攻击。",
+        doItem4:
+          "帮你保留下完整的文字记录，以便在事情升级时，你这一方显得更理性、更有凭据。",
 
-      footerText: "© 2025 Aurum Task Desk — Private AI Task Coordination Desk"
-    },
+        dontTitle: "同样重要：任务台不会做的事",
+        dontBadge: "清晰边界",
+        dontItem1:
+          "不会假装是你的律师、移民顾问或医生——它是写作任务台，而不是法律意见。",
+        dontItem2:
+          "不会代你发信、也不会私下联系任何公司或机构——所有递交动作都由你自己掌控。",
+        dontItem3:
+          "不会搞签到、等级、连击等“上瘾机制”，也不会天天推送内容催你回来。",
+        dontItem4:
+          "不会把你的信件当成“训练素材”随意长期保存——重点只在于为你生成当下这一封信。",
 
-    // ===== 简体中文 =====
-    zh: {
-      navHome: "首页",
-      navTasks: "任务大厅",
-      navAbout: "关于",
-      navPricing: "定价",
-      navContact: "联系",
+        trustTitle: "信任是如何被保护的",
+        trustSubtitle:
+          "对于已经经历很多事的人来说，文字如何被处理非常重要，这个任务台从一开始就按“低戏剧性”来设计。",
+        trustItem1:
+          "预览草稿阶段，你甚至不需要账号。只有在你决定生成完整信件时，才会为那一封信付费。",
+        trustItem2:
+          "信件生成在独立后端中完成，不会被放在公开群聊或到处复用的模板里。",
+        trustItem3:
+          "整体体验更像传统的写作服务——安静、专注，没有大喊大叫的弹窗和花哨动效。",
 
-      headerTitle: "关于 Aurum Task Desk",
-      headerSub:
-        "Aurum Task Desk 是一个小型、私密的 AI 协同“中台办公室”。它面向中老年专业人士、企业主，以及那些真正有需求、希望得到安静而有结构化支持的客户，而不是在嘈杂的公开平台上抢单。",
+        founderLabel: "创办人寄语",
+        founderName: "Sophie — Aurum Desk",
+        founderMeta: "给已经见过很多世面的你，一个安静处理麻烦事的地方。",
+        founderText:
+          "做 Aurum 的起点，是看到身边长辈为了给航司、房东、移民局或家人写一封长英文信而头痛。市面上很多 AI 工具让他们更迷茫、更不安。我希望这个任务台，能成为他们的一个小角落：一次只处理一个场景、一封信，没有评判，也不要求你变成“懂技术的人”。"
+      }
+    };
 
-      whatTitle: "这个任务桌是什么",
-      whatText:
-        "Aurum Task Desk 不是一个开放的大众平台，而更像是一个低调的中台办公室。客户提交任务，自由职业者（包括你在幕后）结合 AI 工具完成执行。任务桌负责对齐预期、时间和沟通，并以透明的方式收取服务费。",
+    function applyLang(lang) {
+      const t = i18n[lang] || i18n.en;
+      // 顶部
+      brandSubText.textContent = t.brandSub;
+      navHome.textContent = t.navHome;
+      navDesk.textContent = t.navDesk;
+      navAbout.textContent = t.navAbout;
+      navContact.textContent = t.navContact;
+      loginBtnTextEl.textContent = t.loginBtn;
 
-      howTitle: "它是如何运作的",
-      howStep1Title: "1 — 任务进入",
-      howStep1Text:
-        "客户用日常语言描述自己需要什么：信件、文章、脚本、内容，或者小型自动化任务等。",
-      howStep2Title: "2 — 执行与交付",
-      howStep2Text:
-        "自由职业者在任务桌的语气与风格规范下，用 AI + 人类判断完成工作并交付结果。",
-      howStep3Title: "3 — 结算与桌面费用",
-      howStep3Text:
-        "客户通过安全的第三方支付服务商（例如 Paddle）或约定渠道付款。贡献方拿到明确的净收入，中间的差额就是任务桌的服务费。",
+      // about hero
+      document.getElementById("aboutPillText").textContent = t.aboutPill;
+      document.getElementById("aboutTitle").textContent = t.aboutTitle;
+      document.getElementById("aboutSubtitle").textContent = t.aboutSubtitle;
+      document.getElementById("metric1").innerHTML = t.metric1;
+      document.getElementById("metric2").innerHTML = t.metric2;
+      document.getElementById("metric3").innerHTML = t.metric3;
+      document.getElementById("aboutNoteTitle").textContent = t.aboutNoteTitle;
+      document.getElementById("aboutNoteText").textContent = t.aboutNoteText;
 
-      valuesTitle: "任务桌的价值观",
-      value1Title: "安静与私密",
-      value1Text: "不追热点，不搞噪音，只做安静、认真、可持续的协作。",
-      value2Title: "文字清晰",
-      value2Text: "需求说明、过程更新、最终结果都尽量用简单、直白的语言写清楚。",
-      value3Title: "尊重时间",
-      value3Text:
-        "为需要平衡工作、健康、家庭和旅行的人设计，不浪费双方时间。",
-      value4Title: "经济透明",
-      value4Text:
-        "客户看到的是一个清晰价格；合作者知道自己拿到的净金额；中间差额就是任务桌的服务费。",
+      // who
+      document.getElementById("whoTitle").textContent = t.whoTitle;
+      document.getElementById("whoSubtitle").textContent = t.whoSubtitle;
+      document.getElementById("whoTag1").textContent = t.whoTag1;
+      document.getElementById("whoTag2").textContent = t.whoTag2;
+      document.getElementById("whoTag3").textContent = t.whoTag3;
+      document.getElementById("whoMain1").textContent = t.whoMain1;
+      document.getElementById("whoMain2").textContent = t.whoMain2;
+      document.getElementById("whoMain3").textContent = t.whoMain3;
 
-      footerText: "© 2025 Aurum Task Desk — 私人 AI 任务协调桌"
-    },
+      // do / dont
+      document.getElementById("doTitle").textContent = t.doTitle;
+      document.getElementById("doBadge").textContent = t.doBadge;
+      document.getElementById("doItem1").textContent = t.doItem1;
+      document.getElementById("doItem2").textContent = t.doItem2;
+      document.getElementById("doItem3").textContent = t.doItem3;
+      document.getElementById("doItem4").textContent = t.doItem4;
 
-    // ===== Arabic =====
-    ar: {
-      navHome: "الرئيسية",
-      navTasks: "سوق المهام",
-      navAbout: "حول",
-      navPricing: "الأسعار",
-      navContact: "تواصل",
+      document.getElementById("dontTitle").textContent = t.dontTitle;
+      document.getElementById("dontBadge").textContent = t.dontBadge;
+      document.getElementById("dontItem1").textContent = t.dontItem1;
+      document.getElementById("dontItem2").textContent = t.dontItem2;
+      document.getElementById("dontItem3").textContent = t.dontItem3;
+      document.getElementById("dontItem4").textContent = t.dontItem4;
 
-      headerTitle: "حول Aurum Task Desk",
-      headerSub:
-        "يعد Aurum Task Desk مكتب تنسيق صغيرًا وخاصًا للمهام المدعومة بالذكاء الاصطناعي. صُمّم لكبار المهنيين وأصحاب الأعمال والعملاء الجادّين الذين يفضّلون المساعدة الهادئة والمنظّمة بدلًا من الأسواق العامة الصاخبة.",
+      // trust & founder
+      document.getElementById("trustTitle").textContent = t.trustTitle;
+      document.getElementById("trustSubtitle").textContent = t.trustSubtitle;
+      document.getElementById("trustItem1").textContent = t.trustItem1;
+      document.getElementById("trustItem2").textContent = t.trustItem2;
+      document.getElementById("trustItem3").textContent = t.trustItem3;
 
-      whatTitle: "ما هو هذا المكتب",
-      whatText:
-        "بدلًا من أن يكون منصة مفتوحة أخرى، يعمل Aurum Task Desk كمكتب وسطي متحفظ. يرسل العملاء المهام، ويقوم المستقلون (وأنت في الخلفية) بتنفيذها باستخدام أدوات الذكاء الاصطناعي. يتولّى المكتب تنسيق التوقعات والجداول الزمنية والتواصل، ويحافظ على أجر مكتبي شفاف لقاء ذلك.",
+      document.getElementById("founderLabel").textContent = t.founderLabel;
+      document.getElementById("founderName").textContent = t.founderName;
+      document.getElementById("founderMeta").textContent = t.founderMeta;
+      document.getElementById("founderText").textContent = t.founderText;
 
-      howTitle: "كيف يعمل",
-      howStep1Title: "1 — استقبال المهام",
-      howStep1Text:
-        "يصف العملاء ما يحتاجون إليه بلغة بسيطة: رسائل، مقالات، نصوص، محتوى أو مهام أتمتة صغيرة.",
-      howStep2Title: "2 — تنفيذ العمل",
-      howStep2Text:
-        "يستخدم المستقلون الذكاء الاصطناعي مع الحكم البشري لتقديم نتائج تتوافق مع إرشادات المكتب من حيث النبرة والوضوح.",
-      howStep3Title: "3 — التسوية ورسوم المكتب",
-      howStep3Text:
-        "يدفع العملاء عبر مزوّد دفع إلكتروني آمن من طرف ثالث (مثل Paddle) أو من خلال قنوات متفق عليها. يتلقّى المساهمون مبلغهم الصافي، والفارق هو رسم المكتب.",
+      // 按钮样式
+      langButtons.forEach((b) => {
+        b.classList.toggle("active", b.dataset.lang === lang);
+      });
 
-      valuesTitle: "قيم المكتب",
-      value1Title: "الهدوء والخصوصية",
-      value1Text: "لا مبالغة، لا رسائل مزعجة، فقط تعاون هادئ وجاد.",
-      value2Title: "الوضوح في الكلمات",
-      value2Text:
-        "يتم كتابة نطاق العمل والتحديثات والنتائج النهائية بلغة واضحة ومباشرة.",
-      value3Title: "احترام الوقت",
-      value3Text:
-        "مصمم لمن يوازن بين العمل والصحة والعائلة والسفر.",
-      value4Title: "اقتصاد شفاف",
-      value4Text:
-        "يدفع العميل سعرًا واحدًا واضحًا، ويعرف المساهمون دخلهم الصافي، ورسوم المكتب هي الفارق بينهما.",
+      if (lang === "zh") {
+        document.documentElement.lang = "zh-CN";
+      } else {
+        document.documentElement.lang = "en";
+      }
 
-      footerText: "© 2025 Aurum Task Desk — مكتب تنسيق مهام بالذكاء الاصطناعي"
-    },
-
-    // ===== French =====
-    fr: {
-      navHome: "Accueil",
-      navTasks: "Place de tâches",
-      navAbout: "À propos",
-      navPricing: "Tarifs",
-      navContact: "Contact",
-
-      headerTitle: "À propos d’Aurum Task Desk",
-      headerSub:
-        "Aurum Task Desk est un petit bureau privé de coordination pour des tâches assistées par l’IA. Il est destiné aux professionnels plus âgés, aux chefs d’entreprise et aux clients à forte intention qui préfèrent une aide calme et structurée plutôt que des places de marché publiques bruyantes.",
-
-      whatTitle: "Ce qu’est le bureau",
-      whatText:
-        "Au lieu d’être une plateforme ouverte de plus, Aurum Task Desk fonctionne comme un bureau intermédiaire discret. Les clients envoient leurs missions. Les freelances (et vous, en coulisses) utilisent l’IA pour les exécuter. Le bureau coordonne les attentes, les délais et la communication, et conserve des honoraires transparents pour ce travail.",
-
-      howTitle: "Comment il fonctionne",
-      howStep1Title: "1 — Arrivée des missions",
-      howStep1Text:
-        "Les clients décrivent leurs besoins en langage simple : lettres, articles, scripts, contenu ou petites automatisations.",
-      howStep2Title: "2 — Exécution du travail",
-      howStep2Text:
-        "Les freelances combinent IA et jugement humain pour livrer des résultats conformes aux lignes directrices du bureau en matière de ton et de clarté.",
-      howStep3Title: "3 — Règlement et frais de bureau",
-      howStep3Text:
-        "Les clients paient via un prestataire de paiement en ligne tiers sécurisé (par exemple Paddle) ou d’autres canaux convenus. Les contributeurs reçoivent un montant net, et la différence constitue les frais de bureau.",
-
-      valuesTitle: "Les valeurs du bureau",
-      value1Title: "Calme et privé",
-      value1Text: "Pas de hype, pas de spam. Juste une collaboration sérieuse et tranquille.",
-      value2Title: "Clarté des mots",
-      value2Text:
-        "Les cahiers des charges, mises à jour et livrables sont rédigés en langage clair.",
-      value3Title: "Respect du temps",
-      value3Text:
-        "Conçu pour des personnes qui jonglent entre travail, santé, famille et voyages.",
-      value4Title: "Économie transparente",
-      value4Text:
-        "Le client paie un prix clair ; les contributeurs connaissent leur montant net et les frais de bureau sont l’écart entre les deux.",
-
-      footerText:
-        "© 2025 Aurum Task Desk — Bureau privé de coordination de tâches IA"
-    },
-
-    // ===== German =====
-    de: {
-      navHome: "Startseite",
-      navTasks: "Aufgaben-Marktplatz",
-      navAbout: "Über uns",
-      navPricing: "Preise",
-      navContact: "Kontakt",
-
-      headerTitle: "Über Aurum Task Desk",
-      headerSub:
-        "Aurum Task Desk ist ein kleines, privates Koordinationsbüro für KI-unterstützte Aufgaben. Es richtet sich an ältere Fachleute, Unternehmer und ernsthafte Kunden, die eine ruhige, strukturierte Unterstützung statt lauter öffentlicher Marktplätze bevorzugen.",
-
-      whatTitle: "Was dieser Desk ist",
-      whatText:
-        "Anstatt eine weitere offene Plattform zu sein, fungiert Aurum Task Desk als diskretes Middle-Office. Kunden reichen Aufgaben ein. Freiberufler (und du im Hintergrund) erledigen sie mithilfe von KI-Tools. Der Desk koordiniert Erwartungen, Zeitpläne und Kommunikation und erhebt dafür eine transparente Gebühr.",
-
-      howTitle: "Wie er arbeitet",
-      howStep1Title: "1 — Aufgaben kommen herein",
-      howStep1Text:
-        "Kunden beschreiben in einfachen Worten, was sie brauchen: Briefe, Artikel, Skripte, Inhalte oder kleine Automatisierungen.",
-      howStep2Title: "2 — Arbeit wird ausgeführt",
-      howStep2Text:
-        "Freelancer nutzen KI plus menschliches Urteilsvermögen, um Ergebnisse gemäß den Desk-Richtlinien zu Ton und Klarheit zu liefern.",
-      howStep3Title: "3 — Abrechnung & Desk-Gebühr",
-      howStep3Text:
-        "Kunden zahlen über einen sicheren Zahlungsdienstleister eines Drittanbieters (z. B. Paddle) oder über andere vereinbarte Kanäle. Mitarbeitende erhalten ihren Nettobetrag, und die Differenz ist die Desk-Gebühr.",
-
-      valuesTitle: "Werte des Desks",
-      value1Title: "Ruhig & privat",
-      value1Text:
-        "Kein Hype, kein Spam. Nur ruhige, seriöse Zusammenarbeit.",
-      value2Title: "Klarheit in Worten",
-      value2Text:
-        "Leistungsbeschreibungen, Updates und Ergebnisse werden in klarer Sprache formuliert.",
-      value3Title: "Respekt vor Zeit",
-      value3Text:
-        "Ausgelegt für Menschen, die Arbeit, Gesundheit, Familie und Reisen unter einen Hut bringen.",
-      value4Title: "Transparente Ökonomie",
-      value4Text:
-        "Kunden zahlen einen klaren Preis; Mitwirkende kennen ihren Nettobetrag, und die Desk-Gebühr ist die Spanne dazwischen.",
-
-      footerText:
-        "© 2025 Aurum Task Desk — Privater KI-Aufgaben-Desk"
-    }
-  };
-
-  function applyGlobalLanguage() {
-    AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
-    const dict = LANG_STRINGS[AURUM_LANG] || LANG_STRINGS.en;
-
-    function setText(id, key) {
-      const el = document.getElementById(id);
-      if (el && dict[key]) el.textContent = dict[key];
+      localStorage.setItem("aurum_lang", lang);
     }
 
-    setText("navHome", "navHome");
-    setText("navTasks", "navTasks");
-    setText("navAbout", "navAbout");
-    setText("navPricing", "navPricing");
-    setText("navContact", "navContact");
+    langButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const lang = btn.dataset.lang || "en";
+        applyLang(lang);
+      });
+    });
 
-    setText("headerTitle", "headerTitle");
-    setText("headerSub", "headerSub");
-
-    setText("whatTitle", "whatTitle");
-    setText("whatText", "whatText");
-
-    setText("howTitle", "howTitle");
-    setText("howStep1Title", "howStep1Title");
-    setText("howStep1Text", "howStep1Text");
-    setText("howStep2Title", "howStep2Title");
-    setText("howStep2Text", "howStep2Text");
-    setText("howStep3Title", "howStep3Title");
-    setText("howStep3Text", "howStep3Text");
-
-    setText("valuesTitle", "valuesTitle");
-    setText("value1Title", "value1Title");
-    setText("value1Text", "value1Text");
-    setText("value2Title", "value2Title");
-    setText("value2Text", "value2Text");
-    setText("value3Title", "value3Title");
-    setText("value3Text", "value3Text");
-    setText("value4Title", "value4Title");
-    setText("value4Text", "value4Text");
-
-    setText("footerText", "footerText");
-  }
-
-  // ===== 登录状态脚本：读取 localStorage.aurum_user =====
-  function getAurumUser() {
-    try {
-      const raw = localStorage.getItem("aurum_user");
-      if (!raw) return null;
-      return JSON.parse(raw);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function aurumLogout() {
-    localStorage.removeItem("aurum_user");
-    renderNavUserArea();
-    // 如需登出后跳首页，可以打开：
-    // window.location.href = "index.html";
-  }
-
-  function renderNavUserArea() {
-    const area = document.getElementById("navUserArea");
-    if (!area) return;
-
-    const user = getAurumUser();
-    if (!user) {
-      area.innerHTML = '<a href="auth.html" class="nav-signin-link">Sign in</a>';
-    } else {
-      const displayName = user.name || user.email || user.phone || "Member";
-      area.innerHTML = `
-        <span class="nav-hi">Hi, ${displayName}</span>
-        <button type="button" class="nav-logout-btn" onclick="aurumLogout()">
-          Logout
-        </button>
-      `;
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    renderNavUserArea();
-    applyGlobalLanguage(); // 跟首页保持同一语言
-  });
-</script>
+    (function initLang() {
+      const saved = localStorage.getItem("aurum_lang");
+      if (saved === "zh" || saved === "en") {
+        applyLang(saved);
+      } else {
+        applyLang("en");
+      }
+    })();
+  </script>
 </body>
 </html>
