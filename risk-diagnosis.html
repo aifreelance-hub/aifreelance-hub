@@ -787,71 +787,143 @@
   </div>
 
   <script>
-  const form = document.getElementById('risk-form');
-  const btn = document.getElementById('risk-submit');
-  const statusEl = document.getElementById('risk-status');
-  const resultBox = document.getElementById('risk-result-box');
-  const resultText = document.getElementById('risk-result');
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1) 找到表单和按钮（不依赖 id）
+    const form = document.querySelector("form");
+    if (!form) return;
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
 
-    const payload = {
-      platform: form.platform.value,
-      urgency: form.urgency.value,
-      notice: form.notice.value,
-      context: form.context.value,
-      business: form.business.value,
-      email: form.email.value,
-      whatsapp: form.whatsapp.value,
-      extra: form.extra.value,
-    };
+    // 这些是状态提示区域（如果页面上没有对应 id，也不会报错）
+    const statusEl = document.getElementById("diagnosisStatus");
+    const resultBox = document.getElementById("diagnosisResultBox");
+    const resultText = document.getElementById("diagnosisResult");
 
-    // 简单校验
-    if (!payload.notice || !payload.context || !payload.business || !payload.email) {
-      statusEl.textContent = 'Please fill the required fields first.';
-      return;
+    // 2) 预填 URL 上的参数（platform / urgency / notice / context / business / email / whatsapp / extra）
+    const params = new URLSearchParams(window.location.search);
+    const prefill = [
+      "platform",
+      "urgency",
+      "notice",
+      "context",
+      "business",
+      "email",
+      "whatsapp",
+      "extra",
+    ];
+    for (const key of prefill) {
+      const v = params.get(key);
+      if (!v) continue;
+      const field = form.elements[key];
+      if (!field) continue;
+      if (field.tagName === "SELECT") {
+        // 下拉选项
+        for (const opt of field.options) {
+          if (opt.value === v || opt.text === v) {
+            field.value = opt.value;
+            break;
+          }
+        }
+      } else {
+        field.value = v;
+      }
     }
 
-    btn.disabled = true;
-    const oldText = btn.textContent;
-    btn.textContent = 'Analyzing...';
-    statusEl.textContent = 'Running an automatic risk diagnosis. This can take 5–15 seconds…';
-    resultBox.style.display = 'none';
-    resultText.textContent = '';
+    // 3) 提交事件
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    try {
-      console.log('posting to https://aurumdesks.com/w/api/risk-diagnosis');
+      const f = e.target;
 
-const res = await fetch("https://aurumdesks.com/w/api/risk-diagnosis", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(payload),
-});
+      // 从表单里取值（根据 name 获取）
+      const payload = {
+        platform: f.platform ? f.platform.value : "",
+        urgency: f.urgency ? f.urgency.value : "",
+        notice: f.notice ? f.notice.value : "",
+        context: f.context ? f.context.value : "",
+        business: f.business ? f.business.value : "",
+        email: f.email ? f.email.value : "",
+        whatsapp: f.whatsapp ? f.whatsapp.value : "",
+        extra: f.extra ? f.extra.value : "",
+      };
 
-      // 这里如果路由错了，res.status 就会是 404 / 405
-      console.log('risk diagnosis response status:', res.status);
-
-      if (!res.ok) {
-        throw new Error('Server responded ' + res.status);
+      // 简单必填检查
+      if (!payload.notice || !payload.context || !payload.business || !payload.email) {
+        if (statusEl) {
+          statusEl.textContent = "Please fill the required fields first.";
+        } else {
+          alert("Please fill the required fields first.");
+        }
+        return;
       }
 
-      const data = await res.json();
-      if (!data.ok || !data.diagnosis) {
-        throw new Error(data.error || 'Unexpected response');
+      // 4) 禁用按钮 + 状态提示
+      if (btn) {
+        btn.disabled = true;
+        btn.dataset.oldText = btn.textContent;
+        btn.textContent = "Analyzing…";
       }
+      if (statusEl) {
+        statusEl.textContent =
+          "Running an automatic risk diagnosis. This can take 5–15 seconds…";
+      }
+      if (resultBox) resultBox.style.display = "none";
+      if (resultText) resultText.textContent = "";
 
-      statusEl.textContent = 'Diagnosis complete.';
-      resultText.textContent = data.diagnosis;
-      resultBox.style.display = 'block';
-    } catch (err) {
-      console.error('risk diagnosis error', err);
-      statusEl.textContent = 'Something went wrong. Please try again later.';
-    } finally {
-      btn.disabled = false;
-      btn.textContent = oldText;
-    }
+      try {
+        console.log("posting to https://aurumdesks.com/w/api/risk-diagnosis");
+
+        const res = await fetch("https://aurumdesks.com/w/api/risk-diagnosis", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json().catch(() => null);
+
+        if (!res.ok || !data || data.ok === false) {
+          const msg =
+            (data && (data.error || data.message)) ||
+            "Automatic diagnosis failed. Please try again later.";
+          if (statusEl) statusEl.textContent = msg;
+          else alert(msg);
+          return;
+        }
+
+        // 5) 把诊断结果显示在页面（如果有对应容器）
+        const diagnosisText =
+          data.diagnosis ||
+          data.result ||
+          data.content ||
+          "Diagnosis created. Please also check your email for details.";
+
+        if (resultText) {
+          resultText.textContent = diagnosisText;
+        }
+        if (resultBox) {
+          resultBox.style.display = "block";
+        }
+        if (statusEl) {
+          statusEl.textContent =
+            "Automatic risk diagnosis completed. Please review the result below.";
+        }
+      } catch (err) {
+        console.error("risk diagnosis error", err);
+        if (statusEl) {
+          statusEl.textContent =
+            "Something went wrong. Please try again later.";
+        } else {
+          alert("Something went wrong. Please try again later.");
+        }
+      } finally {
+        // 6) 恢复按钮
+        if (btn) {
+          btn.disabled = false;
+          if (btn.dataset.oldText) {
+            btn.textContent = btn.dataset.oldText;
+          }
+        }
+      }
+    });
   });
 </script>
-</body>
-</html>
