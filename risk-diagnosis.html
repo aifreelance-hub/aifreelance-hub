@@ -787,108 +787,70 @@
   </div>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+  const form = document.getElementById('risk-form');
+  const btn = document.getElementById('risk-submit');
+  const statusEl = document.getElementById('risk-status');
+  const resultBox = document.getElementById('risk-result-box');
+  const resultText = document.getElementById('risk-result');
 
-    (function () {
-      const form = document.getElementById("risk-form");
-      const btn = document.getElementById("risk-submit-btn");
-      const statusEl = document.getElementById("risk-status-text");
-      const resultBox = document.getElementById("risk-result-box");
-      const resultText = document.getElementById("risk-result-text");
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      if (!form || !btn) return;
+    const payload = {
+      platform: form.platform.value,
+      urgency: form.urgency.value,
+      notice: form.notice.value,
+      context: form.context.value,
+      business: form.business.value,
+      email: form.email.value,
+      whatsapp: form.whatsapp.value,
+      extra: form.extra.value,
+    };
 
-      // 预填 URL 参数
-      try {
-        const params = new URLSearchParams(window.location.search);
-        const map = [
-          ["platform", "risk-platform"],
-          ["urgency", "risk-urgency"],
-          ["notice", "risk-notice"],
-          ["context", "risk-context"],
-          ["business", "risk-business"],
-          ["email", "risk-email"],
-          ["whatsapp", "risk-whatsapp"],
-          ["extra", "risk-extra"],
-        ];
-        for (const [key, id] of map) {
-          const v = params.get(key);
-          if (!v) continue;
-          const el = document.getElementById(id);
-          if (!el) continue;
-          el.value = decodeURIComponent(v);
-        }
-      } catch (e) {
-        console.warn("prefill error", e);
+    // 简单校验
+    if (!payload.notice || !payload.context || !payload.business || !payload.email) {
+      statusEl.textContent = 'Please fill the required fields first.';
+      return;
+    }
+
+    btn.disabled = true;
+    const oldText = btn.textContent;
+    btn.textContent = 'Analyzing...';
+    statusEl.textContent = 'Running an automatic risk diagnosis. This can take 5–15 seconds…';
+    resultBox.style.display = 'none';
+    resultText.textContent = '';
+
+    try {
+      console.log('posting to /w/api/risk-diagnosis');
+      const res = await fetch('/w/api/risk-diagnosis', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      // 这里如果路由错了，res.status 就会是 404 / 405
+      console.log('risk diagnosis response status:', res.status);
+
+      if (!res.ok) {
+        throw new Error('Server responded ' + res.status);
       }
 
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
+      const data = await res.json();
+      if (!data.ok || !data.diagnosis) {
+        throw new Error(data.error || 'Unexpected response');
+      }
 
-        const payload = {
-          platform: document.getElementById("risk-platform").value || "",
-          urgency: document.getElementById("risk-urgency").value || "",
-          notice: document.getElementById("risk-notice").value || "",
-          context: document.getElementById("risk-context").value || "",
-          business: document.getElementById("risk-business").value || "",
-          email: document.getElementById("risk-email").value || "",
-          whatsapp: document.getElementById("risk-whatsapp").value || "",
-          extra: document.getElementById("risk-extra").value || "",
-        };
-
-        if (
-          !payload.notice.trim() ||
-          !payload.context.trim() ||
-          !payload.business.trim() ||
-          !payload.email.trim()
-        ) {
-          statusEl.textContent = "Please fill the required fields first.";
-          return;
-        }
-
-        btn.disabled = true;
-        const oldText = btn.textContent;
-        btn.textContent = "Analyzing...";
-        statusEl.textContent =
-          "Running an automatic risk diagnosis. This can take 5–15 seconds…";
-        resultBox.style.display = "none";
-        resultText.textContent = "";
-
-        try {
-          const res = await fetch("/w/api/risk-diagnosis", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          });
-
-          if (!res.ok) {
-            const errText = await res.text();
-            console.error("risk diagnosis error", res.status, errText);
-            statusEl.textContent =
-              "Something went wrong. Please try again later.";
-            return;
-          }
-
-          const data = await res.json().catch(() => ({}));
-          const text =
-            data.diagnosis || data.message || data.result ||
-            JSON.stringify(data, null, 2) ||
-            "No diagnosis text returned.";
-
-          resultText.textContent = text;
-          resultBox.style.display = "block";
-          statusEl.textContent =
-            "This automatic diagnosis is for your reference. For very high-risk cases we may invite you to a paid appeal pack.";
-        } catch (err) {
-          console.error(err);
-          statusEl.textContent =
-            "Network error. Please check your connection and try again.";
-        } finally {
-          btn.disabled = false;
-          btn.textContent = oldText;
-        }
-      });
-    })();
-  </script>
+      statusEl.textContent = 'Diagnosis complete.';
+      resultText.textContent = data.diagnosis;
+      resultBox.style.display = 'block';
+    } catch (err) {
+      console.error('risk diagnosis error', err);
+      statusEl.textContent = 'Something went wrong. Please try again later.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = oldText;
+    }
+  });
+</script>
 </body>
 </html>
