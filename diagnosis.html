@@ -601,7 +601,7 @@
       box-shadow: 0 30px 70px rgba(15, 23, 42, 0.7);
       border: 1px solid rgba(15, 23, 42, 0.75);
       position: relative;
-      overflow: visible;      /* 关键：让内容全部展开 */
+      overflow: visible; /* allow full content */
     }
 
     .full-letter-header {
@@ -625,11 +625,39 @@
       color: #cbd5f5;
     }
 
+    .full-letter-actions {
+      margin: 6px 0 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .full-letter-btn {
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.7);
+      color: #e5e7eb;
+      font-size: 11px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .full-letter-btn.secondary {
+      background: rgba(15, 23, 42, 0.4);
+    }
+
+    .full-letter-btn:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+
     .full-letter-body {
       font-size: 13px;
       line-height: 1.8;
       white-space: pre-wrap;
-      /* 不再限制高度，不再滚动，整封信全部显示 */
       max-height: none;
       height: auto;
       overflow: visible;
@@ -683,6 +711,17 @@
       .preview-blur {
         height: 34%;
       }
+
+      .full-letter-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.5; }
+      100% { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
@@ -919,6 +958,16 @@ will receive before paying.
             <div class="full-letter-title">Full appeal letter (unlocked after payment)</div>
             <span class="full-letter-tag">Final letter for platform review</span>
           </div>
+
+          <div class="full-letter-actions">
+            <button class="full-letter-btn" id="copyLetterBtn">
+              Copy letter
+            </button>
+            <button class="full-letter-btn secondary" id="downloadPdfBtn">
+              Download as PDF
+            </button>
+          </div>
+
           <div class="full-letter-body" id="fullLetterBody">
 Dear Risk &amp; Compliance Team,
 
@@ -944,7 +993,10 @@ Aurum Account Recovery Desk
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- jsPDF for PDF download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Page script -->
   <script>
     const form = document.getElementById("diagnosisForm");
     const runBtn = document.getElementById("runBtn");
@@ -963,6 +1015,9 @@ Aurum Account Recovery Desk
 
     const paidCheck = document.getElementById("paidCheck");
     const unlockBtn = document.getElementById("unlockBtn");
+
+    const copyLetterBtn = document.getElementById("copyLetterBtn");
+    const downloadPdfBtn = document.getElementById("downloadPdfBtn");
 
     let lastPayload = null;
 
@@ -1102,6 +1157,63 @@ Aurum Account Recovery Desk
       } finally {
         unlockBtn.textContent = "Generate full appeal letter";
         unlockBtn.disabled = !paidCheck.checked;
+      }
+    });
+
+    // Copy letter button
+    copyLetterBtn.addEventListener("click", async () => {
+      const text = fullLetterBody.textContent.trim();
+      if (!text) {
+        alert("There is no letter to copy yet. Please generate the full letter first.");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        const old = copyLetterBtn.textContent;
+        copyLetterBtn.textContent = "Copied ✓";
+        copyLetterBtn.disabled = true;
+        setTimeout(() => {
+          copyLetterBtn.textContent = old;
+          copyLetterBtn.disabled = false;
+        }, 1500);
+      } catch (err) {
+        alert("Your browser blocked automatic copying. You can still select and copy the text manually.");
+      }
+    });
+
+    // Download PDF button
+    downloadPdfBtn.addEventListener("click", () => {
+      const text = fullLetterBody.textContent.trim();
+      if (!text) {
+        alert("There is no letter to download yet. Please generate the full letter first.");
+        return;
+      }
+
+      if (!window.jspdf || !window.jspdf.jsPDF) {
+        alert("PDF library is not available. Please try again later or copy the text instead.");
+        return;
+      }
+
+      try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+          unit: "pt",
+          format: "a4"
+        });
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+
+        const marginLeft = 48;
+        const marginTop = 64;
+        const maxWidth = 515; // A4 width (595pt) minus margins
+
+        const lines = doc.splitTextToSize(text, maxWidth);
+        doc.text(lines, marginLeft, marginTop);
+
+        doc.save("aurum-appeal-letter.pdf");
+      } catch (err) {
+        alert("Could not create the PDF. Please try again later or copy the text instead.");
       }
     });
   </script>
