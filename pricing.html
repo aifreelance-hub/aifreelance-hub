@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aurum Dispute Desk — Pricing & Appeal Options</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <meta
+    name="description"
+    content="Clear pricing for account risk diagnosis, appeal letter drafting and VIP guidance for TikTok, PayPal, Stripe, Facebook Ads, Airbnb, Amazon and more."
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-deep: #020617;
+      --bg-card: #020617;
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --gold: #fbbf24;
+      --gold-soft: rgba(251, 191, 36, 0.16);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --shadow-strong: 0 32px 80px rgba(15, 23, 42, 0.95);
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.7);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.10), transparent 55%),
+        radial-gradient(circle at top right, rgba(251, 191, 36, 0.25), transparent 60%),
+        radial-gradient(circle at bottom, rgba(15, 23, 42, 0.95), #020617 58%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 16px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* background glow */
+    .bg-orbit {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .bg-orbit::before,
+    .bg-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.5;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    .bg-orbit::before {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle at center, rgba(251, 191, 36, 0.45), transparent 65%);
+      top: -160px;
+      left: -80px;
+    }
+
+    .bg-orbit::after {
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle at center, rgba(56, 189, 248, 0.35), transparent 70%);
+      bottom: -120px;
+      right: -60px;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0% { transform: translate3d(0, 0, 0); opacity: 0.4; }
+      100% { transform: translate3d(40px, 30px, 0); opacity: 0.7; }
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      background: conic-gradient(
+        from 160deg,
+        #fbbf24,
+        #22d3ee,
+        #4ade80,
+        #f97316,
+        #fbbf24
+      );
+      box-shadow: 0 0 26px rgba(251, 191, 36, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-title {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      font-size: 15px;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--text-soft);
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      border-color: rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    nav a.active {
+      border-color: rgba(251, 191, 36, 0.8);
+      background: radial-gradient(circle at top, rgba(251, 191, 36, 0.22), transparent 65%);
+      color: #fefce8;
+    }
+
+    .nav-cta {
+      border-color: rgba(251, 191, 36, 0.85);
+      background: linear-gradient(120deg, #fbbf24, #f97316);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.95);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 46px rgba(15, 23, 42, 1);
+      background: linear-gradient(120deg, #fde047, #fb923c);
+    }
+
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* HERO */
+
+    .hero {
+      border-radius: 28px;
+      padding: 22px 22px 18px;
+      background:
+        radial-gradient(circle at top left, rgba(148, 163, 184, 0.25), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.6), transparent 65%),
+        rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: var(--shadow-strong);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: conic-gradient(
+        from 160deg,
+        rgba(251, 191, 36, 0.12),
+        transparent,
+        rgba(56, 189, 248, 0.15),
+        transparent,
+        rgba(251, 191, 36, 0.12)
+      );
+      mix-blend-mode: screen;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: borderGlow 12s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      padding: 4px 11px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.92);
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    .hero-pill span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.15);
+      color: #bbf7d0;
+      font-size: 10px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 32px);
+      line-height: 1.12;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 640px;
+      margin-bottom: 6px;
+    }
+
+    .hero-sub strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .hero-meta {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.95);
+    }
+
+    /* PRICING GRID */
+
+    .section {
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.75), transparent 65%),
+        rgba(15, 23, 42, 0.98);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 16px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .section h2 {
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .section-lead {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 420px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .pricing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .pricing-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .plan {
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      min-height: 210px;
+    }
+
+    .plan.highlight {
+      border-color: rgba(251, 191, 36, 0.9);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.95);
+      background:
+        radial-gradient(circle at top, rgba(251, 191, 36, 0.16), transparent 65%),
+        rgba(15, 23, 42, 0.98);
+    }
+
+    .plan-tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--text-soft);
+      align-self: flex-start;
+    }
+
+    .plan.highlight .plan-tag {
+      border-color: rgba(251, 191, 36, 0.9);
+      background: rgba(251, 191, 36, 0.08);
+      color: #fefce8;
+    }
+
+    .plan-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .plan-role {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .plan-price {
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .plan-price span {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-soft);
+      margin-left: 4px;
+    }
+
+    .plan-desc {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .plan-list {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-left: 14px;
+      margin-top: 4px;
+    }
+
+    .plan-list li {
+      margin-bottom: 2px;
+    }
+
+    .plan-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.95);
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      padding: 9px 16px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      background: linear-gradient(120deg, #fbbf24, #f97316);
+      color: #0b1120;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.95);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.18s ease-out;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      background: linear-gradient(120deg, #fde047, #fb923c);
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 8px 13px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-soft);
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.18s ease-out;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(251, 191, 36, 0.8);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .plan-actions {
+      margin-top: 6px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* COMPARISON / NOTES */
+
+    .notes-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 16px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 860px) {
+      .notes-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .note-card {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 11px 12px 10px;
+    }
+
+    .note-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .note-body {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .note-list {
+      margin-left: 14px;
+      margin-top: 4px;
+    }
+
+    .note-list li {
+      margin-bottom: 2px;
+    }
+
+    footer {
+      margin-top: 24px;
+      padding-top: 14px;
+      font-size: 11px;
+      color: var(--text-soft);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orbit"></div>
+
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <div class="brand-title">Aurum Dispute Desk</div>
+          <div class="brand-sub">Account risk · Appeal · Reinstatement</div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="platforms.html">Platforms</a>
+        <a href="risk-diagnosis.html">Risk Diagnosis</a>
+        <a href="pricing.html" class="active">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <a href="risk-diagnosis.html" class="nav-cta">Start free diagnosis</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-pill">
+            <span>●</span>
+            One calm desk for different levels of platform trouble.
+          </div>
+          <h1>Choose the right level of help for your account.</h1>
+          <p class="hero-sub">
+            Start free with a written <strong>risk diagnosis</strong>.  
+            If your case is worth a push, move into an <strong>Appeal Pack</strong> or full
+            <strong>VIP guidance</strong>. No subscriptions, no hidden tiers.
+          </p>
+          <div class="hero-meta">
+            Prices below are typical ranges. Final quotes can change slightly depending on platform,
+            language and complexity. You always see the price before paying.
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING GRID -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Appeal & guidance options</h2>
+          <p class="section-lead">
+            All work is remote and written. We never ask for passwords or access codes.
+            You submit from your own devices and accounts.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Plan 1 -->
+          <article class="plan">
+            <div class="plan-tag">Entry</div>
+            <div class="plan-name">Free Risk Scan</div>
+            <div class="plan-role">First look at your situation</div>
+            <div class="plan-price">$0 <span>per case</span></div>
+            <p class="plan-desc">
+              For when you just received a suspension or restriction and need someone calm
+              to tell you if it’s serious and whether an appeal has a chance.
+            </p>
+            <ul class="plan-list">
+              <li>• Short written diagnosis (risk level & main triggers)</li>
+              <li>• Recommendation: appeal now, wait, or redesign</li>
+              <li>• Rough indication which paid option makes sense</li>
+              <li>• Works for TikTok, PayPal, Stripe, Facebook Ads, Airbnb, Amazon and others</li>
+            </ul>
+            <div class="plan-footer">
+              <div>Best for: first-time events, “I don’t know how bad this is”.</div>
+              <div class="plan-actions">
+                <a href="risk-diagnosis.html" class="btn-primary">
+                  Start free diagnosis
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Plan 2 (highlight) -->
+          <article class="plan highlight">
+            <div class="plan-tag">Most popular</div>
+            <div class="plan-name">Appeal Pack</div>
+            <div class="plan-role">Structured appeal + evidence plan</div>
+            <div class="plan-price">$120–$260 <span>per appeal case</span></div>
+            <p class="plan-desc">
+              For cases where we believe one strong, well-structured appeal can make a real difference.
+              You keep control and send everything yourself.
+            </p>
+            <ul class="plan-list">
+              <li>• One full appeal draft in clear, policy-aware English</li>
+              <li>• Suggested evidence list (documents, screenshots, logs)</li>
+              <li>• 7–14 day strategy: when to submit, whether to follow up</li>
+              <li>• 1 round of refinement after you add your details</li>
+              <li>• Typical turnaround: 2–4 business days</li>
+            </ul>
+            <div class="plan-footer">
+              <div>Best for: single platforms where you still have a decent history.</div>
+              <div class="plan-actions">
+                <a href="contact.html" class="btn-primary">
+                  Ask for Appeal Pack quote
+                  <span>→</span>
+                </a>
+                <a href="risk-diagnosis.html" class="btn-ghost">
+                  Start with free diagnosis
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Plan 3 -->
+          <article class="plan">
+            <div class="plan-tag">High stakes</div>
+            <div class="plan-name">VIP Guidance</div>
+            <div class="plan-role">Ongoing help for critical accounts</div>
+            <div class="plan-price">$380–$960 <span>per intensive case</span></div>
+            <p class="plan-desc">
+              For when the suspended account is your main income or a key client, and you want
+              us with you through multiple replies, scenarios and decisions.
+            </p>
+            <ul class="plan-list">
+              <li>• Everything in Appeal Pack</li>
+              <li>• Multiple rewrites / follow-up drafts during review window</li>
+              <li>• Help reading platform replies & planning next moves</li>
+              <li>• Priority email support during the case</li>
+              <li>• Optional: second opinion on backups / new structure</li>
+            </ul>
+            <div class="plan-footer">
+              <div>Best for: agencies, serious sellers, creators whose main cashflow is blocked.</div>
+              <div class="plan-actions">
+                <a href="contact.html" class="btn-primary">
+                  Discuss a VIP case
+                  <span>→</span>
+                </a>
+                <a href="risk-diagnosis.html" class="btn-ghost">
+                  Not sure yet? Start free
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- NOTES / WHAT WE DON'T DO -->
+      <section class="section">
+        <div class="section-header">
+          <h2>What this desk does — and does not — do</h2>
+          <p class="section-lead">
+            We sit between “random emotional appeal” and “full law firm”.
+            This is a writing & strategy desk focused on clarity, not on hacking systems.
+          </p>
+        </div>
+
+        <div class="notes-grid">
+          <div class="note-card">
+            <div class="note-title">You get</div>
+            <div class="note-body">
+              <ul class="note-list">
+                <li>• A calm, outside view on what the platform likely saw</li>
+                <li>• Writing that sounds like a serious business, not a panic post</li>
+                <li>• Clear structure: context → policies → evidence → future controls</li>
+                <li>• Suggestions on which documents strengthen your case</li>
+                <li>• Realistic expectations about outcomes and timelines</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="note-card">
+            <div class="note-title">You do <strong>not</strong> get</div>
+            <div class="note-body">
+              <ul class="note-list">
+                <li>• Fake documents, edited IDs or proof of address</li>
+                <li>• Account rental, “replacement accounts” or shadow access</li>
+                <li>• Someone logging in as you or asking for passwords / 2FA codes</li>
+                <li>• Promises of guaranteed reinstatement</li>
+                <li>• Legal representation in court (we are not a law firm)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="section">
+        <div class="notes-grid">
+          <div class="note-card">
+            <div class="note-title">Not sure which option fits?</div>
+            <div class="note-body">
+              The safest way to start is always the <strong>Free Risk Scan</strong>.  
+              You send us the notice and a short description of what happened.
+              We reply with a diagnosis and tell you honestly whether paying us
+              makes sense right now.
+            </div>
+          </div>
+
+          <div class="note-card">
+            <div class="note-title">Ready to move?</div>
+            <div class="note-body" style="display:flex;flex-direction:column;gap:8px;">
+              <div>If you already know your case is serious and time-sensitive, you can contact us directly and mention whether you are interested in an Appeal Pack or VIP Guidance.</div>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;">
+                <a href="risk-diagnosis.html" class="btn-primary">
+                  Start with free diagnosis
+                  <span>→</span>
+                </a>
+                <a href="contact.html" class="btn-ghost">
+                  Go to contact form
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>© <span id="year"></span> Aurum Dispute Desk. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="pricing.html">Pricing</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Terms (coming soon)</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
