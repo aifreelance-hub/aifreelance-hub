@@ -869,7 +869,7 @@
       resultText.textContent = '';
 
       try {
-        const res = await fetch('/api/risk-diagnosis', {
+        const res = await fetch("/w/api/risk-diagnosis"), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
