@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aurum Dispute Desk — Free Risk Diagnosis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" href="favicon.png" type="image/png" />
+
+  <meta
+    name="description"
+    content="Run a free risk diagnosis for your suspended or restricted account. Aurum Dispute Desk helps you understand platform risk, whether an appeal is realistic, and what information you should prepare."
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-deep: #020617;
+      --bg-card: #020617;
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --gold: #fbbf24;
+      --gold-soft: rgba(251, 191, 36, 0.16);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --shadow-strong: 0 32px 80px rgba(15, 23, 42, 0.95);
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.7);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.10), transparent 55%),
+        radial-gradient(circle at top right, rgba(251, 191, 36, 0.25), transparent 60%),
+        radial-gradient(circle at bottom, rgba(15, 23, 42, 0.95), #020617 58%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 16px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* background glow */
+    .bg-orbit {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .bg-orbit::before,
+    .bg-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.5;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    .bg-orbit::before {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle at center, rgba(251, 191, 36, 0.45), transparent 65%);
+      top: -160px;
+      left: -80px;
+    }
+
+    .bg-orbit::after {
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle at center, rgba(56, 189, 248, 0.35), transparent 70%);
+      bottom: -120px;
+      right: -60px;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0% { transform: translate3d(0, 0, 0); opacity: 0.4; }
+      100% { transform: translate3d(40px, 30px, 0); opacity: 0.7; }
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      background: conic-gradient(
+        from 160deg,
+        #fbbf24,
+        #22d3ee,
+        #4ade80,
+        #f97316,
+        #fbbf24
+      );
+      box-shadow: 0 0 26px rgba(251, 191, 36, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-title {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      font-size: 15px;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--text-soft);
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      border-color: rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    nav a.active {
+      border-color: rgba(251, 191, 36, 0.8);
+      background: radial-gradient(circle at top, rgba(251, 191, 36, 0.22), transparent 65%);
+      color: #fefce8;
+    }
+
+    .nav-cta {
+      border-color: rgba(251, 191, 36, 0.85);
+      background: linear-gradient(120deg, #fbbf24, #f97316);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.95);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 46px rgba(15, 23, 42, 1);
+      background: linear-gradient(120deg, #fde047, #fb923c);
+    }
+
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      border-radius: 28px;
+      padding: 22px 22px 18px;
+      background:
+        radial-gradient(circle at top left, rgba(148, 163, 184, 0.25), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.6), transparent 65%),
+        rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: var(--shadow-strong);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: conic-gradient(
+        from 160deg,
+        rgba(251, 191, 36, 0.12),
+        transparent,
+        rgba(56, 189, 248, 0.15),
+        transparent,
+        rgba(251, 191, 36, 0.12)
+      );
+      mix-blend-mode: screen;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: borderGlow 12s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 22px;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 920px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(26px, 4vw, 32px);
+      line-height: 1.12;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      padding: 4px 11px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.92);
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .hero-pill span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.15);
+      color: #bbf7d0;
+      font-size: 10px;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 12px;
+      max-width: 520px;
+    }
+
+    .hero-sub strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .hero-bullets {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .hero-bullets ul {
+      margin-left: 16px;
+      margin-top: 4px;
+    }
+
+    .hero-bullets li {
+      margin-bottom: 2px;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.95);
+      margin-top: 6px;
+    }
+
+    .hero-note strong {
+      color: #e5e7eb;
+    }
+
+    /* FORM SECTION */
+
+    .form-card {
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 16px 16px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field-label {
+      font-size: 12px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .field-label span {
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    .field-label small {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.8);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 9px 10px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.16s ease-out, box-shadow 0.16s ease-out, background 0.16s ease-out;
+      resize: vertical;
+      min-height: 38px;
+    }
+
+    textarea {
+      min-height: 90px;
+      max-height: 260px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(251, 191, 36, 0.9);
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.8);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .inline-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .inline-fields {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .helper-line {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.85);
+    }
+
+    .helper-line strong {
+      color: #e5e7eb;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      padding: 10px 18px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(120deg, #fbbf24, #f97316);
+      color: #0b1120;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.95);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.18s ease-out;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      background: linear-gradient(120deg, #fde047, #fb923c);
+    }
+
+    .submit-row {
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .submit-note {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      max-width: 360px;
+    }
+
+    /* FAQ SECTION */
+
+    .section {
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.75), transparent 65%),
+        rgba(15, 23, 42, 0.98);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 14px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .section h2 {
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .section-lead {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 420px;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 860px) {
+      .faq-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .faq-item {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 9px 10px 8px;
+    }
+
+    .faq-q {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .faq-a {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    footer {
+      margin-top: 22px;
+      padding-top: 14px;
+      font-size: 11px;
+      color: var(--text-soft);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orbit"></div>
+
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <div class="brand-title">Aurum Dispute Desk</div>
+          <div class="brand-sub">Account risk · Appeal · Reinstatement</div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="platforms.html">Platforms</a>
+        <a href="risk-diagnosis.html" class="active">Risk Diagnosis</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <a href="risk-diagnosis.html" class="nav-cta">Start free diagnosis</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO + FORM -->
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <div class="hero-pill">
+              <span>●</span>
+              Free, calm first look at your suspended or restricted account.
+            </div>
+            <h1>Free risk diagnosis: is your case worth an appeal?</h1>
+            <p class="hero-sub">
+              Paste your platform notice and describe what happened.  
+              We give you a <strong>calm, policy-aware view</strong> of your situation:
+              risk level, whether appeal is realistic, and what information you should prepare.
+            </p>
+
+            <div class="hero-bullets">
+              We look at:
+              <ul>
+                <li>• Platform type (TikTok, PayPal, Stripe, Facebook Ads, Airbnb, Amazon…)</li>
+                <li>• Common risk triggers: content, payments, KYC, chargebacks, landing page, devices</li>
+                <li>• History: first-time event vs. repeated violations</li>
+              </ul>
+            </div>
+
+            <p class="hero-note">
+              <strong>No login, no screen-share, no password.</strong>  
+              You stay in control: you paste the notice here and later submit your appeal from your own account.
+            </p>
+          </div>
+
+          <div class="form-card">
+            <!--
+              You can change the email below to your real mailbox, for example:
+              action="mailto:auth@aurumdesks.com"
+            -->
+            <form
+              action="mailto:support@aurumdesks.com"
+              method="POST"
+              enctype="text/plain"
+            >
+              <div class="inline-fields">
+                <div class="field-group">
+                  <label class="field-label">
+                    <span>Platform</span>
+                    <small>Required</small>
+                  </label>
+                  <select name="Platform" required>
+                    <option value="">Select a platform…</option>
+                    <option>TikTok / TikTok Shop</option>
+                    <option>Facebook / Instagram Ads</option>
+                    <option>PayPal</option>
+                    <option>Stripe</option>
+                    <option>Airbnb</option>
+                    <option>Amazon</option>
+                    <option>Google Ads</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label">
+                    <span>How urgent is this?</span>
+                    <small>Rough feel</small>
+                  </label>
+                  <select name="Urgency">
+                    <option value="">Select…</option>
+                    <option>Low — just want a calm opinion</option>
+                    <option>Medium — important, but business still runs</option>
+                    <option>High — main cashflow is blocked</option>
+                    <option>Critical — this is my only income</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label">
+                  <span>Paste the platform notice or email (original language)</span>
+                  <small>Required</small>
+                </label>
+                <textarea
+                  name="Platform notice"
+                  placeholder="Copy the text of the email or in-app message here, including error codes or policy names…"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label">
+                  <span>What happened just before the suspension?</span>
+                  <small>Required</small>
+                </label>
+                <textarea
+                  name="What happened"
+                  placeholder="Example: we launched a new campaign to country X, changed landing page, received disputes, changed product category, received a warning last week…"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label">
+                  <span>What does your business actually do?</span>
+                  <small>Required</small>
+                </label>
+                <textarea
+                  name="Business model"
+                  placeholder="Short description in simple words. What do you sell, to whom, at what price point, how do you deliver?"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="inline-fields">
+                <div class="field-group">
+                  <label class="field-label">
+                    <span>Your email</span>
+                    <small>Required</small>
+                  </label>
+                  <input
+                    type="email"
+                    name="Email"
+                    placeholder="we'll send the diagnosis here"
+                    required
+                  />
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label">
+                    <small>For follow-up only</small>
+                  </label>
+                  <input
+                    type="text"
+                    name="WhatsApp"
+                    placeholder="+1 555 000 0000"
+                  />
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label">
+                  <span>Anything else we should know?</span>
+                  <small>Optional</small>
+                </label>
+                <textarea
+                  name="Extra context"
+                  placeholder="Previous bans, old tickets, sensitive verticals, special documents you have, budget you roughly have in mind for appeals…"
+                ></textarea>
+              </div>
+
+              <div class="submit-row">
+                <button type="submit" class="btn-primary">
+                  Send for free diagnosis
+                  <span>→</span>
+                </button>
+                <div class="submit-note">
+                  We normally respond within <strong>24–48 hours</strong>  
+                  with a written diagnosis and, if it makes sense, suggested appeal options and pricing.
+                </div>
+              </div>
+
+              <div class="helper-line">
+                By submitting, you confirm you are sharing your own case and are not asking for fake documents or account rental.  
+                We may decline cases that clearly violate platform or legal rules.
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ / EXPECTATIONS -->
+      <section class="section">
+        <div class="section-header">
+          <h2>What to expect from a risk diagnosis</h2>
+          <p class="section-lead">
+            This is not a magic unban button. It is a calm, realistic look at your situation
+            so you don't burn your final appeal chance with a random wall of text.
+          </p>
+        </div>
+
+        <div class="faq-grid">
+          <div class="faq-item">
+            <div class="faq-q">What do I receive after I submit?</div>
+            <div class="faq-a">
+              You receive a short written diagnosis by email: our best view of
+              <strong>what the platform likely saw</strong>, how serious it is,
+              and whether it's worth paying for a full appeal pack or VIP support.
+              We sometimes say “do not appeal yet” if your case is not ready.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">Can you guarantee my account will be reinstated?</div>
+            <div class="faq-a">
+              No. Anyone who promises guaranteed reinstatement is not being honest.
+              We can't control internal platform systems or reviewers.  
+              We focus on giving you the <strong>cleanest, most reasonable version of your story</strong>
+              and a structure that respects their policies.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">Do you log into my account or send appeals for me?</div>
+            <div class="faq-a">
+              No. You keep full control. We work through written drafts and clear instructions.
+              You submit appeals or documents from your own devices and accounts.
+              We never ask for passwords, 2FA codes or remote access.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">What if my English is not good?</div>
+            <div class="faq-a">
+              That's exactly why this desk exists. You can write your story in simple English
+              (or mix with your native language if needed), and we will organise it into
+              <strong>clear, respectful, policy-aware English</strong> that reviewers can understand.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>© <span id="year"></span> Aurum Dispute Desk. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="pricing.html">Pricing</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Terms (coming soon)</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
