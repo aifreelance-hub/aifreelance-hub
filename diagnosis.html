@@ -26,14 +26,15 @@
       --ink-softer: #6b7280;
       --ink-softest: #9ca3af;
       --accent: #1d4ed8;
-      --accent-soft: rgba(37, 99, 235, 0.08);
+      --accent-soft: rgba(37, 99, 235, 0.1);
+      --accent-strong: #1d4ed8;
       --gold: #f59e0b;
       --gold-soft: rgba(245, 158, 11, 0.12);
       --success: #16a34a;
       --danger: #ef4444;
 
-      --radius-xl: 26px;
-      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-lg: 22px;
       --radius-md: 16px;
       --radius-pill: 999px;
 
@@ -234,7 +235,11 @@
       text-shadow: 0 3px 8px rgba(15, 23, 42, 0.45);
     }
 
-    .brand-text { display: flex; flex-direction: column; gap: 2px; }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
     .brand-name {
       font-size: 16px;
@@ -335,12 +340,29 @@
       filter: brightness(1.03);
     }
 
-    .dot {
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(148, 163, 184, 0.9);
+      color: var(--ink-soft);
+    }
+
+    .btn-outline:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(148, 163, 184, 0.45);
+    }
+
+    .btn .dot {
       width: 6px;
       height: 6px;
       border-radius: 999px;
       background: #22c55e;
       box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.5);
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 12px;
     }
 
     .hamburger {
@@ -385,56 +407,137 @@
       padding: 20px 18px 80px;
     }
 
-    /* Hero / intro */
+    /* Hero layout */
     .hero {
       margin-top: 26px;
-      margin-bottom: 22px;
-    }
-
-    .hero-kicker {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--ink-softest);
-    }
-
-    .hero-title {
-      margin-top: 6px;
-      font-size: 24px;
-      font-weight: 650;
-      color: #020617;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-subtitle {
-      margin-top: 8px;
-      font-size: 13px;
-      color: var(--ink-softer);
-      max-width: 640px;
-      line-height: 1.7;
-    }
-
-    .hero-note {
-      margin-top: 8px;
-      font-size: 11px;
-      color: var(--ink-softest);
-    }
-
-    /* Layout */
-    .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.05fr);
       gap: 24px;
       align-items: flex-start;
     }
 
+    .stepper {
+      display: flex;
+      gap: 12px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-softest);
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .step-pill {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      box-shadow: 0 10px 30px rgba(148, 163, 184, 0.4);
+      font-weight: 500;
+      color: var(--ink-soft);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .step-pill span.count {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 3vw + 8px, 34px);
+      line-height: 1.16;
+      font-weight: 750;
+      letter-spacing: -0.03em;
+      color: #020617;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(90deg, #1d4ed8, #2563eb, #0ea5e9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow:
+        0 14px 40px rgba(37, 99, 235, 0.35),
+        0 0 1px rgba(15, 23, 42, 0.4);
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--ink-softer);
+      max-width: 540px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--ink-soft);
+      box-shadow: 0 10px 30px rgba(148, 163, 184, 0.45);
+    }
+
+    .plan-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(245, 158, 11, 0.9);
+      font-size: 11px;
+      color: #92400e;
+      margin-bottom: 8px;
+    }
+
+    .plan-chip span.label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      font-size: 10px;
+      opacity: 0.9;
+    }
+
+    .plan-chip span.price {
+      font-weight: 600;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--ink-softest);
+      margin-top: 6px;
+    }
+
     /* Form card */
     .form-card {
-      background: linear-gradient(145deg, #ffffff, #f9fafb);
-      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,0.98);
+      border-radius: 24px;
       border: 1px solid rgba(203, 213, 225, 0.9);
-      padding: 18px 18px 16px;
-      box-shadow: var(--shadow-card);
+      box-shadow: 0 20px 60px rgba(148, 163, 184, 0.6);
+      padding: 16px 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       position: relative;
       overflow: hidden;
     }
@@ -443,323 +546,439 @@
       content: "";
       position: absolute;
       inset: -40%;
-      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .form-card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--ink-softest);
-    }
-
-    .section-heading {
-      margin-top: 6px;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .section-desc {
-      margin-top: 6px;
-      font-size: 12px;
-      color: var(--ink-softer);
-      line-height: 1.7;
-    }
-
-    .form-grid {
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 12px 14px;
-    }
-
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 12px;
-      color: var(--ink-soft);
-    }
-
-    .form-field.full { grid-column: 1 / -1; }
-
-    .label-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      align-items: baseline;
-    }
-
-    .label-main { font-weight: 500; }
-
-    .label-sub {
-      font-size: 11px;
-      color: var(--ink-softest);
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(203, 213, 225, 0.9);
-      background: rgba(255, 255, 255, 0.96);
-      font-family: inherit;
-      font-size: 12px;
-      color: var(--ink);
-      outline: none;
-      transition: border-color 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s ease-out;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: rgba(37, 99, 235, 0.9);
-      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
-      background: #ffffff;
-    }
-
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .pill {
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.03);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      font-size: 10px;
-      color: var(--ink-softest);
-    }
-
-    .form-foot {
-      margin-top: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .helper-text {
-      font-size: 11px;
-      color: var(--ink-softest);
-      max-width: 260px;
-      line-height: 1.6;
-    }
-
-    .btn-secondary {
-      background: rgba(15, 23, 42, 0.05);
-      border-color: rgba(148, 163, 184, 0.7);
-      color: var(--ink-soft);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.9);
-      transform: translateY(-1px);
-      box-shadow: 0 10px 32px rgba(148, 163, 184, 0.4);
-    }
-
-    .btn-primary span.badge {
-      font-size: 10px;
-      padding: 1px 7px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.25);
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    /* Preview card */
-    .preview-card {
-      background: linear-gradient(145deg, #0f172a, #020617);
-      border-radius: var(--radius-xl);
-      padding: 16px 16px 14px;
-      color: #e5e7eb;
-      box-shadow: 0 24px 72px rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(30, 64, 175, 0.85);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .preview-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.9), transparent 60%);
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 60%);
       opacity: 0.8;
       pointer-events: none;
     }
 
-    .preview-inner {
+    .form-inner {
       position: relative;
       z-index: 1;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      font-size: 12px;
+      color: var(--ink-softer);
     }
 
-    .preview-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: rgba(191, 219, 254, 0.95);
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
     }
 
-    .preview-heading {
+    .form-header-title {
       font-size: 14px;
       font-weight: 600;
+      color: var(--ink);
     }
 
-    .risk-chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .risk-chip {
+    .form-header-sub {
       font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(148, 163, 184, 0.9);
+      color: var(--ink-softest);
     }
 
-    .risk-chip.green {
-      background: rgba(22, 163, 74, 0.15);
-      border-color: rgba(22, 163, 74, 0.8);
-      color: #bbf7d0;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .risk-chip.red {
-      background: rgba(239, 68, 68, 0.15);
-      border-color: rgba(239, 68, 68, 0.9);
-      color: #fecaca;
+    .field-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
     }
 
-    .risk-meter {
-      margin-top: 4px;
+    label {
+      font-size: 11px;
+      color: var(--ink-soft);
       display: flex;
       flex-direction: column;
       gap: 4px;
+    }
+
+    label span.hint {
       font-size: 10px;
-      color: rgba(226, 232, 240, 0.9);
+      color: var(--ink-softest);
     }
 
-    .risk-bar-track {
-      position: relative;
-      height: 9px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: linear-gradient(90deg, #fee2e2, #fef9c3, #dcfce7);
-    }
-
-    .risk-bar-fill {
-      position: absolute;
-      inset: 0;
-      width: 60%;
-      background: linear-gradient(90deg, #ef4444, #f97316, #facc15, #22c55e);
-      border-radius: inherit;
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
-      transform-origin: left;
-      animation: riskPulse 4.2s ease-in-out infinite alternate;
-    }
-
-    @keyframes riskPulse {
-      0% { transform: scaleX(0.55); }
-      100% { transform: scaleX(0.7); }
-    }
-
-    .preview-body {
-      margin-top: 4px;
-      background: rgba(15, 23, 42, 0.72);
-      border-radius: 18px;
-      border: 1px solid rgba(30, 64, 175, 0.9);
-      padding: 10px 12px;
+    input, select, textarea {
+      border-radius: 12px;
+      border: 1px solid rgba(203, 213, 225, 0.9);
+      padding: 8px 9px;
       font-size: 12px;
-      max-height: 190px;
-      overflow: auto;
-      line-height: 1.7;
+      font-family: inherit;
+      background: rgba(255,255,255,0.98);
+      color: var(--ink);
+      outline: none;
+      transition:
+        border-color 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        background 0.15s ease-out;
     }
 
-    .preview-body::-webkit-scrollbar {
-      width: 6px;
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(37, 99, 235, 0.9);
+      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.7);
+      background: #ffffff;
     }
 
-    .preview-body::-webkit-scrollbar-thumb {
-      background: rgba(148, 163, 184, 0.7);
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .helper {
+      font-size: 10px;
+      color: var(--ink-softest);
+    }
+
+    .form-footer {
+      margin-top: 2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      color: var(--ink-softest);
+    }
+
+    /* Right column: diagnosis + preview + payment / full letter */
+    .diagnosis-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .diag-card {
+      background: rgba(255,255,255,0.98);
+      border-radius: 22px;
+      border: 1px solid rgba(203, 213, 225, 0.9);
+      box-shadow: 0 18px 50px rgba(148, 163, 184, 0.6);
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--ink-softer);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .diag-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .diag-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .badge-soft {
+      font-size: 10px;
+      padding: 2px 8px;
       border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--ink-softest);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .risk-label {
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid transparent;
+      background: rgba(15, 23, 42, 0.03);
+    }
+
+    .risk-label span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+    }
+
+    .risk-low { border-color: rgba(22, 163, 74, 0.9); background: rgba(22, 163, 74, 0.08); color: #166534; }
+    .risk-low .dot { background: #22c55e; }
+
+    .risk-medium { border-color: rgba(245, 158, 11, 0.9); background: rgba(245, 158, 11, 0.08); color: #92400e; }
+    .risk-medium .dot { background: #f59e0b; }
+
+    .risk-high { border-color: rgba(239, 68, 68, 0.9); background: rgba(239, 68, 68, 0.08); color: #b91c1c; }
+    .risk-high .dot { background: #ef4444; }
+
+    .diag-body {
+      font-size: 12px;
+      color: var(--ink-softer);
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .diag-note {
+      font-size: 11px;
+      color: var(--ink-softest);
+    }
+
+    .preview-card {
+      background: rgba(255,255,255,0.98);
+      border-radius: 20px;
+      border: 1px solid rgba(203, 213, 225, 0.9);
+      box-shadow: 0 14px 40px rgba(148, 163, 184, 0.6);
+      padding: 12px 14px 10px;
+      position: relative;
+      overflow: hidden;
+      font-size: 12px;
+      color: var(--ink-softer);
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .preview-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .preview-text {
+      position: relative;
+      max-height: 140px;
+      overflow: hidden;
+      mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+      white-space: pre-wrap;
+    }
+
+    .preview-blur {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 50%;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(244, 246, 251, 0) 0%,
+          rgba(244, 246, 251, 0.92) 50%,
+          rgba(244, 246, 251, 0.98) 100%
+        );
+      backdrop-filter: blur(6px);
+      pointer-events: none;
     }
 
     .preview-footer {
       margin-top: 6px;
       font-size: 11px;
-      color: rgba(203, 213, 225, 0.9);
+      color: var(--ink-softest);
+    }
+
+    /* Payment & full letter */
+    .step2-card {
+      background: rgba(255,255,255,0.98);
+      border-radius: 22px;
+      border: 1px solid rgba(203,213,225,0.9);
+      box-shadow: 0 18px 50px rgba(148,163,184,0.6);
+      padding: 14px 14px 12px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--ink-softer);
     }
 
-    .preview-footer strong { color: #e5e7eb; }
+    .step2-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
 
-    .preview-tag-row {
+    .step2-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .price-pill {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.03);
+      border: 1px solid rgba(148,163,184,0.8);
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    .price-pill span.currency { font-size: 11px; }
+    .price-pill span.amount { font-weight: 600; }
+    .price-pill span.meta { font-size: 10px; color: var(--ink-softest); }
+
+    .pay-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pay-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 8px;
     }
 
-    .preview-tag {
-      font-size: 10px;
-      padding: 2px 7px;
+    .pay-links a {
+      font-size: 12px;
+      padding: 6px 10px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.65);
-      border: 1px solid rgba(148, 163, 184, 0.8);
+      border: 1px dashed rgba(148,163,184,0.8);
+      text-decoration: none;
+      color: var(--accent-strong);
+      background: rgba(255,255,255,0.98);
     }
 
-    .loading-dots::after {
-      content: "…";
-      animation: dots 1.2s steps(3, end) infinite;
-    }
-
-    @keyframes dots {
-      0% { content: ""; }
-      33% { content: "."; }
-      66% { content: ".."; }
-      100% { content: "..."; }
-    }
-
-    footer {
-      padding: 18px;
+    .pay-links a span {
       font-size: 11px;
       color: var(--ink-softest);
-      text-align: center;
     }
 
-    footer a {
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 11px;
       color: var(--ink-softest);
-      text-decoration: underline;
-      text-underline-offset: 3px;
+      margin-top: 6px;
     }
 
-    /* Responsive */
+    .checkbox-row input[type="checkbox"] {
+      margin-top: 2px;
+    }
+
+    .full-letter-card {
+      margin-top: 8px;
+      background: #020617;
+      border-radius: 20px;
+      border: 1px solid rgba(30, 64, 175, 0.9);
+      color: #e5e7eb;
+      padding: 12px 14px 10px;
+      box-shadow: 0 22px 70px rgba(15,23,42,0.95);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .full-letter-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.9), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .full-letter-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .full-letter-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .full-letter-body {
+      font-size: 12px;
+      color: rgba(226, 232, 240, 0.96);
+      line-height: 1.7;
+      white-space: pre-wrap;
+      max-height: 220px;
+      overflow: auto;
+    }
+
+    .full-letter-note {
+      font-size: 11px;
+      color: rgba(203,213,225,0.9);
+    }
+
+    .pill-small {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.65);
+      border: 1px solid rgba(148,163,184,0.9);
+      font-size: 10px;
+      color: rgba(226,232,240,0.96);
+    }
+
+    /* Skeleton loader */
+    .skeleton {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(90deg, #e5e7eb, #f3f4f6, #e5e7eb);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite linear;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .skeleton-line {
+      height: 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition:
+        opacity 0.5s ease-out,
+        transform 0.5s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile */
     @media (max-width: 960px) {
-      .nav-links, .nav-actions { display: none; }
+      .nav-links,
+      .nav-actions {
+        display: none;
+      }
       .hamburger { display: inline-flex; }
-      .layout { grid-template-columns: minmax(0, 1fr); }
+
+      .hero {
+        grid-template-columns: minmax(0,1fr);
+      }
+
       .shell { padding-inline: 14px; }
     }
 
@@ -790,6 +1009,30 @@
       width: 100%;
       justify-content: center;
     }
+
+    footer {
+      padding: 18px;
+      font-size: 11px;
+      color: var(--ink-softest);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--ink-softest);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    @media (max-width: 720px) {
+      .form-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .diagnosis-column {
+        margin-top: 18px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -802,10 +1045,10 @@
     <div class="top-strip-inner">
       <div class="top-pill">
         <span class="top-dot"></span>
-        <span>Free risk diagnosis</span>
+        <span>Step 1 — Free risk diagnosis</span>
       </div>
       <div class="top-strip-text">
-        No card required. You keep the diagnosis even if you don’t unlock the letter.
+        Paste your suspension notice and activity once. Aurum generates a calm risk report and appeal preview for you.
       </div>
     </div>
   </div>
@@ -825,7 +1068,6 @@
         <a href="index.html">Home</a>
         <a href="index.html#platforms">Platforms</a>
         <a href="index.html#how-it-works">How it works</a>
-        <a href="index.html#comparison">Why Aurum</a>
         <a href="pricing.html">Pricing</a>
         <a class="active">Free diagnosis</a>
       </nav>
@@ -834,7 +1076,7 @@
         <button class="btn btn-ghost">Client login</button>
         <button class="btn btn-primary">
           <span class="dot"></span>
-          Start a new case
+          On this page
         </button>
       </div>
 
@@ -847,206 +1089,271 @@
       <a href="index.html">Home</a>
       <a href="index.html#platforms">Platforms</a>
       <a href="index.html#how-it-works">How it works</a>
-      <a href="index.html#comparison">Why Aurum</a>
       <a href="pricing.html">Pricing</a>
       <a>Free diagnosis</a>
       <button class="btn btn-ghost">Client login</button>
-      <button class="btn btn-primary">Start a new case</button>
+      <button class="btn btn-primary">
+        On this page
+      </button>
     </div>
   </header>
 
   <main>
     <div class="shell">
-      <section class="hero">
-        <div class="hero-kicker">Step 1 · Free risk diagnosis</div>
-        <h1 class="hero-title">Tell Aurum what happened. Get a calm, written risk report.</h1>
-        <p class="hero-subtitle">
-          Paste the exact suspension or limitation message you received, add your side of the story,
-          and we will classify your case into a risk bucket. You get a written risk report and a
-          preview of a professional appeal letter using your facts.
-        </p>
-        <p class="hero-note">
-          We do not ask for passwords or direct access to your account. Please remove card digits and
-          extremely sensitive data before pasting.
-        </p>
-      </section>
-
-      <section class="layout">
-        <!-- Left: form -->
-        <div class="form-card">
-          <div class="form-card-inner">
-            <div class="section-label">Case intake</div>
-            <div class="section-heading">Describe the suspended or restricted account.</div>
-            <div class="section-desc">
-              The more precise you are, the better your diagnosis and letter preview will be. It’s
-              completely fine if you don’t know exact policy numbers – just describe what you do and
-              what you think triggered the platform.
+      <section class="hero reveal">
+        <!-- Left: intro + form -->
+        <div>
+          <div class="stepper">
+            <div class="step-pill">
+              <span class="count">1</span> Free diagnosis
             </div>
-
-            <form id="diagnosisForm">
-              <div class="form-grid">
-                <div class="form-field">
-                  <div class="label-row">
-                    <span class="label-main">Platform</span>
-                  </div>
-                  <select id="platform" required>
-                    <option value="">Select a platform</option>
-                    <option>Meta Ads / Business Manager</option>
-                    <option>PayPal merchant / personal</option>
-                    <option>Stripe</option>
-                    <option>Airbnb host</option>
-                    <option>Amazon seller</option>
-                    <option>TikTok Ads</option>
-                    <option>Google Ads</option>
-                    <option>Other (explain below)</option>
-                  </select>
-                  <div class="pill-row">
-                    <span class="pill">Meta / TikTok / Google Ads</span>
-                    <span class="pill">PayPal / Stripe / banks</span>
-                    <span class="pill">Airbnb / Amazon / Etsy</span>
-                  </div>
-                </div>
-
-                <div class="form-field">
-                  <div class="label-row">
-                    <span class="label-main">Country / region</span>
-                    <span class="label-sub">Where you operate or registered.</span>
-                  </div>
-                  <input id="country" type="text" placeholder="e.g. US, UK, EU, Canada" />
-                </div>
-
-                <div class="form-field">
-                  <div class="label-row">
-                    <span class="label-main">Monthly value of this account</span>
-                    <span class="label-sub">Rough range is enough.</span>
-                  </div>
-                  <select id="valueRange">
-                    <option value="">Select a range</option>
-                    <option>Under $5,000 / month</option>
-                    <option>$5,000 – $25,000 / month</option>
-                    <option>$25,000 – $100,000 / month</option>
-                    <option>Over $100,000 / month</option>
-                  </select>
-                </div>
-
-                <div class="form-field">
-                  <div class="label-row">
-                    <span class="label-main">Rough suspension type</span>
-                    <span class="label-sub">If you’re not sure, choose “Not sure”.</span>
-                  </div>
-                  <select id="suspensionType">
-                    <option>Not sure yet</option>
-                    <option>Policy violation</option>
-                    <option>Payments / financial risk</option>
-                    <option>Safety / trust & integrity</option>
-                    <option>Performance / disputes / defects</option>
-                  </select>
-                </div>
-
-                <div class="form-field full">
-                  <div class="label-row">
-                    <span class="label-main">Exact platform message</span>
-                    <span class="label-sub">Copy-paste the email or on-screen text.</span>
-                  </div>
-                  <textarea
-                    id="platformMessage"
-                    placeholder="Paste the notification here. Remove card numbers or extremely sensitive details if needed."
-                    required
-                  ></textarea>
-                </div>
-
-                <div class="form-field full">
-                  <div class="label-row">
-                    <span class="label-main">Your side of the story</span>
-                    <span class="label-sub">Explain what you do and what you think happened.</span>
-                  </div>
-                  <textarea
-                    id="yourStory"
-                    placeholder="Explain what your business does, what you were using this account for, and what you think might have triggered the decision."
-                    required
-                  ></textarea>
-                </div>
-              </div>
-
-              <div class="form-foot">
-                <div class="helper-text">
-                  You’ll see a risk classification and a partial appeal letter preview.
-                  Unlocking the full letter happens later, only if your case looks recoverable.
-                </div>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                  <button type="button" class="btn btn-secondary" id="clearForm">
-                    Clear form
-                  </button>
-                  <button type="submit" class="btn btn-primary" id="submitBtn">
-                    <span class="dot"></span>
-                    Run diagnosis & show preview
-                    <span class="badge">Free</span>
-                  </button>
-                </div>
-              </div>
-            </form>
+            <span>→</span>
+            <div class="step-pill" style="opacity:0.7;">
+              <span class="count">2</span> Payment & full letter
+            </div>
           </div>
+
+          <div id="planChip" class="plan-chip" style="display:none;">
+            <span class="label" id="planChipLabel">Selected plan</span>
+            <span class="price" id="planChipPrice"></span>
+          </div>
+
+          <h1 class="hero-title">
+            Get a calm, written assessment  
+            <span class="highlight">before you spend money on an appeal letter.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Paste your suspension notice and describe your real activity. Aurum generates a written risk diagnosis and
+            ~30% preview of your appeal letter — tailored to your platform and region.
+          </p>
+
+          <div class="hero-tags">
+            <span class="hero-tag">Works for Meta Ads, PayPal, Airbnb, Amazon & more</span>
+            <span class="hero-tag">Built for US & EU operators</span>
+            <span class="hero-tag">No login or payment required for Step 1</span>
+          </div>
+
+          <div class="form-card">
+            <div class="form-inner">
+              <div class="form-header">
+                <div>
+                  <div class="form-header-title">Case details</div>
+                  <div class="form-header-sub">Share enough context so the diagnosis is realistic, but don’t invent anything.</div>
+                </div>
+              </div>
+
+              <form id="diagnosisForm">
+                <div class="field-row">
+                  <label>
+                    Platform
+                    <select id="platform" required>
+                      <option value="">Select platform</option>
+                      <option>Meta Ads / Facebook Business</option>
+                      <option>Google Ads / Merchant Center</option>
+                      <option>PayPal</option>
+                      <option>Stripe</option>
+                      <option>Airbnb</option>
+                      <option>Booking.com</option>
+                      <option>Amazon</option>
+                      <option>Shopify Payments</option>
+                      <option>Other</option>
+                    </select>
+                  </label>
+                  <label>
+                    Country / region
+                    <input id="region" type="text" placeholder="e.g. US, Germany, UK" required />
+                  </label>
+                </div>
+
+                <label>
+                  What was this account used for?
+                  <span class="hint">Briefly describe your business / activity in normal language.</span>
+                  <textarea id="activity" placeholder="Example: US-based e-commerce store selling phone cases; weekly ad spend around $3,000; no dropshipping." required></textarea>
+                </label>
+
+                <label>
+                  Official suspension / limitation notice
+                  <span class="hint">Copy-paste the email or on-screen text. Keep the exact wording if possible.</span>
+                  <textarea id="officialNotice" placeholder="Paste the exact message from the platform..." required></textarea>
+                </label>
+
+                <label>
+                  What realistically happened before the suspension?
+                  <span class="hint">Be honest. Include any policy grey area, previous warnings, unusual activity, etc.</span>
+                  <textarea id="before" placeholder="Example: We tested a new landing page that may have had unclear refund terms; a friend logged in from another country once..."></textarea>
+                </label>
+
+                <label>
+                  What have you already tried?
+                  <span class="hint">Appeals, emails, chats, new accounts, documentation you sent, etc.</span>
+                  <textarea id="tried" placeholder="Example: Submitted 2 short appeals through the app; no documents uploaded yet; opened one new ad account that was also rejected."></textarea>
+                </label>
+
+                <label>
+                  Email (optional, for sending a copy)
+                  <span class="hint">If you prefer, we can let you download everything directly instead.</span>
+                  <input id="email" type="email" placeholder="you@example.com" />
+                </label>
+
+                <div class="form-footer">
+                  <div>
+                    <div class="helper">
+                      We will generate a written risk diagnosis and an appeal preview using these details.
+                    </div>
+                    <div class="helper">
+                      No payment happens on this step. Do not include passwords or full card numbers.
+                    </div>
+                  </div>
+                  <button id="runBtn" class="btn btn-primary" type="submit">
+                    <span class="dot" id="runDot"></span>
+                    <span id="runBtnText">Run risk diagnosis</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <p class="hero-note">
+            This is not legal advice. Platforms keep full control over their decisions; our job is to remove amateur mistakes
+            and present your case clearly.
+          </p>
         </div>
 
-        <!-- Right: preview -->
-        <aside class="preview-card">
-          <div class="preview-inner">
-            <div>
-              <div class="preview-label">Diagnosis preview</div>
-              <div class="preview-heading" id="previewHeading">
-                We will classify your case into a realistic risk level.
-              </div>
-            </div>
-
-            <div class="risk-chip-row" id="riskChips">
-              <span class="risk-chip">Waiting for your case…</span>
-            </div>
-
-            <div class="risk-meter">
-              <span>Internal risk meter (approximate view)</span>
-              <div class="risk-bar-track">
-                <div class="risk-bar-fill" id="riskBar"></div>
-              </div>
-              <div style="display:flex;justify-content:space-between;font-size:9px;">
-                <span>Hard ban</span>
-                <span>Policy confusion</span>
-                <span>Documentation gaps</span>
-                <span>Clean</span>
-              </div>
-            </div>
-
-            <div class="preview-body" id="previewBody">
-              Paste your platform message and your story, then click
-              “Run diagnosis & show preview”. We will generate a short risk report and show about
-              30% of a professional appeal letter, so you understand the tone and structure before
-              you pay for anything.
-            </div>
-
-            <div class="preview-footer">
+        <!-- Right column -->
+        <div class="diagnosis-column">
+          <!-- Risk diagnosis -->
+          <div class="diag-card" id="diagCard">
+            <div class="diag-header">
               <div>
-                <strong>What happens next?</strong>  
-                If your case looks realistically recoverable, you’ll be able to unlock the full,
-                platform-aligned letter on the main desk page.
+                <div class="diag-title">Risk diagnosis</div>
+                <div class="diag-note">How your case looks from the platform’s internal risk perspective.</div>
               </div>
-              <div class="preview-tag-row">
-                <span class="preview-tag">We will not send anything to the platform for you.</span>
-                <span class="preview-tag">You keep the diagnosis even if you don’t upgrade.</span>
+              <div class="badge-soft">Live preview</div>
+            </div>
+            <div id="riskBadge" class="risk-label risk-medium" style="margin-top:4px; display:none;">
+              <span class="dot"></span>
+              <span id="riskText">Moderate risk — recoverable with strong explanation</span>
+            </div>
+            <div id="diagSkeleton">
+              <div class="skeleton skeleton-line" style="width:85%;"></div>
+              <div class="skeleton skeleton-line" style="width:92%;"></div>
+              <div class="skeleton skeleton-line" style="width:78%;"></div>
+              <div class="skeleton skeleton-line" style="width:88%;"></div>
+            </div>
+            <div id="diagBody" class="diag-body" style="display:none;"></div>
+          </div>
+
+          <!-- Appeal preview -->
+          <div class="preview-card" id="previewCard">
+            <div class="preview-header">
+              <div>
+                <div class="preview-title">Appeal letter preview (~30%)</div>
+                <div class="diag-note">Written in calm, structured language for risk & compliance teams.</div>
+              </div>
+              <div class="badge-soft">Locked to preview</div>
+            </div>
+            <div class="preview-text" id="previewText">
+              Dear [Platform Risk / Compliance Team],
+
+              This is where you will see the first part of your appeal letter. After the AI diagnosis is connected,
+              this paragraph will use your own details, explaining calmly what your account was used for, what happened,
+              and what has changed.
+
+              For now this is only sample text, so you can see the layout. Once your Worker endpoint is live, this preview
+              will update in real time after you run the diagnosis.
+            </div>
+            <div class="preview-blur"></div>
+            <div class="preview-footer">
+              The rest of the letter (70%+) and PDF export unlock after payment in Step 2.
+            </div>
+          </div>
+
+          <!-- Step 2 payment + full letter -->
+          <div class="step2-card">
+            <div class="step2-header">
+              <div>
+                <div class="step2-title">Step 2 – Payment & unlock full letter</div>
+                <div class="diag-note" id="planExplain">
+                  After reading your diagnosis, choose whether to upgrade to a full appeal letter.
+                </div>
+              </div>
+              <div id="pricePill" class="price-pill">
+                <span class="currency">$</span><span class="amount" id="priceAmount">89</span>
+                <span class="meta" id="priceMeta">one-time per case</span>
+              </div>
+            </div>
+
+            <div class="pay-row">
+              <div>
+                <strong>1. Open your payment link</strong>
+                <div class="diag-note">
+                  Replace these placeholders with your actual Wise / Paddle / other links.
+                </div>
+              </div>
+              <div class="pay-links">
+                <a href="#" target="_blank" rel="noreferrer">
+                  Pay main link
+                  <span> (replace with real URL)</span>
+                </a>
+                <a href="#" target="_blank" rel="noreferrer">
+                  Backup link
+                  <span> (optional)</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <input type="checkbox" id="paidCheck" />
+              <label for="paidCheck">
+                I confirm that I have completed the payment for the selected plan and want to unlock the full appeal letter on this page.
+              </label>
+            </div>
+
+            <div style="margin-top:6px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              <button id="unlockBtn" class="btn btn-outline btn-sm" disabled>
+                Generate full appeal letter
+              </button>
+              <span class="helper">
+                This will call your Worker endpoint (<code>/api/full-letter</code>) once connected.
+              </span>
+            </div>
+
+            <div class="full-letter-card" id="fullLetterCard" style="margin-top:10px;">
+              <div class="full-letter-inner">
+                <div class="full-letter-title">
+                  Full appeal letter (unlocked after payment)
+                </div>
+                <div class="full-letter-body" id="fullLetterBody">
+Dear [Platform Risk / Compliance Team],
+
+Once your Worker AI is connected, this area will show your complete appeal letter – usually 1–2 pages – based on your diagnosis answers and real situation.
+
+For now, this is demo text so you can see the layout and dark reader. After you hook your Cloudflare Worker to <code>/api/full-letter</code>, this section will update with the real output, ready for you to copy or download.
+
+Best regards,  
+Aurum Account Recovery Desk
+                </div>
+                <div class="full-letter-note">
+                  <span class="pill-small">Tip</span>
+                  &nbsp;After the full letter is generated, you can copy this text into the platform’s appeal form or save it to a document on your side.
+                </div>
               </div>
             </div>
           </div>
-        </aside>
+        </div>
       </section>
     </div>
   </main>
 
   <footer>
-    Aurum Account Recovery Desk — Free risk diagnosis.  
-    <a href="index.html#final-cta">View pricing</a> · <a href="#">Terms</a> · <a href="#">Privacy</a>
+    Aurum Account Recovery Desk — Free Risk Diagnosis.  
+    <a href="pricing.html">Pricing</a> · <a href="#">Terms</a> · <a href="#">Privacy</a>
   </footer>
 </div>
 
 <script>
-  // Mobile menu toggle
+  // Mobile menu
   var hamburger = document.getElementById("hamburger");
   var mobileMenu = document.getElementById("mobileMenu");
   if (hamburger && mobileMenu) {
@@ -1055,129 +1362,214 @@
     });
   }
 
+  // Reveal on scroll
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll(".reveal").forEach(function(el) {
+    observer.observe(el);
+  });
+
+  // Plan param / price mapping
+  var planConfig = {
+    free:    { label: "You came from: Free diagnosis", price: "0", meta: "per case", explain: "You can stay on the free diagnosis only, or upgrade after you read the report." },
+    standard:{ label: "You came from: Standard Appeal Letter", price: "89", meta: "one-time per case", explain: "If the diagnosis looks realistic, you can unlock the full Standard Appeal Letter here." },
+    recovery:{ label: "You came from: Recovery Pack", price: "189", meta: "per complex case", explain: "If your diagnosis shows multiple flags, the Recovery Pack may be recommended." },
+    desk:    { label: "You came from: Ongoing Desk", price: "380", meta: "per month", explain: "For agencies/operators; start with one case first, then upgrade to an ongoing desk if needed." }
+  };
+
+  function applyPlanFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var plan = (params.get("plan") || "standard").toLowerCase();
+    if (!planConfig[plan]) plan = "standard";
+
+    var cfg = planConfig[plan];
+    var chip = document.getElementById("planChip");
+    var chipLabel = document.getElementById("planChipLabel");
+    var chipPrice = document.getElementById("planChipPrice");
+    var priceAmount = document.getElementById("priceAmount");
+    var priceMeta = document.getElementById("priceMeta");
+    var planExplain = document.getElementById("planExplain");
+
+    chip.style.display = "inline-flex";
+    chipLabel.textContent = cfg.label;
+    chipPrice.textContent = cfg.price === "0" ? "FREE" : ("$" + cfg.price);
+    priceAmount.textContent = cfg.price;
+    priceMeta.textContent = cfg.meta;
+    planExplain.textContent = cfg.explain;
+  }
+
+  applyPlanFromUrl();
+
+  // Diagnosis form submit
   var form = document.getElementById("diagnosisForm");
-  var clearBtn = document.getElementById("clearForm");
-  var submitBtn = document.getElementById("submitBtn");
-  var previewHeading = document.getElementById("previewHeading");
-  var previewBody = document.getElementById("previewBody");
-  var riskChips = document.getElementById("riskChips");
-  var riskBar = document.getElementById("riskBar");
+  var runBtn = document.getElementById("runBtn");
+  var runBtnText = document.getElementById("runBtnText");
+  var runDot = document.getElementById("runDot");
+  var diagSkeleton = document.getElementById("diagSkeleton");
+  var diagBody = document.getElementById("diagBody");
+  var riskBadge = document.getElementById("riskBadge");
+  var riskText = document.getElementById("riskText");
+  var previewText = document.getElementById("previewText");
 
-  function setLoadingState(isLoading) {
-    if (isLoading) {
-      submitBtn.disabled = true;
-      submitBtn.style.opacity = "0.7";
-      previewHeading.textContent = "Analysing your case, building a calm explanation";
-      previewBody.innerHTML =
-        '<span class="loading-dots">We are scanning your description for risk patterns</span>';
-      riskChips.innerHTML =
-        '<span class="risk-chip">Checking policy vs payments vs safety signals</span>';
+  var lastPayload = null;
+
+  function setRunning(state) {
+    if (!runBtn) return;
+    runBtn.disabled = state;
+    if (state) {
+      runBtnText.textContent = "Running diagnosis…";
+      runDot.style.boxShadow = "0 0 0 4px rgba(59,130,246,0.6)";
     } else {
-      submitBtn.disabled = false;
-      submitBtn.style.opacity = "1";
+      runBtnText.textContent = "Run risk diagnosis";
+      runDot.style.boxShadow = "0 0 0 4px rgba(34,197,94,0.5)";
     }
   }
 
-  function generatePreview(data) {
-    // 这里以后换成调用你 Cloudflare Worker 的 AI 接口
-    var platform = data.platform || "this account";
-    var story = data.yourStory || "";
-    var type = data.suspensionType || "Not sure yet";
-
-    var riskLabel = "Documentation gaps";
-    var riskClass = "green";
-    var riskPercent = 0.65;
-
-    if (type.includes("financial") || type.includes("Payments")) {
-      riskLabel = "Payments / financial risk";
-      riskClass = "red";
-      riskPercent = 0.55;
-    } else if (type.includes("Policy")) {
-      riskLabel = "Policy confusion / overlap";
-      riskClass = "green";
-      riskPercent = 0.6;
-    } else if (type.includes("Safety")) {
-      riskLabel = "Safety / trust & integrity";
-      riskClass = "red";
-      riskPercent = 0.52;
+  function classifyRisk(resultText) {
+    // 简单规则，根据文字里有没有 "hard ban" 等词；真实逻辑可以在 Worker 里做
+    var lower = (resultText || "").toLowerCase();
+    if (lower.includes("almost no chance") || lower.includes("hard ban")) {
+      return { cls: "risk-high", text: "High risk — almost no chance of recovery" };
     }
-
-    riskBar.style.transform = "scaleX(" + riskPercent + ")";
-
-    riskChips.innerHTML =
-      '<span class="risk-chip ' + riskClass + '">Primary risk bucket: ' + riskLabel + '</span>' +
-      '<span class="risk-chip">Secondary: how your explanation reads internally</span>';
-
-    previewHeading.textContent = "Initial risk diagnosis and letter preview";
-
-    var sanitizedStory = story.length > 380 ? story.slice(0, 380) + "…" : story;
-
-    var letterPreview =
-      "Dear review team,\n\n" +
-      "Thank you for taking the time to look at my case. I understand that " +
-      platform +
-      " needs to protect its ecosystem from abuse, and I am not writing to argue with that. " +
-      "I would like to calmly explain what my activity looks like from my side, and why I believe this decision can be revisited.\n\n" +
-      (sanitizedStory
-        ? "In practical terms, here is what I have been using the account for:\n" +
-          sanitizedStory +
-          "\n\n"
-        : "") +
-      "I can see how parts of this may resemble higher-risk patterns in your internal systems. " +
-      "To address that, I am prepared to provide concrete documentation and make specific operational changes, rather than just ask for a generic exception.";
-
-    previewBody.textContent = letterPreview;
+    if (lower.includes("moderate") || lower.includes("documents") || lower.includes("gaps")) {
+      return { cls: "risk-medium", text: "Moderate risk — recoverable if documentation is strong" };
+    }
+    return { cls: "risk-low", text: "Lower risk — likely recoverable with a clear explanation" };
   }
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var payload = {
+        platform: document.getElementById("platform").value,
+        region: document.getElementById("region").value,
+        activity: document.getElementById("activity").value,
+        officialNotice: document.getElementById("officialNotice").value,
+        before: document.getElementById("before").value,
+        tried: document.getElementById("tried").value,
+        email: document.getElementById("email").value || null
+      };
+      lastPayload = payload;
 
-    var platform = document.getElementById("platform").value.trim();
-    var country = document.getElementById("country").value.trim();
-    var valueRange = document.getElementById("valueRange").value;
-    var suspensionType = document.getElementById("suspensionType").value;
-    var platformMessage = document.getElementById("platformMessage").value.trim();
-    var yourStory = document.getElementById("yourStory").value.trim();
+      // 前端先显示 skeleton
+      setRunning(true);
+      diagBody.style.display = "none";
+      diagSkeleton.style.display = "block";
+      riskBadge.style.display = "none";
 
-    if (!platformMessage || !yourStory || !platform) {
-      alert("Please fill at least: platform, platform message and your side of the story.");
-      return;
-    }
+      // ===== 这里是你以后要接 Worker AI 的地方 =====
+      // 例如：
+      // const res = await fetch("/api/diagnosis", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      // const data = await res.json(); // { riskSummary, previewLetter }
+      // 现在先用 demo 数据，这样前端看起来是完整的
+      (async function () {
+        try {
+          // demo：模拟 1 秒 delay
+          await new Promise(function (resolve) { setTimeout(resolve, 900); });
 
-    var payload = {
-      platform: platform,
-      country: country,
-      valueRange: valueRange,
-      suspensionType: suspensionType,
-      platformMessage: platformMessage,
-      yourStory: yourStory
-    };
+          var demoSummary =
+"From the platform’s perspective, this account looks like a legitimate business that has triggered automated risk rules rather than clear, intentional abuse.\n\n" +
+"Key concerns are:\n" +
+"- Sudden change in traffic / spend without a clear history.\n" +
+"- Incomplete documentation around business identity and customer refunds.\n" +
+"- Previous brief appeals that did not explain what has changed.\n\n" +
+"Our recommendation is to treat this as a recoverable case if you can provide simple, honest documentation and avoid any new accounts until this one is fully reviewed.";
 
-    setLoadingState(true);
+          var demoPreview =
+"Dear Risk & Compliance Team,\n\n" +
+"My name is [Your Name], and I am responsible for the [business name] account linked to this email. I understand that your team must protect the platform from abuse, and I appreciate that my account cannot be restored unless you are confident about how it is being used.\n\n" +
+"In short, our business is a [brief description] serving customers in [regions]. We do not resell accounts or offer services that violate your terms. Before the restriction, our typical activity looked like this:\n\n" +
+"- Average weekly volume: [numbers]\n" +
+"- Main traffic sources: [sources]\n" +
+"- Typical customer: [profile]\n\n";
 
-    // 模拟调用：1.2 秒后展示预览
-    setTimeout(function () {
-      setLoadingState(false);
-      generatePreview(payload);
-    }, 1200);
+          // 如果你以后接上 Worker，就把上面 demoSummary / demoPreview 替换为后端返回的值
 
-    // 真正接入 Worker 时，你可以改成：
-    // fetch('https://你的worker域名/diagnosis', { method:'POST', body:JSON.stringify(payload), headers:{'Content-Type':'application/json'} })
-    //   .then(res => res.json())
-    //   .then(data => { 根据 data 更新 preview })
-    //   .catch(() => { 显示错误 });
-  });
+          var risk = classifyRisk(demoSummary);
 
-  clearBtn.addEventListener("click", function () {
-    form.reset();
-    riskBar.style.transform = "scaleX(0.6)";
-    previewHeading.textContent = "We will classify your case into a realistic risk level.";
-    riskChips.innerHTML = '<span class="risk-chip">Waiting for your case…</span>';
-    previewBody.textContent =
-      "Paste your platform message and your story, then click “Run diagnosis & show preview”. " +
-      "We will generate a short risk report and show about 30% of a professional appeal letter, " +
-      "so you understand the tone and structure before you pay for anything.";
-  });
+          diagSkeleton.style.display = "none";
+          diagBody.style.display = "block";
+          diagBody.textContent = demoSummary;
+
+          riskBadge.className = "risk-label " + risk.cls;
+          riskText.textContent = risk.text;
+          riskBadge.style.display = "inline-flex";
+
+          previewText.textContent = demoPreview;
+        } catch (err) {
+          diagSkeleton.style.display = "none";
+          diagBody.style.display = "block";
+          diagBody.textContent =
+"Demo only: Your diagnosis backend isn’t connected yet.\n\nOnce your Cloudflare Worker is live at /api/diagnosis, this section will show the real risk summary generated from your answers.";
+        } finally {
+          setRunning(false);
+        }
+      })();
+    });
+  }
+
+  // Step 2: unlock full letter
+  var paidCheck = document.getElementById("paidCheck");
+  var unlockBtn = document.getElementById("unlockBtn");
+  var fullLetterBody = document.getElementById("fullLetterBody");
+
+  if (paidCheck && unlockBtn) {
+    paidCheck.addEventListener("change", function () {
+      unlockBtn.disabled = !paidCheck.checked;
+    });
+
+    unlockBtn.addEventListener("click", function () {
+      if (!paidCheck.checked || !unlockBtn || unlockBtn.disabled) return;
+
+      unlockBtn.textContent = "Generating full letter…";
+      unlockBtn.disabled = true;
+
+      // 这里同样预留给 Worker：/api/full-letter
+      (async function () {
+        try {
+          await new Promise(function (resolve) { setTimeout(resolve, 1000); });
+
+          var demoFull =
+"Dear Risk & Compliance Team,\n\n" +
+"Thank you for taking the time to review this appeal. My name is [Your Name], and I manage the [business name] account associated with this email. I fully understand that your team must protect the platform from fraud, misuse and unsafe behavior, and I would like to explain clearly what happened on our side and what we have changed.\n\n" +
+"1. What this account is used for\n" +
+"Our company is a [brief description of business] based in [country / region]. We use this account only to [run ads / accept payments / manage bookings] for our own products and services. We do not resell access, share logins with unrelated third parties, or offer services that would compete with or undermine the platform.\n\n" +
+"2. What likely triggered your systems\n" +
+"Based on your notice and our own review, we believe the restriction may be linked to:\n" +
+"- [Bullet 1: sudden spend / traffic change / login pattern]\n" +
+"- [Bullet 2: unclear wording on a page, refund or delivery policy]\n" +
+"- [Bullet 3: previous short appeals that did not provide enough context]\n\n" +
+"We accept responsibility for these issues and agree that the account should not be fully re-opened until you are comfortable that they are resolved.\n\n" +
+"3. What we have changed to address the risk\n" +
+"- Updated our website and customer communication to make refunds, delivery times and contact details clear.\n" +
+"- Restricted account access to a smaller, verified team, with separate logins and two-factor authentication enabled.\n" +
+"- Implemented an internal review step before launching any new campaigns or changing payment details, so unusual activity is checked first.\n\n" +
+"4. How we will operate going forward\n" +
+"If the account can be reinstated, we are happy to accept additional limits or monitoring for a period of time. Our intention is to use the platform in a steady, compliant way over many years, not to push the limits of your rules.\n\n" +
+"Thank you again for reviewing this case. If there is any specific documentation or clarification you would like from us, we will provide it as quickly as possible.\n\n" +
+"Best regards,\n" +
+"[Your Name]\n" +
+"[Role / Company]\n";
+
+          // 替换为真结果时，用从 Worker 返回的文本
+          fullLetterBody.textContent = demoFull;
+        } catch (err) {
+          fullLetterBody.textContent =
+"Demo only: your /api/full-letter endpoint is not connected yet.\n\nOnce your Worker is live, this button will generate a tailored, full appeal letter using your diagnosis answers.";
+        } finally {
+          unlockBtn.textContent = "Generate full appeal letter";
+          unlockBtn.disabled = !paidCheck.checked;
+        }
+      })();
+    });
+  }
 </script>
 </body>
 </html>
