@@ -9,7 +9,7 @@
 
   <meta
     name="description"
-    content="Run a free risk diagnosis for your suspended or limited account. Aurum Account Recovery Desk gives you a calm written risk report and an appeal preview before you pay."
+    content="Run a free risk diagnosis for your suspended or limited account. Aurum Desk gives you a calm written risk report and an appeal preview before you pay."
   />
 
   <style>
@@ -1093,12 +1093,12 @@
           </div>
 
           <div id="planChip" class="plan-chip" style="display:none;">
-            <span class="label">YOU CAME FROM:</span>
+            <span class="label">PLAN</span>
             <span class="price" id="planChipText"></span>
           </div>
 
           <h1 class="hero-title">
-            Get a calm, written risk assessment  
+            Get a calm, written risk assessment
             <span class="highlight">before you spend money on an appeal letter.</span>
           </h1>
 
@@ -1249,7 +1249,7 @@ For now this is sample text just to show the layout.
               <div>
                 <div class="step2-title">Step 2 – Pay & unlock full appeal letter</div>
                 <div class="diag-note" id="planExplain">
-                  After reading your diagnosis, you can choose a plan. If you came from a pricing card, it will show here.
+                  After you read your diagnosis, you can choose the plan that fits your case. You don’t have to decide now.
                 </div>
               </div>
               <div id="pricePill" class="price-pill" style="display:none;">
@@ -1262,15 +1262,15 @@ For now this is sample text just to show the layout.
               <div>
                 <strong>1. Pay using the link below</strong>
                 <div class="diag-note">
-                  Replace these with your actual Wise / Paddle / payment links. Your client simply clicks and pays.
+                  Your client simply clicks and pays. You decide which plan is available for this case; the system will show the correct price.
                 </div>
               </div>
               <div class="pay-links">
-                <a href="#" target="_blank" rel="noreferrer">
+                <a id="mainPayLink" href="#" target="_blank" rel="noreferrer">
                   Main payment link
                   <span>(replace with your real URL)</span>
                 </a>
-                <a href="#" target="_blank" rel="noreferrer">
+                <a id="backupPayLink" href="#" target="_blank" rel="noreferrer">
                   Backup link
                   <span>(optional)</span>
                 </a>
@@ -1289,7 +1289,7 @@ For now this is sample text just to show the layout.
                 Generate full appeal letter
               </button>
               <span class="helper">
-                This will call your Worker endpoint (<code>/w/api/full-letter</code>) once connected.
+                This will call your Worker endpoint (<code>/w/api/full-letter</code>) once the payment is done.
               </span>
             </div>
 
@@ -1327,7 +1327,7 @@ Aurum Account Recovery Desk
 </div>
 
 <script>
-  // ===== basic nav / reveal =====
+  // ===== 基础：导航 & 动效 =====
   var hamburger = document.getElementById("hamburger");
   var mobileMenu = document.getElementById("mobileMenu");
   if (hamburger && mobileMenu) {
@@ -1351,79 +1351,166 @@ Aurum Account Recovery Desk
     observer.observe(el);
   });
 
-  // ===== plan chip & price logic =====
+  // ===== Plan 配置：价格 + 文案 + 收款链接 =====
   function getPlanFromUrl() {
     var params = new URLSearchParams(window.location.search);
     var p = (params.get("plan") || "").toLowerCase();
     return p;
   }
 
+  // rank 用来比较高低：free(0) < standard(1) < recovery(2) < desk(3)
   var planConfig = {
     free: {
+      key: "free",
+      rank: 0,
       chipText: "FREE RISK DIAGNOSIS — $0",
       price: "0",
       meta: "per case",
-      explain:
+      explainUrl:
         "You chose the Free Risk Diagnosis. You can stay free or upgrade to a paid letter after reading the report.",
+      explainAi:
+        "Based on your diagnosis, your case can stay on the Free Risk Diagnosis tier. You may still upgrade later if you want a full letter.",
+      mainPay: "",
+      backupPay: "",
     },
     standard: {
+      key: "standard",
+      rank: 1,
       chipText: "STANDARD APPEAL LETTER — $89",
       price: "89",
       meta: "one-time per case",
-      explain:
+      explainUrl:
         "You came from Standard Appeal Letter. If your diagnosis looks realistic, you can unlock the full letter here.",
+      explainAi:
+        "Based on your diagnosis, your case qualifies for the Standard Appeal Letter ($89). This is usually enough for single-platform, single-flag cases.",
+      mainPay: "https://pay.example.com/standard-89", // TODO: 换成你自己的 89 美金收款链接
+      backupPay: "",
     },
     recovery: {
+      key: "recovery",
+      rank: 2,
       chipText: "RECOVERY PACK — $189",
       price: "189",
       meta: "for complex multi-flag cases",
-      explain:
-        "You came from Recovery Pack. Recommended only if your case involves multiple parallel flags or platforms.",
+      explainUrl:
+        "You came from Recovery Pack. Recommended only if your diagnosis involves multiple parallel flags or platforms.",
+      explainAi:
+        "Based on your diagnosis, your case is closer to the Recovery Pack ($189) — used for multiple flags, payment risk or multi-platform cases.",
+      mainPay: "https://pay.example.com/recovery-189", // TODO: 换成你自己的 189 美金收款链接
+      backupPay: "",
     },
     desk: {
+      key: "desk",
+      rank: 3,
       chipText: "ONGOING DESK — $380 / MONTH",
       price: "380",
       meta: "per month, agencies & operators",
-      explain:
-        "You came from Ongoing Desk. We usually start with one paid case first, then move into a standing desk.",
+      explainUrl:
+        "You came from Ongoing Desk. We usually start with one paid case first, then move into this desk option.",
+      explainAi:
+        "Based on your diagnosis, your profile looks like an agency/operator with many accounts. Ongoing Desk ($380 / month) is usually used in this scenario.",
+      mainPay: "https://pay.example.com/desk-380", // TODO: 换成你自己的 380 美金收款链接
+      backupPay: "",
     },
   };
 
-  (function applyPlanFromUrl() {
-    var plan = getPlanFromUrl();
-    var chip = document.getElementById("planChip");
-    var chipText = document.getElementById("planChipText");
-    var pricePill = document.getElementById("pricePill");
-    var priceAmount = document.getElementById("priceAmount");
-    var priceMeta = document.getElementById("priceMeta");
-    var planExplain = document.getElementById("planExplain");
+  function normalizePlanKey(key) {
+    key = (key || "").toLowerCase();
+    return planConfig[key] ? key : null;
+  }
 
-    if (!plan || !planConfig[plan]) {
-      // no plan selected – hide chip and price
-      if (chip) chip.style.display = "none";
+  // 根据 URL plan + AI suggestedPlan 决定最终 plan（取 rank 较高的那个）
+  function chooseFinalPlan(urlPlanKey, suggestedPlanKey) {
+    var u = normalizePlanKey(urlPlanKey);
+    var s = normalizePlanKey(suggestedPlanKey);
+
+    if (!u && !s) return "standard"; // 都没给 → 默认 standard
+    if (!u && s) return s;
+    if (u && !s) return u;
+
+    var ru = planConfig[u].rank;
+    var rs = planConfig[s].rank;
+    return rs > ru ? s : u;
+  }
+
+  var planChip = document.getElementById("planChip");
+  var planChipText = document.getElementById("planChipText");
+  var pricePill = document.getElementById("pricePill");
+  var priceAmount = document.getElementById("priceAmount");
+  var priceMeta = document.getElementById("priceMeta");
+  var planExplain = document.getElementById("planExplain");
+  var mainPayLink = document.getElementById("mainPayLink");
+  var backupPayLink = document.getElementById("backupPayLink");
+
+  var initialPlanKey = normalizePlanKey(getPlanFromUrl());
+  var currentPlanKey = initialPlanKey || null; // 最终 plan 放这里
+
+  // 根据 planKey 更新右侧价格 + 文案 + 链接
+  function applyPlan(planKey, options) {
+    options = options || {};
+    var source = options.source || "url"; // "url" | "ai"
+    var rawSuggested = options.rawSuggested || null;
+
+    if (!planKey || !planConfig[planKey]) {
+      // 没有任何 plan：不展示价格，只展示通用说明
+      if (planChip) planChip.style.display = "none";
       if (pricePill) pricePill.style.display = "none";
       if (planExplain) {
         planExplain.textContent =
           "After you read your diagnosis, you can choose the plan that fits your case. You don’t have to decide now.";
       }
+      if (mainPayLink) mainPayLink.href = "#";
+      if (backupPayLink) {
+        backupPayLink.href = "#";
+        backupPayLink.style.display = "none";
+      }
       return;
     }
 
-    var cfg = planConfig[plan];
+    var cfg = planConfig[planKey];
 
-    if (chip && chipText) {
-      chip.style.display = "inline-flex";
-      chipText.textContent = cfg.chipText;
+    if (planChip && planChipText) {
+      planChip.style.display = "inline-flex";
+      planChipText.textContent = cfg.chipText;
     }
+
     if (pricePill && priceAmount && priceMeta) {
       pricePill.style.display = "inline-flex";
       priceAmount.textContent = cfg.price;
       priceMeta.textContent = cfg.meta;
     }
-    if (planExplain) planExplain.textContent = cfg.explain;
-  })();
 
-  // ===== diagnosis + preview via /w/api/diagnosis =====
+    if (planExplain) {
+      if (source === "ai") {
+        // AI 决定价格时的解释
+        var extra = rawSuggested && rawSuggested !== planKey
+          ? " (you originally came from: " + (initialPlanKey || "no specific plan") + ")"
+          : "";
+        planExplain.textContent = cfg.explainAi + extra;
+      } else {
+        // 只按 URL 的 plan 显示
+        planExplain.textContent = cfg.explainUrl;
+      }
+    }
+
+    if (mainPayLink) {
+      mainPayLink.href = cfg.mainPay || "#";
+    }
+    if (backupPayLink) {
+      if (cfg.backupPay) {
+        backupPayLink.href = cfg.backupPay;
+        backupPayLink.style.display = "inline-flex";
+      } else {
+        backupPayLink.href = "#";
+        backupPayLink.style.display = "none";
+      }
+    }
+  }
+
+  // 页面加载时先按 URL 的 plan（如果有）更新一遍
+  applyPlan(initialPlanKey, { source: "url" });
+
+  // ===== Step1：调用 /w/api/diagnosis =====
   var form = document.getElementById("diagnosisForm");
   var runBtn = document.getElementById("runBtn");
   var runBtnText = document.getElementById("runBtnText");
@@ -1452,7 +1539,7 @@ Aurum Account Recovery Desk
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
 
-      var plan = getPlanFromUrl();
+      var urlPlanKey = initialPlanKey; // 初始来自 URL 的 plan
       var payload = {
         platform: document.getElementById("platform").value,
         region: document.getElementById("region").value,
@@ -1461,7 +1548,7 @@ Aurum Account Recovery Desk
         before: document.getElementById("before").value,
         tried: document.getElementById("tried").value,
         email: document.getElementById("email").value || null,
-        plan: plan || null,
+        plan: urlPlanKey || null,
       };
       lastPayload = payload;
 
@@ -1491,6 +1578,7 @@ Aurum Account Recovery Desk
 
         var summary = data.riskSummary || "";
         var preview = data.previewLetter || "";
+        var suggestedPlan = (data.suggestedPlan || "").toLowerCase();
 
         diagBody.textContent =
           summary || "The AI did not return a risk diagnosis. Please try again.";
@@ -1519,6 +1607,14 @@ Aurum Account Recovery Desk
         previewText.textContent =
           preview ||
           "The AI did not return a preview letter. You can still generate the full letter in Step 2.";
+
+        // === 关键：根据 AI 建议 & URL plan 选择最终 plan
+        var finalPlanKey = chooseFinalPlan(urlPlanKey, suggestedPlan);
+        currentPlanKey = finalPlanKey;
+        applyPlan(finalPlanKey, {
+          source: suggestedPlan ? "ai" : "url",
+          rawSuggested: suggestedPlan,
+        });
       } catch (err) {
         diagSkeleton.style.display = "none";
         diagBody.style.display = "block";
@@ -1530,7 +1626,7 @@ Aurum Account Recovery Desk
     });
   }
 
-  // ===== full letter via /w/api/full-letter =====
+  // ===== Step2：调用 /w/api/full-letter =====
   var paidCheck = document.getElementById("paidCheck");
   var unlockBtn = document.getElementById("unlockBtn");
   var fullLetterBody = document.getElementById("fullLetterBody");
@@ -1552,14 +1648,17 @@ Aurum Account Recovery Desk
       unlockBtn.disabled = true;
 
       try {
-        var plan = getPlanFromUrl();
+        var planKeyToSend =
+          currentPlanKey ||
+          initialPlanKey ||
+          "standard"; // 发给 Worker，作为内部参考
 
         const res = await fetch("/w/api/full-letter", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...lastPayload,
-            plan: plan || null,
+            plan: planKeyToSend,
             riskSummary: diagBody.textContent || "",
           }),
         });
