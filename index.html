@@ -2,59 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Dispute Desk — Calm Appeals for Suspended Accounts</title>
+  <title>Aurum Dispute Desk — Automatic Risk Snapshot for Suspended Accounts</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Favicon（如果你有 favicon.png，就放在同目录） -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <!-- Basic SEO -->
   <meta
     name="description"
-    content="Aurum Dispute Desk turns platform chaos into calm, policy-aware appeals. Free risk snapshot, structured appeal letters and VIP guidance for suspended accounts and frozen payouts."
+    content="Aurum Dispute Desk turns platform chaos into calm, automatic risk snapshots. Submit your suspended account details and get an AI-generated risk diagnosis in seconds."
   />
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg-deep: #020617;
       --bg-soft: #020617;
-      --bg-card: #020617;
-      --bg-card-soft: rgba(15, 23, 42, 0.94);
-      --border-subtle: rgba(148, 163, 184, 0.45);
-      --border-strong: rgba(148, 163, 184, 0.8);
+      --bg-card: rgba(15,23,42,0.96);
+      --border-subtle: rgba(148,163,184,0.45);
+      --border-strong: rgba(148,163,184,0.90);
       --gold: #fbbf24;
-      --gold-soft: rgba(251, 191, 36, 0.12);
+      --gold-soft: rgba(251,191,36,0.16);
       --gold-strong: #f59e0b;
       --text-main: #e5e7eb;
       --text-soft: #9ca3af;
       --text-mute: #6b7280;
-      --danger: #f97373;
+      --accent-blue: #38bdf8;
+      --danger: #ef4444;
       --radius-lg: 26px;
       --radius-md: 18px;
       --radius-pill: 999px;
-      --shadow-soft: 0 30px 80px rgba(15, 23, 42, 0.9);
+      --shadow-soft: 0 28px 80px rgba(15,23,42,0.95);
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, rgba(251, 191, 36, 0.12) 0, transparent 55%),
-        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.18) 0, transparent 60%),
-        #020617;
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.18) 0, transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(251,191,36,0.22) 0, transparent 60%),
+                  #020617;
       color: var(--text-main);
+      overflow-x: hidden;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    .bg-orbit {
+      position: fixed;
+      inset: -40%;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(56,189,248,0.18), transparent 60%),
+        radial-gradient(circle at 90% 10%, rgba(251,191,36,0.16), transparent 60%),
+        radial-gradient(circle at 0% 80%, rgba(94,234,212,0.14), transparent 60%);
+      mix-blend-mode: screen;
+      opacity: 0.9;
+      animation: float-bg 26s ease-in-out infinite alternate;
+      z-index: -2;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(148,163,184,0.12) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(148,163,184,0.12) 1px, transparent 1px);
+      background-size: 26px 26px;
+      opacity: 0.08;
+      mask-image: radial-gradient(circle at center, black, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+      z-index: -1;
+    }
+
+    @keyframes float-bg {
+      0%   { transform: translate3d(0, 0, 0) scale(1); }
+      50%  { transform: translate3d(-2%, 2%, 0) scale(1.02); }
+      100% { transform: translate3d(3%, -3%, 0) scale(1.03); }
     }
 
     .page-wrap {
@@ -63,18 +85,14 @@
       padding: 18px 16px 64px;
     }
 
-    /* ===== 顶部导航 ===== */
+    /* ===== Header ===== */
     header {
       position: sticky;
       top: 0;
       z-index: 20;
       backdrop-filter: blur(18px);
-      background: linear-gradient(to bottom,
-        rgba(2, 6, 23, 0.96),
-        rgba(2, 6, 23, 0.88),
-        transparent
-      );
-      border-bottom: 1px solid rgba(148, 163, 184, 0.28);
+      background: linear-gradient(to bottom, rgba(2,6,23,0.96), rgba(2,6,23,0.86), transparent);
+      border-bottom: 1px solid rgba(148,163,184,0.26);
       margin-bottom: 18px;
     }
 
@@ -87,29 +105,32 @@
       gap: 16px;
     }
 
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
     .logo-mark {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border-radius: 999px;
-      background:
-        conic-gradient(
-          from 220deg,
-          #fbbf24,
-          #e5e7eb,
-          #38bdf8,
-          #f97316,
-          #fbbf24
-        );
+      background: conic-gradient(from 220deg, #fbbf24, #e5e7eb, #38bdf8, #f97316, #fbbf24);
       padding: 2px;
       box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.9),
-        0 0 55px rgba(251, 191, 36, 0.55);
+        0 0 0 1px rgba(15,23,42,1),
+        0 0 55px rgba(251,191,36,0.55);
       display: flex;
       align-items: center;
       justify-content: center;
+      transform-style: preserve-3d;
+      perspective: 600px;
+      animation: logo-spin 12s linear infinite;
     }
 
-    .logo-mark-inner {
+    .logo-inner {
       width: 100%;
       height: 100%;
       border-radius: inherit;
@@ -119,16 +140,15 @@
       justify-content: center;
       font-size: 14px;
       font-weight: 600;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.08em;
       color: #f9fafb;
+      text-transform: uppercase;
     }
 
-    .brand-block {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex: 1;
-      min-width: 0;
+    @keyframes logo-spin {
+      0%   { transform: rotate3d(0, 1, 0, 0deg); }
+      50%  { transform: rotate3d(0.3, 1, 0, 10deg); }
+      100% { transform: rotate3d(0, 1, 0, 360deg); }
     }
 
     .brand-text {
@@ -148,7 +168,7 @@
     .brand-tagline {
       font-size: 11px;
       color: var(--text-mute);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
     }
 
@@ -163,39 +183,44 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .nav-link {
-      padding: 6px 10px;
-      border-radius: 999px;
+      padding: 6px 11px;
+      border-radius: var(--radius-pill);
       border: 1px solid transparent;
       cursor: pointer;
       transition: all 0.18s ease-out;
       white-space: nowrap;
+      background: transparent;
+      color: var(--text-soft);
     }
 
     .nav-link:hover {
-      border-color: rgba(148, 163, 184, 0.55);
-      background: rgba(15, 23, 42, 0.95);
+      border-color: rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.96);
       color: #e5e7eb;
     }
 
     .nav-link.primary {
-      border-color: rgba(251, 191, 36, 0.65);
+      border-color: rgba(251,191,36,0.75);
       background: radial-gradient(circle at top left,
-        rgba(251, 191, 36, 0.23),
-        rgba(15, 23, 42, 0.98)
+        rgba(251,191,36,0.26),
+        rgba(15,23,42,1)
       );
       color: #fefce8;
       font-weight: 500;
+      box-shadow:
+        0 0 0 1px rgba(15,23,42,1),
+        0 14px 36px rgba(251,191,36,0.4);
     }
 
     .nav-link.primary:hover {
       border-color: #fbbf24;
       box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.9),
-        0 12px 30px rgba(251, 191, 36, 0.4);
+        0 0 0 1px rgba(15,23,42,1),
+        0 18px 45px rgba(251,191,36,0.55);
     }
 
     .nav-note {
@@ -204,15 +229,9 @@
       display: none;
     }
 
-    /* 简单的手机适配 */
     @media (max-width: 720px) {
-      .nav-links {
-        display: none;
-      }
-      .nav-note {
-        display: block;
-        margin-left: auto;
-      }
+      .nav-links { display: none; }
+      .nav-note { display: block; margin-left: auto; }
     }
 
     main {
@@ -221,18 +240,18 @@
       padding: 0 16px;
     }
 
-    /* ===== Hero 区 ===== */
+    /* ===== Hero ===== */
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 22px;
+      grid-template-columns: minmax(0,1.3fr) minmax(0,1fr);
+      gap: 24px;
       align-items: stretch;
-      margin-bottom: 42px;
+      margin-bottom: 44px;
     }
 
     @media (max-width: 880px) {
       .hero {
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-columns: minmax(0,1fr);
       }
     }
 
@@ -240,19 +259,29 @@
       display: flex;
       flex-direction: column;
       gap: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-orbit-ring {
+      position: absolute;
+      inset: -24px -18px auto;
+      border-radius: 32px;
+      border: 1px solid rgba(148,163,184,0.35);
+      border-style: dashed;
+      opacity: 0.35;
+      pointer-events: none;
+      transform: rotate(-2deg);
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 4px 10px;
+      padding: 4px 11px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: radial-gradient(circle at top left,
-        rgba(148, 163, 184, 0.26),
-        rgba(15, 23, 42, 0.98)
-      );
+      border: 1px solid rgba(148,163,184,0.45);
+      background: radial-gradient(circle at top left, rgba(148,163,184,0.26), rgba(15,23,42,0.98));
       font-size: 11px;
       color: var(--text-soft);
       text-transform: uppercase;
@@ -261,24 +290,31 @@
     }
 
     .eyebrow-dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: radial-gradient(circle at 30% 30%, #fbbf24, #b45309);
-      box-shadow: 0 0 12px rgba(251, 191, 36, 0.75);
+      box-shadow: 0 0 12px rgba(251,191,36,0.9);
     }
 
     .hero-title {
-      font-size: clamp(24px, 4vw, 32px);
+      font-size: clamp(26px, 4vw, 34px);
       font-weight: 600;
-      line-height: 1.15;
+      line-height: 1.1;
       letter-spacing: 0.01em;
       color: #f9fafb;
     }
 
+    .hero-title span.highlight {
+      background: linear-gradient(to right, #facc15, #38bdf8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
     .hero-subtitle {
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
       color: var(--text-soft);
     }
 
@@ -286,27 +322,23 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 2px;
     }
 
     .pill {
       border-radius: var(--radius-pill);
-      padding: 4px 10px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 4px 11px;
+      border: 1px solid rgba(148,163,184,0.45);
       font-size: 11px;
       color: var(--text-mute);
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(15,23,42,0.96);
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
 
     .pill-gold {
-      border-color: rgba(251, 191, 36, 0.65);
-      background: radial-gradient(circle at top left,
-        rgba(251, 191, 36, 0.22),
-        rgba(15, 23, 42, 1)
-      );
+      border-color: rgba(251,191,36,0.8);
+      background: radial-gradient(circle at top left, rgba(251,191,36,0.22), rgba(15,23,42,1));
       color: #fefce8;
     }
 
@@ -321,14 +353,14 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 7px;
       padding: 10px 16px;
       border-radius: var(--radius-pill);
       font-size: 14px;
@@ -336,181 +368,348 @@
       cursor: pointer;
       transition: all 0.18s ease-out;
       white-space: nowrap;
+      background: transparent;
+      color: inherit;
     }
 
     .btn-primary {
-      background: radial-gradient(circle at top left,
-        rgba(251, 191, 36, 0.25),
-        rgba(15, 23, 42, 1)
-      );
-      border-color: rgba(251, 191, 36, 0.7);
+      background: radial-gradient(circle at top left, rgba(251,191,36,0.25), rgba(15,23,42,1));
+      border-color: rgba(251,191,36,0.75);
       color: #fefce8;
       font-weight: 500;
       box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 1),
-        0 18px 45px rgba(251, 191, 36, 0.35);
+        0 0 0 1px rgba(15,23,42,1),
+        0 18px 44px rgba(251,191,36,0.4);
     }
 
     .btn-primary:hover {
       border-color: #fbbf24;
       transform: translateY(-1px);
       box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 1),
-        0 22px 55px rgba(251, 191, 36, 0.55);
+        0 0 0 1px rgba(15,23,42,1),
+        0 22px 55px rgba(251,191,36,0.55);
     }
 
     .btn-ghost {
-      border-color: rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.96);
+      border-color: rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.96);
       color: var(--text-soft);
     }
 
     .btn-ghost:hover {
-      border-color: rgba(148, 163, 184, 0.9);
+      border-color: rgba(148,163,184,1);
       color: #e5e7eb;
-      background: rgba(15, 23, 42, 1);
+      background: rgba(15,23,42,1);
     }
 
     .hero-note {
-      margin-top: 6px;
+      margin-top: 4px;
       font-size: 11px;
       color: var(--text-mute);
     }
 
-    /* Hero 右侧：风险卡片 */
+    /* Hero right: snapshot panel */
+    .hero-right-wrap {
+      position: relative;
+      perspective: 900px;
+    }
+
     .hero-right {
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle);
       background:
-        radial-gradient(circle at top left, rgba(251, 191, 36, 0.18), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.18), transparent 60%),
-        rgba(15, 23, 42, 0.96);
+        radial-gradient(circle at top left, rgba(251,191,36,0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(56,189,248,0.18), transparent 60%),
+        rgba(15,23,42,0.98);
       box-shadow: var(--shadow-soft);
-      padding: 18px 16px 16px;
+      padding: 16px 15px 14px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
 
     .card-header-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: baseline;
       gap: 8px;
     }
 
     .card-title {
       font-size: 13px;
       text-transform: uppercase;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.1em;
       color: var(--text-soft);
     }
 
-    .card-tag {
+    .card-sub {
+      font-size: 11px;
+      color: var(--text-mute);
+    }
+
+    .badge-live {
       font-size: 11px;
       padding: 3px 9px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(15, 23, 42, 0.9);
-      background: linear-gradient(to right, #f97316, #facc15);
-      color: #111827;
-      font-weight: 500;
+      border: 1px solid rgba(15,23,42,1);
+      background: linear-gradient(to right, #22c55e, #a3e635);
+      color: #052e16;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .risk-label-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: var(--text-mute);
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34,197,94,0.9);
+    }
+
+    .snapshot-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 12px;
       margin-top: 4px;
     }
 
-    .risk-bar-outer {
-      margin-top: 6px;
-      width: 100%;
-      height: 10px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 10% 0%, rgba(34, 197, 94, 0.12), transparent 45%),
-                  rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      overflow: hidden;
-      position: relative;
+    @media (max-width: 720px) {
+      .snapshot-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
 
-    .risk-bar-inner {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to right,
-        #22c55e,
-        #84cc16,
-        #facc15,
-        #f97316,
-        #ef4444
-      );
-      transform-origin: left center;
-      transform: scaleX(0.68);
-    }
-
-    .risk-dot {
-      position: absolute;
-      top: 50%;
-      left: 68%;
-      transform: translate(-50%, -50%);
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #fee2e2, #ef4444);
-      box-shadow: 0 0 18px rgba(239, 68, 68, 0.85);
-      border: 1px solid rgba(15, 23, 42, 0.9);
-    }
-
-    .mini-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .mini-pill {
-      font-size: 11px;
-      border-radius: var(--radius-pill);
-      padding: 3px 9px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: var(--text-soft);
-      background: rgba(2, 6, 23, 0.98);
-    }
-
-    .case-text-block {
-      margin-top: 8px;
-      padding: 8px 9px;
+    .snapshot-output {
       border-radius: var(--radius-md);
-      border: 1px dashed rgba(148, 163, 184, 0.48);
-      background: radial-gradient(circle at top left,
-        rgba(15, 23, 42, 0.98),
-        rgba(15, 23, 42, 0.96)
-      );
-      font-size: 11px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(2,6,23,0.96);
+      padding: 10px 10px 9px;
+      font-size: 12px;
       color: var(--text-soft);
-      line-height: 1.6;
+      min-height: 140px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .case-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-mute);
+    .snapshot-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
       margin-bottom: 4px;
     }
 
-    .card-footer-note {
+    .snapshot-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-mute);
+    }
+
+    .risk-tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--text-soft);
+      background: rgba(15,23,42,0.96);
+    }
+
+    .risk-tag.low {
+      border-color: rgba(34,197,94,0.8);
+      color: #bbf7d0;
+      background: rgba(22,101,52,0.5);
+    }
+
+    .risk-tag.medium {
+      border-color: rgba(234,179,8,0.8);
+      color: #fef9c3;
+      background: rgba(133,77,14,0.5);
+    }
+
+    .risk-tag.high {
+      border-color: rgba(239,68,68,0.9);
+      color: #fecaca;
+      background: rgba(127,29,29,0.6);
+    }
+
+    .snapshot-text {
+      position: relative;
+      z-index: 1;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .snapshot-placeholder {
+      color: var(--text-mute);
+    }
+
+    .scan-line {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        transparent,
+        rgba(148,163,184,0.16),
+        transparent
+      );
+      transform: translateY(-100%);
+      animation: scan 5s linear infinite;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    @keyframes scan {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    .snapshot-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
       margin-top: 6px;
       font-size: 11px;
       color: var(--text-mute);
     }
 
-    /* ===== 公共 section 样式 ===== */
-    section {
-      margin-bottom: 38px;
+    .snapshot-meta-pill {
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px dashed rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.96);
     }
+
+    /* Form */
+    .snapshot-form {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(148,163,184,0.7);
+      background: radial-gradient(circle at top left, rgba(30,64,175,0.9), rgba(15,23,42,0.98));
+      padding: 10px 10px 9px;
+      font-size: 12px;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 720px) {
+      .form-row {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    label {
+      font-size: 11px;
+      color: var(--text-soft);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    select, textarea, input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.8);
+      background: rgba(15,23,42,0.95);
+      color: var(--text-main);
+      font-size: 12px;
+      padding: 7px 9px;
+      outline: none;
+      transition: all 0.16s ease-out;
+    }
+
+    select:focus,
+    textarea:focus,
+    input:focus {
+      border-color: rgba(251,191,36,0.9);
+      box-shadow: 0 0 0 1px rgba(15,23,42,1), 0 0 0 1px rgba(251,191,36,0.8);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .input-hint {
+      font-size: 10px;
+      color: var(--text-mute);
+      margin-top: 2px;
+    }
+
+    .form-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn-small {
+      font-size: 12px;
+      padding: 7px 13px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(251,191,36,0.85);
+      background: rgba(15,23,42,1);
+      color: #fefce8;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.18s ease-out;
+    }
+
+    .btn-small:hover {
+      background: radial-gradient(circle at top left, rgba(251,191,36,0.22), rgba(15,23,42,1));
+      box-shadow: 0 14px 35px rgba(251,191,36,0.35);
+    }
+
+    .btn-small[disabled] {
+      opacity: 0.5;
+      cursor: wait;
+      box-shadow: none;
+    }
+
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 2px solid rgba(251,191,36,0.25);
+      border-top-color: #fbbf24;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .form-note {
+      font-size: 10px;
+      color: var(--text-mute);
+    }
+
+    .status-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.98);
+      color: var(--text-soft);
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 40px;
+    }
+
+    .anchor { scroll-margin-top: 80px; }
 
     .section-eyebrow {
       font-size: 11px;
@@ -546,70 +745,18 @@
       }
     }
 
-    /* ===== 平台 + 适用人群 ===== */
-    .platforms-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 18px;
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
     }
 
-    @media (max-width: 880px) {
-      .platforms-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .card-panel {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      background: rgba(2, 6, 23, 0.95);
-      padding: 15px 14px 14px;
-    }
-
-    .platform-pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-      margin-bottom: 10px;
-    }
-
-    .platform-pill {
-      font-size: 11px;
-      padding: 4px 9px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      color: var(--text-soft);
-      background: rgba(15, 23, 42, 0.98);
-    }
-
-    .bullet-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--text-soft);
-      margin-top: 4px;
-    }
-
-    .bullet-list li {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-
-    .bullet-dot {
-      margin-top: 5px;
-      width: 5px;
-      height: 5px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 9px rgba(34, 197, 94, 0.8);
-      flex-shrink: 0;
-    }
-
-    /* ===== 流程 ===== */
+    /* Steps */
     .steps-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -619,23 +766,20 @@
 
     @media (max-width: 880px) {
       .steps-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0,1fr);
       }
     }
 
     .step-card {
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle);
-      background: radial-gradient(circle at top left,
-        rgba(15, 23, 42, 1),
-        rgba(15, 23, 42, 0.98)
-      );
-      padding: 14px 12px;
+      background: rgba(2,6,23,0.98);
+      padding: 14px 13px;
+      font-size: 13px;
+      color: var(--text-soft);
       display: flex;
       flex-direction: column;
       gap: 6px;
-      font-size: 13px;
-      color: var(--text-soft);
     }
 
     .step-badge {
@@ -656,43 +800,33 @@
       color: var(--text-mute);
     }
 
-    /* ===== Pricing ===== */
-    .pricing-note {
-      font-size: 11px;
-      color: var(--text-mute);
-      margin-bottom: 8px;
-    }
-
+    /* Pricing */
     .pricing-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
+      margin-top: 10px;
     }
 
     @media (max-width: 880px) {
       .pricing-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0,1fr);
       }
     }
 
     .price-card {
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle);
-      background: radial-gradient(circle at top left,
-        rgba(251, 191, 36, 0.14),
-        rgba(15, 23, 42, 1)
-      );
+      background: radial-gradient(circle at top left, rgba(251,191,36,0.16), rgba(15,23,42,1));
       padding: 14px 13px 13px;
       display: flex;
       flex-direction: column;
       gap: 8px;
+      font-size: 13px;
     }
 
     .price-card.alt {
-      background: radial-gradient(circle at top left,
-        rgba(56, 189, 248, 0.18),
-        rgba(15, 23, 42, 1)
-      );
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.18), rgba(15,23,42,1));
     }
 
     .price-header-row {
@@ -738,7 +872,7 @@
       width: 13px;
       height: 13px;
       border-radius: 50%;
-      border: 1px solid rgba(34, 197, 94, 0.8);
+      border: 1px solid rgba(34,197,94,0.8);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -747,16 +881,10 @@
       flex-shrink: 0;
     }
 
-    .price-footer-note {
-      font-size: 11px;
-      color: var(--text-mute);
-      margin-top: 4px;
-    }
-
     .price-cta-row {
       display: flex;
-      gap: 8px;
       flex-wrap: wrap;
+      gap: 8px;
       margin-top: 4px;
     }
 
@@ -764,8 +892,8 @@
       font-size: 12px;
       padding: 7px 12px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(251, 191, 36, 0.75);
-      background: rgba(15, 23, 42, 1);
+      border: 1px solid rgba(251,191,36,0.75);
+      background: rgba(15,23,42,1);
       color: #fefce8;
       cursor: pointer;
       display: inline-flex;
@@ -775,42 +903,38 @@
     }
 
     .price-btn:hover {
-      background: radial-gradient(circle at top left,
-        rgba(251, 191, 36, 0.18),
-        rgba(15, 23, 42, 1)
-      );
-      box-shadow: 0 14px 35px rgba(251, 191, 36, 0.36);
+      background: radial-gradient(circle at top left, rgba(251,191,36,0.18), rgba(15,23,42,1));
+      box-shadow: 0 14px 35px rgba(251,191,36,0.36);
     }
 
     .price-btn.secondary {
-      border-color: rgba(148, 163, 184, 0.7);
+      border-color: rgba(148,163,184,0.8);
       color: var(--text-soft);
     }
 
     .price-btn.secondary:hover {
-      border-color: rgba(148, 163, 184, 1);
+      border-color: rgba(148,163,184,1);
       color: #e5e7eb;
       box-shadow: none;
     }
 
-    /* ===== FAQ ===== */
+    /* FAQ */
     .faq-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
       gap: 18px;
-      margin-top: 8px;
     }
 
     @media (max-width: 880px) {
       .faq-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0,1fr);
       }
     }
 
     .faq-card {
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle);
-      background: rgba(2, 6, 23, 0.96);
+      background: rgba(2,6,23,0.98);
       padding: 14px 13px;
       font-size: 13px;
       color: var(--text-soft);
@@ -828,17 +952,14 @@
     .faq-a {
       font-size: 13px;
       color: var(--text-soft);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    /* ===== Contact / Footer ===== */
+    /* Contact */
     .contact-card {
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle);
-      background: linear-gradient(to right,
-        rgba(15, 23, 42, 0.98),
-        rgba(15, 23, 42, 0.97)
-      );
+      background: linear-gradient(to right, rgba(15,23,42,0.98), rgba(15,23,42,0.97));
       padding: 14px 13px 12px;
       display: flex;
       flex-direction: column;
@@ -858,8 +979,8 @@
       font-size: 12px;
       padding: 6px 11px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(2, 6, 23, 0.98);
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(2,6,23,0.98);
       color: var(--text-soft);
     }
 
@@ -886,37 +1007,31 @@
       text-decoration-style: dotted;
       text-underline-offset: 3px;
     }
-
-    /* ===== Scroll 锚点偏移 ===== */
-    .anchor {
-      scroll-margin-top: 80px;
-    }
-
   </style>
 </head>
 <body>
-  <!-- 顶部导航：所有链接只是锚点滚动，不再跳到别的页面 -->
+  <div class="bg-orbit"></div>
+  <div class="bg-grid"></div>
+
   <header>
     <div class="nav-inner">
       <div class="brand-block">
         <div class="logo-mark">
-          <div class="logo-mark-inner">AD</div>
+          <div class="logo-inner">AD</div>
         </div>
         <div class="brand-text">
           <div class="brand-name">Aurum Dispute Desk</div>
-          <div class="brand-tagline">Account Risk · Appeals · Reinstatement</div>
+          <div class="brand-tagline">Automatic risk snapshots for suspended accounts</div>
         </div>
       </div>
-
       <nav>
         <div class="nav-links">
           <button class="nav-link" data-scroll="#top">Home</button>
-          <button class="nav-link" data-scroll="#platforms">Platforms</button>
           <button class="nav-link" data-scroll="#how-it-works">How it works</button>
           <button class="nav-link" data-scroll="#pricing">Pricing</button>
           <button class="nav-link primary" data-scroll="#contact">Contact</button>
         </div>
-        <div class="nav-note">Menu</div>
+        <div class="nav-note">Scroll</div>
       </nav>
     </div>
   </header>
@@ -925,271 +1040,225 @@
     <main>
       <!-- Hero -->
       <section class="hero anchor">
-        <div class="hero-left">
+        <div class="hero-left reveal">
+          <div class="hero-orbit-ring"></div>
           <div class="eyebrow">
             <div class="eyebrow-dot"></div>
             Suspended accounts · Frozen payouts · Disabled ads
           </div>
           <h1 class="hero-title">
-            When a platform kills your account,<br />
-            we help you sound like a serious business – not a panic post.
+            Turn platform chaos into a
+            <span class="highlight">10-second automatic risk snapshot</span>
+            — before you burn your last appeal.
           </h1>
           <p class="hero-subtitle">
-            Aurum Dispute Desk turns chaos into calm, policy-aware appeals.
-            We read your notices, map your real risk and build structured
-            letters and plans for TikTok, PayPal, Stripe, Facebook Ads,
-            Airbnb, Amazon and more.
+            Aurum Dispute Desk runs your case through an AI triage engine built for
+            TikTok, Facebook Ads, PayPal, Stripe, Airbnb and more. You paste your
+            story, we instantly return a structured view: risk level, main triggers
+            and whether an appeal makes sense.
           </p>
           <div class="hero-pill-row">
             <span class="pill pill-gold">
               <span class="pill-dot"></span>
-              Free risk snapshot before you pay
+              Free risk snapshot · no login · no subscription
             </span>
-            <span class="pill">No logins · No fake documents · No bots</span>
-            <span class="pill">For creators, sellers, agencies & small businesses</span>
+            <span class="pill">For creators, sellers, ad buyers & small businesses</span>
+            <span class="pill">No fake documents · no “copy-paste templates only”</span>
           </div>
           <div class="hero-actions">
-            <button class="btn btn-primary" data-scroll="#how-it-works">
-              Start free risk snapshot
+            <button class="btn btn-primary" data-scroll="#snapshot">
+              Start automatic risk snapshot
             </button>
-            <button class="btn btn-ghost" data-scroll="#pricing">
-              View Appeal & VIP pricing
+            <button class="btn btn-ghost" data-scroll="#how-it-works">
+              See how the triage works
             </button>
           </div>
           <div class="hero-note">
-            Typical users: TikTok Shop sellers · ad buyers · cross-border sellers · PayPal & Stripe merchants · Airbnb hosts · Amazon sellers.
+            Typical users: TikTok Shop sellers · ad buyers · agencies · PayPal / Stripe merchants · Airbnb hosts · Amazon sellers.
           </div>
         </div>
 
-        <aside class="hero-right">
-          <div class="card-header-row">
-            <div>
-              <div class="card-title">Example risk snapshot</div>
-              <div class="section-sub" style="font-size: 11px; margin-top: 2px;">
-                TikTok Shop · health gadget · sudden suspension
+        <div class="hero-right-wrap reveal" id="snapshot">
+          <div class="hero-right" id="tilt-card">
+            <div class="card-header-row">
+              <div>
+                <div class="card-title">Live risk engine</div>
+                <div class="card-sub">Automatic snapshot generated inside your browser</div>
+              </div>
+              <div class="badge-live">
+                <span class="badge-dot"></span>
+                Online · workers AI
               </div>
             </div>
-            <span class="card-tag">Estimated: High risk</span>
-          </div>
 
-          <div class="risk-label-row">
-            <span>Low</span>
-            <span>Medium</span>
-            <span>High</span>
-          </div>
-          <div class="risk-bar-outer">
-            <div class="risk-bar-inner"></div>
-            <div class="risk-dot"></div>
-          </div>
+            <div class="snapshot-layout">
+              <!-- 输出区域 -->
+              <div class="snapshot-output">
+                <div class="scan-line"></div>
+                <div class="snapshot-label-row">
+                  <span class="snapshot-label">Your risk snapshot</span>
+                  <span class="risk-tag" id="risk-tag">Waiting</span>
+                </div>
+                <div id="snapshot-text" class="snapshot-text snapshot-placeholder">
+                  Paste your story on the right and click “Generate snapshot”.
+                  We’ll map: platform view, likely triggers, risk level and
+                  whether a serious appeal is worth it.
+                </div>
+                <div class="snapshot-meta-row" id="snapshot-meta">
+                  <span class="snapshot-meta-pill">Risk level: —</span>
+                  <span class="snapshot-meta-pill">Recommended: —</span>
+                </div>
+              </div>
 
-          <div class="mini-meta-row">
-            <span class="mini-pill">Reason: “Misleading medical claims”</span>
-            <span class="mini-pill">Signals: sudden volume + complaint reports</span>
-          </div>
+              <!-- 表单 -->
+              <form class="snapshot-form" id="snapshot-form">
+                <div class="form-row">
+                  <div>
+                    <label for="platform">Platform</label>
+                    <select id="platform" name="platform" required>
+                      <option value="">Select a platform</option>
+                      <option value="TikTok / TikTok Shop">TikTok / TikTok Shop</option>
+                      <option value="Facebook / Instagram Ads">Facebook / Instagram Ads</option>
+                      <option value="Google Ads">Google Ads</option>
+                      <option value="PayPal">PayPal</option>
+                      <option value="Stripe">Stripe</option>
+                      <option value="Airbnb">Airbnb</option>
+                      <option value="Amazon / marketplaces">Amazon / marketplaces</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="problemType">What happened</label>
+                    <select id="problemType" name="problemType" required>
+                      <option value="">Choose one</option>
+                      <option value="Account suspension / ban">Account suspension / ban</option>
+                      <option value="Payout hold / reserve">Payout hold / reserve</option>
+                      <option value="Ad account / BM disabled">Ad account / BM disabled</option>
+                      <option value="Ads rejected / disapproved">Ads rejected / disapproved</option>
+                      <option value="Listing / product removal">Listing / product removal</option>
+                      <option value="Other policy / risk issue">Other policy / risk issue</option>
+                    </select>
+                  </div>
+                </div>
 
-          <div class="case-text-block">
-            <div class="case-label">What we actually do</div>
-            We slow the story down, list what the system likely saw (claims,
-            creatives, device patterns), and rebuild your explanation in
-            simple paragraphs: context · responsibility · corrective steps.
-            You submit everything from your own account and devices.
-          </div>
+                <div class="form-row">
+                  <div>
+                    <label for="revenueRange">Rough monthly volume</label>
+                    <select id="revenueRange" name="revenueRange" required>
+                      <option value="">Select</option>
+                      <option value="< 2k USD">< $2k</option>
+                      <option value="2k – 10k USD">$2k – $10k</option>
+                      <option value="10k – 50k USD">$10k – $50k</option>
+                      <option value="50k+ USD">$50k+</option>
+                    </select>
+                    <div class="input-hint">Used only to prioritise risk, not shared with anyone.</div>
+                  </div>
+                  <div>
+                    <label for="email">Email (optional)</label>
+                    <input id="email" name="email" type="email" placeholder="For follow-up, if needed" />
+                    <div class="input-hint">You can leave this blank if you only want the on-screen snapshot.</div>
+                  </div>
+                </div>
 
-          <div class="card-footer-note">
-            We don’t promise miracles. Some accounts can be saved, some can’t.
-            We tell you which bucket you’re in before you burn your last appeal.
-          </div>
-        </aside>
-      </section>
+                <div>
+                  <label for="description">What actually happened</label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    maxlength="1600"
+                    required
+                    placeholder="Example: 'TikTok Shop account suspended after a spike in orders. We were selling [product], got a notice for misleading claims, we had 2 customer complaints last week...'">
+                  </textarea>
+                  <div class="input-hint">
+                    Focus on timeline + actions, not emotions. Max 1,600 characters.
+                  </div>
+                </div>
 
-      <!-- Platforms / Who we help -->
-      <section id="platforms" class="anchor">
-        <div class="section-eyebrow">Who is this for</div>
-        <div class="section-title-row">
-          <h2 class="section-title">Platforms and people we understand</h2>
-          <p class="section-sub">
-            You don’t need to explain what a BM, ROAS or 180-day hold is.
-          </p>
-        </div>
-
-        <div class="platforms-grid">
-          <div class="card-panel">
-            <div class="section-sub" style="font-size: 12px; margin-bottom: 2px;">
-              Platforms we see most often
+                <div class="form-footer">
+                  <button type="submit" class="btn-small" id="snapshot-submit">
+                    <span id="submit-spinner" class="spinner" style="display:none;"></span>
+                    <span id="submit-label">Generate snapshot</span>
+                  </button>
+                  <span class="form-note">
+                    Your text is sent to Aurum’s Cloudflare Worker AI only for generating this snapshot.
+                  </span>
+                </div>
+                <div class="form-note" id="status-line"></div>
+              </form>
             </div>
-            <div class="platform-pill-row">
-              <span class="platform-pill">TikTok / TikTok Shop</span>
-              <span class="platform-pill">Facebook & Instagram Ads</span>
-              <span class="platform-pill">Google Ads</span>
-              <span class="platform-pill">PayPal</span>
-              <span class="platform-pill">Stripe</span>
-              <span class="platform-pill">Airbnb</span>
-              <span class="platform-pill">Amazon / marketplaces</span>
-              <span class="platform-pill">Other payment processors</span>
-            </div>
-            <ul class="bullet-list">
-              <li>
-                <span class="bullet-dot"></span>
-                <span>Ad accounts disabled for “policy” or “circumventing systems”.</span>
-              </li>
-              <li>
-                <span class="bullet-dot"></span>
-                <span>Shop & seller accounts suspended after a sudden spike in orders.</span>
-              </li>
-              <li>
-                <span class="bullet-dot"></span>
-                <span>PayPal / Stripe rolling reserves and 180-day payout holds.</span>
-              </li>
-              <li>
-                <span class="bullet-dot"></span>
-                <span>Airbnb / listing accounts removed after complaints or incidents.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="card-panel">
-            <div class="section-sub" style="font-size: 12px; margin-bottom: 4px;">
-              Typical people behind the dashboard
-            </div>
-            <ul class="bullet-list">
-              <li>
-                <span class="bullet-dot"></span>
-                <span>
-                  <strong>Ad buyers & agencies</strong> running five or six-figure budgets
-                  who can’t afford to “rage appeal” and lose more BMs.
-                </span>
-              </li>
-              <li>
-                <span class="bullet-dot"></span>
-                <span>
-                  <strong>Cross-border sellers</strong> using TikTok, Amazon, PayPal or Stripe
-                  with language or paperwork gaps.
-                </span>
-              </li>
-              <li>
-                <span class="bullet-dot"></span>
-                <span>
-                  <strong>Service providers</strong> hit by generic “risk / policy / integrity”
-                  flags after big invoices or one messy client.
-                </span>
-              </li>
-              <li>
-                <span class="bullet-dot"></span>
-                <span>
-                  <strong>Small business owners</strong> whose whole side income sits
-                  in one platform and can’t wait 180 days to see what happens.
-                </span>
-              </li>
-            </ul>
           </div>
         </div>
       </section>
 
       <!-- How it works -->
-      <section id="how-it-works" class="anchor">
+      <section id="how-it-works" class="anchor reveal">
         <div class="section-eyebrow">From panic to a plan</div>
         <div class="section-title-row">
-          <h2 class="section-title">Three moves, no subscription required</h2>
+          <h2 class="section-title">How the automatic triage works</h2>
           <p class="section-sub">
-            Start with a free written risk snapshot. Upgrade only if it makes sense.
+            We’re not a one-click “unban” button. We are a quiet risk desk that slows your story down.
           </p>
         </div>
 
         <div class="steps-grid">
           <div class="step-card">
-            <div class="step-badge">Step 1 — Free risk snapshot</div>
-            <div class="step-title">You send the notice & what you were doing</div>
+            <div class="step-badge">Step 1 · You paste the story</div>
+            <div class="step-title">Platform, notice, what you were really doing</div>
             <div class="step-meta">No logins · no screen-sharing · no fake docs</div>
             <p>
-              You tell us which platform, paste or summarise the notice, and
-              describe what you were actually doing. We read it like a reviewer
-              would, not like a friend.
+              You tell us which platform, what the notice said, and what you were actually running or selling.
+              The AI doesn’t care about emotions. It reads like a cold reviewer.
             </p>
           </div>
-
           <div class="step-card">
-            <div class="step-badge">Step 2 — Appeal Pack (paid)</div>
-            <div class="step-title">We build a structured appeal & evidence plan</div>
-            <div class="step-meta">Single case · one clear shot</div>
+            <div class="step-badge">Step 2 · Worker AI triage</div>
+            <div class="step-title">Risk level + main triggers + appeal sense</div>
+            <div class="step-meta">Cloudflare Workers AI · no OpenAI key needed</div>
             <p>
-              If your case is worth fighting, we prepare a full appeal draft,
-              list the documents you should show, and map a 7–14 day plan for
-              that platform. You submit everything yourself.
+              The Workers AI model is instructed to think like a platform integrity analyst:
+              identify risk category, main signals and whether a structured appeal has a realistic chance.
             </p>
           </div>
-
           <div class="step-card">
-            <div class="step-badge">Step 3 — VIP guidance (optional)</div>
-            <div class="step-title">For high-stakes accounts only</div>
-            <div class="step-meta">Ad buyers · agencies · critical revenue</div>
+            <div class="step-badge">Step 3 · Human-level offers if you want</div>
+            <div class="step-title">Appeal Pack or VIP guidance on top</div>
+            <div class="step-meta">Optional · one-time fee · no subscription</div>
             <p>
-              For big budgets and critical dashboards, we stay with you through
-              the review cycle: refine replies, handle follow-ups and help you
-              decide when to push and when to redesign your setup.
+              If your case looks worth fighting, you can upgrade to a handcrafted Appeal Pack or VIP guidance.
+              If not, we tell you plainly instead of taking your money.
             </p>
           </div>
         </div>
       </section>
 
       <!-- Pricing -->
-      <section id="pricing" class="anchor">
-        <div class="section-eyebrow">Pricing</div>
+      <section id="pricing" class="anchor reveal">
+        <div class="section-eyebrow">Pricing for human help</div>
         <div class="section-title-row">
-          <h2 class="section-title">Simple offers, no subscriptions</h2>
+          <h2 class="section-title">The risk snapshot is free. Human work is not.</h2>
           <p class="section-sub">
-            You can always start with the free risk snapshot and decide later.
+            The automatic snapshot filters noise. Paid work is only for cases that make sense.
           </p>
         </div>
-
-        <p class="pricing-note">
-          Prices are examples. You can adjust them later in the code. Currency: USD.
-        </p>
 
         <div class="pricing-grid">
           <div class="price-card">
             <div class="price-header-row">
               <div>
                 <div class="price-name">Appeal Pack</div>
-                <div class="price-caption">For one suspended account or payout hold</div>
+                <div class="price-caption">One account · one serious attempt</div>
               </div>
               <div class="price-number">$280</div>
             </div>
-
             <ul class="price-list">
-              <li>
-                <span class="check-icon">✓</span>
-                <span>Free written risk snapshot before you pay.</span>
-              </li>
-              <li>
-                <span class="check-icon">✓</span>
-                <span>1 full appeal draft in clear, policy-aware language.</span>
-              </li>
-              <li>
-                <span class="check-icon">✓</span>
-                <span>Evidence checklist: what to show and what not to send.</span>
-              </li>
-              <li>
-                <span class="check-icon">✓</span>
-                <span>7–14 day plan for follow-ups on that platform.</span>
-              </li>
-              <li>
-                <span class="check-icon">✓</span>
-                <span>No logins, no fake documents, no “templates only”.</span>
-              </li>
+              <li><span class="check-icon">✓</span><span>Full appeal draft in calm, policy-aware language.</span></li>
+              <li><span class="check-icon">✓</span><span>Evidence checklist: what to send, what to avoid.</span></li>
+              <li><span class="check-icon">✓</span><span>7–14 day plan for replies and follow-ups.</span></li>
+              <li><span class="check-icon">✓</span><span>No subscriptions · one-time fee.</span></li>
             </ul>
-
             <div class="price-cta-row">
-              <button class="price-btn" data-scroll="#contact">
-                Start with free snapshot
-              </button>
-              <button class="price-btn secondary" data-scroll="#how-it-works">
-                See how it works
-              </button>
-            </div>
-
-            <div class="price-footer-note">
-              If we think your case is extremely low chance, we will tell you and
-              you don’t need to buy anything.
+              <button class="price-btn" data-scroll="#contact">Ask about Appeal Pack</button>
+              <button class="price-btn secondary" data-scroll="#snapshot">Try free snapshot first</button>
             </div>
           </div>
 
@@ -1197,131 +1266,85 @@
             <div class="price-header-row">
               <div>
                 <div class="price-name">VIP Guidance</div>
-                <div class="price-caption">For high-stakes ad buyers & key accounts</div>
+                <div class="price-caption">For high-volume ad buyers & key accounts</div>
               </div>
               <div class="price-number">$780+</div>
             </div>
-
             <ul class="price-list">
-              <li>
-                <span class="check-icon">✓</span>
-                <span>Everything in the Appeal Pack, plus ongoing guidance.</span>
-              </li>
-              <li>
-                <span class="check-icon">✓</span>
-                <span>Refinement for follow-up messages and additional evidence.</span>
-              </li>
-              <li>
-                <span class="check-icon">✓</span>
-                <span>Risk strategy: when to escalate, when to cut losses and rebuild.</span>
-              </li>
-              <li>
-                <span class="check-icon">✓</span>
-                <span>Best for media buyers, agencies and platform-dependent businesses.</span>
-              </li>
+              <li><span class="check-icon">✓</span><span>Everything in Appeal Pack, plus iterative follow-ups.</span></li>
+              <li><span class="check-icon">✓</span><span>Risk strategy across accounts, BMs and payment setups.</span></li>
+              <li><span class="check-icon">✓</span><span>Best for agencies, media buyers and large sellers.</span></li>
+              <li><span class="check-icon">✓</span><span>Limited slots; only if the snapshot looks realistic.</span></li>
             </ul>
-
             <div class="price-cta-row">
-              <button class="price-btn" data-scroll="#contact">
-                Apply for VIP guidance
-              </button>
-              <button class="price-btn secondary" data-scroll="#platforms">
-                Check if this fits you
-              </button>
-            </div>
-
-            <div class="price-footer-note">
-              We only take a limited number of VIP cases at a time, and only
-              where we believe the platform might listen.
+              <button class="price-btn" data-scroll="#contact">Apply for VIP slot</button>
+              <button class="price-btn secondary" data-scroll="#how-it-works">How we decide</button>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- FAQ / Why not just send random appeals -->
-      <section class="anchor">
-        <div class="section-eyebrow">Before you send 10 angry tickets</div>
+      <!-- FAQ -->
+      <section class="anchor reveal">
+        <div class="section-eyebrow">Before you spam the appeal button</div>
         <div class="section-title-row">
-          <h2 class="section-title">Why use a dispute desk at all?</h2>
+          <h2 class="section-title">Why bother with a dispute desk at all?</h2>
           <p class="section-sub">
-            Platforms read thousands of appeals every day. Most are emotional walls of text.
+            Because sending ten emotional appeals is often worse than sending one structured one.
           </p>
         </div>
 
         <div class="faq-grid">
           <div class="faq-card">
-            <div class="faq-q">What’s different from a random appeal?</div>
+            <div class="faq-q">Is this a magic “unban” service?</div>
             <div class="faq-a">
-              We write like a calm, policy-aware business, not like a frustrated user.
-              Instead of “I did nothing wrong”, we describe what the system likely saw,
-              what you are willing to change, and how you reduce risk. Clear structure,
-              specific actions and realistic tone.
+              No. Some accounts can be recovered, some cannot. The risk snapshot tells you
+              which bucket you are in: reasonable chance, low chance, or almost zero chance.
+              We’d rather say “no” than charge you for hopeless cases.
             </div>
-
-            <div class="faq-q">Do you log into my account?</div>
+            <div class="faq-q">Do you log into my accounts?</div>
             <div class="faq-a">
-              No. You stay in full control. You paste notices, redact details if needed,
-              and submit all appeals from your own devices and networks. We work with
-              your story and documents only.
+              No. You stay in full control. You paste notices and facts, you submit appeals
+              from your own devices and networks. We don’t ask for passwords or codes.
             </div>
           </div>
-
           <div class="faq-card">
-            <div class="faq-q">Can you guarantee reinstatement?</div>
+            <div class="faq-q">What AI do you use?</div>
             <div class="faq-a">
-              No. Nobody serious can promise that. Some accounts can be saved, some can’t.
-              Our job is to give you one strong, structured attempt, not ten random tickets.
-              If your case looks like “almost no chance”, we will tell you before you pay.
+              The risk snapshot runs entirely on Cloudflare Workers AI. There is no need
+              for an OpenAI key on your side. Your text goes to a Worker you control,
+              and the AI only uses it to generate this snapshot.
             </div>
-
-            <div class="faq-q">Is this a law firm?</div>
+            <div class="faq-q">Is this legal advice?</div>
             <div class="faq-a">
-              No. We are not your lawyers and this is not legal advice. We help you
-              communicate with platforms in a way that makes sense to their reviewers
-              and internal risk systems.
+              No. Aurum Dispute Desk is not a law firm and does not replace your lawyer.
+              We help you communicate with platforms more clearly and realistically.
             </div>
           </div>
         </div>
       </section>
 
       <!-- Contact -->
-      <section id="contact" class="anchor">
+      <section id="contact" class="anchor reveal">
         <div class="section-eyebrow">Contact</div>
         <div class="section-title-row">
-          <h2 class="section-title">Send your case for a free written snapshot</h2>
+          <h2 class="section-title">If your snapshot looks worth fighting, talk to a human</h2>
           <p class="section-sub">
-            No bots. A human reads your notice and sends a short risk view before you decide.
+            The risk snapshot is free and instant. Paid work is only for serious cases.
           </p>
         </div>
-
         <div class="contact-card">
           <div class="contact-row">
-            <span class="contact-pill">
-              1. Platform + what happened
-            </span>
-            <span class="contact-pill">
-              2. Notice (screenshot or text)
-            </span>
-            <span class="contact-pill">
-              3. What you were actually doing
-            </span>
+            <span class="contact-pill">1. Run a free snapshot above</span>
+            <span class="contact-pill">2. If it looks realistic, email us</span>
           </div>
-
-          <p>
-            For now, we keep it simple: send an email with the three points above.
-            You can redact sensitive numbers or client names if needed.
-          </p>
-
           <p>
             Email:
-            <a class="contact-link" href="mailto:contact@aurumdesks.com">
-              contact@aurumdesks.com
-            </a>
+            <a class="contact-link" href="mailto:contact@aurumdesks.com">contact@aurumdesks.com</a>
           </p>
-
           <p style="font-size: 11px; color: var(--text-mute);">
-            You can change this email address in the code to match your real inbox.
-            We normally respond with a short written risk snapshot within 1–2 working days.
+            You can change this email address in the code. If you prefer WhatsApp or another channel,
+            just update this section and your footer accordingly.
           </p>
         </div>
       </section>
@@ -1337,7 +1360,7 @@
   </div>
 
   <script>
-    // 简单的锚点滚动，不需要额外页面
+    // 平滑滚动
     document.querySelectorAll("[data-scroll]").forEach(btn => {
       btn.addEventListener("click", () => {
         const target = btn.getAttribute("data-scroll");
@@ -1347,6 +1370,171 @@
         }
       });
     });
+
+    // 滚动出现动画
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+    // Hero 卡片轻微 3D tilt
+    const tiltCard = document.getElementById("tilt-card");
+    if (tiltCard) {
+      tiltCard.addEventListener("mousemove", e => {
+        const rect = tiltCard.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateY = ((x / rect.width) - 0.5) * 8;
+        const rotateX = ((y / rect.height) - 0.5) * -8;
+        tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(0)`;
+      });
+      tiltCard.addEventListener("mouseleave", () => {
+        tiltCard.style.transform = "rotateX(0deg) rotateY(0deg)";
+      });
+    }
+
+    // Snapshot 表单逻辑
+    const form = document.getElementById("snapshot-form");
+    const submitBtn = document.getElementById("snapshot-submit");
+    const submitLabel = document.getElementById("submit-label");
+    const submitSpinner = document.getElementById("submit-spinner");
+    const snapshotTextEl = document.getElementById("snapshot-text");
+    const riskTagEl = document.getElementById("risk-tag");
+    const metaRowEl = document.getElementById("snapshot-meta");
+    const statusLine = document.getElementById("status-line");
+
+    function setSubmitting(isSubmitting) {
+      if (!submitBtn) return;
+      submitBtn.disabled = isSubmitting;
+      submitSpinner.style.display = isSubmitting ? "inline-block" : "none";
+      submitLabel.textContent = isSubmitting ? "Generating..." : "Generate snapshot";
+      statusLine.textContent = isSubmitting ? "Talking to the Worker AI..." : "";
+    }
+
+    function setRiskTag(level) {
+      riskTagEl.classList.remove("low", "medium", "high");
+      let text = "Unknown";
+      if (!level) {
+        riskTagEl.textContent = text;
+        return;
+      }
+      const normalized = String(level).toLowerCase();
+      if (normalized.includes("low")) {
+        text = "Low risk";
+        riskTagEl.classList.add("low");
+      } else if (normalized.includes("high")) {
+        text = "High risk";
+        riskTagEl.classList.add("high");
+      } else {
+        text = "Medium risk";
+        riskTagEl.classList.add("medium");
+      }
+      riskTagEl.textContent = text;
+    }
+
+    function setSnapshotMeta(level, shouldAppeal) {
+      let riskText = `Risk level: ${level || "Unknown"}`;
+      let rec = "Recommended: —";
+      if (typeof shouldAppeal === "boolean") {
+        rec = shouldAppeal
+          ? "Recommended: A structured appeal can make sense."
+          : "Recommended: Be cautious – appeal may have very low chance.";
+      }
+      metaRowEl.innerHTML = "";
+      const pill1 = document.createElement("span");
+      pill1.className = "snapshot-meta-pill";
+      pill1.textContent = riskText;
+      const pill2 = document.createElement("span");
+      pill2.className = "snapshot-meta-pill";
+      pill2.textContent = rec;
+      metaRowEl.appendChild(pill1);
+      metaRowEl.appendChild(pill2);
+    }
+
+    function typeText(element, text) {
+      element.classList.remove("snapshot-placeholder");
+      element.textContent = "";
+      let i = 0;
+      const speed = 12;
+      function step() {
+        if (i <= text.length) {
+          element.textContent = text.slice(0, i);
+          i++;
+          setTimeout(step, speed);
+        }
+      }
+      step();
+    }
+
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const platform = document.getElementById("platform").value.trim();
+        const problemType = document.getElementById("problemType").value.trim();
+        const revenueRange = document.getElementById("revenueRange").value.trim();
+        const email = document.getElementById("email").value.trim();
+        let description = document.getElementById("description").value.trim();
+
+        if (!platform || !problemType || !revenueRange || !description) {
+          statusLine.textContent = "Please fill in all required fields.";
+          return;
+        }
+
+        if (description.length > 1600) {
+          description = description.slice(0, 1600);
+        }
+
+        setSubmitting(true);
+        setRiskTag(null);
+        snapshotTextEl.textContent = "Analysing your case...";
+        snapshotTextEl.classList.remove("snapshot-placeholder");
+
+        try {
+          const res = await fetch("/api/snapshot", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              platform,
+              problemType,
+              revenueRange,
+              email,
+              description
+            }),
+          });
+
+          if (!res.ok) {
+            throw new Error("Response not OK");
+          }
+
+          const data = await res.json();
+          const snapshot = data.snapshot || "No snapshot text returned from the AI.";
+          const riskLevel = data.risk_level || data.riskLevel || "unknown";
+          const shouldAppeal = typeof data.should_appeal === "boolean"
+            ? data.should_appeal
+            : data.shouldAppeal;
+
+          setRiskTag(riskLevel);
+          setSnapshotMeta(riskLevel, shouldAppeal);
+          typeText(snapshotTextEl, snapshot);
+          statusLine.textContent = "Snapshot generated. This is not legal advice, but a structured view of your risk.";
+        } catch (err) {
+          console.error(err);
+          statusLine.textContent = "Something went wrong while talking to the Worker. Please try again.";
+          snapshotTextEl.textContent = "We couldn’t generate a snapshot right now. Please try again in a few minutes.";
+          snapshotTextEl.classList.add("snapshot-placeholder");
+          setRiskTag(null);
+          setSnapshotMeta("unknown", null);
+        } finally {
+          setSubmitting(false);
+        }
+      });
+    }
   </script>
 </body>
 </html>
