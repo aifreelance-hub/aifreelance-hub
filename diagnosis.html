@@ -1181,40 +1181,43 @@ Aurum Account Recovery Desk
     });
 
     // Download PDF button
-    downloadPdfBtn.addEventListener("click", () => {
-      const text = fullLetterBody.textContent.trim();
-      if (!text) {
-        alert("There is no letter to download yet. Please generate the full letter first.");
-        return;
-      }
+downloadPdfBtn.addEventListener("click", () => {
+  let text = fullLetterBody.textContent.trim();
+  if (!text) {
+    alert("There is no letter to download yet. Please generate the full letter first.");
+    return;
+  }
 
-      if (!window.jspdf || !window.jspdf.jsPDF) {
-        alert("PDF library is not available. Please try again later or copy the text instead.");
-        return;
-      }
+  // Remove unsupported characters (防止乱码)
+  text = text.replace(/[^\x00-\x7F]/g, "");  // remove all non-ASCII characters
 
-      try {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({
-          unit: "pt",
-          format: "a4"
-        });
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    alert("PDF library is not available. Please try again later.");
+    return;
+  }
 
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(12);
-
-        const marginLeft = 48;
-        const marginTop = 64;
-        const maxWidth = 515; // A4 width (595pt) minus margins
-
-        const lines = doc.splitTextToSize(text, maxWidth);
-        doc.text(lines, marginLeft, marginTop);
-
-        doc.save("aurum-appeal-letter.pdf");
-      } catch (err) {
-        alert("Could not create the PDF. Please try again later or copy the text instead.");
-      }
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+      unit: "pt",
+      format: "a4"
     });
+
+    doc.setFont("Times", "normal");
+    doc.setFontSize(12);
+
+    const marginLeft = 48;
+    const marginTop = 64;
+    const maxWidth = 515; // A4 width (595pt) minus margins
+
+    const lines = doc.splitTextToSize(text, maxWidth);
+    doc.text(lines, marginLeft, marginTop);
+
+    doc.save("aurum-appeal-letter.pdf");
+  } catch (err) {
+    alert("Could not create the PDF. Please try again later.");
+  }
+});
   </script>
 </body>
 </html>
