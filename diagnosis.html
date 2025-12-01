@@ -1466,7 +1466,7 @@ Aurum Account Recovery Desk
 
       // ===== 这里是你以后要接 Worker AI 的地方 =====
       // 例如：
-      // const res = await fetch("/api/diagnosis", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      // const res = await fetch("/w/api/diagnosis", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       // const data = await res.json(); // { riskSummary, previewLetter }
       // 现在先用 demo 数据，这样前端看起来是完整的
       (async function () {
@@ -1507,7 +1507,7 @@ Aurum Account Recovery Desk
           diagSkeleton.style.display = "none";
           diagBody.style.display = "block";
           diagBody.textContent =
-"Demo only: Your diagnosis backend isn’t connected yet.\n\nOnce your Cloudflare Worker is live at /api/diagnosis, this section will show the real risk summary generated from your answers.";
+"Demo only: Your diagnosis backend isn’t connected yet.\n\nOnce your Cloudflare Worker is live at /w/api/diagnosis, this section will show the real risk summary generated from your answers.";
         } finally {
           setRunning(false);
         }
