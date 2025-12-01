@@ -1445,131 +1445,148 @@ Aurum Account Recovery Desk
   }
 
   if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var payload = {
-        platform: document.getElementById("platform").value,
-        region: document.getElementById("region").value,
-        activity: document.getElementById("activity").value,
-        officialNotice: document.getElementById("officialNotice").value,
-        before: document.getElementById("before").value,
-        tried: document.getElementById("tried").value,
-        email: document.getElementById("email").value || null
-      };
-      lastPayload = payload;
+ // 读取 URL 里的 plan 参数
+function getPlanFromUrl() {
+  var params = new URLSearchParams(window.location.search);
+  var p = (params.get("plan") || "standard").toLowerCase();
+  return p;
+}
 
-      // 前端先显示 skeleton
-      setRunning(true);
-      diagBody.style.display = "none";
-      diagSkeleton.style.display = "block";
-      riskBadge.style.display = "none";
+var lastPayload = null;
 
-      // ===== 这里是你以后要接 Worker AI 的地方 =====
-      // 例如：
-      // const res = await fetch("/w/api/diagnosis", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-      // const data = await res.json(); // { riskSummary, previewLetter }
-      // 现在先用 demo 数据，这样前端看起来是完整的
-      (async function () {
-        try {
-          // demo：模拟 1 秒 delay
-          await new Promise(function (resolve) { setTimeout(resolve, 900); });
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-          var demoSummary =
-"From the platform’s perspective, this account looks like a legitimate business that has triggered automated risk rules rather than clear, intentional abuse.\n\n" +
-"Key concerns are:\n" +
-"- Sudden change in traffic / spend without a clear history.\n" +
-"- Incomplete documentation around business identity and customer refunds.\n" +
-"- Previous brief appeals that did not explain what has changed.\n\n" +
-"Our recommendation is to treat this as a recoverable case if you can provide simple, honest documentation and avoid any new accounts until this one is fully reviewed.";
+    var plan = getPlanFromUrl();
 
-          var demoPreview =
-"Dear Risk & Compliance Team,\n\n" +
-"My name is [Your Name], and I am responsible for the [business name] account linked to this email. I understand that your team must protect the platform from abuse, and I appreciate that my account cannot be restored unless you are confident about how it is being used.\n\n" +
-"In short, our business is a [brief description] serving customers in [regions]. We do not resell accounts or offer services that violate your terms. Before the restriction, our typical activity looked like this:\n\n" +
-"- Average weekly volume: [numbers]\n" +
-"- Main traffic sources: [sources]\n" +
-"- Typical customer: [profile]\n\n";
+    var payload = {
+      platform: document.getElementById("platform").value,
+      region: document.getElementById("region").value,
+      activity: document.getElementById("activity").value,
+      officialNotice: document.getElementById("officialNotice").value,
+      before: document.getElementById("before").value,
+      tried: document.getElementById("tried").value,
+      email: document.getElementById("email").value || null,
+      plan: plan,
+    };
+    lastPayload = payload;
 
-          // 如果你以后接上 Worker，就把上面 demoSummary / demoPreview 替换为后端返回的值
+    setRunning(true);
+    diagBody.style.display = "none";
+    diagSkeleton.style.display = "block";
+    riskBadge.style.display = "none";
 
-          var risk = classifyRisk(demoSummary);
+    try {
+      const res = await fetch("/w/api/diagnosis", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-          diagSkeleton.style.display = "none";
-          diagBody.style.display = "block";
-          diagBody.textContent = demoSummary;
+      const data = await res.json();
 
-          riskBadge.className = "risk-label " + risk.cls;
-          riskText.textContent = risk.text;
-          riskBadge.style.display = "inline-flex";
+      diagSkeleton.style.display = "none";
+      diagBody.style.display = "block";
 
-          previewText.textContent = demoPreview;
-        } catch (err) {
-          diagSkeleton.style.display = "none";
-          diagBody.style.display = "block";
-          diagBody.textContent =
-"Demo only: Your diagnosis backend isn’t connected yet.\n\nOnce your Cloudflare Worker is live at /w/api/diagnosis, this section will show the real risk summary generated from your answers.";
-        } finally {
-          setRunning(false);
-        }
-      })();
-    });
-  }
+      if (data.error) {
+        diagBody.textContent =
+          "Diagnosis error: " + data.error + (data.details ? "\n\n" + data.details : "");
+        return;
+      }
 
-  // Step 2: unlock full letter
-  var paidCheck = document.getElementById("paidCheck");
-  var unlockBtn = document.getElementById("unlockBtn");
-  var fullLetterBody = document.getElementById("fullLetterBody");
+      var summary = data.riskSummary || "";
+      var preview = data.previewLetter || "";
 
-  if (paidCheck && unlockBtn) {
-    paidCheck.addEventListener("change", function () {
+      diagBody.textContent = summary || "No risk summary returned from AI.";
+
+      // 简单按 summary 内容分级
+      var lower = summary.toLowerCase();
+      var riskCls, riskMsg;
+      if (lower.includes("almost no chance") || lower.includes("hard ban")) {
+        riskCls = "risk-high";
+        riskMsg = "High risk — almost no chance of recovery";
+      } else if (
+        lower.includes("moderate") ||
+        lower.includes("documents") ||
+        lower.includes("gaps")
+      ) {
+        riskCls = "risk-medium";
+        riskMsg = "Moderate risk — recoverable if documentation is strong";
+      } else {
+        riskCls = "risk-low";
+        riskMsg = "Lower risk — likely recoverable with a clear explanation";
+      }
+
+      riskBadge.className = "risk-label " + riskCls;
+      riskText.textContent = riskMsg;
+      riskBadge.style.display = "inline-flex";
+
+      previewText.textContent =
+        preview ||
+        "The AI did not return a preview letter. You may still generate the full letter in Step 2.";
+    } catch (err) {
+      diagSkeleton.style.display = "none";
+      diagBody.style.display = "block";
+      diagBody.textContent =
+        "Network or AI error while running diagnosis.\n\n" + String(err);
+    } finally {
+      setRunning(false);
+    }
+  });
+}
+
+
+ if (paidCheck && unlockBtn) {
+  paidCheck.addEventListener("change", function () {
+    unlockBtn.disabled = !paidCheck.checked;
+  });
+
+  unlockBtn.addEventListener("click", async function () {
+    if (!paidCheck.checked || unlockBtn.disabled) return;
+
+    if (!lastPayload) {
+      alert("Please run the diagnosis first.");
+      return;
+    }
+
+    unlockBtn.textContent = "Generating full letter…";
+    unlockBtn.disabled = true;
+
+    try {
+      var plan = getPlanFromUrl();
+
+      const res = await fetch("/w/api/full-letter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...lastPayload,
+          plan: plan,
+          riskSummary: diagBody.textContent || "",
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.error) {
+        fullLetterBody.textContent =
+          "Error generating full letter: " +
+          data.error +
+          (data.details ? "\n\n" + data.details : "");
+        return;
+      }
+
+      fullLetterBody.textContent =
+        data.fullLetter ||
+        "The AI did not return a full letter. Please try again or check your Worker logs.";
+    } catch (err) {
+      fullLetterBody.textContent =
+        "Network or AI error while generating full letter.\n\n" + String(err);
+    } finally {
+      unlockBtn.textContent = "Generate full appeal letter";
       unlockBtn.disabled = !paidCheck.checked;
-    });
-
-    unlockBtn.addEventListener("click", function () {
-      if (!paidCheck.checked || !unlockBtn || unlockBtn.disabled) return;
-
-      unlockBtn.textContent = "Generating full letter…";
-      unlockBtn.disabled = true;
-
-      // 这里同样预留给 Worker：/api/full-letter
-      (async function () {
-        try {
-          await new Promise(function (resolve) { setTimeout(resolve, 1000); });
-
-          var demoFull =
-"Dear Risk & Compliance Team,\n\n" +
-"Thank you for taking the time to review this appeal. My name is [Your Name], and I manage the [business name] account associated with this email. I fully understand that your team must protect the platform from fraud, misuse and unsafe behavior, and I would like to explain clearly what happened on our side and what we have changed.\n\n" +
-"1. What this account is used for\n" +
-"Our company is a [brief description of business] based in [country / region]. We use this account only to [run ads / accept payments / manage bookings] for our own products and services. We do not resell access, share logins with unrelated third parties, or offer services that would compete with or undermine the platform.\n\n" +
-"2. What likely triggered your systems\n" +
-"Based on your notice and our own review, we believe the restriction may be linked to:\n" +
-"- [Bullet 1: sudden spend / traffic change / login pattern]\n" +
-"- [Bullet 2: unclear wording on a page, refund or delivery policy]\n" +
-"- [Bullet 3: previous short appeals that did not provide enough context]\n\n" +
-"We accept responsibility for these issues and agree that the account should not be fully re-opened until you are comfortable that they are resolved.\n\n" +
-"3. What we have changed to address the risk\n" +
-"- Updated our website and customer communication to make refunds, delivery times and contact details clear.\n" +
-"- Restricted account access to a smaller, verified team, with separate logins and two-factor authentication enabled.\n" +
-"- Implemented an internal review step before launching any new campaigns or changing payment details, so unusual activity is checked first.\n\n" +
-"4. How we will operate going forward\n" +
-"If the account can be reinstated, we are happy to accept additional limits or monitoring for a period of time. Our intention is to use the platform in a steady, compliant way over many years, not to push the limits of your rules.\n\n" +
-"Thank you again for reviewing this case. If there is any specific documentation or clarification you would like from us, we will provide it as quickly as possible.\n\n" +
-"Best regards,\n" +
-"[Your Name]\n" +
-"[Role / Company]\n";
-
-          // 替换为真结果时，用从 Worker 返回的文本
-          fullLetterBody.textContent = demoFull;
-        } catch (err) {
-          fullLetterBody.textContent =
-"Demo only: your /api/full-letter endpoint is not connected yet.\n\nOnce your Worker is live, this button will generate a tailored, full appeal letter using your diagnosis answers.";
-        } finally {
-          unlockBtn.textContent = "Generate full appeal letter";
-          unlockBtn.disabled = !paidCheck.checked;
-        }
-      })();
-    });
-  }
+    }
+  });
+}
 </script>
 </body>
 </html>
