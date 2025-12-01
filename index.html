@@ -7,7 +7,10 @@
 
   <link rel="icon" href="favicon.png" type="image/png" />
 
-  <meta name="description" content="Aurum Dispute Desk helps you analyze account risk, generate strong appeal letters and step-by-step reinstatement strategies for TikTok, PayPal, Stripe, Facebook Ads, Airbnb, Amazon and more." />
+  <meta
+    name="description"
+    content="Aurum Dispute Desk helps you analyze account risk, generate strong appeal letters and step-by-step reinstatement strategies for TikTok, PayPal, Stripe, Facebook Ads, Airbnb, Amazon and more."
+  />
 
   <style>
     * {
@@ -410,7 +413,7 @@
       color: #e5e7eb;
     }
 
-    /* 右侧：小 dashboard + “实时感” */
+    /* 右侧：小 dashboard */
 
     .hero-side {
       border-radius: 28px;
@@ -522,7 +525,7 @@
       margin-top: 4px;
     }
 
-    /* 三大核心价值 */
+    /* 通用 section */
 
     .section {
       border-radius: 22px;
@@ -554,6 +557,8 @@
       color: var(--text-soft);
       max-width: 420px;
     }
+
+    /* 三大核心价值 */
 
     .value-grid {
       display: grid;
@@ -629,7 +634,7 @@
       color: rgba(148, 163, 184, 0.9);
     }
 
-    /* 平台案例区（案例 + 结果） */
+    /* 平台案例 */
 
     .case-grid {
       display: grid;
@@ -730,37 +735,28 @@
       gap: 10px;
     }
 
+    /* 真实头像样式：外圈金色 + 圆形照片 */
     .avatar {
       width: 34px;
       height: 34px;
       border-radius: 999px;
-      background: radial-gradient(circle at top, #facc15, #0f172a);
-      position: relative;
-      overflow: hidden;
+      border: 2px solid rgba(251, 191, 36, 0.9);
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+      background-color: #020617;
+      background-size: cover;
+      background-position: center;
       flex-shrink: 0;
+      overflow: hidden;
     }
 
-    /* 如果你有真人头像图片，把下面的注释打开，并改成你的图片路径：
-       .avatar { background-image: url('avatar1.jpg'); background-size: cover; background-position: center; }
-    */
-
-    .avatar::after {
-      content: "";
-      position: absolute;
-      inset: 2px;
-      border-radius: inherit;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617);
+    /* M 头像 */
+    .avatar-m {
+      background-image: url('avatar-m.png');
     }
 
-    .avatar-initial {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 600;
-      color: #fefce8;
+    /* L 头像 */
+    .avatar-l {
+      background-image: url('avatar-l.png');
     }
 
     .testimonial-person {
@@ -799,7 +795,7 @@
       align-self: flex-start;
     }
 
-    /* 步骤 / CTA */
+    /* 步骤 */
 
     .steps {
       display: grid;
@@ -896,93 +892,93 @@
               <span>●</span>
               When a platform kills your account, we help you talk like a Fortune 500, not a panic post.
             </div>
-            <h1>A calm dispute desk for suspended accounts, frozen funds & blocked ads.</h1>
+            <h1>一间冷静的申诉办公室，专门处理封号、限制和冻结资金。</h1>
             <p class="hero-sub">
-              Your <strong>TikTok, PayPal, Stripe, Facebook Ads, Airbnb or Amazon</strong> account was
-              suspended, restricted or under review? Aurum Dispute Desk turns chaos into
-              <strong>structured risk reports, appeal letters and reinstatement strategies</strong>.
+              你的 <strong>TikTok、PayPal、Stripe、Facebook 广告、Airbnb 或 Amazon</strong> 账号被
+              封禁、限制或审核？Aurum Dispute Desk 把混乱变成
+              <strong>结构化风险报告、申诉信和找回方案</strong>。
             </p>
 
             <div class="hero-tags">
-              <div class="tag gold">We never log into your account · No fake documents</div>
-              <div class="tag">For creators, sellers, agencies & small businesses</div>
-              <div class="tag">Language: English · Global platforms</div>
+              <div class="tag gold">我们不会登录你的账号 · 不做假合同、不做假流水</div>
+              <div class="tag">适合卖家、广告主、代理商和小企业老板</div>
+              <div class="tag">服务语言：英文 · 面向全球平台</div>
             </div>
 
             <div class="hero-actions">
               <button class="btn-primary" onclick="window.location.href='risk-diagnosis.html'">
-                Start free risk diagnosis
+                先做一次免费风险诊断
                 <span>→</span>
               </button>
               <button class="btn-secondary" onclick="window.location.href='pricing.html'">
-                View appeal & VIP plans
+                查看申诉套餐和 VIP 方案
               </button>
             </div>
 
             <div class="hero-meta">
-              <strong>Typical users:</strong> TikTok Shop sellers, cross-border sellers, ad buyers, PayPal / Stripe merchants,
-              Airbnb hosts, Amazon sellers, performance agencies.
+              <strong>典型用户：</strong> TikTok Shop 卖家、跨境卖家、广告投手、PayPal / Stripe 商户、
+              Airbnb 房东、Amazon 卖家、投放代理。
             </div>
             <div class="hero-platforms">
-              <span>Supported:</span> TikTok · Facebook / Instagram · PayPal · Stripe · Airbnb · Amazon · Google Ads · Others
+              <span>覆盖平台：</span> TikTok · Facebook / Instagram · PayPal · Stripe · Airbnb · Amazon · Google Ads 等
             </div>
           </div>
         </div>
 
         <aside class="hero-side">
           <div class="hero-side-inner">
-            <div class="side-title">Live-style overview · What we see in your case</div>
+            <div class="side-title">Desk 视角 · 我们看到的风险结构</div>
             <div class="side-sub">
-              Example cases processed by the desk. We focus on risk, not drama.
+              下面是经过处理后的真实模式（信息已脱敏）。我们盯的是「风控逻辑」，不是情绪。
             </div>
 
             <ul class="case-list">
               <li class="case-item">
                 <div>
-                  <div class="case-head">TikTok Shop — sudden suspension</div>
+                  <div class="case-head">TikTok Shop — 突然封店</div>
                   <div class="case-main">
-                    Product category flagged as "health claim" + off-platform communication.
+                    商品类目被识别为“健康医疗”，且直播里提到“止痛”“治愈”等词。
                   </div>
                   <div class="case-result">
-                    Angle: clarify product scope, remove sensitive claims, commit to on-platform support only.
+                    申诉角度：改成生活用品定位、去掉医疗暗示、承诺不引导站外沟通。
                   </div>
                 </div>
-                <div class="risk-label">High risk</div>
+                <div class="risk-label">高风险</div>
               </li>
 
               <li class="case-item">
                 <div>
-                  <div class="case-head">PayPal — 180 day hold</div>
+                  <div class="case-head">PayPal — 资金 180 天冻结</div>
                   <div class="case-main">
-                    Rapid volume growth + chargebacks from one region.
+                    短时间大额增长 + 某地区退款集中过高。
                   </div>
                   <div class="case-result">
-                    Angle: show invoices & delivery proof, explain risk controls, request staged release.
+                    申诉角度：解释业务模式、提供真实合同与收款明细、提出分批放款方案。
                   </div>
                 </div>
-                <div class="case-badge">Often reversible</div>
+                <div class="case-badge">常见，可争取部分提前释放</div>
               </li>
 
               <li class="case-item">
                 <div>
-                  <div class="case-head">Facebook Ads — ad account disabled</div>
+                  <div class="case-head">Facebook Ads — 广告账户停用</div>
                   <div class="case-main">
-                    Landing page wording interpreted as "personal attributes".
+                    落地页文案被系统识别为“个人特征”“夸大承诺”。
                   </div>
                   <div class="case-result">
-                    Angle: reword creative, clarify offer, highlight compliant ad flows.
+                    申诉角度：重新措辞广告与落地页、说明真实产品、展示合规路径。
                   </div>
                 </div>
-                <div class="case-badge">Depends on history</div>
+                <div class="case-badge">结果取决于过往记录</div>
               </li>
             </ul>
 
             <div class="side-highlight">
-              We only work with your <strong>story, documents and policies</strong>.
-              You keep full control: you submit everything from your own devices and accounts.
+              我们只处理 <strong>你的故事、真实材料和平台规则</strong>，不碰你的密码和 2FA。
+              所有东西都由你本人在各个平台后台提交。
             </div>
             <div class="side-foot">
-              Not a law firm. We help you communicate like a serious business that respects platform rules — even when you disagree.
+              我们不是律师事务所，而是一间帮你「用平台能听懂的语言，把事情讲清楚」的冷静写作办公室。
             </div>
           </div>
         </aside>
@@ -991,47 +987,45 @@
       <!-- 三大核心价值 -->
       <section class="section">
         <div class="section-header">
-          <h2>Why people use Aurum instead of “random appeals”</h2>
+          <h2>为什么用 Aurum，而不是随便写一封英文申诉？</h2>
           <p class="section-lead">
-            Platforms read thousands of appeals daily. We help you sound like a serious,
-            policy-aware account — not just another angry ticket.
+            平台每天看成千上万封申诉。我们帮你听起来像一家合规的正规公司，而不是一条情绪化的求情帖。
           </p>
         </div>
 
         <div class="value-grid">
           <div class="value-card">
-            <div class="value-pill">01 · Policy-aware writing</div>
-            <h3>We speak the platform's language</h3>
+            <div class="value-pill">01 · 懂平台规则的写法</div>
+            <h3>站在风控系统视角写申诉</h3>
             <p>
-              We map your situation to typical risk triggers — content, payment, KYC, chargebacks,
-              landing page, device — and craft appeals that acknowledge those concerns.
+              我们会把你遇到的情况，对应到平台常见的风控触发点——内容、支付、KYC、拒付率、落地页、设备环境等，
+              然后按这个逻辑来写信。
             </p>
             <div class="value-meta">
-              Less "I did nothing wrong", more "here is how we fix what your system saw".
+              少一点「我什么都没做」，多一点「系统看到的风险是什么，我们怎么改」。
             </div>
           </div>
 
           <div class="value-card">
-            <div class="value-pill">02 · Calm risk framing</div>
-            <h3>We calm the story down</h3>
+            <div class="value-pill">02 · 冷静的风险叙事</div>
+            <h3>把故事拆成时间线和行动方案</h3>
             <p>
-              Instead of emotional walls of text, we structure context, responsibility and 
-              corrective actions in a way that reviewers can process quickly.
+              我们把你想说的话拆成「背景 · 发生了什么 · 你认为的原因 · 已经采取/计划采取的措施」，
+              让审核员几分钟内就能看懂。
             </p>
             <div class="value-meta">
-              Clear paragraphs, simple timelines, concrete future changes.
+              越是高风险，越需要少废话、信息干净。
             </div>
           </div>
 
           <div class="value-card">
-            <div class="value-pill">03 · Realistic strategies</div>
-            <h3>We don't promise miracles</h3>
+            <div class="value-pill">03 · 现实预期，而不是神仙承诺</div>
+            <h3>哪些值得争取，哪些早点止损</h3>
             <p>
-              Some cases can be saved, some can't. We tell you when it's worth pushing, when to 
-              accept and redesign your setup — before you burn goodwill.
+              有的号能救，有的救不回来。我们会在写之前告诉你，大致胜算在哪，不会让你盲目多次乱投申诉。
             </p>
             <div class="value-meta">
-              Better one strong appeal than ten random submissions.
+              一封结构清楚的好申诉，比十封情绪化的垃圾申诉更有用。
             </div>
           </div>
         </div>
@@ -1040,75 +1034,74 @@
       <!-- 平台案例区 -->
       <section class="section">
         <div class="section-header">
-          <h2>Platform-style examples (anonymised)</h2>
+          <h2>匿名真实案例 · 模式而不是故事</h2>
           <p class="section-lead">
-            A feel for the types of disputes that fit this desk. Names and details are changed,
-            but the patterns are real.
+            下面是典型模式的简化版，名字和细节已经完全修改，但平台逻辑是一样的。
           </p>
         </div>
 
         <div class="case-grid">
           <div class="case-card">
-            <div class="case-platform">TikTok Shop · Mid-size seller</div>
-            <div class="case-title">"Health gadget" flagged as medical device</div>
+            <div class="case-platform">TikTok Shop · 中等体量卖家</div>
+            <div class="case-title">“健康小工具” 被认定为医疗器械</div>
 
-            <div class="case-section-title">What happened</div>
+            <div class="case-section-title">发生了什么</div>
             <ul class="case-list-bullets">
-              <li>• New product category with "relief" wording.</li>
-              <li>• Live stream mentions of "pain" and "fix".</li>
-              <li>• Multiple reports from competitors.</li>
+              <li>• 新上架类目，标题和视频里有“缓解”“改善”之类词。</li>
+              <li>• 直播话术提到“疼就用这个”“能解决你的问题”。</li>
+              <li>• 同行多次举报。</li>
             </ul>
 
-            <div class="case-section-title">What we recommended</div>
+            <div class="case-section-title">我们建议的做法</div>
             <ul class="case-list-bullets">
-              <li>• Remove medical-style claims and images.</li>
-              <li>• Position product as lifestyle / comfort.</li>
-              <li>• Provide receipts & logistics details for past orders.</li>
+              <li>• 去掉所有“治疗 / 医疗”暗示，只保留生活方式表达。</li>
+              <li>• 调整图片和详情页，强调体验而不是功效。</li>
+              <li>• 提供历史订单发货凭证，证明实际履约情况。</li>
             </ul>
 
-            <div class="case-result-chip">Result: account reinstated, product listing re-opened</div>
+            <div class="case-result-chip">结果：账号恢复，商品在改版后重新上线</div>
           </div>
 
           <div class="case-card">
-            <div class="case-platform">PayPal · Digital service provider</div>
-            <div class="case-title">Rolling 180-day hold on payouts</div>
+            <div class="case-platform">PayPal · 数字服务商</div>
+            <div class="case-title">大额波动下的 180 天冻结</div>
 
-            <div class="case-section-title">What happened</div>
+            <div class="case-section-title">发生了什么</div>
             <ul class="case-list-bullets">
-              <li>• High-ticket invoices to new markets.</li>
-              <li>• A cluster of disputes around one campaign.</li>
-              <li>• Generic "user agreement breach" notice.</li>
+              <li>• 短时间内大量高客单价订单涌入新国家。</li>
+              <li>• 某个推广活动带来一批退款和争议。</li>
+              <li>• 收到“违反用户协议”的通用提示。</li>
             </ul>
 
-            <div class="case-section-title">What we recommended</div>
+            <div class="case-section-title">我们建议的做法</div>
             <ul class="case-list-bullets">
-              <li>• Explain business model & delivery steps.</li>
-              <li>• Provide contract templates and service logs.</li>
-              <li>• Offer to limit new regions and adjust risk.</li>
+              <li>• 用清晰图表解释业务模式和交付流程。</li>
+              <li>• 提供合同模版、聊天记录和服务日志。</li>
+              <li>• 提出分地区、分批次提前释放部分资金的方案。</li>
             </ul>
 
-            <div class="case-result-chip">Result: partial early release + clearer risk expectations</div>
+            <div class="case-result-chip">结果：部分资金提前解冻，后续风险预期更清晰</div>
           </div>
 
           <div class="case-card">
-            <div class="case-platform">Facebook Ads · Performance agency</div>
-            <div class="case-title">Business Manager repeatedly disabled</div>
+            <div class="case-platform">Facebook Ads · 代投放代理机构</div>
+            <div class="case-title">Business Manager 多次被封</div>
 
-            <div class="case-section-title">What happened</div>
+            <div class="case-section-title">发生了什么</div>
             <ul class="case-list-bullets">
-              <li>• Multiple clients with aggressive offers.</li>
-              <li>• One client mixing compliant and non-compliant verticals.</li>
-              <li>• Policy violations flagged across several ad accounts.</li>
+              <li>• 多个客户中混杂高风险品类。</li>
+              <li>• 某些落地页边缘擦线，触发多国政策。</li>
+              <li>• 多个广告账户被同时标记。</li>
             </ul>
 
-            <div class="case-section-title">What we recommended</div>
+            <div class="case-section-title">我们建议的做法</div>
             <ul class="case-list-bullets">
-              <li>• Separate risk by client and vertical.</li>
-              <li>• Document compliance checks for "clean" clients.</li>
-              <li>• Present a new structure and internal review process.</li>
+              <li>• 按业务类型拆分结构，把高风险客户单独隔离。</li>
+              <li>• 为“干净客户”整理内部合规流程和审核记录。</li>
+              <li>• 在申诉中展示新的结构与内部风控机制。</li>
             </ul>
 
-            <div class="case-result-chip">Result: one BM reinstated, others migrated safely</div>
+            <div class="case-result-chip">结果：一个 BM 找回，其他账号平稳迁移</div>
           </div>
         </div>
       </section>
@@ -1116,50 +1109,44 @@
       <!-- 真人头像 + 客户感言 -->
       <section class="section">
         <div class="section-header">
-          <h2>Voices from behind the screen</h2>
+          <h2>背后的人 · 不是 ID，而是生意和压力</h2>
           <p class="section-lead">
-            Real people, real money stuck in suspended dashboards. We can't name them,
-            but the situations are familiar.
+            以下是典型用户的感受（信息已脱敏）。有的是七位数广告买家，有的是第一次被封号的小卖家。
           </p>
         </div>
 
         <div class="testimonial-row">
           <div class="testimonial-card">
             <div class="testimonial-header">
-              <div class="avatar">
-                <div class="avatar-initial">M</div>
-              </div>
+              <div class="avatar avatar-m"></div>
               <div class="testimonial-person">
-                <div class="testimonial-name">“M.” — 7-figure ad buyer</div>
-                <div class="testimonial-role">Lead media buyer · Facebook & TikTok</div>
+                <div class="testimonial-name">“M.”——七位数广告买家</div>
+                <div class="testimonial-role">首席媒体采购员 · Facebook 和 TikTok</div>
               </div>
             </div>
             <div class="testimonial-body">
-              “When our main ad account was shut down, I was ready to burn the BM.
-              Aurum turned my rants into a three-page, boring-but-perfectly-structured explanation.
-              That's exactly what the reviewer needed — not another emotional essay.”
+              “当我们的主要广告账户被关闭时，我真想把 BM 烧了。Aurum 把我的抱怨转化成了一篇三页纸的解释：
+              什么时间做了什么调整、哪些地方我们愿意配合改。审核员不想看情绪，只想快速看完一份专业说明。”
             </div>
-            <div class="testimonial-platform">Case: ad account disabled · policy wording</div>
-            <div class="testimonial-tag">High-stakes · VIP guidance</div>
+            <div class="testimonial-platform">案例：广告账户停用 · 文案触碰政策</div>
+            <div class="testimonial-tag">高体量投放 · VIP 指导</div>
           </div>
 
           <div class="testimonial-card">
             <div class="testimonial-header">
-              <div class="avatar">
-                <div class="avatar-initial">L</div>
-              </div>
+              <div class="avatar avatar-l"></div>
               <div class="testimonial-person">
-                <div class="testimonial-name">“L.” — small cross-border seller</div>
-                <div class="testimonial-role">Owner · TikTok Shop & PayPal</div>
+                <div class="testimonial-name">“L.”——跨境中小卖家</div>
+                <div class="testimonial-role">店主 · TikTok Shop &amp; PayPal</div>
               </div>
             </div>
             <div class="testimonial-body">
-              “English is not my first language. When PayPal and TikTok froze my payouts,
-              I just clicked every button. Aurum made me slow down, send one clean appeal,
-              and show real documents. I finally felt like I sounded like a serious business.”
+              “英语不是我的母语，第一次同时被 TikTok 和 PayPal 冻结的时候，我只会到处点按钮乱申诉。
+              Aurum 先让我把情况按时间线讲清楚，然后帮我写成一封有条理的英文信，再配上真实单据。
+              这是我第一次觉得自己像个‘正规商家’在说话，而不是求情。”
             </div>
-            <div class="testimonial-platform">Case: payouts on hold · first-time risk event</div>
-            <div class="testimonial-tag">Single appeal + analysis</div>
+            <div class="testimonial-platform">案例：首封风控事件 · 资金冻结</div>
+            <div class="testimonial-tag">单次申诉包 + 分析报告</div>
           </div>
         </div>
       </section>
@@ -1167,49 +1154,48 @@
       <!-- 步骤 + CTA -->
       <section class="section">
         <div class="section-header">
-          <h2>From panic to a plan in three moves</h2>
+          <h2>从慌乱到有计划，只要三步</h2>
           <p class="section-lead">
-            No subscriptions required to start. Use the desk when things go wrong,
-            then decide if you want deeper support.
+            不需要一上来就订阅长期服务。先用一次，再决定要不要升级到深度或 VIP。
           </p>
         </div>
 
         <div class="steps">
           <div class="step">
             <div class="step-label">Step 1</div>
-            <h3>Run a free risk diagnosis</h3>
+            <h3>做一次免费风险诊断</h3>
             <p>
-              Select platform, paste or summarise the notice, describe what you were doing.
-              We estimate risk level and whether appeal is worth it.
+              选择平台，粘贴或简单概括系统通知，写清楚之前做了什么。
+              我们会给出一个粗略的风险等级和「值不值得申诉」的判断。
             </p>
           </div>
 
           <div class="step">
             <div class="step-label">Step 2</div>
-            <h3>Unlock appeal & strategy</h3>
+            <h3>解锁申诉信和行动计划</h3>
             <p>
-              If it makes sense, purchase an Appeal Pack. You get a full appeal draft, 
-              suggested evidence list and a 7–14 day plan for that platform.
+              如果值得争取，可以购买申诉套餐。你会拿到一封完整申诉信、
+              所需材料建议清单，以及 7–14 天内的行动节奏。
             </p>
           </div>
 
           <div class="step">
             <div class="step-label">Step 3</div>
-            <h3>Upgrade for VIP cases</h3>
+            <h3>高价值账户升级为 VIP</h3>
             <p>
-              For critical accounts, move into VIP guidance: we refine and rewrite, 
-              help with follow-ups, and stay with you through the review cycle.
+              对于非常关键的账户，可以升级为 VIP：我们会多轮打磨申诉文案，
+              帮你回复平台的后续邮件，陪你走完一个审核周期。
             </p>
           </div>
         </div>
 
         <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
           <button class="btn-primary" onclick="window.location.href='risk-diagnosis.html'">
-            Start with free risk diagnosis
+            现在就做免费风险诊断
             <span>→</span>
           </button>
           <button class="btn-secondary" onclick="window.location.href='pricing.html'">
-            See detailed pricing & use-cases
+            查看详细价格和适用场景
           </button>
         </div>
       </section>
