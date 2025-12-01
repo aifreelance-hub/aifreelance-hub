@@ -1247,3 +1247,106 @@
             Platforms read thousands of appeals every day. Most are emotional walls of text.
           </p>
         </div>
+
+        <div class="faq-grid">
+          <div class="faq-card">
+            <div class="faq-q">What’s different from a random appeal?</div>
+            <div class="faq-a">
+              We write like a calm, policy-aware business, not like a frustrated user.
+              Instead of “I did nothing wrong”, we describe what the system likely saw,
+              what you are willing to change, and how you reduce risk. Clear structure,
+              specific actions and realistic tone.
+            </div>
+
+            <div class="faq-q">Do you log into my account?</div>
+            <div class="faq-a">
+              No. You stay in full control. You paste notices, redact details if needed,
+              and submit all appeals from your own devices and networks. We work with
+              your story and documents only.
+            </div>
+          </div>
+
+          <div class="faq-card">
+            <div class="faq-q">Can you guarantee reinstatement?</div>
+            <div class="faq-a">
+              No. Nobody serious can promise that. Some accounts can be saved, some can’t.
+              Our job is to give you one strong, structured attempt, not ten random tickets.
+              If your case looks like “almost no chance”, we will tell you before you pay.
+            </div>
+
+            <div class="faq-q">Is this a law firm?</div>
+            <div class="faq-a">
+              No. We are not your lawyers and this is not legal advice. We help you
+              communicate with platforms in a way that makes sense to their reviewers
+              and internal risk systems.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="anchor">
+        <div class="section-eyebrow">Contact</div>
+        <div class="section-title-row">
+          <h2 class="section-title">Send your case for a free written snapshot</h2>
+          <p class="section-sub">
+            No bots. A human reads your notice and sends a short risk view before you decide.
+          </p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-row">
+            <span class="contact-pill">
+              1. Platform + what happened
+            </span>
+            <span class="contact-pill">
+              2. Notice (screenshot or text)
+            </span>
+            <span class="contact-pill">
+              3. What you were actually doing
+            </span>
+          </div>
+
+          <p>
+            For now, we keep it simple: send an email with the three points above.
+            You can redact sensitive numbers or client names if needed.
+          </p>
+
+          <p>
+            Email:
+            <a class="contact-link" href="mailto:contact@aurumdesks.com">
+              contact@aurumdesks.com
+            </a>
+          </p>
+
+          <p style="font-size: 11px; color: var(--text-mute);">
+            You can change this email address in the code to match your real inbox.
+            We normally respond with a short written risk snapshot within 1–2 working days.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© Aurum Dispute Desk. All rights reserved.</span>
+      <span>
+        <a href="#">Terms (coming soon)</a> ·
+        <a href="#">Privacy (coming soon)</a>
+      </span>
+    </footer>
+  </div>
+
+  <script>
+    // 简单的锚点滚动，不需要额外页面
+    document.querySelectorAll("[data-scroll]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-scroll");
+        const el = document.querySelector(target);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
