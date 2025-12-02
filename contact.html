@@ -2,499 +2,376 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Desk — Contact</title>
+  <title>Aurum Account Recovery Desk — Contact</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" href="favicon.png" type="image/png" />
-
-  <!-- Google tag (optional) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-NEY7RNB5S');
-  </script>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
+    /* 同样复用上面的基础样式，再加联系表单的样式 */
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg-deep: #020617;
-      --bg-card: #020617;
-      --bg-soft: #0b1220;
-      --border-subtle: rgba(148,163,184,0.35);
-      --gold: #fbbf24;
-      --gold-soft: rgba(251,191,36,0.16);
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --radius-xl: 26px;
-      --radius-md: 16px;
+      --bg-page:#f4f6fb;--bg-soft:#ffffff;--border-subtle:rgba(148,163,184,.4);
+      --ink:#0f172a;--ink-soft:#4b5563;--ink-softer:#6b7280;--ink-softest:#9ca3af;
+      --accent:#1d4ed8;--gold:#f59e0b;
+      --radius-xl:28px;--radius-lg:22px;--radius-pill:999px;
+      --shadow-card:0 18px 50px rgba(15,23,42,.12);--nav-height:76px;
+    }
+    html,body{height:100%}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      background:radial-gradient(circle at top,#e5edff 0%,#f4f6fb 47%,#edf1f8 100%);
+      color:var(--ink);-webkit-font-smoothing:antialiased;
+    }
+    .page{min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden}
+    .bg-orbit{position:fixed;inset:0;pointer-events:none;z-index:-2}
+    .bg-orbit::before,.bg-orbit::after{
+      content:"";position:absolute;border-radius:999px;filter:blur(70px);opacity:.6;
+      mix-blend-mode:screen;animation:floatSoft 18s ease-in-out infinite alternate;
+    }
+    .bg-orbit::before{
+      width:520px;height:520px;top:-80px;left:-40px;
+      background:radial-gradient(circle at 10% 0%,rgba(56,189,248,.6),transparent 70%);
+    }
+    .bg-orbit::after{
+      width:560px;height:560px;bottom:-120px;right:-40px;
+      background:radial-gradient(circle at 80% 40%,rgba(245,158,11,.5),transparent 70%);
+      animation-delay:2s;
+    }
+    .bg-grid{
+      position:fixed;inset:0;
+      background-image:linear-gradient(rgba(148,163,184,.25) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(148,163,184,.25) 1px,transparent 1px);
+      background-size:80px 80px;opacity:.18;
+      mask-image:radial-gradient(circle at top,black 0%,transparent 62%);
+      -webkit-mask-image:radial-gradient(circle at top,black 0%,transparent 62%);
+      pointer-events:none;z-index:-1;
+    }
+    @keyframes floatSoft{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(18px,40px,0) scale(1.03)}}
+    .top-strip{position:relative;z-index:30;display:flex;justify-content:center;padding:8px 16px;font-size:12px;color:var(--ink-softest)}
+    .top-strip-inner{
+      max-width:1120px;width:100%;
+      background:linear-gradient(90deg,rgba(37,99,235,.06),rgba(56,189,248,.04),rgba(245,158,11,.06));
+      border-radius:999px;border:1px solid rgba(148,163,184,.35);padding:6px 16px;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      box-shadow:0 10px 30px rgba(148,163,184,.3);
+    }
+    .top-pill{display:inline-flex;align-items:center;gap:6px;padding:2px 9px;border-radius:999px;background:rgba(15,23,42,.06);color:var(--ink-soft);font-weight:500;font-size:11px}
+    .top-dot{width:6px;height:6px;border-radius:999px;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.4)}
+    .top-strip-text{font-size:11px;color:var(--ink-soft)}
+    .top-strip-link{color:var(--accent);font-weight:500;text-decoration:underline;text-underline-offset:3px}
+    header{
+      position:sticky;top:0;z-index:40;backdrop-filter:blur(26px);
+      background:linear-gradient(to bottom,rgba(244,246,251,.9),rgba(244,246,251,.75),rgba(244,246,251,.5));
+      border-bottom:1px solid rgba(203,213,225,.7);
+    }
+    .nav-inner{
+      max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;
+      padding:10px 18px;height:var(--nav-height);
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-mark{
+      width:38px;height:38px;border-radius:18px;
+      background:conic-gradient(from 220deg,rgba(37,99,235,.06),rgba(37,99,235,.4),rgba(56,189,248,.45),rgba(245,158,11,.85),rgba(37,99,235,.1));
+      display:flex;align-items:center;justify-content:center;position:relative;
+      box-shadow:0 0 0 1px rgba(148,163,184,.55),0 14px 35px rgba(15,23,42,.4);overflow:hidden;
+    }
+    .brand-mark::after{
+      content:"A";font-weight:700;color:#0f172a;font-size:18px;letter-spacing:.03em;
+      text-shadow:0 3px 8px rgba(15,23,42,.45);
+    }
+    .brand-text{display:flex;flex-direction:column;gap:2px}
+    .brand-name{font-size:16px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;color:#020617}
+    .brand-sub{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--ink-softest)}
+    .nav-links{display:flex;align-items:center;gap:22px;font-size:13px;color:var(--ink-soft)}
+    .nav-links a{text-decoration:none;color:inherit;position:relative;padding-bottom:2px;cursor:pointer}
+    .nav-links a::after{
+      content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;
+      background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .18s ease-out;
+    }
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      border-radius:999px;border:1px solid transparent;padding:8px 16px;
+      font-size:13px;font-weight:500;cursor:pointer;
+      transition:transform .14s ease-out,box-shadow .14s ease-out,background .14s ease-out,border-color .14s ease-out,color .14s ease-out;
+      white-space:nowrap;
+    }
+    .btn-primary{
+      background:radial-gradient(circle at top left,#60a5fa,#1d4ed8);
+      color:#f9fafb;border-color:rgba(30,64,175,.9);
+      box-shadow:0 16px 45px rgba(37,99,235,.55);
+    }
+    .btn-primary:hover{transform:translateY(-1px);box-shadow:0 22px 60px rgba(37,99,235,.7);filter:brightness(1.03)}
+    .btn .dot{width:6px;height:6px;border-radius:999px;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.5)}
+    .hamburger{display:none;width:32px;height:32px;border-radius:999px;border:1px solid rgba(148,163,184,.8);background:rgba(255,255,255,.7);align-items:center;justify-content:center;cursor:pointer}
+    .hamburger span{width:16px;height:2px;background:#020617;border-radius:999px;position:relative}
+    .hamburger span::before,.hamburger span::after{
+      content:"";position:absolute;left:0;width:16px;height:2px;background:#020617;border-radius:999px;
+    }
+    .hamburger span::before{top:-5px}.hamburger span::after{top:5px}
+    .mobile-menu{
+      position:fixed;inset:calc(var(--nav-height)+8px) 12px auto 12px;
+      background:rgba(255,255,255,.98);border-radius:20px;
+      border:1px solid rgba(148,163,184,.7);padding:12px 14px;
+      box-shadow:0 18px 60px rgba(15,23,42,.5);
+      display:none;flex-direction:column;gap:10px;z-index:30;
+    }
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-size:13px;color:var(--ink-soft);text-decoration:none}
+    .mobile-menu .btn-primary{width:100%;justify-content:center}
+    main{flex:1}
+    .shell{max-width:1120px;margin:0 auto;padding:26px 18px 60px}
+
+    .legal-hero{margin-top:12px;margin-bottom:22px}
+    .legal-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--ink-softest);margin-bottom:6px}
+    .legal-title{font-size:24px;font-weight:650;letter-spacing:-.02em;color:#020617;margin-bottom:8px}
+    .legal-subtitle{font-size:13px;color:var(--ink-softer);max-width:620px;line-height:1.7}
+
+    .contact-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1.15fr) minmax(0,.9fr);
+      gap:22px;
+      align-items:flex-start;
+    }
+    .contact-card,.form-card{
+      background:#fff;border-radius:var(--radius-xl);
+      border:1px solid rgba(203,213,225,.9);
+      box-shadow:var(--shadow-card);padding:18px 18px 16px;
+    }
+    .contact-card h2,.form-card h2{
+      font-size:15px;font-weight:600;color:#020617;margin-bottom:8px;
+    }
+    .contact-card p{
+      font-size:13px;color:var(--ink-softer);line-height:1.8;margin-bottom:8px;
+    }
+    .contact-list{font-size:13px;color:var(--ink-softer);margin-top:8px}
+    .contact-list dt{font-weight:600;color:var(--ink-soft);margin-top:6px}
+    .contact-list dd{margin-left:0;margin-bottom:2px}
+    .pill-note{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:4px 10px;border-radius:999px;
+      background:rgba(15,23,42,.03);
+      border:1px solid rgba(148,163,184,.7);
+      font-size:11px;color:var(--ink-softest);margin-top:10px;
     }
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #0b1120 0%, #020617 55%, #020617 100%);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    form{display:grid;gap:10px;margin-top:4px}
+    .field{display:flex;flex-direction:column;gap:4px}
+    .field label{font-size:12px;color:var(--ink-softest)}
+    .field input,.field textarea{
+      border-radius:16px;border:1px solid rgba(148,163,184,.65);
+      background:rgba(255,255,255,.95);
+      padding:9px 11px;font-size:13px;color:var(--ink);
+      outline:none;resize:vertical;
     }
-
-    .page-shell {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 18px 18px 40px;
-      width: 100%;
+    .field input::placeholder,.field textarea::placeholder{color:var(--ink-softest)}
+    .field textarea{min-height:110px}
+    .field input:focus,.field textarea:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px rgba(37,99,235,.45);
     }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 6px 2px 18px;
+    .form-footer{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:10px;flex-wrap:wrap;margin-top:4px;
     }
+    .helper-text{font-size:11px;color:var(--ink-softest);max-width:260px}
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    footer{padding:18px;font-size:11px;color:var(--ink-softest);text-align:center}
+    footer p{margin-bottom:4px}
+    footer a{color:var(--ink-softest);text-decoration:underline;text-underline-offset:3px}
+
+    @media(max-width:960px){
+      .nav-links,.nav-actions{display:none}
+      .hamburger{display:inline-flex}
+      .shell{padding-inline:14px}
+      .contact-layout{grid-template-columns:minmax(0,1fr)}
     }
-
-    .brand-mark {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: conic-gradient(
-        from 160deg,
-        #fbbf24,
-        #facc15,
-        #f97316,
-        #fbbf24
-      );
-      box-shadow: 0 0 18px rgba(251,191,36,0.55);
-    }
-
-    .brand-text-main {
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-    }
-
-    .brand-text-sub {
-      font-size: 0.7rem;
-      color: var(--text-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 0.86rem;
-    }
-
-    nav a {
-      color: var(--text-soft);
-      text-decoration: none;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: all 0.16s ease-out;
-      white-space: nowrap;
-    }
-
-    nav a:hover {
-      color: var(--text-main);
-      border-color: rgba(148,163,184,0.35);
-      background: rgba(15,23,42,0.9);
-    }
-
-    nav a.current {
-      color: #0b1120;
-      background: var(--gold);
-      border-color: var(--gold);
-      font-weight: 600;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-      }
-    }
-
-    main {
-      padding-top: 10px;
-    }
-
-    .page-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.45);
-      background: radial-gradient(circle at 0 0, rgba(251,191,36,0.25), transparent 55%);
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-soft);
-      margin-bottom: 12px;
-    }
-
-    .page-tag-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--gold);
-      box-shadow: 0 0 12px rgba(251,191,36,0.75);
-    }
-
-    .page-title {
-      font-size: clamp(1.9rem, 3vw, 2.3rem);
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      margin-bottom: 6px;
-    }
-
-    .page-subtitle {
-      max-width: 640px;
-      font-size: 0.98rem;
-      color: var(--text-soft);
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    @media (max-width: 880px) {
-      .layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .card {
-      background: radial-gradient(circle at top left, #0b1120 0%, #020617 40%);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      padding: 22px 20px;
-      box-shadow:
-        0 24px 60px rgba(15,23,42,0.9),
-        0 0 0 1px rgba(15,23,42,0.9);
-    }
-
-    .card h2 {
-      font-size: 1.02rem;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      font-size: 0.94rem;
-      color: var(--text-soft);
-      line-height: 1.7;
-      margin-bottom: 10px;
-    }
-
-    .contact-list {
-      margin-top: 8px;
-      font-size: 0.94rem;
-      color: var(--text-soft);
-    }
-
-    .contact-list dt {
-      font-weight: 500;
-      color: var(--text-main);
-      margin-top: 10px;
-    }
-
-    .contact-list dd {
-      margin-left: 0;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.4);
-      background: rgba(15,23,42,0.9);
-      font-size: 0.78rem;
-      color: var(--text-soft);
-      margin-top: 10px;
-    }
-
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 12px rgba(34,197,94,0.85);
-    }
-
-    .label {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-soft);
-      margin-bottom: 6px;
-    }
-
-    form {
-      display: grid;
-      gap: 12px;
-      margin-top: 6px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .field label {
-      font-size: 0.82rem;
-      color: #9ca3af;
-    }
-
-    .field input,
-    .field textarea {
-      border-radius: 14px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.8);
-      color: var(--text-main);
-      font-size: 0.9rem;
-      padding: 9px 11px;
-      outline: none;
-      resize: vertical;
-      min-height: 40px;
-    }
-
-    .field textarea {
-      min-height: 110px;
-    }
-
-    .field input::placeholder,
-    .field textarea::placeholder {
-      color: #6b7280;
-    }
-
-    .field input:focus,
-    .field textarea:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 1px rgba(251,191,36,0.55);
-    }
-
-    .submit-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 6px;
-    }
-
-    .btn-primary {
-      border: none;
-      border-radius: 999px;
-      padding: 9px 18px;
-      background: linear-gradient(135deg,#fbbf24,#f97316);
-      color: #111827;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 14px 40px rgba(251,191,36,0.45);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-primary span.icon {
-      font-size: 1rem;
-    }
-
-    .helper-text {
-      font-size: 0.78rem;
-      color: #9ca3af;
-      max-width: 260px;
-    }
-
-    footer {
-      padding: 26px 2px 10px;
-      font-size: 0.8rem;
-      color: #6b7280;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    footer a {
-      color: #9ca3af;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(148,163,184,0.4);
-      padding-bottom: 1px;
-    }
-
-    footer a:hover {
-      color: #e5e7eb;
-      border-bottom-color: #e5e7eb;
+    @media(max-width:720px){
+      .top-strip-inner{flex-direction:column;align-items:flex-start}
+      .legal-title{font-size:21px}
+      .contact-card,.form-card{padding:16px 14px 14px}
     }
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <header>
-      <div class="brand">
-        <div class="brand-mark"></div>
-        <div>
-          <div class="brand-text-main">Aurum Task Desk</div>
-          <div class="brand-text-sub">Private AI Writing & Resolution</div>
+  <div class="page">
+    <div class="bg-orbit"></div>
+    <div class="bg-grid"></div>
+
+    <div class="top-strip">
+      <div class="top-strip-inner">
+        <div class="top-pill">
+          <span class="top-dot"></span>
+          <span>Live desk</span>
+        </div>
+        <div class="top-strip-text">
+          3,000+ account owners used Aurum to recover or clarify platform risk.
+          <a class="top-strip-link" href="index.html#how-it-works">See how it works →</a>
         </div>
       </div>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="diagnosis.html">Diagnosis</a>
-        <a href="platforms.html">Platforms</a>
+    </div>
+
+    <header>
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="brand-mark"></div>
+          <div class="brand-text">
+            <div class="brand-name">AURUM DESK</div>
+            <div class="brand-sub">ACCOUNT RECOVERY & APPEALS</div>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="index.html#platforms">Platforms</a>
+          <a href="index.html#how-it-works">How it works</a>
+          <a href="index.html#comparison">Why Aurum</a>
+          <a href="index.html#testimonials">Results</a>
+          <a href="pricing.html">Pricing</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
+            <span class="dot"></span>
+            Run free diagnosis
+          </button>
+        </div>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+        </button>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#platforms">Platforms</a>
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="index.html#comparison">Why Aurum</a>
+        <a href="index.html#testimonials">Results</a>
         <a href="pricing.html">Pricing</a>
-        <a href="about.html">About</a>
-        <a href="contact.html" class="current">Contact</a>
-      </nav>
+        <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
+          Run free diagnosis
+        </button>
+      </div>
     </header>
 
     <main>
-      <div class="page-tag">
-        <span class="page-tag-dot"></span>
-        Contact
-      </div>
-      <h1 class="page-title">Quiet, professional contact channel</h1>
-      <p class="page-subtitle">
-        If you have a sensitive case, a payment question or you are unsure which
-        Aurum Desk option is right for you, you can reach us through a single,
-        calm inbox. No live chat, no bots — just written replies.
-      </p>
-
-      <div class="layout">
-        <section class="card">
-          <h2>Write to Aurum Desk</h2>
-          <p>
-            Please briefly describe your situation in plain language. You do not
-            need to send full evidence or ID at this stage — we mainly need to
-            understand what happened and which platform, authority or company is
-            involved.
+      <div class="shell">
+        <div class="legal-hero">
+          <div class="legal-kicker">Contact</div>
+          <h1 class="legal-title">A quiet, written channel to reach Aurum.</h1>
+          <p class="legal-subtitle">
+            If you have a sensitive case, a payment question or you are unsure which option to
+            choose, you can reach Aurum through a single written inbox. No phone calls, no live
+            chat pressure.
           </p>
+        </div>
 
-          <!-- 提醒：把邮箱改成你真正想用的邮箱 -->
-          <dl class="contact-list">
-            <dt>Primary email</dt>
-            <dd>
-              <a href="mailto:support@aurumdesks.com">support@aurumdesks.com</a>
-            </dd>
+        <div class="contact-layout">
+          <section class="contact-card">
+            <h2>Primary contact inbox</h2>
+            <p>
+              For most questions, please send a short email in English summarising what happened,
+              which platform is involved and what you hope to achieve. You do not need to send
+              full evidence in the first message.
+            </p>
 
-            <dt>Typical response time</dt>
-            <dd>Within 24–48 hours on business days.</dd>
+            <dl class="contact-list">
+              <dt>Email</dt>
+              <dd><a href="mailto:support@aurumdesks.com">support@aurumdesks.com</a></dd>
 
-            <dt>Languages</dt>
-            <dd>English (primary). Written Chinese may be supported case-by-case.</dd>
-          </dl>
+              <dt>Typical response time</dt>
+              <dd>Within 24–48 hours on business days.</dd>
 
-          <div class="pill">
-            <span class="pill-dot"></span>
-            No phone calls — everything stays in writing.
-          </div>
-        </section>
+              <dt>Languages</dt>
+              <dd>English (primary). Written Chinese may be supported case-by-case.</dd>
+            </dl>
 
-        <section class="card">
-          <div class="label">Optional message form</div>
-          <h2>Send a short message</h2>
-          <p>
-            This form prepares an email in your local email software. You can
-            review everything before sending.
-          </p>
-
-          <form onsubmit="handleMailto(event)">
-            <div class="field">
-              <label for="name">Your name</label>
-              <input id="name" name="name" type="text" placeholder="John Smith" />
+            <div class="pill-note">
+              Everything stays in writing. This protects both you and the desk and helps keep
+              details accurate.
             </div>
-            <div class="field">
-              <label for="email">Your email</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" />
-            </div>
-            <div class="field">
-              <label for="topic">Main topic</label>
-              <input id="topic" name="topic" type="text" placeholder="Account ban on X platform, insurance denial, family dispute…" />
-            </div>
-            <div class="field">
-              <label for="message">Short description</label>
-              <textarea id="message" name="message" placeholder="In 5–10 lines, describe what happened, key dates, and what you hope to achieve."></textarea>
-            </div>
+          </section>
 
-            <div class="submit-row">
-              <button type="submit" class="btn-primary">
-                <span class="icon">✉️</span>
-                <span>Open email draft</span>
-              </button>
-              <div class="helper-text">
-                Your default mail app will open with the message filled in.
-                You can still edit or cancel before sending.
+          <section class="form-card">
+            <h2>Prepare an email draft</h2>
+            <p style="font-size:13px;color:var(--ink-softer);margin-bottom:8px;">
+              This form does not send anything directly. It simply opens your local email software
+              with a pre-filled draft that you can still edit or delete.
+            </p>
+
+            <form onsubmit="handleMailto(event)">
+              <div class="field">
+                <label for="name">Your name</label>
+                <input id="name" name="name" type="text" placeholder="John Smith" />
               </div>
-            </div>
-          </form>
-        </section>
+              <div class="field">
+                <label for="email">Your email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" />
+              </div>
+              <div class="field">
+                <label for="topic">Main topic</label>
+                <input id="topic" name="topic" type="text" placeholder="Meta ad account disabled, PayPal limitation, Airbnb suspension…" />
+              </div>
+              <div class="field">
+                <label for="message">Short description (5–10 lines)</label>
+                <textarea id="message" name="message" placeholder="Explain what happened, key dates, and what you hope the platform or Aurum can do."></textarea>
+              </div>
+
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary">
+                  <span class="dot"></span>
+                  Open email draft
+                </button>
+                <div class="helper-text">
+                  Your default mail app will open a draft to
+                  <strong>support@aurumdesks.com</strong>. You can still change anything before
+                  sending.
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
       </div>
     </main>
 
     <footer>
-      <div>© Aurum Task Desk. All rights reserved.</div>
-      <div>
+      <p>Aurum Account Recovery Desk — Private account appeal & risk diagnosis service.</p>
+      <p>
         <a href="terms.html">Terms</a> ·
         <a href="privacy.html">Privacy</a> ·
         <a href="contact.html">Contact</a>
-      </div>
+      </p>
     </footer>
   </div>
 
   <script>
+    var hamburger = document.getElementById("hamburger");
+    var mobileMenu = document.getElementById("mobileMenu");
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener("click", function () {
+        mobileMenu.classList.toggle("open");
+      });
+    }
+
     function handleMailto(e) {
       e.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const fromEmail = document.getElementById("email").value.trim();
-      const topic = document.getElementById("topic").value.trim();
-      const msg = document.getElementById("message").value.trim();
+      var name = document.getElementById("name").value.trim();
+      var email = document.getElementById("email").value.trim();
+      var topic = document.getElementById("topic").value.trim();
+      var msg = document.getElementById("message").value.trim();
 
-      const subject = encodeURIComponent(
-        "[Aurum Desk] " + (topic || "New enquiry")
-      );
+      var subject = encodeURIComponent("[Aurum Desk] " + (topic || "New enquiry"));
+      var lines = [];
+      if (name)  lines.push("Name: " + name);
+      if (email) lines.push("Email: " + email);
+      if (topic) lines.push("Topic: " + topic);
+      lines.push("");
+      lines.push("Message:");
+      lines.push(msg || "");
+      lines.push("");
+      lines.push("— Sent via Aurum Account Recovery Desk contact form");
+      var body = encodeURIComponent(lines.join("\n"));
 
-      let bodyLines = [];
-      if (name) bodyLines.push("Name: " + name);
-      if (fromEmail) bodyLines.push("Email: " + fromEmail);
-      if (topic) bodyLines.push("Topic: " + topic);
-      bodyLines.push("");
-      bodyLines.push("Message:");
-      bodyLines.push(msg || "");
-      bodyLines.push("");
-      bodyLines.push("— Sent via Aurum Desk contact form");
-
-      const body = encodeURIComponent(bodyLines.join("\n"));
-
-      const mailto = "mailto:support@aurumdesks.com?subject=" + subject + "&body=" + body;
-      window.location.href = mailto;
+      window.location.href = "mailto:support@aurumdesks.com?subject=" + subject + "&body=" + body;
     }
   </script>
 </body>
