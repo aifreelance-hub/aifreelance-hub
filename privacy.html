@@ -2,457 +2,373 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Desk — Privacy Policy</title>
+  <title>Aurum Account Recovery Desk — Privacy Policy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- Google tag (optional) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-NEY7RNB5S');
-  </script>
+  <!-- 样式：和 terms.html 一样，只改中间内容 -->
+  <!-- 为节省你滚动的时间，下面和 terms.html 相同的部分我保留；你可以整段复制保存为 privacy.html 使用 -->
 
   <style>
+    /* —— 跟 terms.html 完全一致的样式，这里不再解释 —— */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg-deep: #020617;
-      --bg-card: #020617;
-      --bg-soft: #0b1220;
-      --border-subtle: rgba(148,163,184,0.35);
-      --gold: #fbbf24;
-      --gold-soft: rgba(251,191,36,0.16);
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --radius-xl: 26px;
-      --radius-md: 16px;
+      --bg-page:#f4f6fb;--bg-soft:#ffffff;--border-subtle:rgba(148,163,184,.4);
+      --ink:#0f172a;--ink-soft:#4b5563;--ink-softer:#6b7280;--ink-softest:#9ca3af;
+      --accent:#1d4ed8;--gold:#f59e0b;
+      --radius-xl:28px;--radius-lg:22px;--radius-pill:999px;
+      --shadow-card:0 18px 50px rgba(15,23,42,.12);--nav-height:76px;
     }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #0b1120 0%, #020617 55%, #020617 100%);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    html,body{height:100%}
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+      background:radial-gradient(circle at top,#e5edff 0%,#f4f6fb 47%,#edf1f8 100%);
+      color:var(--ink);-webkit-font-smoothing:antialiased;
     }
-
-    .page-shell {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 18px 18px 40px;
-      width: 100%;
+    .page{min-height:100vh;display:flex;flex-direction:column;position:relative;overflow:hidden}
+    .bg-orbit{position:fixed;inset:0;pointer-events:none;z-index:-2}
+    .bg-orbit::before,.bg-orbit::after{
+      content:"";position:absolute;border-radius:999px;filter:blur(70px);opacity:.6;
+      mix-blend-mode:screen;animation:floatSoft 18s ease-in-out infinite alternate;
     }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 6px 2px 18px;
+    .bg-orbit::before{
+      width:520px;height:520px;top:-80px;left:-40px;
+      background:radial-gradient(circle at 10% 0%,rgba(56,189,248,.6),transparent 70%);
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .bg-orbit::after{
+      width:560px;height:560px;bottom:-120px;right:-40px;
+      background:radial-gradient(circle at 80% 40%,rgba(245,158,11,.5),transparent 70%);
+      animation-delay:2s;
     }
-
-    .brand-mark {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: conic-gradient(
-        from 160deg,
-        #fbbf24,
-        #facc15,
-        #f97316,
-        #fbbf24
-      );
-      box-shadow: 0 0 18px rgba(251,191,36,0.55);
+    .bg-grid{
+      position:fixed;inset:0;
+      background-image:linear-gradient(rgba(148,163,184,.25) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(148,163,184,.25) 1px,transparent 1px);
+      background-size:80px 80px;opacity:.18;
+      mask-image:radial-gradient(circle at top,black 0%,transparent 62%);
+      -webkit-mask-image:radial-gradient(circle at top,black 0%,transparent 62%);
+      pointer-events:none;z-index:-1;
     }
-
-    .brand-text-main {
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      font-size: 0.9rem;
-      text-transform: uppercase;
+    @keyframes floatSoft{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(18px,40px,0) scale(1.03)}}
+    .top-strip{position:relative;z-index:30;display:flex;justify-content:center;padding:8px 16px;font-size:12px;color:var(--ink-softest)}
+    .top-strip-inner{
+      max-width:1120px;width:100%;
+      background:linear-gradient(90deg,rgba(37,99,235,.06),rgba(56,189,248,.04),rgba(245,158,11,.06));
+      border-radius:999px;border:1px solid rgba(148,163,184,.35);padding:6px 16px;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      box-shadow:0 10px 30px rgba(148,163,184,.3);
     }
-
-    .brand-text-sub {
-      font-size: 0.7rem;
-      color: var(--text-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
+    .top-pill{display:inline-flex;align-items:center;gap:6px;padding:2px 9px;border-radius:999px;background:rgba(15,23,42,.06);color:var(--ink-soft);font-weight:500;font-size:11px}
+    .top-dot{width:6px;height:6px;border-radius:999px;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.4)}
+    .top-strip-text{font-size:11px;color:var(--ink-soft)}
+    .top-strip-link{color:var(--accent);font-weight:500;text-decoration:underline;text-underline-offset:3px}
+    header{
+      position:sticky;top:0;z-index:40;backdrop-filter:blur(26px);
+      background:linear-gradient(to bottom,rgba(244,246,251,.9),rgba(244,246,251,.75),rgba(244,246,251,.5));
+      border-bottom:1px solid rgba(203,213,225,.7);
     }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 0.86rem;
+    .nav-inner{
+      max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;
+      padding:10px 18px;height:var(--nav-height);
     }
-
-    nav a {
-      color: var(--text-soft);
-      text-decoration: none;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: all 0.16s ease-out;
-      white-space: nowrap;
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-mark{
+      width:38px;height:38px;border-radius:18px;
+      background:conic-gradient(from 220deg,rgba(37,99,235,.06),rgba(37,99,235,.4),rgba(56,189,248,.45),rgba(245,158,11,.85),rgba(37,99,235,.1));
+      display:flex;align-items:center;justify-content:center;position:relative;
+      box-shadow:0 0 0 1px rgba(148,163,184,.55),0 14px 35px rgba(15,23,42,.4);overflow:hidden;
     }
-
-    nav a:hover {
-      color: var(--text-main);
-      border-color: rgba(148,163,184,0.35);
-      background: rgba(15,23,42,0.9);
+    .brand-mark::after{
+      content:"A";font-weight:700;color:#0f172a;font-size:18px;letter-spacing:.03em;
+      text-shadow:0 3px 8px rgba(15,23,42,.45);
     }
-
-    nav a.current {
-      color: #0b1120;
-      background: var(--gold);
-      border-color: var(--gold);
-      font-weight: 600;
+    .brand-text{display:flex;flex-direction:column;gap:2px}
+    .brand-name{font-size:16px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;color:#020617}
+    .brand-sub{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--ink-softest)}
+    .nav-links{display:flex;align-items:center;gap:22px;font-size:13px;color:var(--ink-soft)}
+    .nav-links a{text-decoration:none;color:inherit;position:relative;padding-bottom:2px;cursor:pointer}
+    .nav-links a::after{
+      content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;
+      background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .18s ease-out;
     }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-      }
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      border-radius:999px;border:1px solid transparent;padding:8px 16px;
+      font-size:13px;font-weight:500;cursor:pointer;
+      transition:transform .14s ease-out,box-shadow .14s ease-out,background .14s ease-out,border-color .14s ease-out,color .14s ease-out;
+      white-space:nowrap;
     }
-
-    main {
-      padding-top: 10px;
+    .btn-primary{
+      background:radial-gradient(circle at top left,#60a5fa,#1d4ed8);
+      color:#f9fafb;border-color:rgba(30,64,175,.9);
+      box-shadow:0 16px 45px rgba(37,99,235,.55);
     }
-
-    .page-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.45);
-      background: radial-gradient(circle at 0 0, rgba(251,191,36,0.25), transparent 55%);
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-soft);
-      margin-bottom: 12px;
+    .btn-primary:hover{transform:translateY(-1px);box-shadow:0 22px 60px rgba(37,99,235,.7);filter:brightness(1.03)}
+    .btn .dot{width:6px;height:6px;border-radius:999px;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.5)}
+    .hamburger{display:none;width:32px;height:32px;border-radius:999px;border:1px solid rgba(148,163,184,.8);background:rgba(255,255,255,.7);align-items:center;justify-content:center;cursor:pointer}
+    .hamburger span{width:16px;height:2px;background:#020617;border-radius:999px;position:relative}
+    .hamburger span::before,.hamburger span::after{
+      content:"";position:absolute;left:0;width:16px;height:2px;background:#020617;border-radius:999px;
     }
-
-    .page-tag-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--gold);
-      box-shadow: 0 0 12px rgba(251,191,36,0.75);
+    .hamburger span::before{top:-5px}.hamburger span::after{top:5px}
+    .mobile-menu{
+      position:fixed;inset:calc(var(--nav-height)+8px) 12px auto 12px;
+      background:rgba(255,255,255,.98);border-radius:20px;
+      border:1px solid rgba(148,163,184,.7);padding:12px 14px;
+      box-shadow:0 18px 60px rgba(15,23,42,.5);
+      display:none;flex-direction:column;gap:10px;z-index:30;
     }
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-size:13px;color:var(--ink-soft);text-decoration:none}
+    .mobile-menu .btn-primary{width:100%;justify-content:center}
+    main{flex:1}
+    .shell{max-width:1120px;margin:0 auto;padding:26px 18px 60px}
 
-    .page-title {
-      font-size: clamp(1.9rem, 3vw, 2.3rem);
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      margin-bottom: 6px;
+    .legal-hero{margin-top:12px;margin-bottom:22px}
+    .legal-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--ink-softest);margin-bottom:6px}
+    .legal-title{font-size:24px;font-weight:650;letter-spacing:-.02em;color:#020617;margin-bottom:8px}
+    .legal-subtitle{font-size:13px;color:var(--ink-softer);max-width:620px;line-height:1.7}
+
+    .legal-card{
+      background:#fff;border-radius:var(--radius-xl);
+      border:1px solid rgba(203,213,225,.9);
+      box-shadow:var(--shadow-card);padding:20px 20px 18px;
     }
-
-    .page-subtitle {
-      max-width: 640px;
-      font-size: 0.98rem;
-      color: var(--text-soft);
-      line-height: 1.6;
-      margin-bottom: 24px;
+    .legal-section{padding:14px 0;border-top:1px solid rgba(226,232,240,.9)}
+    .legal-section:first-of-type{border-top:none;padding-top:0}
+    .legal-section h2{font-size:15px;font-weight:600;color:#020617;margin-bottom:6px}
+    .legal-section p{font-size:13px;color:var(--ink-softer);line-height:1.8;margin-bottom:8px}
+    .legal-section ul{padding-left:18px;margin:4px 0 8px}
+    .legal-section ul li{font-size:13px;color:var(--ink-softer);line-height:1.7;margin-bottom:4px}
+    .legal-meta{font-size:11px;color:var(--ink-softest);margin-top:6px}
+    footer{padding:18px;font-size:11px;color:var(--ink-softest);text-align:center}
+    footer p{margin-bottom:4px}
+    footer a{color:var(--ink-softest);text-decoration:underline;text-underline-offset:3px}
+    @media(max-width:960px){
+      .nav-links,.nav-actions{display:none}
+      .hamburger{display:inline-flex}
+      .shell{padding-inline:14px}
     }
-
-    .card {
-      background: radial-gradient(circle at top left, #0b1120 0%, #020617 40%);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      padding: 22px 20px;
-      box-shadow:
-        0 24px 60px rgba(15,23,42,0.9),
-        0 0 0 1px rgba(15,23,42,0.9);
-    }
-
-    .section {
-      padding: 16px 0;
-      border-top: 1px solid rgba(148,163,184,0.3);
-    }
-
-    .section:first-of-type {
-      border-top: none;
-      padding-top: 0;
-    }
-
-    .section h2 {
-      font-size: 1.02rem;
-      margin-bottom: 6px;
-    }
-
-    .section p {
-      font-size: 0.94rem;
-      color: var(--text-soft);
-      line-height: 1.7;
-      margin-bottom: 10px;
-    }
-
-    .section ul {
-      list-style: disc;
-      padding-left: 18px;
-      margin: 6px 0 8px;
-    }
-
-    .section ul li {
-      font-size: 0.94rem;
-      color: var(--text-soft);
-      line-height: 1.6;
-      margin-bottom: 4px;
-    }
-
-    footer {
-      padding: 26px 2px 10px;
-      font-size: 0.8rem;
-      color: #6b7280;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    footer a {
-      color: #9ca3af;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(148,163,184,0.4);
-      padding-bottom: 1px;
-    }
-
-    footer a:hover {
-      color: #e5e7eb;
-      border-bottom-color: #e5e7eb;
+    @media(max-width:720px){
+      .top-strip-inner{flex-direction:column;align-items:flex-start}
+      .legal-title{font-size:21px}
+      .legal-card{padding:16px 14px 14px}
     }
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <header>
-      <div class="brand">
-        <div class="brand-mark"></div>
-        <div>
-          <div class="brand-text-main">Aurum Task Desk</div>
-          <div class="brand-text-sub">Private AI Writing & Resolution</div>
+  <div class="page">
+    <div class="bg-orbit"></div>
+    <div class="bg-grid"></div>
+
+    <div class="top-strip">
+      <div class="top-strip-inner">
+        <div class="top-pill">
+          <span class="top-dot"></span>
+          <span>Live desk</span>
+        </div>
+        <div class="top-strip-text">
+          3,000+ account owners used Aurum to recover or clarify platform risk.
+          <a class="top-strip-link" href="index.html#how-it-works">See how it works →</a>
         </div>
       </div>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="diagnosis.html">Diagnosis</a>
-        <a href="platforms.html">Platforms</a>
+    </div>
+
+    <header>
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="brand-mark"></div>
+          <div class="brand-text">
+            <div class="brand-name">AURUM DESK</div>
+            <div class="brand-sub">ACCOUNT RECOVERY & APPEALS</div>
+          </div>
+        </div>
+        <nav class="nav-links">
+          <a href="index.html#platforms">Platforms</a>
+          <a href="index.html#how-it-works">How it works</a>
+          <a href="index.html#comparison">Why Aurum</a>
+          <a href="index.html#testimonials">Results</a>
+          <a href="pricing.html">Pricing</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
+            <span class="dot"></span>
+            Run free diagnosis
+          </button>
+        </div>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+        </button>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#platforms">Platforms</a>
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="index.html#comparison">Why Aurum</a>
+        <a href="index.html#testimonials">Results</a>
         <a href="pricing.html">Pricing</a>
-        <a href="about.html">About</a>
-        <a href="privacy.html" class="current">Privacy</a>
-      </nav>
+        <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
+          Run free diagnosis
+        </button>
+      </div>
     </header>
 
     <main>
-      <div class="page-tag">
-        <span class="page-tag-dot"></span>
-        Privacy Policy
+      <div class="shell">
+        <div class="legal-hero">
+          <div class="legal-kicker">Legal</div>
+          <h1 class="legal-title">Aurum Desk Privacy Policy</h1>
+          <p class="legal-subtitle">
+            This Privacy Policy explains how Aurum Account Recovery Desk (“Aurum Desk”, “we”, “us”)
+            handles information when you visit this website or use our AI-assisted tools.
+          </p>
+        </div>
+
+        <article class="legal-card">
+          <section class="legal-section">
+            <h2>1. Who we are</h2>
+            <p>
+              Aurum Desk is a small, privacy-conscious AI writing desk. We focus on helping older
+              professionals prepare calm, structured drafts for sensitive situations such as
+              account suspensions, disputes and escalations.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>2. Information we collect</h2>
+            <p>Depending on how you use the website, we may process:</p>
+            <ul>
+              <li>
+                <strong>Technical data</strong> — IP address, browser type, device information and
+                basic analytics data, mainly via standard server logs and analytics tools.
+              </li>
+              <li>
+                <strong>Contact details</strong> — if you email us (for example, your name, email
+                and the content of your message).
+              </li>
+              <li>
+                <strong>Payment-related data</strong> — payment providers may share limited
+                transaction details (amount, currency, time). We do not see full card numbers.
+              </li>
+              <li>
+                <strong>Content you submit</strong> — notices, explanations and other text you
+                choose to paste or upload to generate a draft.
+              </li>
+            </ul>
+          </section>
+
+          <section class="legal-section">
+            <h2>3. How we use your information</h2>
+            <p>We use information to:</p>
+            <ul>
+              <li>Operate and secure the website and AI tools;</li>
+              <li>Generate drafts based on your instructions;</li>
+              <li>Handle payments and basic accounting records;</li>
+              <li>Respond to support or contact messages;</li>
+              <li>Analyse anonymised or aggregated usage to improve the service.</li>
+            </ul>
+          </section>
+
+          <section class="legal-section">
+            <h2>4. AI models and retention</h2>
+            <p>
+              Your text is sent to AI infrastructure only to generate the response you request. We
+              do not intentionally use your private letters to train our own separate models.
+              Technical logs may temporarily contain parts of requests for security, abuse
+              prevention and debugging.
+            </p>
+            <p>
+              We recommend avoiding unnecessary sensitive data (such as full ID numbers or
+              third-party personal details) unless strictly required for your case.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>5. Cookies and analytics</h2>
+            <p>
+              We may use basic analytics (for example Google Analytics or similar tools) to
+              understand which pages are visited and from which regions. You can control cookies
+              and tracking via your browser or extensions.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>6. Sharing of information</h2>
+            <p>We do not sell your personal information. We may share limited data with:</p>
+            <ul>
+              <li>
+                <strong>Service providers</strong> — hosting, analytics and payment providers, only
+                to operate the service.
+              </li>
+              <li>
+                <strong>Authorities</strong> — if required by law, or to respond to valid legal
+                requests and protect our rights or the rights of others.
+              </li>
+            </ul>
+          </section>
+
+          <section class="legal-section">
+            <h2>7. Your rights</h2>
+            <p>
+              Depending on your location, you may have rights to access, correct or delete personal
+              information we hold about you. Contact us via the
+              <a href="contact.html">Contact</a> page and we will do our best to help, subject to
+              legal retention obligations.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>8. Data security</h2>
+            <p>
+              We use reasonable technical and organisational measures to protect the information we
+              handle. However, no online service can guarantee perfect security. Please protect
+              your devices and email accounts carefully.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>9. Children’s privacy</h2>
+            <p>
+              Aurum Desk is intended for adults and older professionals. We do not knowingly
+              collect information from children under 18. If you believe a child has provided us
+              with personal data, please contact us so we can remove it.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>10. Changes to this policy</h2>
+            <p>
+              We may update this Privacy Policy to reflect changes in the service, law or best
+              practice. When we do, we will update the “Last updated” date below. Material changes
+              may be highlighted on the website.
+            </p>
+            <p class="legal-meta">Last updated: 2 December 2025</p>
+          </section>
+        </article>
       </div>
-      <h1 class="page-title">Aurum Desk Privacy Policy</h1>
-      <p class="page-subtitle">
-        This Privacy Policy explains how Aurum Task Desk (“Aurum Desk”, “we”,
-        “us”) handles information when you visit this website or use our
-        AI-assisted writing tools.
-      </p>
-
-      <article class="card">
-        <section class="section">
-          <h2>1. Who we are</h2>
-          <p>
-            Aurum Desk is a small, privacy-conscious AI writing desk. We focus on
-            helping older professionals prepare calm, clear and factual drafts
-            for sensitive situations such as appeals, disputes or crisis letters.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>2. Information we collect</h2>
-          <p>Depending on how you use the website, we may process:</p>
-          <ul>
-            <li>
-              <strong>Technical data</strong> — such as IP address, browser
-              type, device information and basic analytics data, mainly via
-              standard web server logs and Google Analytics.
-            </li>
-            <li>
-              <strong>Contact details</strong> — if you write to us using the
-              contact email (for example your name, email address and the content
-              of your message).
-            </li>
-            <li>
-              <strong>Payment-related data</strong> — when you purchase a plan,
-              payment is handled by third-party providers (such as Stripe, Wise,
-              PayPal, Paddle or similar). We may see basic transaction
-              information (amount, currency, time) but not your full card number.
-            </li>
-            <li>
-              <strong>Content you provide to the AI tools</strong> — for example
-              your own story, timeline, evidence and documents that you choose to
-              paste or upload for drafting.
-            </li>
-          </ul>
-        </section>
-
-        <section class="section">
-          <h2>3. How we use your information</h2>
-          <p>We use information for purposes such as:</p>
-          <ul>
-            <li>Operating and securing the website and AI tools;</li>
-            <li>
-              Generating drafts and suggestions based on the instructions you
-              provide;
-            </li>
-            <li>Handling payments and basic accounting records;</li>
-            <li>
-              Replying to support or contact messages that you choose to send;
-            </li>
-            <li>
-              Analysing anonymous or aggregated usage patterns to improve the
-              service.
-            </li>
-          </ul>
-        </section>
-
-        <section class="section">
-          <h2>4. AI models and data retention</h2>
-          <p>
-            Aurum Desk uses remote AI infrastructure to generate drafts. Our aim
-            is to process your input in a focused, minimal way:
-          </p>
-          <ul>
-            <li>
-              Your text is sent to the AI model solely to generate the response
-              you request.
-            </li>
-            <li>
-              We do not intentionally use your private letters to train our own
-              separate models.
-            </li>
-            <li>
-              Logs on the server side may contain temporary technical traces of
-              requests for the purpose of security, abuse prevention and
-              debugging.
-            </li>
-          </ul>
-          <p>
-            We recommend that you avoid including unnecessary sensitive
-            information (for example full ID numbers or third-party personal
-            data) unless it is strictly needed for your case.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>5. Cookies and analytics</h2>
-          <p>
-            We may use basic analytics tools, such as Google Analytics, to
-            understand which pages are visited and from which countries. This
-            helps us improve the website and prioritise features. You can use
-            your browser settings or extensions to limit tracking if you prefer.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>6. Sharing of information</h2>
-          <p>
-            We do not sell your personal information. We may share limited data
-            with:
-          </p>
-          <ul>
-            <li>
-              <strong>Service providers</strong> — for example hosting providers,
-              analytics providers and payment processors, strictly to operate the
-              service.
-            </li>
-            <li>
-              <strong>Authorities</strong> — if required by law, or to respond to
-              valid legal requests and protect our rights or the rights of
-              others.
-            </li>
-          </ul>
-        </section>
-
-        <section class="section">
-          <h2>7. Your rights</h2>
-          <p>
-            Depending on your location, you may have rights such as accessing,
-            correcting or deleting personal information we hold about you. You
-            can contact us using the details on the Contact page, and we will do
-            our best to support reasonable requests, subject to legal retention
-            requirements.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>8. Data security</h2>
-          <p>
-            We use reasonable technical and organisational measures to protect
-            the information we handle. However, no online service can guarantee
-            perfect security. Please be careful with the devices and networks you
-            use to access Aurum Desk.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>9. Children’s privacy</h2>
-          <p>
-            Aurum Desk is intended for adults and older professionals. We do not
-            knowingly collect information from children under 18. If you believe
-            a child has provided us with personal information, please contact us
-            so we can remove it.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>10. Changes to this policy</h2>
-          <p>
-            We may update this Privacy Policy from time to time to reflect
-            changes in the service, law or best practices. When we do, we will
-            update the “Last updated” date below. If the changes are material, we
-            may provide additional notice on the website.
-          </p>
-          <p style="font-size:0.82rem;color:#6b7280;margin-top:6px;">
-            Last updated: 2 December 2025
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>11. Contact</h2>
-          <p>
-            If you have questions about this Privacy Policy or how your
-            information is handled, please write to us using the details on the
-            <a href="contact.html">Contact</a> page.
-          </p>
-        </section>
-      </article>
     </main>
 
     <footer>
-      <div>© Aurum Task Desk. All rights reserved.</div>
-      <div>
+      <p>Aurum Account Recovery Desk — Private account appeal & risk diagnosis service.</p>
+      <p>
         <a href="terms.html">Terms</a> ·
         <a href="privacy.html">Privacy</a> ·
         <a href="contact.html">Contact</a>
-      </div>
+      </p>
     </footer>
   </div>
+
+  <script>
+    var hamburger = document.getElementById("hamburger");
+    var mobileMenu = document.getElementById("mobileMenu");
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener("click", function () {
+        mobileMenu.classList.toggle("open");
+      });
+    }
+  </script>
 </body>
 </html>
