@@ -14,19 +14,18 @@
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
   <!-- Open Graph (Social Sharing Image) -->
-<meta property="og:title" content="Aurum Account Recovery Desk">
-<meta property="og:description" content="Structured risk diagnosis & professional appeal drafts.">
-<meta property="og:image" content="https://aurumdesks.com/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:type" content="website">
+  <meta property="og:title" content="Aurum Account Recovery Desk">
+  <meta property="og:description" content="Structured risk diagnosis & professional appeal drafts.">
+  <meta property="og:image" content="https://aurumdesks.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:type" content="website">
 
-<!-- Twitter Sharing -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Aurum Account Recovery Desk">
-<meta name="twitter:description" content="Structured risk diagnosis & professional appeal drafts.">
-<meta name="twitter:image" content="https://aurumdesks.com/og-image.png">
-
+  <!-- Twitter Sharing -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Aurum Account Recovery Desk">
+  <meta name="twitter:description" content="Structured risk diagnosis & professional appeal drafts.">
+  <meta name="twitter:image" content="https://aurumdesks.com/og-image.png">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -148,16 +147,6 @@
       box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
       color: var(--accent-strong);
       font-weight: 600;
-    }
-
-    .btn-ghost {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 12px;
-      color: var(--ink-soft);
-      background: rgba(15, 23, 42, 0.02);
-      cursor: pointer;
     }
 
     .btn-primary {
@@ -389,10 +378,6 @@
       color: #15803d;
     }
 
-    .pill-preview-only {
-      border-style: dashed;
-    }
-
     .diagnosis-body {
       font-size: 13px;
       line-height: 1.7;
@@ -617,7 +602,7 @@
       box-shadow: 0 30px 70px rgba(15, 23, 42, 0.7);
       border: 1px solid rgba(15, 23, 42, 0.75);
       position: relative;
-      overflow: visible; /* allow full content */
+      overflow: visible;
     }
 
     .full-letter-header {
@@ -1048,6 +1033,9 @@ Aurum Account Recovery Desk
       desk: "https://payhip.com/b/OngxG"      // $380 / month ongoing desk
     };
 
+    // 本地存储 key
+    const STORAGE_KEY = "aurum_last_case_v1";
+
     function setRunning(running) {
       if (running) {
         runBtn.disabled = true;
@@ -1059,6 +1047,51 @@ Aurum Account Recovery Desk
         runBtn.disabled = false;
         runBtn.textContent = "Run risk diagnosis";
         runDot.style.animation = "none";
+      }
+    }
+
+    // 保存 / 读取案例到 localStorage
+    function saveCaseToStorage(payload) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      } catch (e) {
+        console.warn("Could not save case to storage:", e);
+      }
+    }
+
+    function loadCaseFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const payload = JSON.parse(raw);
+
+        // 回填表单
+        if (payload.platform) {
+          document.getElementById("platform").value = payload.platform;
+        }
+        if (payload.region) {
+          document.getElementById("region").value = payload.region;
+        }
+        if (payload.accountUse) {
+          document.getElementById("accountUse").value = payload.accountUse;
+        }
+        if (payload.noticeText) {
+          document.getElementById("noticeText").value = payload.noticeText;
+        }
+        if (payload.whatHappened) {
+          document.getElementById("whatHappened").value = payload.whatHappened;
+        }
+        if (payload.whatYouDid) {
+          document.getElementById("whatYouDid").value = payload.whatYouDid;
+        }
+        if (payload.email) {
+          document.getElementById("email").value = payload.email;
+        }
+
+        return payload;
+      } catch (e) {
+        console.warn("Could not load case from storage:", e);
+        return null;
       }
     }
 
@@ -1095,7 +1128,7 @@ Aurum Account Recovery Desk
         mainPayLink.href = payLinkHref;
       }
       if (backupPayLink) {
-        backupPayLink.href = payLinkHref; // 目前备份链接也指向同一个
+        backupPayLink.href = payLinkHref;
       }
     }
 
@@ -1117,6 +1150,7 @@ Aurum Account Recovery Desk
       };
 
       lastPayload = payload;
+      saveCaseToStorage(payload);
       setRunning(true);
 
       try {
@@ -1154,7 +1188,7 @@ Aurum Account Recovery Desk
       }
     });
 
-    // Step 2: unlock full letter
+    // Step 2: unlock full letter（手动勾选 + 自动支付识别）
     paidCheck.addEventListener("change", () => {
       unlockBtn.disabled = !paidCheck.checked;
     });
@@ -1193,6 +1227,52 @@ Aurum Account Recovery Desk
       }
     });
 
+    // ==== 自动识别 Payhip 支付 ====
+    async function autoCheckPaidAndUnlock() {
+      const url = new URL(window.location.href);
+      const token =
+        url.searchParams.get("paidToken") ||
+        url.searchParams.get("token");
+
+      if (!token) {
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `https://aurumdesks.com/w/api/check-paid?token=${encodeURIComponent(token)}`
+        );
+        const data = await res.json();
+        console.log("check-paid result:", data);
+
+        if (data.ok && data.paid) {
+          // 根据 KV 里记录的 plan 自动切换价格方案
+          if (data.plan) {
+            applyPlan(data.plan);
+          }
+
+          // 标记为已付款
+          paidCheck.checked = true;
+          unlockBtn.disabled = false;
+
+          // 尝试从 localStorage 取回 lastPayload
+          if (!lastPayload) {
+            const stored = loadCaseFromStorage();
+            if (stored) lastPayload = stored;
+          }
+
+          // 有案例就自动生成完整信件；没有就只帮他打勾
+          if (lastPayload) {
+            unlockBtn.click();
+          } else {
+            console.warn("No case payload found for full-letter generation.");
+          }
+        }
+      } catch (e) {
+        console.warn("check-paid failed:", e);
+      }
+    }
+
     // Copy letter button
     copyLetterBtn.addEventListener("click", async () => {
       const text = fullLetterBody.textContent.trim();
@@ -1215,43 +1295,52 @@ Aurum Account Recovery Desk
     });
 
     // Download PDF button
-downloadPdfBtn.addEventListener("click", () => {
-  let text = fullLetterBody.textContent.trim();
-  if (!text) {
-    alert("There is no letter to download yet. Please generate the full letter first.");
-    return;
-  }
+    downloadPdfBtn.addEventListener("click", () => {
+      let text = fullLetterBody.textContent.trim();
+      if (!text) {
+        alert("There is no letter to download yet. Please generate the full letter first.");
+        return;
+      }
 
-  // Remove unsupported characters (防止乱码)
-  text = text.replace(/[^\x00-\x7F]/g, "");  // remove all non-ASCII characters
+      // Remove unsupported characters (防止乱码)
+      text = text.replace(/[^\x00-\x7F]/g, "");  // remove all non-ASCII characters
 
-  if (!window.jspdf || !window.jspdf.jsPDF) {
-    alert("PDF library is not available. Please try again later.");
-    return;
-  }
+      if (!window.jspdf || !window.jspdf.jsPDF) {
+        alert("PDF library is not available. Please try again later.");
+        return;
+      }
 
-  try {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({
-      unit: "pt",
-      format: "a4"
+      try {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+          unit: "pt",
+          format: "a4"
+        });
+
+        doc.setFont("Times", "normal");
+        doc.setFontSize(12);
+
+        const marginLeft = 48;
+        const marginTop = 64;
+        const maxWidth = 515; // A4 width (595pt) minus margins
+
+        const lines = doc.splitTextToSize(text, maxWidth);
+        doc.text(lines, marginLeft, marginTop);
+
+        doc.save("aurum-appeal-letter.pdf");
+      } catch (err) {
+        alert("Could not create the PDF. Please try again later.");
+      }
     });
 
-    doc.setFont("Times", "normal");
-    doc.setFontSize(12);
-
-    const marginLeft = 48;
-    const marginTop = 64;
-    const maxWidth = 515; // A4 width (595pt) minus margins
-
-    const lines = doc.splitTextToSize(text, maxWidth);
-    doc.text(lines, marginLeft, marginTop);
-
-    doc.save("aurum-appeal-letter.pdf");
-  } catch (err) {
-    alert("Could not create the PDF. Please try again later.");
-  }
-});
+    // ======= 页面初始化：读取本地案例 + 自动检查是否刚完成付款 =======
+    (function init() {
+      const stored = loadCaseFromStorage();
+      if (stored) {
+        lastPayload = stored;
+      }
+      autoCheckPaidAndUnlock();
+    })();
   </script>
 </body>
 </html>
