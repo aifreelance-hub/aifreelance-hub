@@ -941,12 +941,12 @@ will receive before paying.
           </div>
 
           <div class="step-card-sub">
-            1. Pay using the link below. Replace these placeholders with your actual Wise / Paddle / other payment links.
+            1. Pay using the secure Payhip link below. You’ll be redirected to a checkout page for this plan.
           </div>
 
           <div class="pay-links-row">
-            <a href="#" class="pay-link" id="mainPayLink">Main payment link (replace with real URL)</a>
-            <a href="#" class="pay-link secondary" id="backupPayLink">Backup link (optional)</a>
+            <a href="#" class="pay-link" id="mainPayLink" target="_blank">Pay via Payhip secure checkout</a>
+            <a href="#" class="pay-link secondary" id="backupPayLink" target="_blank">Backup link (optional)</a>
           </div>
 
           <label class="pay-checkbox">
@@ -1041,6 +1041,13 @@ Aurum Account Recovery Desk
 
     const DEFAULT_PREVIEW_TEXT = previewText.textContent.trim();
 
+    // === Payhip links for each plan ===
+    const PAY_LINKS = {
+      standard: "https://payhip.com/b/kjIMu", // $89
+      recovery: "https://payhip.com/b/WUmDP", // $189
+      desk: "https://payhip.com/b/OngxG"      // $380 / month ongoing desk
+    };
+
     function setRunning(running) {
       if (running) {
         runBtn.disabled = true;
@@ -1061,6 +1068,7 @@ Aurum Account Recovery Desk
       let priceHtml =
         '<div><strong>$89</strong> <small>per case</small></div>' +
         '<div style="font-size:11px;color:var(--ink-soft);">Standard appeal letter</div>';
+      let payLinkHref = PAY_LINKS.standard;
 
       if (planKey === "recovery") {
         title = "Recovery pack — $189";
@@ -1068,17 +1076,27 @@ Aurum Account Recovery Desk
         priceHtml =
           '<div><strong>$189</strong> <small>per case</small></div>' +
           '<div style="font-size:11px;color:var(--ink-soft);">Recovery pack for complex cases</div>';
+        payLinkHref = PAY_LINKS.recovery;
       } else if (planKey === "desk") {
         title = "Ongoing desk — $380 / month";
         chip = "For agencies or operators who manage many accounts and need standing support.";
         priceHtml =
           '<div><strong>$380</strong> <small>per month</small></div>' +
           '<div style="font-size:11px;color:var(--ink-soft);">Ongoing desk for agencies / operators</div>';
+        payLinkHref = PAY_LINKS.desk;
       }
 
       planBadge.innerHTML = "Suggested plan: <strong>" + title + "</strong>";
       planChipText.textContent = chip;
       planPriceBox.innerHTML = priceHtml;
+
+      // 更新 Payhip 付款链接
+      if (mainPayLink) {
+        mainPayLink.href = payLinkHref;
+      }
+      if (backupPayLink) {
+        backupPayLink.href = payLinkHref; // 目前备份链接也指向同一个
+      }
     }
 
     applyPlan("standard");
