@@ -918,15 +918,10 @@ will receive before paying.
             <a href="#" class="pay-link secondary" id="backupPayLink" target="_blank" rel="noopener">Backup link (optional)</a>
           </div>
 
-
-          <div class="form-hint" id="verifyHint" style="margin-top:6px;">
-            After you pay on Payhip, come back here and verify using the same email.
-          </div>
-
           <label class="pay-checkbox">
             <input type="checkbox" id="paidCheck" />
             <span id="paidLabelText">
-              After you verify payment by email, this step will unlock.
+              After Payhip confirms payment and sends you back here, this step will unlock automatically.
             </span>
           </label>
 
@@ -1009,16 +1004,8 @@ Aurum Account Recovery Desk
     const copyLetterBtn = document.getElementById("copyLetterBtn");
     const downloadPdfBtn = document.getElementById("downloadPdfBtn");
 
-    // ✅ NEW: email verify elements
-    const payEmail = document.getElementById("payEmail");
-    const verifyPayBtn = document.getElementById("verifyPayBtn");
-    const verifyHint = document.getElementById("verifyHint");
-
     let lastPayload = null;
     let paidVerified = false;
-
-    // ✅ NEW: session token from worker (required for /api/full-letter)
-    let paidSessionToken = "";
 
     const DEFAULT_RISK_TEXT =
       "Here the system will show a written risk assessment: for example whether your case looks more like a hard ban, documentation gap, policy concern or a recoverable misalignment.";
@@ -1079,54 +1066,47 @@ Aurum Account Recovery Desk
 
     applyPlan("standard");
 
-    // ✅ NEW: Verify payment by email (Payhip webhook → KV)
-    async function checkPaidByEmail(email) {
-      const e = (email || "").trim().toLowerCase();
-      if (!e) {
-        alert("Please enter the email you used during Payhip checkout.");
-        return;
-      }
-
-      verifyPayBtn.disabled = true;
-      const oldText = verifyPayBtn.textContent;
-      verifyPayBtn.textContent = "Verifying…";
-
+    // ===== 自动识别支付成功（你 Worker 的校验接口）=====
+    async function checkPaidFromUrl() {
       try {
+        const url = new URL(window.location.href);
+        const token = url.searchParams.get("paidToken");
+        if (!token) return;
+
         const res = await fetch(
-          "https://aurum-task-worker.sophieinbg.workers.dev/api/check-paid-by-email?email=" +
-            encodeURIComponent(e)
+          "https://aurum-task-worker.sophieinbg.workers.dev/api/check-paid?token=" +
+            encodeURIComponent(token)
         );
         const data = await res.json().catch(() => ({}));
 
-        if (data && data.ok && data.paid && data.sessionToken) {
+        if (data && data.ok && data.paid) {
           paidVerified = true;
-          paidSessionToken = data.sessionToken;
-
           applyPlan(data.plan || "standard");
 
           paidCheck.checked = true;
           paidCheck.disabled = true;
           unlockBtn.disabled = false;
 
-          if (verifyHint) verifyHint.textContent = "Payment verified ✓ You can now generate the full appeal letter.";
-          if (paidLabelText) paidLabelText.textContent = "Payment verified via Payhip email check.";
-          if (unlockNote) unlockNote.textContent = "Verified for this session (~1 hour). Generate the full English appeal letter below.";
+          if (paidLabelText) {
+            paidLabelText.textContent =
+              "Payment verified via Payhip. You can now generate the full appeal letter for this case.";
+          }
+          if (unlockNote) {
+            unlockNote.textContent =
+              "Payment was confirmed for this browser session. Generate the full English appeal letter below.";
+          }
 
-          return;
+          // 清掉 URL 里的 paidToken，防止被分享复用
+          try {
+            url.searchParams.delete("paidToken");
+            window.history.replaceState({}, "", url.toString());
+          } catch (e) {}
         }
-
-        alert("No paid order found for this email yet. If you just paid, wait 1–2 minutes and try again.");
-      } catch (err) {
-        alert("Verification failed due to network error. Please try again.");
-      } finally {
-        verifyPayBtn.disabled = false;
-        verifyPayBtn.textContent = oldText;
+      } catch (e) {
+        // 静默失败
       }
     }
-
-    verifyPayBtn.addEventListener("click", () => {
-      checkPaidByEmail(payEmail.value);
-    });
+    checkPaidFromUrl();
 
     // Step 1: diagnosis
     form.addEventListener("submit", async (e) => {
@@ -1189,17 +1169,19 @@ Aurum Account Recovery Desk
       if (!paidVerified) {
         paidCheck.checked = false;
         alert(
-          "Please complete payment via the Payhip checkout link first, then verify payment by email."
+          "Please complete payment via the Payhip checkout link first. After Payhip sends you back here, this step will unlock automatically."
         );
         return;
       }
       unlockBtn.disabled = !paidCheck.checked;
     });
 
-    // Step 2: unlock full letter（必须有 sessionToken）
+    // Step 2: unlock full letter（必须 paidVerified=true 才能调用）
     unlockBtn.addEventListener("click", async () => {
-      if (!paidVerified || !paidSessionToken) {
-        alert("Please verify payment by email first.");
+      if (!paidVerified) {
+        alert(
+          "We could not confirm payment for this case yet. Please complete the Payhip payment and return via the secure link."
+        );
         return;
       }
       if (!paidCheck.checked || !lastPayload || unlockBtn.disabled) return;
@@ -1210,8 +1192,7 @@ Aurum Account Recovery Desk
 
       try {
         const res = await fetch(
-          "https://aurum-task-worker.sophieinbg.workers.dev/api/full-letter?token=" +
-            encodeURIComponent(paidSessionToken),
+          "https://aurum-task-worker.sophieinbg.workers.dev/api/full-letter",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -1283,6 +1264,7 @@ Aurum Account Recovery Desk
         const pageHeight = doc.internal.pageSize.getHeight();
         const maxWidth = pageWidth - margin * 2;
 
+        // 用 splitTextToSize 自动换行
         const lines = doc.splitTextToSize(text, maxWidth);
         let y = margin;
 
