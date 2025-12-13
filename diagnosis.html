@@ -70,7 +70,6 @@
       padding: 16px 16px 40px;
     }
 
-    /* Header */
     header {
       display: flex;
       align-items: center;
@@ -182,7 +181,6 @@
       box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4);
     }
 
-    /* Layout */
     .main-grid {
       margin-top: 14px;
       display: grid;
@@ -336,7 +334,6 @@
       color: var(--ink-soft);
     }
 
-    /* Right side */
     .right-column {
       display: flex;
       flex-direction: column;
@@ -416,7 +413,6 @@
       100% { background-position: -200% 0; }
     }
 
-    /* 30% preview card */
     .preview-card {
       position: relative;
       padding: 14px 16px 18px;
@@ -488,7 +484,6 @@
       color: var(--ink-soft);
     }
 
-    /* Step 2 card */
     .step-card-title {
       font-size: 13px;
       font-weight: 600;
@@ -599,7 +594,6 @@
       line-height: 1.6;
     }
 
-    /* Full letter */
     .full-letter-card {
       border-radius: var(--radius-lg);
       background: radial-gradient(circle at top left, #1e293b 0, #020617 60%);
@@ -677,22 +671,13 @@
       line-height: 1.6;
     }
 
-    /* Responsive */
     @media (max-width: 960px) {
-      .page {
-        margin-top: 10px;
-        padding: 10px 10px 32px;
-      }
-      .main-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      .page { margin-top: 10px; padding: 10px 10px 32px; }
+      .main-grid { grid-template-columns: minmax(0, 1fr); }
     }
 
     @media (max-width: 640px) {
-      header {
-        flex-wrap: wrap;
-        border-radius: 20px;
-      }
+      header { flex-wrap: wrap; border-radius: 20px; }
       .nav-links { display: none; }
       .hero-title { font-size: 20px; }
       .hero-left { padding: 14px 14px 16px; }
@@ -713,7 +698,6 @@
 
 <body>
   <div class="page">
-    <!-- Header -->
     <header>
       <div class="brand">
         <div class="brand-avatar">A</div>
@@ -738,9 +722,7 @@
       </div>
     </header>
 
-    <!-- Main -->
     <div class="main-grid">
-      <!-- Left: form -->
       <section class="hero-left">
         <div class="steps-row">
           <span class="step-pill">Step 1 — Free written diagnosis</span>
@@ -830,9 +812,7 @@
         </form>
       </section>
 
-      <!-- Right: results -->
       <section class="right-column">
-        <!-- Risk diagnosis -->
         <div class="card">
           <div class="card-header">
             <div>
@@ -856,14 +836,13 @@
           </div>
         </div>
 
-        <!-- 30% preview -->
         <div class="preview-card">
           <div class="preview-header">
             <div>
               <div class="preview-title">Appeal letter preview (~30%)</div>
               <div class="preview-note">Written in calm, structured language for risk &amp; compliance teams.</div>
             </div>
-            <span class="badge-soft">PREVIEW ONLY</span>
+            <span class="badge-soft" id="previewBadge">PREVIEW ONLY</span>
           </div>
 
           <div class="preview-text" id="previewText">
@@ -877,13 +856,12 @@ For now this is sample preview text so you can see the structure and tone that y
 will receive before paying.
           </div>
 
-          <div class="preview-blur"></div>
-          <div class="preview-footer">
+          <div class="preview-blur" id="previewBlur"></div>
+          <div class="preview-footer" id="previewFooter">
             The remaining 70%+ and export options unlock after payment in Step 2.
           </div>
         </div>
 
-        <!-- Step 2: pay & unlock -->
         <div class="card">
           <div class="card-header">
             <div>
@@ -935,7 +913,6 @@ will receive before paying.
           </div>
         </div>
 
-        <!-- Full letter -->
         <div class="full-letter-card">
           <div class="full-letter-header">
             <div class="full-letter-title">Full appeal letter (unlocked after payment)</div>
@@ -943,12 +920,8 @@ will receive before paying.
           </div>
 
           <div class="full-letter-actions">
-            <button class="full-letter-btn" id="copyLetterBtn" type="button">
-              Copy letter
-            </button>
-            <button class="full-letter-btn secondary" id="downloadPdfBtn" type="button">
-              Download as PDF
-            </button>
+            <button class="full-letter-btn" id="copyLetterBtn" type="button">Copy letter</button>
+            <button class="full-letter-btn secondary" id="downloadPdfBtn" type="button">Download as PDF</button>
           </div>
 
           <div class="full-letter-body" id="fullLetterBody">
@@ -977,10 +950,11 @@ Aurum Account Recovery Desk
     </div>
   </div>
 
-  <!-- jsPDF for PDF download -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
+    const WORKER_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
+
     const form = document.getElementById("diagnosisForm");
     const runBtn = document.getElementById("runBtn");
     const runDot = document.getElementById("runDot");
@@ -1004,18 +978,23 @@ Aurum Account Recovery Desk
     const copyLetterBtn = document.getElementById("copyLetterBtn");
     const downloadPdfBtn = document.getElementById("downloadPdfBtn");
 
+    const previewBadge = document.getElementById("previewBadge");
+    const previewBlur = document.getElementById("previewBlur");
+    const previewFooter = document.getElementById("previewFooter");
+
     let lastPayload = null;
     let paidVerified = false;
+    let paidSessionToken = ""; // ✅ 用于 /api/full-letter?token=...
+    let previewSessionToken = ""; // ✅ 一次性预览兑换出来的 token
 
     const DEFAULT_RISK_TEXT =
       "Here the system will show a written risk assessment: for example whether your case looks more like a hard ban, documentation gap, policy concern or a recoverable misalignment.";
     const DEFAULT_PREVIEW_TEXT = previewText.textContent.trim();
 
-    // === Payhip links for each plan ===
     const PAY_LINKS = {
-      standard: "https://payhip.com/b/3qDR6", // $89
-      recovery: "https://payhip.com/b/iQYdp", // $189
-      desk: "https://payhip.com/b/HNGVC"      // $380 / month ongoing desk
+      standard: "https://payhip.com/b/3qDR6",
+      recovery: "https://payhip.com/b/iQYdp",
+      desk: "https://payhip.com/b/HNGVC"
     };
 
     function setRunning(running) {
@@ -1066,7 +1045,100 @@ Aurum Account Recovery Desk
 
     applyPlan("standard");
 
-    // ===== 自动识别支付成功（你 Worker 的校验接口）=====
+    /* ==========================
+       ✅ 保存/恢复草稿（付款回来不丢）
+       ========================== */
+    function buildPayloadFromForm() {
+      return {
+        platform: document.getElementById("platform").value,
+        region: document.getElementById("region").value,
+        accountUse: document.getElementById("accountUse").value,
+        noticeText: document.getElementById("noticeText").value,
+        whatHappened: document.getElementById("whatHappened").value,
+        whatYouDid: document.getElementById("whatYouDid").value,
+        email: document.getElementById("email").value,
+        initialPlan: "standard",
+      };
+    }
+
+    function saveDraft() {
+      try {
+        const payload = buildPayloadFromForm();
+        localStorage.setItem("aurum_draft_payload", JSON.stringify(payload));
+      } catch (e) {}
+    }
+
+    function restoreDraft() {
+      try {
+        const raw = localStorage.getItem("aurum_draft_payload");
+        if (!raw) return;
+        const p = JSON.parse(raw);
+        if (!p) return;
+
+        if (p.platform) document.getElementById("platform").value = p.platform;
+        if (p.region) document.getElementById("region").value = p.region;
+        if (p.accountUse) document.getElementById("accountUse").value = p.accountUse;
+        if (p.noticeText) document.getElementById("noticeText").value = p.noticeText;
+        if (p.whatHappened) document.getElementById("whatHappened").value = p.whatHappened;
+        if (p.whatYouDid) document.getElementById("whatYouDid").value = p.whatYouDid;
+        if (p.email) document.getElementById("email").value = p.email;
+
+        lastPayload = buildPayloadFromForm(); // ✅ 恢复后可直接生成 full letter
+      } catch (e) {}
+    }
+
+    // 点击 Payhip 前先保存草稿
+    function attachPayLinkDraftSaver() {
+      [mainPayLink, backupPayLink].forEach(a => {
+        if (!a) return;
+        a.addEventListener("click", () => saveDraft());
+      });
+    }
+    attachPayLinkDraftSaver();
+    restoreDraft();
+
+    /* ==========================
+       ✅ 付款成功回跳：一次性完整预览 previewToken
+       ========================== */
+    async function unlockOneTimePreviewFromUrl() {
+      try {
+        const url = new URL(window.location.href);
+        const previewToken = url.searchParams.get("previewToken");
+        if (!previewToken) return false;
+
+        const res = await fetch(WORKER_BASE + "/api/use-preview", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: previewToken }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!data.ok || !data.sessionToken) return false;
+
+        previewSessionToken = data.sessionToken;
+
+        // UI：提示一次性预览已解锁
+        if (previewBadge) previewBadge.textContent = "ONE-TIME FULL PREVIEW";
+        if (previewFooter) previewFooter.textContent = "Unlocked once after payment. Copy/export is still controlled by Step 2.";
+        if (previewBlur) previewBlur.style.display = "none";
+        previewText.style.maxHeight = "none";
+
+        // 清掉 URL，防分享
+        try {
+          url.searchParams.delete("previewToken");
+          window.history.replaceState({}, "", url.toString());
+        } catch (e) {}
+
+        // 自动生成 full letter（一次性预览）
+        await generateFullLetter(previewSessionToken, true);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    /* ==========================
+       ✅ 你原来的 paidToken 自动识别（修复：拿到 sessionToken）
+       ========================== */
     async function checkPaidFromUrl() {
       try {
         const url = new URL(window.location.href);
@@ -1074,13 +1146,13 @@ Aurum Account Recovery Desk
         if (!token) return;
 
         const res = await fetch(
-          "https://aurum-task-worker.sophieinbg.workers.dev/api/check-paid?token=" +
-            encodeURIComponent(token)
+          WORKER_BASE + "/api/check-paid?token=" + encodeURIComponent(token)
         );
         const data = await res.json().catch(() => ({}));
 
         if (data && data.ok && data.paid) {
           paidVerified = true;
+          paidSessionToken = data.sessionToken || "";
           applyPlan(data.plan || "standard");
 
           paidCheck.checked = true;
@@ -1096,45 +1168,97 @@ Aurum Account Recovery Desk
               "Payment was confirmed for this browser session. Generate the full English appeal letter below.";
           }
 
-          // 清掉 URL 里的 paidToken，防止被分享复用
+          // 清掉 URL 里的 paidToken
           try {
             url.searchParams.delete("paidToken");
             window.history.replaceState({}, "", url.toString());
           } catch (e) {}
         }
-      } catch (e) {
-        // 静默失败
+      } catch (e) {}
+    }
+
+    /* ==========================
+       ✅ 统一：生成 full letter
+       ========================== */
+    async function generateFullLetter(sessionToken, isPreviewMode) {
+      if (!sessionToken) return;
+      if (!lastPayload) lastPayload = buildPayloadFromForm();
+
+      // 没有输入就不生成（避免空白白嫖）
+      const hasAny =
+        (lastPayload.noticeText || "").trim() ||
+        (lastPayload.whatHappened || "").trim() ||
+        (lastPayload.accountUse || "").trim();
+      if (!hasAny) return;
+
+      const old = unlockBtn.textContent;
+      if (!isPreviewMode) {
+        unlockBtn.disabled = true;
+        unlockBtn.textContent = "Generating full appeal…";
+      }
+
+      try {
+        const res = await fetch(
+          WORKER_BASE + "/api/full-letter?token=" + encodeURIComponent(sessionToken),
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              ...lastPayload,
+              planFromPricing: isPreviewMode ? "preview-once" : "client-selected",
+              riskSummary: (diagBody.textContent || "").trim(),
+            }),
+          }
+        );
+
+        const data = await res.json().catch(() => ({}));
+
+        if (!data.ok || !data.fullLetter) {
+          fullLetterBody.textContent =
+            "We could not generate a full letter at this moment. Please try again or contact support with your case details.";
+        } else {
+          fullLetterBody.textContent = data.fullLetter;
+
+          // 预览模式也把上面 previewText 解锁显示更完整内容（体验更强）
+          if (isPreviewMode) {
+            previewText.textContent = data.fullLetter;
+            if (previewBlur) previewBlur.style.display = "none";
+            previewText.style.maxHeight = "none";
+          }
+        }
+      } catch (err) {
+        fullLetterBody.textContent =
+          "Network or system error while generating full letter. Please try again later.";
+      } finally {
+        if (!isPreviewMode) {
+          unlockBtn.textContent = old;
+          unlockBtn.disabled = false;
+        }
       }
     }
+
+    // ✅ 先跑一次性预览（付款成功回跳）再跑 paidToken（两者不冲突）
+    unlockOneTimePreviewFromUrl();
     checkPaidFromUrl();
 
     // Step 1: diagnosis
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const payload = {
-        platform: document.getElementById("platform").value,
-        region: document.getElementById("region").value,
-        accountUse: document.getElementById("accountUse").value,
-        noticeText: document.getElementById("noticeText").value,
-        whatHappened: document.getElementById("whatHappened").value,
-        whatYouDid: document.getElementById("whatYouDid").value,
-        email: document.getElementById("email").value,
-        initialPlan: "standard",
-      };
-
+      const payload = buildPayloadFromForm();
       lastPayload = payload;
+
+      // 每次跑诊断也存一下草稿
+      saveDraft();
+
       setRunning(true);
 
       try {
-        const res = await fetch(
-          "https://aurum-task-worker.sophieinbg.workers.dev/api/diagnosis",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-          }
-        );
+        const res = await fetch(WORKER_BASE + "/api/diagnosis", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
 
         const data = await res.json().catch(() => ({}));
 
@@ -1178,50 +1302,18 @@ Aurum Account Recovery Desk
 
     // Step 2: unlock full letter（必须 paidVerified=true 才能调用）
     unlockBtn.addEventListener("click", async () => {
-      if (!paidVerified) {
+      if (!paidVerified || !paidSessionToken) {
         alert(
           "We could not confirm payment for this case yet. Please complete the Payhip payment and return via the secure link."
         );
         return;
       }
-      if (!paidCheck.checked || !lastPayload || unlockBtn.disabled) return;
+      if (!paidCheck.checked) return;
 
-      unlockBtn.disabled = true;
-      const oldText = unlockBtn.textContent;
-      unlockBtn.textContent = "Generating full appeal…";
-
-      try {
-        const res = await fetch(
-          "https://aurum-task-worker.sophieinbg.workers.dev/api/full-letter",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              ...lastPayload,
-              planFromPricing: "client-selected",
-              riskSummary: (diagBody.textContent || "").trim(),
-            }),
-          }
-        );
-
-        const data = await res.json().catch(() => ({}));
-
-        if (!data.ok || !data.fullLetter) {
-          fullLetterBody.textContent =
-            "We could not generate a full letter at this moment. Please try again or contact support with your case details.";
-        } else {
-          fullLetterBody.textContent = data.fullLetter;
-        }
-      } catch (err) {
-        fullLetterBody.textContent =
-          "Network or system error while generating full letter. Please try again later.";
-      } finally {
-        unlockBtn.textContent = oldText;
-        unlockBtn.disabled = false;
-      }
+      await generateFullLetter(paidSessionToken, false);
     });
 
-    // Copy letter button
+    // Copy letter
     copyLetterBtn.addEventListener("click", async () => {
       const text = fullLetterBody.textContent.trim();
       if (!text) {
@@ -1242,7 +1334,7 @@ Aurum Account Recovery Desk
       }
     });
 
-    // Download PDF button (FIXED: 完整 jsPDF 逻辑，不会再把 HTML 截断)
+    // Download PDF
     downloadPdfBtn.addEventListener("click", () => {
       let text = fullLetterBody.textContent.trim();
       if (!text) {
@@ -1264,7 +1356,6 @@ Aurum Account Recovery Desk
         const pageHeight = doc.internal.pageSize.getHeight();
         const maxWidth = pageWidth - margin * 2;
 
-        // 用 splitTextToSize 自动换行
         const lines = doc.splitTextToSize(text, maxWidth);
         let y = margin;
 
