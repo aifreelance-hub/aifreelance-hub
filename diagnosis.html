@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <!-- Google Ads gtag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17779181109"></script>
   <script>
@@ -391,6 +390,7 @@
       font-size: 13px;
       line-height: 1.7;
       color: var(--ink);
+      white-space: pre-wrap;
     }
 
     .skeleton-line {
@@ -463,6 +463,7 @@
       color: var(--ink);
       max-height: 7.6rem;
       overflow: hidden;
+      white-space: pre-wrap;
     }
 
     .preview-blur {
@@ -498,6 +499,7 @@
       font-size: 11px;
       color: var(--ink-soft);
       margin-bottom: 8px;
+      line-height: 1.6;
     }
 
     .plan-pill-row {
@@ -516,8 +518,6 @@
       border: 1px solid rgba(148, 163, 184, 0.6);
       color: var(--ink-soft);
     }
-
-    .plan-chip strong { color: var(--ink); }
 
     .plan-price {
       font-size: 12px;
@@ -596,6 +596,7 @@
       margin-top: 6px;
       font-size: 11px;
       color: var(--ink-soft);
+      line-height: 1.6;
     }
 
     /* Full letter */
@@ -673,6 +674,7 @@
       margin-top: 6px;
       font-size: 11px;
       color: rgba(148, 163, 184, 0.95);
+      line-height: 1.6;
     }
 
     /* Responsive */
@@ -691,29 +693,14 @@
         flex-wrap: wrap;
         border-radius: 20px;
       }
-
       .nav-links { display: none; }
-
       .hero-title { font-size: 20px; }
-
-      .hero-left {
-        padding: 14px 14px 16px;
-      }
-
+      .hero-left { padding: 14px 14px 16px; }
       .fieldset { padding: 10px 10px 6px; }
-
-      .field-row {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
+      .field-row { grid-template-columns: minmax(0, 1fr); }
       .preview-text { max-height: 11rem; }
-
       .preview-blur { height: 34%; }
-
-      .full-letter-actions {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .full-letter-actions { flex-direction: column; align-items: flex-start; }
     }
 
     @keyframes pulse {
@@ -780,7 +767,7 @@
           Describe your case in normal business language. Do not invent anything, but be honest and specific.
         </div>
 
-        <form id="diagnosisForm">
+        <form id="diagnosisForm" novalidate>
           <div class="fieldset">
             <div class="field-row">
               <div class="field">
@@ -834,7 +821,7 @@
           <div class="run-row">
             <button type="submit" class="btn-primary" id="runBtn">
               <span class="dot" id="runDot"></span>
-              Run risk diagnosis
+              <span id="runBtnLabel">Run risk diagnosis</span>
             </button>
             <div class="run-row-note">
               This step only generates a written diagnosis and preview. No payment happens on this step.
@@ -927,13 +914,13 @@ will receive before paying.
           </div>
 
           <div class="pay-links-row">
-            <a href="#" class="pay-link" id="mainPayLink" target="_blank">Pay via Payhip secure checkout</a>
-            <a href="#" class="pay-link secondary" id="backupPayLink" target="_blank">Backup link (optional)</a>
+            <a href="#" class="pay-link" id="mainPayLink" target="_blank" rel="noopener">Pay via Payhip secure checkout</a>
+            <a href="#" class="pay-link secondary" id="backupPayLink" target="_blank" rel="noopener">Backup link (optional)</a>
           </div>
 
           <label class="pay-checkbox">
             <input type="checkbox" id="paidCheck" />
-            <span>
+            <span id="paidLabelText">
               After Payhip confirms payment and sends you back here, this step will unlock automatically.
             </span>
           </label>
@@ -956,10 +943,10 @@ will receive before paying.
           </div>
 
           <div class="full-letter-actions">
-            <button class="full-letter-btn" id="copyLetterBtn">
+            <button class="full-letter-btn" id="copyLetterBtn" type="button">
               Copy letter
             </button>
-            <button class="full-letter-btn secondary" id="downloadPdfBtn">
+            <button class="full-letter-btn secondary" id="downloadPdfBtn" type="button">
               Download as PDF
             </button>
           </div>
@@ -979,6 +966,7 @@ platform’s appeal form or export it to a document.
 Best regards,
 Aurum Account Recovery Desk
           </div>
+
           <div class="full-letter-footer">
             Note: For compliance and security reasons, Aurum does not log in to your accounts or
             act on your behalf. All work is provided as written assessments, explanations, and
@@ -992,11 +980,11 @@ Aurum Account Recovery Desk
   <!-- jsPDF for PDF download -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-  <!-- Page script -->
   <script>
     const form = document.getElementById("diagnosisForm");
     const runBtn = document.getElementById("runBtn");
     const runDot = document.getElementById("runDot");
+    const runBtnLabel = document.getElementById("runBtnLabel");
     const diagSkeleton = document.getElementById("diagSkeleton");
     const diagBody = document.getElementById("diagBody");
     const previewText = document.getElementById("previewText");
@@ -1005,13 +993,13 @@ Aurum Account Recovery Desk
     const planBadge = document.getElementById("planBadge");
     const planChipText = document.getElementById("planChipText");
     const planPriceBox = document.getElementById("planPriceBox");
-    const planMini = document.getElementById("planMini");
     const mainPayLink = document.getElementById("mainPayLink");
     const backupPayLink = document.getElementById("backupPayLink");
 
     const paidCheck = document.getElementById("paidCheck");
     const unlockBtn = document.getElementById("unlockBtn");
     const unlockNote = document.getElementById("unlockNote");
+    const paidLabelText = document.getElementById("paidLabelText");
 
     const copyLetterBtn = document.getElementById("copyLetterBtn");
     const downloadPdfBtn = document.getElementById("downloadPdfBtn");
@@ -1021,7 +1009,6 @@ Aurum Account Recovery Desk
 
     const DEFAULT_RISK_TEXT =
       "Here the system will show a written risk assessment: for example whether your case looks more like a hard ban, documentation gap, policy concern or a recoverable misalignment.";
-
     const DEFAULT_PREVIEW_TEXT = previewText.textContent.trim();
 
     // === Payhip links for each plan ===
@@ -1034,13 +1021,13 @@ Aurum Account Recovery Desk
     function setRunning(running) {
       if (running) {
         runBtn.disabled = true;
-        runBtn.textContent = "Running diagnosis…";
+        runBtnLabel.textContent = "Running diagnosis…";
         runDot.style.animation = "pulse 1s infinite";
         diagSkeleton.style.display = "block";
         diagBody.style.display = "none";
       } else {
         runBtn.disabled = false;
-        runBtn.textContent = "Run risk diagnosis";
+        runBtnLabel.textContent = "Run risk diagnosis";
         runDot.style.animation = "none";
       }
     }
@@ -1079,7 +1066,7 @@ Aurum Account Recovery Desk
 
     applyPlan("standard");
 
-    // ===== 自动识别 Payhip 支付成功 =====
+    // ===== 自动识别支付成功（你 Worker 的校验接口）=====
     async function checkPaidFromUrl() {
       try {
         const url = new URL(window.location.href);
@@ -1100,9 +1087,8 @@ Aurum Account Recovery Desk
           paidCheck.disabled = true;
           unlockBtn.disabled = false;
 
-          const labelSpan = document.querySelector(".pay-checkbox span");
-          if (labelSpan) {
-            labelSpan.textContent =
+          if (paidLabelText) {
+            paidLabelText.textContent =
               "Payment verified via Payhip. You can now generate the full appeal letter for this case.";
           }
           if (unlockNote) {
@@ -1117,10 +1103,9 @@ Aurum Account Recovery Desk
           } catch (e) {}
         }
       } catch (e) {
-        // 静默失败，不打扰用户
+        // 静默失败
       }
     }
-
     checkPaidFromUrl();
 
     // Step 1: diagnosis
@@ -1151,7 +1136,7 @@ Aurum Account Recovery Desk
           }
         );
 
-        const data = await res.json();
+        const data = await res.json().catch(() => ({}));
 
         diagSkeleton.style.display = "none";
         diagBody.style.display = "block";
@@ -1202,6 +1187,7 @@ Aurum Account Recovery Desk
       if (!paidCheck.checked || !lastPayload || unlockBtn.disabled) return;
 
       unlockBtn.disabled = true;
+      const oldText = unlockBtn.textContent;
       unlockBtn.textContent = "Generating full appeal…";
 
       try {
@@ -1213,12 +1199,12 @@ Aurum Account Recovery Desk
             body: JSON.stringify({
               ...lastPayload,
               planFromPricing: "client-selected",
-              riskSummary: diagBody.textContent || "",
+              riskSummary: (diagBody.textContent || "").trim(),
             }),
           }
         );
 
-        const data = await res.json();
+        const data = await res.json().catch(() => ({}));
 
         if (!data.ok || !data.fullLetter) {
           fullLetterBody.textContent =
@@ -1230,7 +1216,7 @@ Aurum Account Recovery Desk
         fullLetterBody.textContent =
           "Network or system error while generating full letter. Please try again later.";
       } finally {
-        unlockBtn.textContent = "Generate full appeal letter";
+        unlockBtn.textContent = oldText;
         unlockBtn.disabled = false;
       }
     });
@@ -1256,16 +1242,13 @@ Aurum Account Recovery Desk
       }
     });
 
-    // Download PDF button
+    // Download PDF button (FIXED: 完整 jsPDF 逻辑，不会再把 HTML 截断)
     downloadPdfBtn.addEventListener("click", () => {
       let text = fullLetterBody.textContent.trim();
       if (!text) {
         alert("There is no letter to download yet. Please generate the full letter first.");
         return;
       }
-
-      // Remove unsupported characters (防止乱码)
-      text = text.replace(/[^\x00-\x7F]/g, "");
 
       if (!window.jspdf || !window.jspdf.jsPDF) {
         alert("PDF library is not available. Please try again later.");
@@ -1274,1213 +1257,32 @@ Aurum Account Recovery Desk
 
       try {
         const { jsPDF } = window.jspdf;
-        const doc = new jsPDF({
-          unit: "pt",
-          format: "a4",<!DOCTYPE html>
-<html lang="en">
-<head>
+        const doc = new jsPDF({ unit: "pt", format: "a4" });
 
-  <!-- Google Ads gtag -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17779181109"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-17779181109');
-  </script>
+        const margin = 48;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const maxWidth = pageWidth - margin * 2;
 
-  <meta charset="UTF-8" />
-  <title>Aurum Account Recovery Desk — Free Risk Diagnosis</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <meta
-    name="description"
-    content="Run a calm, written risk diagnosis before paying for an appeal letter. Aurum generates a written risk report and ~30% preview of your appeal letter."
-  />
-
-  <link rel="icon" type="image/png" href="favicon.png?v=3" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
-
-  <!-- Open Graph (Social Sharing Image) -->
-  <meta property="og:title" content="Aurum Account Recovery Desk">
-  <meta property="og:description" content="Structured risk diagnosis & professional appeal drafts.">
-  <meta property="og:image" content="https://aurumdesks.com/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:type" content="website">
-
-  <!-- Twitter Sharing -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Aurum Account Recovery Desk">
-  <meta name="twitter:description" content="Structured risk diagnosis & professional appeal drafts.">
-  <meta name="twitter:image" content="https://aurumdesks.com/og-image.png">
-
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #eef3ff;
-      --bg-soft: rgba(255, 255, 255, 0.94);
-      --ink: #0f172a;
-      --ink-soft: #64748b;
-      --line-soft: rgba(148, 163, 184, 0.55);
-      --accent: #2563eb;
-      --accent-soft: rgba(37, 99, 235, 0.12);
-      --accent-strong: #1d4ed8;
-      --radius-lg: 26px;
-      --radius-md: 18px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 26px 70px rgba(15, 23, 42, 0.21);
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #dbeafe 0, #eef2ff 35%, #e5e7eb 100%);
-      color: var(--ink);
-      min-height: 100vh;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .page {
-      max-width: 1120px;
-      margin: 16px auto 40px;
-      padding: 16px 16px 40px;
-    }
-
-    /* Header */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 8px 14px 16px;
-      margin-bottom: 6px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.04);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: conic-gradient(from 210deg, #f97316, #facc15, #22c55e, #3b82f6, #6366f1, #f97316);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 700;
-      font-size: 16px;
-      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.85);
-    }
-
-    .brand-text-main {
-      font-weight: 650;
-      font-size: 15px;
-      letter-spacing: 0.04em;
-    }
-
-    .brand-text-sub {
-      font-size: 11px;
-      color: var(--ink-soft);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 13px;
-      color: var(--ink-soft);
-    }
-
-    .nav-links a[data-current="true"] {
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .badge-toggle {
-      position: relative;
-      display: inline-flex;
-      padding: 3px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.08);
-    }
-
-    .badge-toggle span {
-      position: relative;
-      z-index: 2;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      cursor: default;
-    }
-
-    .badge-toggle span.active {
-      background: #fff;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
-      color: var(--accent-strong);
-      font-weight: 600;
-    }
-
-    .btn-primary {
-      padding: 7px 16px;
-      border-radius: 999px;
-      border: none;
-      background: radial-gradient(circle at top, #60a5fa 0, #2563eb 28%, #1e40af 100%);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      cursor: pointer;
-      box-shadow: 0 18px 40px rgba(37, 99, 235, 0.5);
-    }
-
-    .btn-primary .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4);
-    }
-
-    /* Layout */
-    .main-grid {
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    .hero-left {
-      padding: 18px 20px 20px;
-      border-radius: var(--radius-lg);
-      background: rgba(255, 255, 255, 0.96);
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      backdrop-filter: blur(18px);
-    }
-
-    .steps-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
-      font-size: 11px;
-    }
-
-    .step-pill {
-      border-radius: 999px;
-      padding: 4px 10px;
-      background: rgba(15, 23, 42, 0.03);
-      color: var(--ink-soft);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .step-pill.highlight {
-      border-color: rgba(34, 197, 94, 0.8);
-      color: #16a34a;
-    }
-
-    .hero-title {
-      font-size: 24px;
-      line-height: 1.3;
-      font-weight: 750;
-      margin-bottom: 8px;
-      color: #0f172a;
-    }
-
-    .hero-desc {
-      font-size: 13px;
-      color: var(--ink-soft);
-      line-height: 1.7;
-      margin-bottom: 12px;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-bottom: 18px;
-    }
-
-    .hero-tags span {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.03);
-      border: 1px dashed rgba(148, 163, 184, 0.6);
-      color: var(--ink-soft);
-    }
-
-    .form-section-title {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .form-hint {
-      font-size: 11px;
-      color: var(--ink-soft);
-      margin-bottom: 10px;
-    }
-
-    .fieldset {
-      border-radius: var(--radius-md);
-      background: rgba(248, 250, 252, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      padding: 12px 12px 6px;
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
-    }
-
-    .field-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .field { margin-bottom: 10px; }
-
-    label {
-      display: block;
-      font-size: 11px;
-      color: var(--ink-soft);
-      margin-bottom: 4px;
-    }
-
-    select,
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      padding: 8px 10px;
-      font-size: 13px;
-      font-family: inherit;
-      background: rgba(255, 255, 255, 0.94);
-      outline: none;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    }
-
-    select:focus,
-    input:focus,
-    textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.5);
-      background: #fff;
-    }
-
-    textarea {
-      min-height: 52px;
-      resize: vertical;
-    }
-
-    .disclaimer {
-      margin-top: 10px;
-      font-size: 11px;
-      color: var(--ink-soft);
-      line-height: 1.6;
-    }
-
-    .run-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .run-row-note {
-      font-size: 11px;
-      color: var(--ink-soft);
-    }
-
-    /* Right side */
-    .right-column {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .card {
-      border-radius: var(--radius-lg);
-      background: var(--bg-soft);
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 14px 18px 16px;
-      backdrop-filter: blur(16px);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .card-title {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .card-subtitle {
-      font-size: 12px;
-      color: var(--ink-soft);
-    }
-
-    .pill-soft {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--ink-soft);
-      background: rgba(255, 255, 255, 0.7);
-    }
-
-    .pill-live {
-      border-color: rgba(34, 197, 94, 0.7);
-      color: #15803d;
-    }
-
-    .diagnosis-body {
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--ink);
-    }
-
-    .skeleton-line {
-      height: 10px;
-      border-radius: 999px;
-      background: linear-gradient(
-        90deg,
-        rgba(226, 232, 240, 0.35),
-        rgba(148, 163, 184, 0.55),
-        rgba(226, 232, 240, 0.35)
-      );
-      background-size: 200% 100%;
-      animation: shimmer 1.2s infinite;
-      margin-bottom: 8px;
-    }
-
-    .skeleton-line:nth-child(2) { width: 92%; }
-    .skeleton-line:nth-child(3) { width: 86%; }
-    .skeleton-line:nth-child(4) { width: 74%; }
-
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    /* 30% preview card */
-    .preview-card {
-      position: relative;
-      padding: 14px 16px 18px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.96);
-      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.16);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      overflow: hidden;
-      color: var(--ink-soft);
-      font-size: 12px;
-    }
-
-    .preview-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .preview-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .preview-note {
-      font-size: 11px;
-      color: var(--ink-soft);
-    }
-
-    .badge-soft {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      font-size: 11px;
-      color: var(--ink-soft);
-      background: rgba(248, 250, 252, 0.95);
-    }
-
-    .preview-text {
-      margin-top: 10px;
-      font-size: 13px;
-      line-height: 1.7;
-      color: var(--ink);
-      max-height: 7.6rem;
-      overflow: hidden;
-    }
-
-    .preview-blur {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 52%;
-      background: linear-gradient(
-        to bottom,
-        rgba(248, 250, 252, 0) 0%,
-        rgba(248, 250, 252, 0.96) 70%,
-        rgba(248, 250, 252, 1) 100%
-      );
-      pointer-events: none;
-    }
-
-    .preview-footer {
-      position: relative;
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--ink-soft);
-    }
-
-    /* Step 2 card */
-    .step-card-title {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .step-card-sub {
-      font-size: 11px;
-      color: var(--ink-soft);
-      margin-bottom: 8px;
-    }
-
-    .plan-pill-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .plan-chip {
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      background: rgba(248, 250, 252, 0.85);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--ink-soft);
-    }
-
-    .plan-chip strong { color: var(--ink); }
-
-    .plan-price {
-      font-size: 12px;
-      text-align: right;
-      color: var(--ink-soft);
-    }
-
-    .plan-price strong {
-      font-size: 16px;
-      color: var(--ink);
-    }
-
-    .plan-price small {
-      font-size: 11px;
-      color: var(--ink-soft);
-    }
-
-    .pay-links-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .pay-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 7px 14px;
-      border-radius: 999px;
-      font-size: 12px;
-      border: 1px dashed rgba(148, 163, 184, 0.9);
-      color: #1d4ed8;
-      background: rgba(239, 246, 255, 0.95);
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .pay-link.secondary {
-      color: #0369a1;
-      border-style: dashed;
-      background: rgba(224, 242, 254, 0.9);
-    }
-
-    .pay-checkbox {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 11px;
-      color: var(--ink-soft);
-      margin-bottom: 8px;
-    }
-
-    .pay-checkbox input { margin-top: 2px; }
-
-    .btn-unlock {
-      margin-top: 4px;
-      padding: 8px 15px;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(135deg, #4f46e5, #2563eb);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 18px 36px rgba(37, 99, 235, 0.55);
-    }
-
-    .btn-unlock:disabled {
-      opacity: 0.45;
-      cursor: default;
-      box-shadow: none;
-    }
-
-    .unlock-note {
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--ink-soft);
-    }
-
-    /* Full letter */
-    .full-letter-card {
-      border-radius: var(--radius-lg);
-      background: radial-gradient(circle at top left, #1e293b 0, #020617 60%);
-      padding: 16px 18px 18px;
-      color: #e5e7eb;
-      box-shadow: 0 30px 70px rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(15, 23, 42, 0.75);
-      position: relative;
-      overflow: visible;
-    }
-
-    .full-letter-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      gap: 8px;
-    }
-
-    .full-letter-title {
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .full-letter-tag {
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      color: #cbd5f5;
-    }
-
-    .full-letter-actions {
-      margin: 6px 0 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .full-letter-btn {
-      padding: 5px 11px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.7);
-      color: #e5e7eb;
-      font-size: 11px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .full-letter-btn.secondary {
-      background: rgba(15, 23, 42, 0.4);
-    }
-
-    .full-letter-btn:disabled {
-      opacity: 0.45;
-      cursor: default;
-    }
-
-    .full-letter-body {
-      font-size: 13px;
-      line-height: 1.8;
-      white-space: pre-wrap;
-      max-height: none;
-      height: auto;
-      overflow: visible;
-    }
-
-    .full-letter-footer {
-      margin-top: 6px;
-      font-size: 11px;
-      color: rgba(148, 163, 184, 0.95);
-    }
-
-    /* Responsive */
-    @media (max-width: 960px) {
-      .page {
-        margin-top: 10px;
-        padding: 10px 10px 32px;
-      }
-      .main-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      header {
-        flex-wrap: wrap;
-        border-radius: 20px;
-      }
-
-      .nav-links { display: none; }
-
-      .hero-title { font-size: 20px; }
-
-      .hero-left {
-        padding: 14px 14px 16px;
-      }
-
-      .fieldset { padding: 10px 10px 6px; }
-
-      .field-row {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .preview-text { max-height: 11rem; }
-
-      .preview-blur { height: 34%; }
-
-      .full-letter-actions {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.25); opacity: 0.5; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="page">
-    <!-- Header -->
-    <header>
-      <div class="brand">
-        <div class="brand-avatar">A</div>
-        <div>
-          <div class="brand-text-main">AURUM DESK</div>
-          <div class="brand-text-sub">Account recovery & appeal letters</div>
-        </div>
-      </div>
-
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="index.html#how-it-works">How it works</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="diagnosis.html" data-current="true">Free diagnosis</a>
-      </nav>
-
-      <div class="nav-actions">
-        <div class="badge-toggle">
-          <span>Other pages</span>
-          <span class="active">This page</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main -->
-    <div class="main-grid">
-      <!-- Left: form -->
-      <section class="hero-left">
-        <div class="steps-row">
-          <span class="step-pill">Step 1 — Free written diagnosis</span>
-          <span class="step-pill highlight">Step 2 — Only pay if you want a full letter</span>
-        </div>
-
-        <h1 class="hero-title">
-          Before you pay for an appeal letter, get a calm written risk diagnosis first.
-        </h1>
-        <p class="hero-desc">
-          Paste your suspension notice and describe what really happened. Aurum generates a written
-          risk report and about 30% of your appeal letter, written in language that internal risk &
-          compliance teams can understand quickly.
-        </p>
-
-        <div class="hero-tags">
-          <span>Built for Meta Ads, PayPal, Stripe, Airbnb, Amazon & more</span>
-          <span>Designed for US & EU professionals</span>
-          <span>No subscription required for most cases</span>
-        </div>
-
-        <div class="form-section-title">Case details</div>
-        <div class="form-hint">
-          Describe your case in normal business language. Do not invent anything, but be honest and specific.
-        </div>
-
-        <form id="diagnosisForm">
-          <div class="fieldset">
-            <div class="field-row">
-              <div class="field">
-                <label for="platform">Platform</label>
-                <select id="platform" name="platform">
-                  <option value="Meta Ads / Facebook Business" selected>Meta Ads / Facebook Business</option>
-                  <option value="PayPal">PayPal</option>
-                  <option value="Stripe">Stripe</option>
-                  <option value="Airbnb">Airbnb</option>
-                  <option value="Amazon">Amazon</option>
-                  <option value="Other">Other platform</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="region">Country / region</label>
-                <input id="region" name="region" type="text" placeholder="US, DE, UK..." />
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="accountUse">What was this account used for?</label>
-              <textarea id="accountUse" name="accountUse" placeholder="Briefly describe your business and typical activity."></textarea>
-            </div>
-
-            <div class="field">
-              <label for="noticeText">Official suspension / limitation notice</label>
-              <textarea id="noticeText" name="noticeText" placeholder="Copy-paste the email or on-screen notice. Keep the exact wording if possible."></textarea>
-            </div>
-
-            <div class="field">
-              <label for="whatHappened">What realistically happened before the suspension?</label>
-              <textarea id="whatHappened" name="whatHappened" placeholder="Be honest. Include any policy grey areas, previous warnings, unusual activity, etc."></textarea>
-            </div>
-
-            <div class="field">
-              <label for="whatYouDid">What have you already tried?</label>
-              <textarea id="whatYouDid" name="whatYouDid" placeholder="Appeals, emails, chats, new accounts, documentation you sent, etc."></textarea>
-            </div>
-
-            <div class="field">
-              <label for="email">Email (optional, for sending a copy)</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" />
-            </div>
-          </div>
-
-          <div class="disclaimer">
-            This is not legal advice. Platforms keep full control over their decisions; our job is to
-            remove amateur mistakes and present your situation clearly.
-          </div>
-
-          <div class="run-row">
-            <button type="submit" class="btn-primary" id="runBtn">
-              <span class="dot" id="runDot"></span>
-              Run risk diagnosis
-            </button>
-            <div class="run-row-note">
-              This step only generates a written diagnosis and preview. No payment happens on this step.
-            </div>
-          </div>
-        </form>
-      </section>
-
-      <!-- Right: results -->
-      <section class="right-column">
-        <!-- Risk diagnosis -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Risk diagnosis</div>
-              <div class="card-subtitle">How your case looks from the platform’s internal risk perspective.</div>
-            </div>
-            <span class="pill-soft pill-live">LIVE PREVIEW</span>
-          </div>
-
-          <div id="diagSkeleton">
-            <div class="skeleton-line"></div>
-            <div class="skeleton-line"></div>
-            <div class="skeleton-line"></div>
-            <div class="skeleton-line"></div>
-          </div>
-
-          <div class="diagnosis-body" id="diagBody" style="display:none;">
-            Here the system will show a written risk assessment in plain English – for example,
-            whether your case looks like a hard ban, documentation gap, policy concern, or a
-            recoverable misalignment.
-          </div>
-        </div>
-
-        <!-- 30% preview -->
-        <div class="preview-card">
-          <div class="preview-header">
-            <div>
-              <div class="preview-title">Appeal letter preview (~30%)</div>
-              <div class="preview-note">Written in calm, structured language for risk &amp; compliance teams.</div>
-            </div>
-            <span class="badge-soft">PREVIEW ONLY</span>
-          </div>
-
-          <div class="preview-text" id="previewText">
-Dear Risk &amp; Compliance Team,
-
-This panel shows an example of how your appeal letter will start. In the actual service we
-draft this text from your real description and the platform’s notice, using calm and
-professional language that a risk or compliance analyst can read quickly.
-
-For now this is sample preview text so you can see the structure and tone that your clients
-will receive before paying.
-          </div>
-
-          <div class="preview-blur"></div>
-          <div class="preview-footer">
-            The remaining 70%+ and export options unlock after payment in Step 2.
-          </div>
-        </div>
-
-        <!-- Step 2: pay & unlock -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="step-card-title">Step 2 — Pay & unlock full appeal letter</div>
-              <div class="step-card-sub">
-                After you read your diagnosis, you can choose the plan that fits your case. You don’t have to decide now.
-              </div>
-            </div>
-            <div class="pill-soft" id="planBadge">
-              Suggested plan: <strong>Standard appeal letter — $89</strong>
-            </div>
-          </div>
-
-          <div class="plan-pill-row">
-            <div class="plan-chip" id="planChipText">
-              Most clients only need one case — no subscription.
-            </div>
-            <div class="plan-price" id="planPriceBox">
-              <div><strong>$89</strong> <small>per case</small></div>
-              <div style="font-size:11px;color:var(--ink-soft);" id="planMini">
-                Standard appeal letter
-              </div>
-            </div>
-          </div>
-
-          <div class="step-card-sub">
-            1. Pay using the secure Payhip link below. You’ll be redirected to a checkout page for this plan.
-          </div>
-
-          <div class="pay-links-row">
-            <a href="#" class="pay-link" id="mainPayLink" target="_blank">Pay via Payhip secure checkout</a>
-            <a href="#" class="pay-link secondary" id="backupPayLink" target="_blank">Backup link (optional)</a>
-          </div>
-
-          <label class="pay-checkbox">
-            <input type="checkbox" id="paidCheck" />
-            <span>
-              After Payhip confirms payment and sends you back here, this step will unlock automatically.
-            </span>
-          </label>
-
-          <button class="btn-unlock" id="unlockBtn" disabled>
-            Generate full appeal letter
-          </button>
-
-          <div class="unlock-note" id="unlockNote">
-            After payment is confirmed, the full English appeal letter for this case will appear in the
-            dark panel below. Your client can copy it into the platform’s form or export it to a document.
-          </div>
-        </div>
-
-        <!-- Full letter -->
-        <div class="full-letter-card">
-          <div class="full-letter-header">
-            <div class="full-letter-title">Full appeal letter (unlocked after payment)</div>
-            <span class="full-letter-tag">Final letter for platform review</span>
-          </div>
-
-          <div class="full-letter-actions">
-            <button class="full-letter-btn" id="copyLetterBtn">
-              Copy letter
-            </button>
-            <button class="full-letter-btn secondary" id="downloadPdfBtn">
-              Download as PDF
-            </button>
-          </div>
-
-          <div class="full-letter-body" id="fullLetterBody">
-Dear Risk &amp; Compliance Team,
-
-This panel will hold the complete appeal letter for your client’s case. In the actual
-service we prepare a structured 1–2 page explanation that matches the platform’s policies
-and the written risk diagnosis, so that your team can review the situation in a calm and
-transparent way.
-
-Right now this is sample text so you can see the layout and how a finished letter would look
-on the page. When the service is live, your client will be able to copy this letter into the
-platform’s appeal form or export it to a document.
-
-Best regards,
-Aurum Account Recovery Desk
-          </div>
-          <div class="full-letter-footer">
-            Note: For compliance and security reasons, Aurum does not log in to your accounts or
-            act on your behalf. All work is provided as written assessments, explanations, and
-            appeal letters that you submit directly to the platform.
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <!-- jsPDF for PDF download -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-  <!-- Page script -->
-  <script>
-/* Aurum Desk — diagnosis page client logic (Payhip + Worker) */
-(function(){
-  const $ = (sel)=>document.querySelector(sel);
-
-  const form = document.getElementById('diagnosisForm');
-  const diagSkeleton = document.getElementById('diagSkeleton');
-  const diagBody = document.getElementById('diagBody');
-  const previewText = document.getElementById('previewText');
-  const unlockBtn = document.getElementById('unlockBtn');
-  const fullLetterBody = document.getElementById('fullLetterBody');
-
-  const FIELDS = [
-    'platform','region','accountUse','noticeText','whatHappened','whatYouDid','email'
-  ];
-
-  const LS_KEY = 'aurum_diagnosis_draft_v1';
-  const TOKEN_LS_KEY = 'aurum_payhip_token_v1';
-
-  function getFieldValues(){
-    const data = {};
-    for (const id of FIELDS){
-      const el = document.getElementById(id);
-      data[id] = el ? (el.value || '').trim() : '';
-    }
-    return data;
-  }
-
-  function setFieldValues(data){
-    for (const id of FIELDS){
-      const el = document.getElementById(id);
-      if (!el) continue;
-      if (typeof data[id] === 'string') el.value = data[id];
-    }
-  }
-
-  function saveDraft(){
-    try{
-      const payload = { t: Date.now(), ...getFieldValues() };
-      localStorage.setItem(LS_KEY, JSON.stringify(payload));
-    }catch(e){}
-  }
-
-  function loadDraft(){
-    try{
-      const raw = localStorage.getItem(LS_KEY);
-      if (!raw) return;
-      const data = JSON.parse(raw);
-      setFieldValues(data || {});
-    }catch(e){}
-  }
-
-  function setLoading(isLoading){
-    if (diagSkeleton) diagSkeleton.style.display = isLoading ? '' : 'none';
-    if (diagBody) diagBody.style.display = isLoading ? 'none' : '';
-    if (unlockBtn) {
-      unlockBtn.disabled = !!isLoading;
-      unlockBtn.style.opacity = isLoading ? '0.6' : '';
-      unlockBtn.style.pointerEvents = isLoading ? 'none' : '';
-    }
-  }
-
-  function getTokenFromUrl(){
-    const u = new URL(location.href);
-    return u.searchParams.get('token') || '';
-  }
-
-  function setTokenInUrl(token){
-    const u = new URL(location.href);
-    if (token) u.searchParams.set('token', token);
-    history.replaceState(null, '', u.toString());
-  }
-
-  async function postJson(url, body){
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body || {})
-    });
-    const txt = await res.text();
-    let data;
-    try{ data = JSON.parse(txt); }catch(e){ data = { ok:false, error:'Non-JSON response', raw: txt }; }
-    if (!res.ok) {
-      data.ok = false;
-      data.http = res.status;
-    }
-    return data;
-  }
-
-  async function generateDiagnosis(){
-    const payload = getFieldValues();
-    // basic guard to avoid empty submit
-    if (!payload.noticeText && !payload.whatHappened) {
-      alert('Please paste your suspension notice and describe what happened.');
-      return;
-    }
-
-    setLoading(true);
-    try{
-      const data = await postJson('/api/diagnosis', payload);
-      if (!data || !data.ok) {
-        console.error('diagnosis failed', data);
-        alert('Diagnosis failed. Please try again (or check Worker logs).');
-        return;
-      }
-
-      // render diagnosis HTML if returned
-      if (data.diagnosisHtml && diagBody) diagBody.innerHTML = data.diagnosisHtml;
-      if (data.previewText && previewText) previewText.textContent = data.previewText;
-
-      // token handling (optional)
-      const token = (data.token || '').trim();
-      if (token) {
-        localStorage.setItem(TOKEN_LS_KEY, token);
-        setTokenInUrl(token);
-      }
-
-      saveDraft();
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function checkPaidAndUnlock(){
-    const token = getTokenFromUrl() || localStorage.getItem(TOKEN_LS_KEY) || '';
-    if (!token) return;
-
-    try{
-      const res = await fetch('/api/check-paid?token=' + encodeURIComponent(token));
-      const data = await res.json().catch(()=>({ok:false}));
-      if (data && data.ok && data.paid) {
-        // auto-unlock full letter
-        const payload = { token, ...getFieldValues() };
-        const out = await postJson('/api/full-letter', payload);
-        if (out && out.ok && out.fullLetterText && fullLetterBody) {
-          fullLetterBody.textContent = out.fullLetterText;
-          // scroll to unlocked section
-          const el = document.getElementById('fullLetterSection');
-          if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-        }
-      }
-    }catch(e){
-      console.warn('check-paid failed', e);
-    }
-  }
-
-  // --- bind autosave
-  if (form){
-    form.addEventListener('submit', (e)=>{ e.preventDefault(); });
-    form.addEventListener('input', ()=>{ saveDraft(); });
-  }
-
-  // --- bind diagnose button
-  if (unlockBtn){
-    unlockBtn.addEventListener('click', (e)=>{
-      e.preventDefault();
-      generateDiagnosis();
-    });
-  }
-
-  // restore draft BEFORE reading URL params
-  loadDraft();
-
-  // if URL contains params, reflect them (keeps shareable links)
-  try{
-    const u = new URL(location.href);
-    const patch = {};
-    for (const k of FIELDS){
-      const v = u.searchParams.get(k);
-      if (v) patch[k] = v;
-    }
-    if (Object.keys(patch).length) setFieldValues(patch);
-  }catch(e){}
-
-  // keep URL in sync (optional but useful)
-  function syncUrl(){
-    try{
-      const u = new URL(location.href);
-      const data = getFieldValues();
-      // only keep short fields in URL; large text stays in localStorage
-      if (data.platform) u.searchParams.set('platform', data.platform);
-      if (data.region) u.searchParams.set('region', data.region);
-      if (data.accountUse) u.searchParams.set('accountUse', data.accountUse.slice(0, 120));
-      history.replaceState(null, '', u.toString());
-    }catch(e){}
-  }
-  if (form) form.addEventListener('change', syncUrl);
-
-  // finally, check if returned from Payhip
-  checkPaidAndUnlock();
-})();
-</script>
-</body>
-</html>
-
-        });
-
-        doc.setFont("Times", "normal");
-        doc.setFontSize(12);
-
-        const marginLeft = 48;
-        const marginTop = 64;
-        const maxWidth = 515;
-
+        // 用 splitTextToSize 自动换行
         const lines = doc.splitTextToSize(text, maxWidth);
-        doc.text(lines, marginLeft, marginTop);
+        let y = margin;
+
+        doc.setFont("Times", "Normal");
+        doc.setFontSize(11);
+
+        for (let i = 0; i < lines.length; i++) {
+          if (y > pageHeight - margin) {
+            doc.addPage();
+            y = margin;
+          }
+          doc.text(lines[i], margin, y);
+          y += 16;
+        }
 
         doc.save("aurum-appeal-letter.pdf");
-      } catch (err) {
-        alert("Could not create the PDF. Please try again later.");
+      } catch (e) {
+        alert("Failed to generate PDF in this browser. You can still copy the letter text instead.");
       }
     });
   </script>
