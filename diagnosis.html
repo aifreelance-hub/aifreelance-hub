@@ -1327,5 +1327,58 @@ Aurum Account Recovery Desk
       }
     });
   </script>
+
+<script>
+(() => {
+  try {
+    const form = document.getElementById('diagnosisForm');
+    if (form) form.addEventListener('submit', (e) => e.preventDefault());
+
+    const draftKey = 'aurum_diagnosis_draft_v1';
+    const fieldIds = ['platform','region','accountUse','noticeText','whatHappened','whatYouDid','email'];
+
+    const getEl = (id) => document.getElementById(id);
+    const read = () => {
+      const data = {};
+      for (const id of fieldIds) {
+        const el = getEl(id);
+        if (el) data[id] = el.value ?? '';
+      }
+      return data;
+    };
+    const write = (data) => {
+      for (const id of fieldIds) {
+        const el = getEl(id);
+        if (el && typeof data?.[id] === 'string' && !el.value) el.value = data[id];
+      }
+    };
+    const save = () => {
+      try { localStorage.setItem(draftKey, JSON.stringify(read())); } catch (_) {}
+    };
+    const load = () => {
+      try {
+        const raw = localStorage.getItem(draftKey);
+        if (!raw) return;
+        write(JSON.parse(raw));
+      } catch (_) {}
+    };
+
+    // Auto-load draft (helps if the page reloads for any reason)
+    load();
+
+    // Auto-save on input
+    for (const id of fieldIds) {
+      const el = getEl(id);
+      if (!el) continue;
+      el.addEventListener('input', save, { passive: true });
+      el.addEventListener('change', save, { passive: true });
+    }
+
+    // Save before leaving
+    window.addEventListener('beforeunload', save);
+  } catch (_) {}
+})();
+</script>
+
 </body>
 </html>
