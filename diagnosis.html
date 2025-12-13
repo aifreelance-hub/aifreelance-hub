@@ -1116,7 +1116,24 @@ Aurum Account Recovery Desk
 
         previewSessionToken = data.sessionToken;
 
-        // UI：提示一次性预览已解锁
+        
+
+// ✅ 预览解锁后：放行 Step2 UI（不需要正式 paidVerified）
+unlockBtn.disabled = false;
+
+// checkbox 也直接勾上并锁定，避免它的 change 逻辑拦截
+paidCheck.checked = true;
+paidCheck.disabled = true;
+
+if (paidLabelText) {
+  paidLabelText.textContent =
+    "One-time full preview unlocked after payment. (This is a temporary preview for this session.)";
+}
+if (unlockNote) {
+  unlockNote.textContent =
+    "You can view the full letter once in this session. For formal delivery and repeated access, please use the standard paid plan.";
+}
+// UI：提示一次性预览已解锁
         if (previewBadge) previewBadge.textContent = "ONE-TIME FULL PREVIEW";
         if (previewFooter) previewFooter.textContent = "Unlocked once after payment. Copy/export is still controlled by Step 2.";
         if (previewBlur) previewBlur.style.display = "none";
@@ -1289,31 +1306,44 @@ Aurum Account Recovery Desk
     });
 
     // Step 2: checkbox — 不允许手动骗过付费
-    paidCheck.addEventListener("change", () => {
-      if (!paidVerified) {
-        paidCheck.checked = false;
-        alert(
-          "Please complete payment via the Payhip checkout link first. After Payhip sends you back here, this step will unlock automatically."
-        );
-        return;
-      }
-      unlockBtn.disabled = !paidCheck.checked;
-    });
+    
+paidCheck.addEventListener("change", () => {
+  // ✅ 允许：正式付费 或 一次性预览
+  const canProceed = paidVerified || !!previewSessionToken;
 
-    // Step 2: unlock full letter（必须 paidVerified=true 才能调用）
-    unlockBtn.addEventListener("click", async () => {
-      if (!paidVerified || !paidSessionToken) {
-        alert(
-          "We could not confirm payment for this case yet. Please complete the Payhip payment and return via the secure link."
-        );
-        return;
-      }
-      if (!paidCheck.checked) return;
+  if (!canProceed) {
+    paidCheck.checked = false;
+    alert(
+      "Please complete payment via the Payhip checkout link first. After Payhip sends you back here, this step will unlock automatically."
+    );
+    return;
+  }
+  unlockBtn.disabled = !paidCheck.checked;
+});
 
-      await generateFullLetter(paidSessionToken, false);
-    });
+// Step 2: unlock full letter（必须 paidVerified=true 才能调用）
+    
+unlockBtn.addEventListener("click", async () => {
+  if (!paidCheck.checked) return;
 
-    // Copy letter
+  // ✅ 正式付费优先
+  if (paidVerified && paidSessionToken) {
+    await generateFullLetter(paidSessionToken, false);
+    return;
+  }
+
+  // ✅ 一次性预览（previewToken 兑换出来的 session）
+  if (previewSessionToken) {
+    await generateFullLetter(previewSessionToken, true);
+    return;
+  }
+
+  alert(
+    "We could not confirm payment for this case yet. Please complete the Payhip payment and return via the secure link."
+  );
+});
+
+// Copy letter
     copyLetterBtn.addEventListener("click", async () => {
       const text = fullLetterBody.textContent.trim();
       if (!text) {
